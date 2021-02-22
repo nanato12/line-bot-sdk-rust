@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 rocket = "0.4"
 rocket_contrib = { version = "0.4", features = ["json"] }
-surf = "1.0.3"
+reqwest = { version = "0.11.0", features = ["blocking", "json"] }
 serde = { version = "1.0", features = ["derive"] }
 async-std = { version = "1.5.0", features = ["attributes"] }
 serde_json = "1.0"
