@@ -26,8 +26,6 @@ impl LineBot {
 
     pub fn parse_event_request(&self, signature: &str, body: &str) -> Result<Events, &'static str> {
         if webhook::validate_signature(&self.channel_secret, signature, body) {
-            // TODO: For debug, delete this sentense when release.
-            println!("{}", body);
             let res: Events = serde_json::from_str(body).expect("Failed event data parsing");
             Ok(res)
         } else {
