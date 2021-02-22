@@ -1,5 +1,7 @@
 use crate::client::HttpClient;
 use crate::events::Events;
+use crate::models::messages::TextMessage;
+use crate::objects::Profile;
 use crate::webhook;
 
 use reqwest::blocking::Response;
@@ -33,23 +35,29 @@ impl LineBot {
         }
     }
 
-    pub fn reply_text_message(&self, reply_token: &str, text: &str) -> Result<Response, Error> {
+    pub fn reply_text_message(
+        &self,
+        reply_token: &str,
+        msgs: Vec<TextMessage>,
+    ) -> Result<Response, Error> {
         let data = json!(
             {
                 "replyToken": reply_token,
-                "messages": [
-                    {
-                        "type": "text",
-                        "text": text,
-                    }
-                ],
+                "messages": msgs,
             }
         );
         self.http_client.post("message/reply", data)
     }
 
-    pub fn get_profile(&self, user_id: &str) -> Result<Response, Error> {
+    pub fn get_profile(&self, user_id: &str) -> Result<Profile, &str> {
         let endpoint = format!("/profile/{userId}", userId = user_id);
-        self.http_client.get(&endpoint, json!({}))
+        let result = self.http_client.get(&endpoint, json!({}));
+        if let Err(_) = result {
+            return Err("Failed profile parsing");
+        } else if let Ok(res) = result {
+            let profile: Profile = serde_json::from_str(&res.text().unwrap()).unwrap();
+            return Ok(profile);
+        }
+        return Err("error");
     }
 }
