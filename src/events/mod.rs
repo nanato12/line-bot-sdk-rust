@@ -39,6 +39,12 @@ pub struct Events {
 }
 
 #[derive(Deserialize, Debug)]
+pub struct Event {
+    #[serde(flatten)]
+    pub r#type: EventType,
+}
+
+#[derive(Deserialize, Debug)]
 #[serde(tag = "type")]
 pub enum EventType {
     #[serde(rename = "unsend")]
@@ -69,10 +75,4 @@ pub enum EventType {
     MessageEvent(MessageEvent),
     #[serde(other)]
     Other,
-}
-
-#[derive(Deserialize, Debug)]
-pub struct Event {
-    #[serde(flatten)]
-    pub r#type: EventType,
 }
