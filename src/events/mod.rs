@@ -23,6 +23,7 @@ pub use member_join::MemberJoinEvent;
 pub use member_leave::MemberLeaveEvent;
 pub use postback::PostBackEvent;
 pub use source::Source;
+pub use things::ThingsEvent;
 pub use unfollow::UnFollowEvent;
 pub use unsend::UnsendEvent;
 pub use video_play_complete::VideoPlayCompleteEvent;
@@ -70,6 +71,8 @@ pub enum EventType {
     BeaconEvent(BeaconEvent),
     #[serde(rename = "accountLink")]
     AccountLinkEvent(AccountLinkEvent),
+    #[serde(rename = "things")]
+    ThingsEvent(ThingsEvent),
     Other,
 }
 
