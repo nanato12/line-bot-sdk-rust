@@ -1,12 +1,27 @@
 use crate::events::Source;
 
+pub mod audio_message;
 pub mod content_provider;
 pub mod emoji;
+pub mod file_message;
+pub mod image_message;
+pub mod location_message;
 pub mod mention;
+pub mod sticker_message;
+pub mod text_message;
+pub mod video_message;
+
+pub use audio_message::AudioMessage;
+pub use file_message::FileMessage;
+pub use image_message::ImageMessage;
+pub use location_message::LocationMessage;
+pub use sticker_message::StickerMessage;
+pub use text_message::TextMessage;
+pub use video_message::VideoMessage;
 
 pub use content_provider::ContentProvider;
 pub use emoji::Emoji;
-pub use mention::Mention;
+pub use mention::{Mention, Mentionee};
 
 use serde_derive::Deserialize;
 
@@ -30,57 +45,17 @@ pub struct Message {
 #[serde(tag = "type")]
 pub enum MessageType {
     #[serde(rename = "text")]
-    Text {
-        id: String,
-        text: String,
-        emojis: Vec<Emoji>,
-        mention: Mention,
-    },
+    TextMessage(TextMessage),
     #[serde(rename = "image")]
-    Image {
-        id: String,
-        #[serde(rename = "contentProvider")]
-        content_provider: ContentProvider,
-    },
+    ImageMessage(ImageMessage),
     #[serde(rename = "video")]
-    Video {
-        id: String,
-        duration: i64,
-        #[serde(rename = "contentProvider")]
-        content_provider: ContentProvider,
-    },
+    VideoMessage(VideoMessage),
     #[serde(rename = "audio")]
-    Audio {
-        id: String,
-        duration: i64,
-        #[serde(rename = "contentProvider")]
-        content_provider: ContentProvider,
-    },
+    AudioMessage(AudioMessage),
     #[serde(rename = "file")]
-    File {
-        id: String,
-        #[serde(rename = "fileName")]
-        file_name: String,
-        #[serde(rename = "fileSize")]
-        file_size: i64,
-    },
+    FileMessage(FileMessage),
     #[serde(rename = "location")]
-    Location {
-        id: String,
-        title: String,
-        address: String,
-        latitude: f32,
-        longitude: f32,
-    },
+    LocationMessage(LocationMessage),
     #[serde(rename = "sticker")]
-    Sticker {
-        id: String,
-        #[serde(rename = "stickerId")]
-        sticker_id: String,
-        #[serde(rename = "packageId")]
-        package_id: String,
-        #[serde(rename = "stickerResourceType")]
-        sticker_resource_type: String,
-        keywords: Vec<String>,
-    },
+    StickerMessage(StickerMessage),
 }
