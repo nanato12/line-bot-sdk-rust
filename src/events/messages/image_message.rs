@@ -4,7 +4,7 @@ use serde_derive::Deserialize;
 
 #[derive(Deserialize, Debug)]
 pub struct ImageMessage {
-    id: String,
+    pub id: String,
     #[serde(rename = "contentProvider")]
-    content_provider: ContentProvider,
+    pub content_provider: ContentProvider,
 }
