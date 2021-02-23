@@ -20,6 +20,7 @@ pub use leave::LeaveEvent;
 pub use member::Member;
 pub use member_join::MemberJoinEvent;
 pub use member_leave::MemberLeaveEvent;
+pub use postback::PostBackEvent;
 pub use source::Source;
 pub use unfollow::UnFollowEvent;
 pub use unsend::UnsendEvent;
@@ -58,6 +59,8 @@ pub enum EventType {
     MemberJoinEvent(MemberJoinEvent),
     #[serde(rename = "memberLeft")]
     MemberLeaveEvent(MemberLeaveEvent),
+    #[serde(rename = "postback")]
+    PostBackEvent(PostBackEvent),
     Other,
 }
 
