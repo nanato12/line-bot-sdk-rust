@@ -1,6 +1,8 @@
 pub mod account_link;
 pub mod beacon;
 pub mod follow;
+pub mod join;
+pub mod leave;
 pub mod member_join;
 pub mod member_leave;
 pub mod messages;
@@ -12,6 +14,8 @@ pub mod unsend;
 pub mod video_play_complete;
 
 pub use follow::FollowEvent;
+pub use join::JoinEvent;
+pub use leave::LeaveEvent;
 pub use source::Source;
 pub use unfollow::UnFollowEvent;
 pub use unsend::UnsendEvent;
@@ -43,6 +47,10 @@ pub enum EventType {
     FollowEvent(FollowEvent),
     #[serde(rename = "unfollow")]
     UnFollowEvent(UnFollowEvent),
+    #[serde(rename = "join")]
+    JoinEvent(JoinEvent),
+    #[serde(rename = "leave")]
+    LeaveEvent(LeaveEvent),
     Other,
 }
 
