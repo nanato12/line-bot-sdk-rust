@@ -3,6 +3,7 @@ pub mod beacon;
 pub mod follow;
 pub mod join;
 pub mod leave;
+pub mod member;
 pub mod member_join;
 pub mod member_leave;
 pub mod messages;
@@ -16,6 +17,8 @@ pub mod video_play_complete;
 pub use follow::FollowEvent;
 pub use join::JoinEvent;
 pub use leave::LeaveEvent;
+pub use member::Member;
+pub use member_join::MemberJoinEvent;
 pub use source::Source;
 pub use unfollow::UnFollowEvent;
 pub use unsend::UnsendEvent;
@@ -24,7 +27,6 @@ use serde_derive::Deserialize;
 
 use account_link::Link;
 use beacon::Beacon;
-use member_join::Join;
 use member_leave::Left;
 use messages::BaseMessage;
 use postback::PostBack;
@@ -51,6 +53,8 @@ pub enum EventType {
     JoinEvent(JoinEvent),
     #[serde(rename = "leave")]
     LeaveEvent(LeaveEvent),
+    #[serde(rename = "memberJoined")]
+    MemberJoinEvent(MemberJoinEvent),
     Other,
 }
 
@@ -71,9 +75,7 @@ pub struct BaseEvent {
     pub message: Option<BaseMessage>,
     // unsend
     pub unsend: Option<Unsend>,
-    // member join
-    pub join: Option<Join>,
-    // member leave
+    // member leave_
     pub left: Option<Left>,
     // postback
     pub postback: Option<PostBack>,
