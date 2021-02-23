@@ -1,9 +1,56 @@
+use crate::events::Source;
+
 pub mod content;
-pub mod text;
+pub mod emoji;
+pub mod mention;
+
+pub use emoji::Emoji;
+pub use mention::Mention;
 
 use content::ContentProvider;
 use serde_derive::Deserialize;
-use text::{Emojis, Mention};
+
+#[derive(Deserialize, Debug)]
+pub struct MessageEvent {
+    #[serde(rename = "replyToken")]
+    pub reply_token: String,
+    pub mode: String,
+    pub timestamp: i64,
+    pub source: Source,
+    pub message: Message,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct Message {
+    #[serde(flatten)]
+    pub r#type: MessageType,
+}
+
+#[derive(Deserialize, Debug)]
+#[serde(tag = "type")]
+pub enum MessageType {
+    #[serde(rename = "text")]
+    Text {
+        id: String,
+        text: String,
+        emojis: Vec<Emoji>,
+        mention: Mention,
+    },
+    #[serde(rename = "group")]
+    Group {
+        #[serde(rename = "groupId")]
+        group_id: String,
+        #[serde(rename = "userId")]
+        user_id: Option<String>,
+    },
+    #[serde(rename = "room")]
+    Room {
+        #[serde(rename = "roomId")]
+        room_id: String,
+        #[serde(rename = "userId")]
+        user_id: Option<String>,
+    },
+}
 
 #[derive(Deserialize, Debug)]
 pub struct BaseMessage {
@@ -11,7 +58,7 @@ pub struct BaseMessage {
     pub r#type: String,
     // text
     pub text: Option<String>,
-    pub emojis: Option<Vec<Emojis>>,
+    pub emojis: Option<Vec<Emoji>>,
     pub mention: Option<Mention>,
     // image or video
     #[serde(rename = "contentProvider")]
