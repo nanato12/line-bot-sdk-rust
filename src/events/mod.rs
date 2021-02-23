@@ -24,6 +24,7 @@ pub use postback::PostBackEvent;
 pub use source::Source;
 pub use unfollow::UnFollowEvent;
 pub use unsend::UnsendEvent;
+use video_play_complete::VideoPlayCompleteEvent;
 
 use serde_derive::Deserialize;
 
@@ -61,6 +62,8 @@ pub enum EventType {
     MemberLeaveEvent(MemberLeaveEvent),
     #[serde(rename = "postback")]
     PostBackEvent(PostBackEvent),
+    #[serde(rename = "videoPlayComplete")]
+    VideoPlayCompleteEvent(VideoPlayCompleteEvent),
     Other,
 }
 
