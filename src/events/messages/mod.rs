@@ -42,12 +42,12 @@ pub enum MessageType {
         #[serde(rename = "contentProvider")]
         content_provider: ContentProvider,
     },
-    #[serde(rename = "room")]
-    Room {
-        #[serde(rename = "roomId")]
-        room_id: String,
-        #[serde(rename = "userId")]
-        user_id: Option<String>,
+    #[serde(rename = "video")]
+    Video {
+        id: String,
+        duration: i64,
+        #[serde(rename = "contentProvider")]
+        content_provider: ContentProvider,
     },
 }
 
