@@ -14,6 +14,7 @@ pub mod unfollow;
 pub mod unsend;
 pub mod video_play_complete;
 
+pub use beacon::BeaconEvent;
 pub use follow::FollowEvent;
 pub use join::JoinEvent;
 pub use leave::LeaveEvent;
@@ -24,7 +25,7 @@ pub use postback::PostBackEvent;
 pub use source::Source;
 pub use unfollow::UnFollowEvent;
 pub use unsend::UnsendEvent;
-use video_play_complete::VideoPlayCompleteEvent;
+pub use video_play_complete::VideoPlayCompleteEvent;
 
 use serde_derive::Deserialize;
 
@@ -64,6 +65,8 @@ pub enum EventType {
     PostBackEvent(PostBackEvent),
     #[serde(rename = "videoPlayComplete")]
     VideoPlayCompleteEvent(VideoPlayCompleteEvent),
+    #[serde(rename = "beacon")]
+    BeaconEvent(BeaconEvent),
     Other,
 }
 
