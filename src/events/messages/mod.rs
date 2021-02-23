@@ -1,13 +1,13 @@
 use crate::events::Source;
 
-pub mod content;
+pub mod content_provider;
 pub mod emoji;
 pub mod mention;
 
+pub use content_provider::ContentProvider;
 pub use emoji::Emoji;
 pub use mention::Mention;
 
-use content::ContentProvider;
 use serde_derive::Deserialize;
 
 #[derive(Deserialize, Debug)]
@@ -36,12 +36,11 @@ pub enum MessageType {
         emojis: Vec<Emoji>,
         mention: Mention,
     },
-    #[serde(rename = "group")]
-    Group {
-        #[serde(rename = "groupId")]
-        group_id: String,
-        #[serde(rename = "userId")]
-        user_id: Option<String>,
+    #[serde(rename = "image")]
+    Image {
+        id: String,
+        #[serde(rename = "contentProvider")]
+        content_provider: ContentProvider,
     },
     #[serde(rename = "room")]
     Room {
