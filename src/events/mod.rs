@@ -1,5 +1,6 @@
 pub mod account_link;
 pub mod beacon;
+pub mod follow;
 pub mod member_join;
 pub mod member_leave;
 pub mod messages;
@@ -9,6 +10,7 @@ pub mod things;
 pub mod unsend;
 pub mod video_play_complete;
 
+pub use follow::FollowEvent;
 pub use source::Source;
 pub use unsend::UnsendEvent;
 
@@ -35,6 +37,8 @@ pub struct Events {
 pub enum EventType {
     #[serde(rename = "unsend")]
     UnsendEvent(UnsendEvent),
+    #[serde(rename = "follow")]
+    FollowEvent(FollowEvent),
     Other,
 }
 
