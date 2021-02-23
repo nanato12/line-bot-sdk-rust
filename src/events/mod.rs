@@ -29,6 +29,7 @@ pub use video_play_complete::VideoPlayCompleteEvent;
 
 use serde_derive::Deserialize;
 
+use account_link::AccountLinkEvent;
 use account_link::Link;
 use beacon::Beacon;
 use member_leave::Left;
@@ -67,6 +68,8 @@ pub enum EventType {
     VideoPlayCompleteEvent(VideoPlayCompleteEvent),
     #[serde(rename = "beacon")]
     BeaconEvent(BeaconEvent),
+    #[serde(rename = "accountLink")]
+    AccountLinkEvent(AccountLinkEvent),
     Other,
 }
 
