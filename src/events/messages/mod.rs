@@ -49,6 +49,13 @@ pub enum MessageType {
         #[serde(rename = "contentProvider")]
         content_provider: ContentProvider,
     },
+    #[serde(rename = "audio")]
+    Audio {
+        id: String,
+        duration: i64,
+        #[serde(rename = "contentProvider")]
+        content_provider: ContentProvider,
+    },
 }
 
 #[derive(Deserialize, Debug)]
