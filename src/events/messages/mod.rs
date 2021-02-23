@@ -56,6 +56,33 @@ pub enum MessageType {
         #[serde(rename = "contentProvider")]
         content_provider: ContentProvider,
     },
+    #[serde(rename = "file")]
+    File {
+        id: String,
+        #[serde(rename = "fileName")]
+        file_name: String,
+        #[serde(rename = "fileSize")]
+        file_size: i64,
+    },
+    #[serde(rename = "location")]
+    Location {
+        id: String,
+        title: String,
+        address: String,
+        latitude: f32,
+        longitude: f32,
+    },
+    #[serde(rename = "sticker")]
+    Sticker {
+        id: String,
+        #[serde(rename = "stickerId")]
+        sticker_id: String,
+        #[serde(rename = "packageId")]
+        package_id: String,
+        #[serde(rename = "stickerResourceType")]
+        sticker_resource_type: String,
+        keywords: Vec<String>,
+    },
 }
 
 #[derive(Deserialize, Debug)]
