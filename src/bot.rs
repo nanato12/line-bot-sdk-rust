@@ -46,7 +46,7 @@ impl LineBot {
                 "messages": msgs,
             }
         );
-        self.http_client.post("message/reply", data)
+        self.http_client.post("/message/reply", data)
     }
 
     pub fn get_profile(&self, user_id: &str) -> Result<Profile, &str> {
