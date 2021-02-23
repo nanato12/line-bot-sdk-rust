@@ -4,7 +4,7 @@ use reqwest::Error;
 use reqwest::Url;
 use serde_json::Value;
 
-static BASE_URL: &str = "https://api.line.me/v2/bot/";
+static BASE_URL: &str = "https://api.line.me/v2/bot";
 
 #[derive(Debug)]
 pub struct HttpClient {
