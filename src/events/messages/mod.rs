@@ -1,39 +1,86 @@
-pub mod content;
-pub mod text;
+use crate::events::Source;
 
-use content::ContentProvider;
+pub mod content_provider;
+pub mod emoji;
+pub mod mention;
+
+pub use content_provider::ContentProvider;
+pub use emoji::Emoji;
+pub use mention::Mention;
+
 use serde_derive::Deserialize;
-use text::{Emojis, Mention};
 
 #[derive(Deserialize, Debug)]
-pub struct BaseMessage {
-    pub id: String,
-    pub r#type: String,
-    // text
-    pub text: Option<String>,
-    pub emojis: Option<Vec<Emojis>>,
-    pub mention: Option<Mention>,
-    // image or video
-    #[serde(rename = "contentProvider")]
-    pub content_provider: Option<ContentProvider>,
-    // audio
-    pub duration: Option<i64>,
-    // file
-    #[serde(rename = "fileName")]
-    pub file_name: Option<String>,
-    #[serde(rename = "fileSize")]
-    pub file_size: Option<i64>,
-    // location
-    pub title: Option<String>,
-    pub address: Option<String>,
-    pub latitude: Option<f32>,
-    pub longitude: Option<f32>,
-    // sticker
-    #[serde(rename = "stickerId")]
-    pub sticker_id: Option<String>,
-    #[serde(rename = "packageId")]
-    pub package_id: Option<String>,
-    #[serde(rename = "stickerResourceType")]
-    pub sticker_resource_type: Option<String>,
-    pub keywords: Option<Vec<String>>,
+pub struct MessageEvent {
+    #[serde(rename = "replyToken")]
+    pub reply_token: String,
+    pub mode: String,
+    pub timestamp: i64,
+    pub source: Source,
+    pub message: Message,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct Message {
+    #[serde(flatten)]
+    pub r#type: MessageType,
+}
+
+#[derive(Deserialize, Debug)]
+#[serde(tag = "type")]
+pub enum MessageType {
+    #[serde(rename = "text")]
+    Text {
+        id: String,
+        text: String,
+        emojis: Vec<Emoji>,
+        mention: Mention,
+    },
+    #[serde(rename = "image")]
+    Image {
+        id: String,
+        #[serde(rename = "contentProvider")]
+        content_provider: ContentProvider,
+    },
+    #[serde(rename = "video")]
+    Video {
+        id: String,
+        duration: i64,
+        #[serde(rename = "contentProvider")]
+        content_provider: ContentProvider,
+    },
+    #[serde(rename = "audio")]
+    Audio {
+        id: String,
+        duration: i64,
+        #[serde(rename = "contentProvider")]
+        content_provider: ContentProvider,
+    },
+    #[serde(rename = "file")]
+    File {
+        id: String,
+        #[serde(rename = "fileName")]
+        file_name: String,
+        #[serde(rename = "fileSize")]
+        file_size: i64,
+    },
+    #[serde(rename = "location")]
+    Location {
+        id: String,
+        title: String,
+        address: String,
+        latitude: f32,
+        longitude: f32,
+    },
+    #[serde(rename = "sticker")]
+    Sticker {
+        id: String,
+        #[serde(rename = "stickerId")]
+        sticker_id: String,
+        #[serde(rename = "packageId")]
+        package_id: String,
+        #[serde(rename = "stickerResourceType")]
+        sticker_resource_type: String,
+        keywords: Vec<String>,
+    },
 }
