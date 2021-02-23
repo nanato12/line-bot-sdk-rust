@@ -20,21 +20,21 @@ pub enum SouceType {
 #[derive(Deserialize, Debug)]
 pub struct User {
     #[serde(rename = "userId")]
-    user_id: String,
+    pub user_id: String,
 }
 
 #[derive(Deserialize, Debug)]
 pub struct Group {
     #[serde(rename = "groupId")]
-    group_id: String,
+    pub group_id: String,
     #[serde(rename = "userId")]
-    user_id: Option<String>,
+    pub user_id: Option<String>,
 }
 
 #[derive(Deserialize, Debug)]
 pub struct Room {
     #[serde(rename = "roomId")]
-    room_id: String,
+    pub room_id: String,
     #[serde(rename = "userId")]
-    user_id: Option<String>,
+    pub user_id: Option<String>,
 }

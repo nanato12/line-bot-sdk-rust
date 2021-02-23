@@ -4,8 +4,8 @@ use serde_derive::Deserialize;
 
 #[derive(Deserialize, Debug)]
 pub struct AudioMessage {
-    id: String,
-    duration: i64,
+    pub id: String,
+    pub duration: i64,
     #[serde(rename = "contentProvider")]
-    content_provider: ContentProvider,
+    pub content_provider: ContentProvider,
 }

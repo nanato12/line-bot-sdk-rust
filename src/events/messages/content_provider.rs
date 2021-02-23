@@ -10,12 +10,15 @@ pub struct ContentProvider {
 #[serde(tag = "type")]
 pub enum ContentProviderType {
     #[serde(rename = "external")]
-    External {
-        #[serde(rename = "originalContentUrl")]
-        original_content_url: String,
-        #[serde(rename = "previewImageUrl")]
-        preview_image_url: String,
-    },
+    External(External),
     #[serde(other)]
     Other,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct External {
+    #[serde(rename = "originalContentUrl")]
+    pub original_content_url: String,
+    #[serde(rename = "previewImageUrl")]
+    pub preview_image_url: String,
 }

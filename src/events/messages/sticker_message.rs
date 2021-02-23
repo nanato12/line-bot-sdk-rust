@@ -2,12 +2,12 @@ use serde_derive::Deserialize;
 
 #[derive(Deserialize, Debug)]
 pub struct StickerMessage {
-    id: String,
+    pub id: String,
     #[serde(rename = "stickerId")]
-    sticker_id: String,
+    pub sticker_id: String,
     #[serde(rename = "packageId")]
-    package_id: String,
+    pub package_id: String,
     #[serde(rename = "stickerResourceType")]
-    sticker_resource_type: String,
-    keywords: Vec<String>,
+    pub sticker_resource_type: String,
+    pub keywords: Vec<String>,
 }
