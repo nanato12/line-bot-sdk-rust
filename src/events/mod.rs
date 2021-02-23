@@ -7,11 +7,13 @@ pub mod messages;
 pub mod postback;
 pub mod source;
 pub mod things;
+pub mod unfollow;
 pub mod unsend;
 pub mod video_play_complete;
 
 pub use follow::FollowEvent;
 pub use source::Source;
+pub use unfollow::UnFollowEvent;
 pub use unsend::UnsendEvent;
 
 use serde_derive::Deserialize;
@@ -39,6 +41,8 @@ pub enum EventType {
     UnsendEvent(UnsendEvent),
     #[serde(rename = "follow")]
     FollowEvent(FollowEvent),
+    #[serde(rename = "unfollow")]
+    UnFollowEvent(UnFollowEvent),
     Other,
 }
 
