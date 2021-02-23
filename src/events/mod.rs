@@ -4,9 +4,13 @@ pub mod member_join;
 pub mod member_leave;
 pub mod messages;
 pub mod postback;
+pub mod source;
 pub mod things;
 pub mod unsend;
 pub mod video_play_complete;
+
+pub use source::Source;
+pub use unsend::UnsendEvent;
 
 use serde_derive::Deserialize;
 
@@ -22,8 +26,22 @@ use video_play_complete::VideoPlayComplete;
 
 #[derive(Deserialize, Debug)]
 pub struct Events {
-    pub events: Vec<BaseEvent>,
+    pub events: Vec<Event>,
     pub destination: String,
+}
+
+#[derive(Deserialize, Debug)]
+#[serde(tag = "type")]
+pub enum EventType {
+    #[serde(rename = "unsend")]
+    UnsendEvent(UnsendEvent),
+    Other,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct Event {
+    #[serde(flatten)]
+    pub r#type: EventType,
 }
 
 #[derive(Deserialize, Debug)]
@@ -31,7 +49,7 @@ pub struct BaseEvent {
     pub r#type: String,
     pub mode: String,
     pub timestamp: u64,
-    pub source: BaseSource,
+    pub source: Source,
     #[serde(rename = "replyToken")]
     pub reply_token: Option<String>,
     pub message: Option<BaseMessage>,
@@ -52,15 +70,4 @@ pub struct BaseEvent {
     pub link: Option<Link>,
     // things
     pub things: Option<Things>,
-}
-
-#[derive(Deserialize, Debug)]
-pub struct BaseSource {
-    pub r#type: String,
-    #[serde(rename = "userId")]
-    pub user_id: String,
-    #[serde(rename = "groupId")]
-    pub group_id: Option<String>,
-    #[serde(rename = "roomId")]
-    pub room_id: Option<String>,
 }
