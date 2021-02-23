@@ -1,6 +1,6 @@
 use crate::client::HttpClient;
 use crate::events::Events;
-use crate::models::messages::TextMessage;
+use crate::messages::TextMessage;
 use crate::objects::Profile;
 use crate::webhook;
 
@@ -51,13 +51,12 @@ impl LineBot {
 
     pub fn get_profile(&self, user_id: &str) -> Result<Profile, &str> {
         let endpoint = format!("/profile/{userId}", userId = user_id);
-        let result = self.http_client.get(&endpoint, json!({}));
-        if let Err(_) = result {
-            return Err("Failed profile parsing");
-        } else if let Ok(res) = result {
-            let profile: Profile = serde_json::from_str(&res.text().unwrap()).unwrap();
-            return Ok(profile);
+        match self.http_client.get(&endpoint, json!({})) {
+            Ok(res) => {
+                let profile: Profile = serde_json::from_str(&res.text().unwrap()).unwrap();
+                Ok(profile)
+            }
+            Err(_) => Err("Failed get_profile"),
         }
-        return Err("error");
     }
 }
