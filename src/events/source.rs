@@ -13,14 +13,14 @@ pub enum SouceType {
         #[serde(rename = "groupId")]
         group_id: String,
         #[serde(rename = "userId")]
-        user_id: String,
+        user_id: Option<String>,
     },
     #[serde(rename = "room")]
     Room {
         #[serde(rename = "roomId")]
         room_id: String,
         #[serde(rename = "userId")]
-        user_id: String,
+        user_id: Option<String>,
     },
 }
 
