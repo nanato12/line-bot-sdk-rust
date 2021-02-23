@@ -22,6 +22,7 @@ pub use leave::LeaveEvent;
 pub use member::Member;
 pub use member_join::MemberJoinEvent;
 pub use member_leave::MemberLeaveEvent;
+pub use messages::MessageEvent;
 pub use postback::PostBackEvent;
 pub use source::Source;
 pub use things::ThingsEvent;
@@ -64,6 +65,8 @@ pub enum EventType {
     AccountLinkEvent(AccountLinkEvent),
     #[serde(rename = "things")]
     ThingsEvent(ThingsEvent),
+    #[serde(rename = "message")]
+    MessageEvent(MessageEvent),
     #[serde(other)]
     Other,
 }
