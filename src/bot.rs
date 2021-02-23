@@ -1,6 +1,6 @@
 use crate::client::HttpClient;
 use crate::events::Events;
-use crate::messages::TextMessage;
+use crate::messages::SendMessageType;
 use crate::objects::Profile;
 use crate::webhook;
 
@@ -35,10 +35,10 @@ impl LineBot {
         }
     }
 
-    pub fn reply_text_message(
+    pub fn reply_message(
         &self,
         reply_token: &str,
-        msgs: Vec<TextMessage>,
+        msgs: Vec<SendMessageType>,
     ) -> Result<Response, Error> {
         let data = json!(
             {
