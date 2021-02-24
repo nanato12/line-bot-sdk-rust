@@ -39,7 +39,7 @@ fn callback(signature: Signature, body: Body) -> Status {
             // MessageEvent only
             if let EventType::MessageEvent(message_event) = event.r#type {
                 // TextMessageEvent only
-                if let EventMessageType::TextMessage(text_message) = message_event.message.r#type {
+                if let EventMessageType::TextMessage(_) = message_event.message.r#type {
                     // Reply message with reply_token
                     match message_event.source.r#type {
                         // By Group
