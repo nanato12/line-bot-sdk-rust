@@ -4,9 +4,9 @@ use crate::messages::SendMessageType;
 use crate::objects::Profile;
 use crate::webhook;
 
+use chrono::NaiveDateTime;
 use reqwest::blocking::Response;
 use reqwest::Error;
-
 use serde_json::json;
 
 #[derive(Debug)]
@@ -114,36 +114,47 @@ impl LineBot {
             .get("/message/quota/consumption", json!({}))
     }
 
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#get-number-of-reply-messages
-    // datetime型を使用する。
-    pub fn get_number_of_sent_reply_messages(&self, date: &str) -> Result<Response, Error> {
-        let endpoint = format!("/message/delivery/reply?date={yyyyMMdd}", yyyyMMdd = date);
-        self.http_client.get(&endpoint, json!({}))
-    }
-
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#get-number-of-push-messages
-    // datetime型を使用する。
-    pub fn get_number_of_sent_push_messages(&self, date: &str) -> Result<Response, Error> {
-        let endpoint = format!("/message/delivery/push?date={yyyyMMdd}", yyyyMMdd = date);
-        self.http_client.get(&endpoint, json!({}))
-    }
-
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#get-number-of-multicast-messages
-    // datetime型を使用する。
-    pub fn get_number_of_sent_multicast_messages(&self, date: &str) -> Result<Response, Error> {
+    // TODO: use method.query
+    pub fn get_number_of_sent_reply_messages(
+        &self,
+        date: NaiveDateTime,
+    ) -> Result<Response, Error> {
         let endpoint = format!(
-            "/message/delivery/multicast?date={yyyyMMdd}",
-            yyyyMMdd = date
+            "/message/delivery/reply?date={date}",
+            date = date.format("%Y%m%d").to_string()
         );
         self.http_client.get(&endpoint, json!({}))
     }
 
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#get-number-of-broadcast-messages
-    // datetime型を使用する。
-    pub fn get_number_of_sent_broadcast_messages(&self, date: &str) -> Result<Response, Error> {
+    // TODO: use method.query
+    pub fn get_number_of_sent_push_messages(&self, date: NaiveDateTime) -> Result<Response, Error> {
         let endpoint = format!(
-            "/message/delivery/broadcast?date={yyyyMMdd}",
-            yyyyMMdd = date
+            "/message/delivery/push?date={date}",
+            date = date.format("%Y%m%d").to_string()
+        );
+        self.http_client.get(&endpoint, json!({}))
+    }
+
+    // TODO: use method.query
+    pub fn get_number_of_sent_multicast_messages(
+        &self,
+        date: NaiveDateTime,
+    ) -> Result<Response, Error> {
+        let endpoint = format!(
+            "/message/delivery/multicast?date={date}",
+            date = date.format("%Y%m%d").to_string()
+        );
+        self.http_client.get(&endpoint, json!({}))
+    }
+
+    // TODO: use method.query
+    pub fn get_number_of_sent_broadcast_messages(
+        &self,
+        date: NaiveDateTime,
+    ) -> Result<Response, Error> {
+        let endpoint = format!(
+            "/message/delivery/broadcast?date={date}",
+            date = date.format("%Y%m%d").to_string()
         );
         self.http_client.get(&endpoint, json!({}))
     }
