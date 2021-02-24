@@ -28,10 +28,16 @@ impl HttpClient {
         }
     }
 
-    pub fn get(&self, endpoint: &str, data: Value) -> Result<Response, Error> {
+    pub fn get(
+        &self,
+        endpoint: &str,
+        query: Vec<(&str, &str)>,
+        data: Value,
+    ) -> Result<Response, Error> {
         let uri = Url::parse(&format!("{}{}", self.endpoint_base, endpoint)).unwrap();
         self.client
             .get(uri)
+            .query(&query)
             .headers(self.headers.clone())
             .json(&data)
             .send()

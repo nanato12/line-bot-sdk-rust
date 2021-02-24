@@ -4,7 +4,7 @@ use crate::messages::SendMessageType;
 use crate::objects::Profile;
 use crate::webhook;
 
-use chrono::NaiveDateTime;
+use chrono::NaiveDate;
 use reqwest::blocking::Response;
 use reqwest::Error;
 use serde_json::json;
@@ -74,7 +74,7 @@ impl LineBot {
 
     // TODO: https://developers.line.biz/ja/reference/messaging-api/#send-narrowcast-message
     // recipient, filter, limit のオブジェクトを実装する。
-    pub fn narrowcast(&self, to: Vec<&str>, msgs: Vec<SendMessageType>) -> Result<Response, Error> {
+    pub fn narrowcast(&self, msgs: Vec<SendMessageType>) -> Result<Response, Error> {
         let data = json!(
             {
                 "messages": msgs,
@@ -84,11 +84,11 @@ impl LineBot {
     }
 
     pub fn get_narrowcast_progress(&self, request_id: &str) -> Result<Response, Error> {
-        let endpoint = format!(
-            "/message/progress/narrowcast?requestId={request_id}",
-            request_id = request_id
-        );
-        self.http_client.get(&endpoint, json!({}))
+        self.http_client.get(
+            "/message/progress/narrowcast",
+            vec![("requestId", request_id)],
+            json!({}),
+        )
     }
 
     pub fn broadcast(&self, msgs: Vec<SendMessageType>) -> Result<Response, Error> {
@@ -102,61 +102,54 @@ impl LineBot {
 
     pub fn get_content(&self, message_id: &str) -> Result<Response, Error> {
         let endpoint = format!("/message/{messageId}/content", messageId = message_id);
-        self.http_client.get(&endpoint, json!({}))
+        self.http_client.get(&endpoint, vec![], json!({}))
     }
 
     pub fn get_number_of_limit_additional(&self) -> Result<Response, Error> {
-        self.http_client.get("/message/quota", json!({}))
+        self.http_client.get("/message/quota", vec![], json!({}))
     }
 
     pub fn get_number_of_sent_this_month(&self) -> Result<Response, Error> {
         self.http_client
-            .get("/message/quota/consumption", json!({}))
+            .get("/message/quota/consumption", vec![], json!({}))
     }
 
-    // TODO: use method.query
-    pub fn get_number_of_sent_reply_messages(
-        &self,
-        date: NaiveDateTime,
-    ) -> Result<Response, Error> {
-        let endpoint = format!(
-            "/message/delivery/reply?date={date}",
-            date = date.format("%Y%m%d").to_string()
-        );
-        self.http_client.get(&endpoint, json!({}))
+    pub fn get_number_of_sent_reply_messages(&self, date: NaiveDate) -> Result<Response, Error> {
+        self.http_client.get(
+            "/message/delivery/reply",
+            vec![("date", &date.format("%Y%m%d").to_string())],
+            json!({}),
+        )
     }
 
-    // TODO: use method.query
-    pub fn get_number_of_sent_push_messages(&self, date: NaiveDateTime) -> Result<Response, Error> {
-        let endpoint = format!(
-            "/message/delivery/push?date={date}",
-            date = date.format("%Y%m%d").to_string()
-        );
-        self.http_client.get(&endpoint, json!({}))
+    pub fn get_number_of_sent_push_messages(&self, date: NaiveDate) -> Result<Response, Error> {
+        self.http_client.get(
+            "/message/delivery/push",
+            vec![("date", &date.format("%Y%m%d").to_string())],
+            json!({}),
+        )
     }
 
-    // TODO: use method.query
     pub fn get_number_of_sent_multicast_messages(
         &self,
-        date: NaiveDateTime,
+        date: NaiveDate,
     ) -> Result<Response, Error> {
-        let endpoint = format!(
-            "/message/delivery/multicast?date={date}",
-            date = date.format("%Y%m%d").to_string()
-        );
-        self.http_client.get(&endpoint, json!({}))
+        self.http_client.get(
+            "/message/delivery/multicast",
+            vec![("date", &date.format("%Y%m%d").to_string())],
+            json!({}),
+        )
     }
 
-    // TODO: use method.query
     pub fn get_number_of_sent_broadcast_messages(
         &self,
-        date: NaiveDateTime,
+        date: NaiveDate,
     ) -> Result<Response, Error> {
-        let endpoint = format!(
-            "/message/delivery/broadcast?date={date}",
-            date = date.format("%Y%m%d").to_string()
-        );
-        self.http_client.get(&endpoint, json!({}))
+        self.http_client.get(
+            "/message/delivery/broadcast",
+            vec![("date", &date.format("%Y%m%d").to_string())],
+            json!({}),
+        )
     }
 
     // TODO: https://developers.line.biz/ja/reference/messaging-api/#retry-api-request
@@ -271,18 +264,19 @@ impl LineBot {
             "/audienceGroup/{audienceGroupId}",
             audienceGroupId = audience_group_id
         );
-        self.http_client.get(&endpoint, json!({}))
+        self.http_client.get(&endpoint, vec![], json!({}))
     }
 
     // TODO: https://developers.line.biz/ja/reference/messaging-api/#get-audience-groups
     pub fn get_many_audience_information(&self) -> Result<Response, Error> {
         // dataの処理・引数を増やす
-        self.http_client.get("/audienceGroup/list", json!({}))
+        self.http_client
+            .get("/audienceGroup/list", vec![], json!({}))
     }
 
     pub fn get_audience_authority_level(&self) -> Result<Response, Error> {
         self.http_client
-            .get("/audienceGroup/authorityLevel", json!({}))
+            .get("/audienceGroup/authorityLevel", vec![], json!({}))
     }
 
     pub fn update_audience_authority_level(
@@ -297,50 +291,131 @@ impl LineBot {
         self.http_client.put("/audienceGroup/authorityLevel", data)
     }
 
-    // TODO: datetime型
-    pub fn get_number_of_message_delivery(&self, date: &str) -> Result<Response, Error> {
-        let endpoint = format!("/insight/message/delivery?date={date}", date = date);
-        self.http_client.get(&endpoint, json!({}))
+    pub fn get_number_of_message_delivery(&self, date: NaiveDate) -> Result<Response, Error> {
+        self.http_client.get(
+            "/insight/message/delivery",
+            vec![("date", &date.format("%Y%m%d").to_string())],
+            json!({}),
+        )
     }
 
-    // TODO: datetime型
-    pub fn get_number_of_followes(&self, date: &str) -> Result<Response, Error> {
-        let endpoint = format!("/bot/insight/followers?date={date}", date = date);
-        self.http_client.get(&endpoint, json!({}))
+    pub fn get_number_of_followes(&self, date: NaiveDate) -> Result<Response, Error> {
+        self.http_client.get(
+            "/bot/insight/followers",
+            vec![("date", &date.format("%Y%m%d").to_string())],
+            json!({}),
+        )
     }
 
     pub fn get_friend_demographic(&self) -> Result<Response, Error> {
-        self.http_client.get("/insight/demographic", json!({}))
+        self.http_client
+            .get("/insight/demographic", vec![], json!({}))
     }
 
     pub fn get_user_interaction_statistics(&self, request_id: &str) -> Result<Response, Error> {
-        let endpoint = format!(
-            "/insight/message/event?requestId={requestId}",
-            requestId = request_id
-        );
-        self.http_client.get(&endpoint, json!({}))
+        self.http_client.get(
+            "/insight/message/event",
+            vec![("requestId", request_id)],
+            json!({}),
+        )
     }
 
-    pub fn get_follower_ids(&self, continuation_token: &str) -> Result<Response, Error> {
-        let endpoint = format!(
-            "/followers/ids?start={continuationToken}",
-            continuationToken = continuation_token
-        );
-        self.http_client.get(&endpoint, json!({}))
-    }
-
-    pub fn get_bot_info(&self) -> Result<Response, Error> {
-        self.http_client.get("/info", json!({}))
+    pub fn get_follower_ids(&self, continuation_token: Option<&str>) -> Result<Response, Error> {
+        let mut query: Vec<(&str, &str)> = Vec::new();
+        match continuation_token {
+            Some(v) => {
+                &query.push(("start", v));
+            }
+            None => {}
+        }
+        self.http_client.get("/followers/ids", query, json!({}))
     }
 
     pub fn get_profile(&self, user_id: &str) -> Result<Profile, &str> {
         let endpoint = format!("/profile/{userId}", userId = user_id);
-        match self.http_client.get(&endpoint, json!({})) {
+        match self.http_client.get(&endpoint, vec![], json!({})) {
             Ok(res) => {
                 let profile: Profile = serde_json::from_str(&res.text().unwrap()).unwrap();
                 Ok(profile)
             }
             Err(_) => Err("Failed get_profile"),
         }
+    }
+
+    pub fn get_bot_info(&self) -> Result<Response, Error> {
+        self.http_client.get("/info", vec![], json!({}))
+    }
+
+    pub fn get_group_summary(&self, group_id: &str) -> Result<Response, Error> {
+        let endpoint = format!("/group/{groupId}/summary", groupId = group_id);
+        self.http_client.get(&endpoint, vec![], json!({}))
+    }
+
+    pub fn get_group_member_count(&self, group_id: &str) -> Result<Response, Error> {
+        let endpoint = format!("/group/{groupId}/members/count", groupId = group_id);
+        self.http_client.get(&endpoint, vec![], json!({}))
+    }
+
+    pub fn get_group_member_ids(&self, group_id: &str) -> Result<Response, Error> {
+        let endpoint = format!("/group/{groupId}/members/ids", groupId = group_id);
+        self.http_client.get(&endpoint, vec![], json!({}))
+    }
+
+    pub fn get_profile_from_group(&self, user_id: &str, group_id: &str) -> Result<Profile, &str> {
+        let endpoint = format!(
+            "/group/{groupId}/member/{userId}",
+            groupId = group_id,
+            userId = user_id
+        );
+        match self.http_client.get(&endpoint, vec![], json!({})) {
+            Ok(res) => {
+                let profile: Profile = serde_json::from_str(&res.text().unwrap()).unwrap();
+                Ok(profile)
+            }
+            Err(_) => Err("Failed get_profile_from_group"),
+        }
+    }
+
+    pub fn leave_group(&self, group_id: &str) -> Result<Response, Error> {
+        let endpoint = format!("/group/{groupId}/leave", groupId = group_id);
+        self.http_client.post(&endpoint, json!({}))
+    }
+
+    pub fn get_room_member_count(&self, room_id: &str) -> Result<Response, Error> {
+        let endpoint = format!("/room/{roomId}/members/count", roomId = room_id);
+        self.http_client.get(&endpoint, vec![], json!({}))
+    }
+
+    pub fn get_room_member_ids(&self, room_id: &str) -> Result<Response, Error> {
+        let endpoint = format!("/room/{roomId}/members/ids", roomId = room_id);
+        self.http_client.get(&endpoint, vec![], json!({}))
+    }
+
+    pub fn get_profile_from_room(&self, user_id: &str, room_id: &str) -> Result<Profile, &str> {
+        let endpoint = format!(
+            "/room/{roomId}/member/{userId}",
+            roomId = room_id,
+            userId = user_id
+        );
+        match self.http_client.get(&endpoint, vec![], json!({})) {
+            Ok(res) => {
+                let profile: Profile = serde_json::from_str(&res.text().unwrap()).unwrap();
+                Ok(profile)
+            }
+            Err(_) => Err("Failed get_profile_from_room"),
+        }
+    }
+
+    pub fn leave_room(&self, room_id: &str) -> Result<Response, Error> {
+        let endpoint = format!("/room/{roomId}/leave", roomId = room_id);
+        self.http_client.post(&endpoint, json!({}))
+    }
+
+    // TODO: rich-menu
+    // https://developers.line.biz/ja/reference/messaging-api/#rich-menu
+
+    pub fn issue_link_token(&self, user_id: &str) -> Result<Response, Error> {
+        let endpoint = format!("/user/{userId}/linkToken", userId = user_id);
+        self.http_client.post(&endpoint, json!({}))
     }
 }
