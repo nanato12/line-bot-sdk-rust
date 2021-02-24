@@ -45,4 +45,22 @@ impl HttpClient {
             .json(&data)
             .send()
     }
+
+    pub fn put(&self, endpoint: &str, data: Value) -> Result<Response, Error> {
+        let uri = Url::parse(&format!("{}{}", self.endpoint_base, endpoint)).unwrap();
+        self.client
+            .put(uri)
+            .headers(self.headers.clone())
+            .json(&data)
+            .send()
+    }
+
+    pub fn delete(&self, endpoint: &str, data: Value) -> Result<Response, Error> {
+        let uri = Url::parse(&format!("{}{}", self.endpoint_base, endpoint)).unwrap();
+        self.client
+            .delete(uri)
+            .headers(self.headers.clone())
+            .json(&data)
+            .send()
+    }
 }
