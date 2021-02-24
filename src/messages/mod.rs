@@ -71,7 +71,8 @@ pub enum SendMessageType {
         alt_text: String,
         template: Template,
     },
-    // jsonで実装すべき
+    // TODO: FlexMessage Component
+    // jsonで実装すべき、やりたくないいいい
     #[serde(rename = "flex")]
     Flex {},
 }
