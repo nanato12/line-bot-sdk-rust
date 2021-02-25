@@ -1,7 +1,7 @@
-pub mod demographic;
+pub mod filter;
 pub mod limit;
 pub mod recipient;
 
-pub use demographic::{Demographic, DemographicType};
+pub use filter::{DemographicType, Filter};
 pub use limit::Limit;
 pub use recipient::{Recipient, RecipientType};

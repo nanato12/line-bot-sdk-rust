@@ -1,13 +1,17 @@
 use crate::client::HttpClient;
 use crate::events::Events;
 use crate::messages::SendMessageType;
+use crate::objects::narrowcast::{Filter, Limit, Recipient};
 use crate::objects::Profile;
 use crate::webhook;
+
+use std::collections::HashMap;
 
 use chrono::NaiveDate;
 use reqwest::blocking::Response;
 use reqwest::Error;
-use serde_json::json;
+use serde_derive::Serialize;
+use serde_json::{json, Value};
 
 #[derive(Debug)]
 pub struct LineBot {
@@ -34,12 +38,14 @@ impl LineBot {
         }
     }
 
+    // messages
+
     pub fn reply_message(
         &self,
         reply_token: &str,
         msgs: Vec<SendMessageType>,
     ) -> Result<Response, Error> {
-        let data = json!(
+        let data: Value = json!(
             {
                 "replyToken": reply_token,
                 "messages": msgs,
@@ -49,7 +55,7 @@ impl LineBot {
     }
 
     pub fn push_message(&self, to: &str, msgs: Vec<SendMessageType>) -> Result<Response, Error> {
-        let data = json!(
+        let data: Value = json!(
             {
                 "to": to,
                 "messages": msgs,
@@ -63,7 +69,7 @@ impl LineBot {
         to: Vec<String>,
         msgs: Vec<SendMessageType>,
     ) -> Result<Response, Error> {
-        let data = json!(
+        let data: Value = json!(
             {
                 "to": to,
                 "messages": msgs,
@@ -72,14 +78,36 @@ impl LineBot {
         self.http_client.post("/message/multicast", data)
     }
 
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#send-narrowcast-message
-    // recipient, filter, limit のオブジェクトを実装する。
-    pub fn narrowcast(&self, msgs: Vec<SendMessageType>) -> Result<Response, Error> {
-        let data = json!(
-            {
-                "messages": msgs,
-            }
-        );
+    pub fn narrowcast(
+        &self,
+        msgs: Vec<SendMessageType>,
+        recipient: Option<Recipient>,
+        filter: Option<Filter>,
+        limit: Option<Limit>,
+        notification_disabled: Option<bool>,
+    ) -> Result<Response, Error> {
+        #[derive(Serialize)]
+        struct Data {
+            messages: Vec<SendMessageType>,
+            #[serde(skip_serializing_if = "Option::is_none")]
+            recipient: Option<Recipient>,
+            #[serde(skip_serializing_if = "Option::is_none")]
+            filter: Option<Filter>,
+            #[serde(skip_serializing_if = "Option::is_none")]
+            limit: Option<Limit>,
+            #[serde(
+                rename = "notificationDisabled",
+                skip_serializing_if = "Option::is_none"
+            )]
+            notification_disabled: Option<bool>,
+        }
+        let data: Value = json!(Data {
+            messages: msgs,
+            recipient: recipient,
+            filter: filter,
+            limit: limit,
+            notification_disabled: notification_disabled
+        });
         self.http_client.post("/message/narrowcast", data)
     }
 
@@ -92,7 +120,7 @@ impl LineBot {
     }
 
     pub fn broadcast(&self, msgs: Vec<SendMessageType>) -> Result<Response, Error> {
-        let data = json!(
+        let data: Value = json!(
             {
                 "messages": msgs,
             }
@@ -152,14 +180,15 @@ impl LineBot {
         )
     }
 
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#retry-api-request
+    // manage-audience
 
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#manage-audience-group
+    // TODO: More Request Body
+    // https://developers.line.biz/ja/reference/messaging-api/#create-upload-audience-group-request-body
     pub fn create_audience_group_for_uploading_user_ids(
         &self,
         description: &str,
     ) -> Result<Response, Error> {
-        let data = json!(
+        let data: Value = json!(
             {
                 "description": description,
             }
@@ -167,34 +196,40 @@ impl LineBot {
         self.http_client.post("/audienceGroup/upload", data)
     }
 
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#create-upload-audience-group-by-file
+    // TODO:  More Request Body
+    // https://developers.line.biz/ja/reference/messaging-api/#create-upload-audience-group-by-file-request-body
     pub fn create_audience_group_for_uploading_user_ids_by_file(
         &self,
-        description: &str,
+        _description: &str,
     ) -> Result<Response, Error> {
-        // ファイルを受け取り、HTTPClientに渡す。
-        // HTTPClientの改修必須
+        // TODO: Fix HTTPClient post
+        // File send
         self.http_client
             .post("/audienceGroup/upload/byFile", json!({}))
     }
 
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#update-upload-audience-group
+    // TODO: Create Audience Object?
     pub fn update_audience_group_for_uploading_user_ids(
         &self,
-        description: &str,
+        audience_group_id: i64,
+        upload_description: &str,
+        audiences: Vec<HashMap<String, String>>,
     ) -> Result<Response, Error> {
-        let data = json!(
+        let data: Value = json!(
             {
-                "description": description,
+                "audienceGroupId": audience_group_id,
+                "uploadDescription": upload_description,
+                "audiences": audiences
             }
         );
         self.http_client.post("/audienceGroup/upload", data)
     }
 
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#update-upload-audience-group-by-file
+    // TODO: More Request Body
+    // https://developers.line.biz/ja/reference/messaging-api/#update-upload-audience-group-by-file-request-body
     pub fn update_audience_group_for_uploading_user_ids_by_file(
         &self,
-        description: &str,
+        _description: &str,
     ) -> Result<Response, Error> {
         // ファイルを受け取り、HTTPClientに渡す。
         // HTTPClientの改修必須
@@ -202,11 +237,22 @@ impl LineBot {
             .post("/audienceGroup/upload/byFile", json!({}))
     }
 
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#create-click-audience-group
-    pub fn create_audience_group_for_click(&self, description: &str) -> Result<Response, Error> {
-        let data = json!(
+    pub fn create_audience_group_for_click(
+        &self,
+        description: &str,
+        request_id: i64,
+        click_url: Option<&str>,
+    ) -> Result<Response, Error> {
+        let mut url: &str = "";
+        match click_url {
+            Some(v) => url = v,
+            None => {}
+        }
+        let data: Value = json!(
             {
                 "description": description,
+                "requestId": request_id,
+                "clickUrl": url
             }
         );
         self.http_client.post("/audienceGroup/click", data)
@@ -217,7 +263,7 @@ impl LineBot {
         description: &str,
         request_id: &str,
     ) -> Result<Response, Error> {
-        let data = json!(
+        let data: Value = json!(
             {
                 "description": description,
                 "requestId": request_id
@@ -235,7 +281,7 @@ impl LineBot {
             "/audienceGroup/{audienceGroupId}/updateDescription",
             audienceGroupId = audience_group_id
         );
-        let data = json!(
+        let data: Value = json!(
             {
                 "description": description,
             }
@@ -283,7 +329,7 @@ impl LineBot {
         &self,
         authority_level: &str,
     ) -> Result<Response, Error> {
-        let data = json!(
+        let data: Value = json!(
             {
                 "authorityLevel": authority_level,
             }
