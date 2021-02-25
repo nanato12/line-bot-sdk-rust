@@ -38,6 +38,31 @@ impl LineBot {
         }
     }
 
+    // webhook-settings
+
+    pub fn update_webhook_endpoint(&self, endpoint: &str) -> Result<Response, Error> {
+        let data: Value = json!(
+            {
+                "endpoint": endpoint,
+            }
+        );
+        self.http_client.put("/channel/webhook/endpoint", data)
+    }
+
+    pub fn get_webhook_endpoint(&self) -> Result<Response, Error> {
+        self.http_client
+            .get("/channel/webhook/endpoint", vec![], json!({}))
+    }
+
+    pub fn test_webhook_endpoint(&self, endpoint: &str) -> Result<Response, Error> {
+        let data: Value = json!(
+            {
+                "endpoint": endpoint,
+            }
+        );
+        self.http_client.post("/channel/webhook/test", data)
+    }
+
     // messages
 
     pub fn reply_message(
