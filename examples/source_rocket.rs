@@ -12,7 +12,6 @@ use std::env;
 use rocket::http::Status;
 
 use line::bot::LineBot;
-use line::events::messages::MessageType as EventMessageType;
 use line::events::source::SouceType;
 use line::events::{EventType, Events};
 use line::messages::SendMessageType;
@@ -38,37 +37,34 @@ fn callback(signature: Signature, body: Body) -> Status {
         for event in res.events {
             // MessageEvent only
             if let EventType::MessageEvent(message_event) = event.r#type {
-                // TextMessageEvent only
-                if let EventMessageType::TextMessage(_) = message_event.message.r#type {
-                    // Reply message with reply_token
-                    match message_event.source.r#type {
-                        // By Group
-                        SouceType::Group(source) => {
-                            // Create TextMessage
-                            let message = SendMessageType::TextMessage {
-                                text: format!("Group Id: {}", source.group_id),
-                                emojis: None,
-                            };
-                            let _res = bot.reply_message(&message_event.reply_token, vec![message]);
-                        }
-                        // By Room
-                        SouceType::Room(source) => {
-                            // Create TextMessage
-                            let message = SendMessageType::TextMessage {
-                                text: format!("Room Id: {}", source.room_id),
-                                emojis: None,
-                            };
-                            let _res = bot.reply_message(&message_event.reply_token, vec![message]);
-                        }
-                        // By User
-                        SouceType::User(source) => {
-                            // Create TextMessage
-                            let message = SendMessageType::TextMessage {
-                                text: format!("User Id: {}", source.user_id),
-                                emojis: None,
-                            };
-                            let _res = bot.reply_message(&message_event.reply_token, vec![message]);
-                        }
+                // Reply message with reply_token
+                match message_event.source.r#type {
+                    // By Group
+                    SouceType::Group(source) => {
+                        // Create TextMessage
+                        let message = SendMessageType::TextMessage {
+                            text: format!("Group Id: {}", source.group_id),
+                            emojis: None,
+                        };
+                        let _res = bot.reply_message(&message_event.reply_token, vec![message]);
+                    }
+                    // By Room
+                    SouceType::Room(source) => {
+                        // Create TextMessage
+                        let message = SendMessageType::TextMessage {
+                            text: format!("Room Id: {}", source.room_id),
+                            emojis: None,
+                        };
+                        let _res = bot.reply_message(&message_event.reply_token, vec![message]);
+                    }
+                    // By User
+                    SouceType::User(source) => {
+                        // Create TextMessage
+                        let message = SendMessageType::TextMessage {
+                            text: format!("User Id: {}", source.user_id),
+                            emojis: None,
+                        };
+                        let _res = bot.reply_message(&message_event.reply_token, vec![message]);
                     }
                 }
             }
