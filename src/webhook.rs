@@ -2,7 +2,16 @@ use base64::encode;
 use hmac::{Hmac, Mac};
 use sha2::Sha256;
 
-// Signature confirmation
+/// # Signature validation
+/// [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#signature-validation)
+/// # Example
+/// ```
+/// if webhook::validate_signature(channel_secret, signature, body) {
+///     ...
+/// } else {
+///     ...
+/// }
+/// ```
 pub fn validate_signature(channel_secret: &str, signature: &str, body: &str) -> bool {
     type HmacSha256 = Hmac<Sha256>;
 
