@@ -3,9 +3,16 @@ use crate::objects::Action;
 use serde_derive::Serialize;
 
 #[derive(Serialize, Debug)]
+pub struct TemplateMessage {
+    #[serde(rename = "altText")]
+    pub alt_text: String,
+    pub template: Template,
+}
+
+#[derive(Serialize, Debug)]
 pub struct Template {
     #[serde(flatten)]
-    r#type: TemplateType,
+    pub r#type: TemplateType,
 }
 
 #[derive(Serialize, Debug)]
@@ -48,23 +55,23 @@ pub enum TemplateType {
 #[derive(Serialize, Debug)]
 pub struct Column {
     #[serde(rename = "thumbnailImageUrl", skip_serializing_if = "Option::is_none")]
-    thumbnail_image_url: Option<String>,
+    pub thumbnail_image_url: Option<String>,
     #[serde(
         rename = "imageBackgroundColor",
         skip_serializing_if = "Option::is_none"
     )]
-    image_background_color: Option<String>,
+    pub image_background_color: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    title: Option<String>,
-    text: String,
+    pub title: Option<String>,
+    pub text: String,
     #[serde(rename = "defaultAction", skip_serializing_if = "Option::is_none")]
-    default_action: Option<Action>,
-    actions: Vec<Action>,
+    pub default_action: Option<Action>,
+    pub actions: Vec<Action>,
 }
 
 #[derive(Serialize, Debug)]
 pub struct ImageColumn {
     #[serde(rename = "imageUrl")]
-    image_url: String,
-    action: Action,
+    pub image_url: String,
+    pub action: Action,
 }
