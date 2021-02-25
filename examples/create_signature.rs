@@ -1,5 +1,3 @@
-extern crate line_bot_sdk_rust as line;
-
 use base64::encode;
 use hmac::{Hmac, Mac};
 use sha2::Sha256;
