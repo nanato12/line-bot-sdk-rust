@@ -1,6 +1,19 @@
 use serde_derive::Serialize;
 
 #[derive(Serialize, Debug)]
+pub struct ImagemapMessage {
+    #[serde(rename = "baseUrl")]
+    pub base_url: String,
+    #[serde(rename = "altText")]
+    pub alt_text: String,
+    #[serde(rename = "baseSize")]
+    pub base_size: BaseSize,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub video: Option<Video>,
+    pub actions: Vec<Actions>,
+}
+
+#[derive(Serialize, Debug)]
 pub struct BaseSize {
     pub height: i64,
     pub width: i64,
