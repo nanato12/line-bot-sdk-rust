@@ -4,6 +4,11 @@ use serde_derive::Serialize;
 /// https://developers.line.biz/ja/reference/messaging-api/#narrowcast-demographic-filter
 
 #[derive(Serialize, Debug)]
+pub struct Filter {
+    pub demographic: Demographic,
+}
+
+#[derive(Serialize, Debug)]
 pub struct Demographic {
     #[serde(flatten)]
     pub r#type: DemographicType,
