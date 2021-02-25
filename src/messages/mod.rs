@@ -1,10 +1,22 @@
-pub mod emoji;
-pub mod image_map;
-pub mod template;
+pub mod audio_message;
+pub mod flex_message;
+pub mod image_map_message;
+pub mod image_message;
+pub mod location_message;
+pub mod sticker_message;
+pub mod template_message;
+pub mod text_message;
+pub mod video_message;
 
-use emoji::Emoji;
-use image_map::{Actions, BaseSize, Video};
-use template::Template;
+pub use audio_message::AudioMessage;
+pub use flex_message::FlexMessage;
+pub use image_map_message::ImagemapMessage;
+pub use image_message::ImageMessage;
+pub use location_message::LocationMessage;
+pub use sticker_message::StickerMessage;
+pub use template_message::TemplateMessage;
+pub use text_message::{Emoji, TextMessage};
+pub use video_message::VideoMessage;
 
 use serde_derive::Serialize;
 
@@ -18,67 +30,22 @@ pub struct SendMessage {
 #[serde(tag = "type")]
 pub enum SendMessageType {
     #[serde(rename = "text")]
-    TextMessage {
-        text: String,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        emojis: Option<Vec<Emoji>>,
-    },
+    TextMessage(TextMessage),
     #[serde(rename = "sticker")]
-    StickerMessage {
-        #[serde(rename = "packageId")]
-        package_id: String,
-        #[serde(rename = "stickerId")]
-        sticker_id: String,
-    },
+    StickerMessage(StickerMessage),
     #[serde(rename = "image")]
-    ImageMessage {
-        #[serde(rename = "originalContentUrl")]
-        original_content_url: String,
-        #[serde(rename = "previewImageUrl")]
-        preview_image_url: String,
-    },
+    ImageMessage(ImageMessage),
     #[serde(rename = "video")]
-    VideoMessage {
-        #[serde(rename = "originalContentUrl")]
-        original_content_url: String,
-        #[serde(rename = "previewImageUrl")]
-        preview_image_url: String,
-        #[serde(rename = "trackingId", skip_serializing_if = "Option::is_none")]
-        track_id: Option<String>,
-    },
+    VideoMessage(VideoMessage),
     #[serde(rename = "audio")]
-    AudioMessage {
-        #[serde(rename = "originalContentUrl")]
-        original_content_url: String,
-        duration: u64,
-    },
+    AudioMessage(AudioMessage),
     #[serde(rename = "location")]
-    LocationMessage {
-        title: String,
-        address: String,
-        latitude: f64,
-        longitude: f64,
-    },
+    LocationMessage(LocationMessage),
     #[serde(rename = "imagemap")]
-    ImagemapMessage {
-        #[serde(rename = "baseUrl")]
-        base_url: String,
-        #[serde(rename = "altText")]
-        alt_text: String,
-        #[serde(rename = "baseSize")]
-        base_size: BaseSize,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        video: Option<Video>,
-        actions: Vec<Actions>,
-    },
+    ImagemapMessage(ImagemapMessage),
     #[serde(rename = "template")]
-    TemplateMessage {
-        #[serde(rename = "altText")]
-        alt_text: String,
-        template: Template,
-    },
+    TemplateMessage(TemplateMessage),
     // TODO: FlexMessage Component
-    // jsonで実装すべき、やりたくないいいい
     #[serde(rename = "flex")]
-    Flex {},
+    FlexMessage(FlexMessage),
 }
