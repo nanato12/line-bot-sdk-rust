@@ -9,6 +9,12 @@ use template::Template;
 use serde_derive::Serialize;
 
 #[derive(Serialize, Debug)]
+pub struct SendMessage {
+    #[serde(flatten)]
+    pub r#type: SendMessageType,
+}
+
+#[derive(Serialize, Debug)]
 #[serde(tag = "type")]
 pub enum SendMessageType {
     #[serde(rename = "text")]
