@@ -1,5 +1,11 @@
+//! Action objects
+//! # Note
+//! These are types of actions for your bot to take when a user taps a button or an image in a message.
+//! <https://developers.line.biz/en/reference/messaging-api/#action-objects>
 use serde_derive::Serialize;
 
+/// Action object
+/// # Note
 #[derive(Serialize, Debug)]
 pub struct Action {
     #[serde(flatten)]
@@ -8,6 +14,7 @@ pub struct Action {
     label: Option<String>,
 }
 
+/// Action object types
 #[derive(Serialize, Debug)]
 #[serde(tag = "type")]
 pub enum ActionType {
@@ -46,6 +53,9 @@ pub enum ActionType {
     Location {},
 }
 
+/// Alt uri object
+/// # Note
+/// URI opened on LINE for macOS and Windows when the action is performed.
 #[derive(Serialize, Debug)]
 pub struct AltUri {
     desktop: String,
