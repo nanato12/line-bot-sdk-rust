@@ -1,4 +1,13 @@
 //! Bot Client
+//! # Example
+//! ```
+//! extern crate line_bot_sdk_rust as line;
+//! use line::bot::LineBot;
+//!
+//! fn main() {
+//!     let bot = LineBot::new("<channel secret>", "<channel access token>");
+//! }
+//! ```
 
 use crate::client::HttpClient;
 use crate::events::Events;
@@ -15,6 +24,7 @@ use reqwest::Error;
 use serde_derive::Serialize;
 use serde_json::{json, Value};
 
+/// LineBot Client
 #[derive(Debug)]
 pub struct LineBot {
     pub channel_secret: String,
@@ -294,10 +304,12 @@ impl LineBot {
         )
     }
 
-    // manage-audience
-
-    // TODO: More Request Body
-    // https://developers.line.biz/ja/reference/messaging-api/#create-upload-audience-group-request-body
+    /// # Managing Audience
+    /// TODO: Unimplemented: More Request Body <br>
+    /// You can create, update, activate, or delete an audience. Specify the audience when sending narrowcast messages [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#manage-audience-group)
+    /// ```
+    /// let res: Result<Response, Error> = bot.create_audience_group_for_uploading_user_ids("audienceGroupName");
+    /// ```
     pub fn create_audience_group_for_uploading_user_ids(
         &self,
         description: &str,
@@ -310,19 +322,20 @@ impl LineBot {
         self.http_client.post("/audienceGroup/upload", data)
     }
 
-    // TODO:  More Request Body
-    // https://developers.line.biz/ja/reference/messaging-api/#create-upload-audience-group-by-file-request-body
+    /// # Create audience for uploading user IDs (by file)
+    /// TODO: Unimplemented: File send <br>
+    /// Creates an audience for uploading user IDs [\[detail\]](https://developers.line.biz/ja/reference/messaging-api/#create-upload-audience-group-by-file-request-body)
     pub fn create_audience_group_for_uploading_user_ids_by_file(
         &self,
         _description: &str,
     ) -> Result<Response, Error> {
-        // TODO: Fix HTTPClient post
-        // File send
         self.http_client
             .post("/audienceGroup/upload/byFile", json!({}))
     }
 
-    // TODO: Create Audience Object?
+    /// # Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by JSON)
+    /// TODO: Create Audience Object <br>
+    /// Adds new user IDs or IFAs to an audience for uploading user IDs [\[detail\]](https://developers.line.biz/ja/reference/messaging-api/#update-upload-audience-group)
     pub fn update_audience_group_for_uploading_user_ids(
         &self,
         audience_group_id: i64,
@@ -339,8 +352,9 @@ impl LineBot {
         self.http_client.post("/audienceGroup/upload", data)
     }
 
-    // TODO: More Request Body
-    // https://developers.line.biz/ja/reference/messaging-api/#update-upload-audience-group-by-file-request-body
+    /// # Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by file）
+    /// TODO: Unimplemented: File send <br>
+    /// Adds new user IDs or IFAs to an audience for uploading user IDs [\[detail\]](https://developers.line.biz/ja/reference/messaging-api/#update-upload-audience-group-by-file-request-body)
     pub fn update_audience_group_for_uploading_user_ids_by_file(
         &self,
         _description: &str,
