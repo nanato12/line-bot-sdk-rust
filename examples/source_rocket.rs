@@ -14,7 +14,7 @@ use rocket::http::Status;
 use line::bot::LineBot;
 use line::events::source::SouceType;
 use line::events::{EventType, Events};
-use line::messages::SendMessageType;
+use line::messages::{SendMessageType, TextMessage};
 use line::support::rocket_support::{Body, Signature};
 
 #[post("/callback", data = "<body>")]
@@ -42,28 +42,28 @@ fn callback(signature: Signature, body: Body) -> Status {
                     // By Group
                     SouceType::Group(source) => {
                         // Create TextMessage
-                        let message = SendMessageType::TextMessage {
+                        let message = SendMessageType::TextMessage(TextMessage {
                             text: format!("Group Id: {}", source.group_id),
                             emojis: None,
-                        };
+                        });
                         let _res = bot.reply_message(&message_event.reply_token, vec![message]);
                     }
                     // By Room
                     SouceType::Room(source) => {
                         // Create TextMessage
-                        let message = SendMessageType::TextMessage {
+                        let message = SendMessageType::TextMessage(TextMessage {
                             text: format!("Room Id: {}", source.room_id),
                             emojis: None,
-                        };
+                        });
                         let _res = bot.reply_message(&message_event.reply_token, vec![message]);
                     }
                     // By User
                     SouceType::User(source) => {
                         // Create TextMessage
-                        let message = SendMessageType::TextMessage {
+                        let message = SendMessageType::TextMessage(TextMessage {
                             text: format!("User Id: {}", source.user_id),
                             emojis: None,
-                        };
+                        });
                         let _res = bot.reply_message(&message_event.reply_token, vec![message]);
                     }
                 }

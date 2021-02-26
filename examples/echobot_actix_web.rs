@@ -6,7 +6,7 @@ use std::env;
 use line::bot::LineBot;
 use line::events::messages::MessageType as EventMessageType;
 use line::events::{EventType, Events};
-use line::messages::SendMessageType;
+use line::messages::{SendMessageType, TextMessage};
 
 use actix_web::web::Bytes;
 use actix_web::{post, App, HttpRequest, HttpResponse, HttpServer, Responder};
@@ -41,10 +41,10 @@ async fn callback(req: HttpRequest, bytes: Bytes) -> impl Responder {
                 // TextMessageEvent only
                 if let EventMessageType::TextMessage(text_message) = message_event.message.r#type {
                     // Create TextMessage
-                    let message = SendMessageType::TextMessage {
+                    let message = SendMessageType::TextMessage(TextMessage {
                         text: text_message.text,
                         emojis: None,
-                    };
+                    });
                     // Reply message with reply_token
                     let _res = bot.reply_message(&message_event.reply_token, vec![message]);
                 }
