@@ -365,7 +365,6 @@ impl LineBot {
         if let Some(v) = create_route {
             &query.push(("createRoute", v));
         }
-        // dataの処理・引数を増やす
         self.http_client
             .get("/audienceGroup/list", query, json!({}))
     }
@@ -395,7 +394,7 @@ impl LineBot {
         )
     }
 
-    pub fn get_number_of_followes(&self, date: NaiveDate) -> Result<Response, Error> {
+    pub fn get_number_of_followers(&self, date: NaiveDate) -> Result<Response, Error> {
         self.http_client.get(
             "/bot/insight/followers",
             vec![("date", &date.format("%Y%m%d").to_string())],
