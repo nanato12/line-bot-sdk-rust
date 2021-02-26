@@ -13,7 +13,7 @@ use rocket::http::Status;
 use line::bot::LineBot;
 use line::events::messages::MessageType as EventMessageType;
 use line::events::{EventType, Events};
-use line::messages::SendMessageType;
+use line::messages::{SendMessageType, TextMessage};
 use line::support::rocket_support::{Body, Signature};
 
 #[post("/callback", data = "<body>")]
@@ -39,10 +39,10 @@ fn callback(signature: Signature, body: Body) -> Status {
                 // TextMessageEvent only
                 if let EventMessageType::TextMessage(text_message) = message_event.message.r#type {
                     // Create TextMessage
-                    let message = SendMessageType::TextMessage {
+                    let message = SendMessageType::TextMessage(TextMessage {
                         text: text_message.text,
                         emojis: None,
-                    };
+                    });
                     // Reply message with reply_token
                     let _res = bot.reply_message(&message_event.reply_token, vec![message]);
                 }

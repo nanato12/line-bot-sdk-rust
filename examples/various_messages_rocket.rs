@@ -12,8 +12,8 @@ use rocket::http::Status;
 
 use line::bot::LineBot;
 use line::events::{EventType, Events};
-use line::messages::emoji::Emoji;
-use line::messages::SendMessageType;
+use line::messages::Emoji;
+use line::messages::{SendMessageType, StickerMessage, TextMessage};
 use line::support::rocket_support::{Body, Signature};
 
 #[post("/callback", data = "<body>")]
@@ -39,24 +39,24 @@ fn callback(signature: Signature, body: Body) -> Status {
                 // Create Vec of messages to be sent
                 let mut messages: Vec<SendMessageType> = Vec::new();
                 // Add TextMessage
-                messages.push(SendMessageType::TextMessage {
+                messages.push(SendMessageType::TextMessage(TextMessage {
                     text: String::from("text message"),
                     emojis: None,
-                });
+                }));
                 // Add TextMessage with Emoji
-                messages.push(SendMessageType::TextMessage {
+                messages.push(SendMessageType::TextMessage(TextMessage {
                     text: String::from("$ EMOJI!"),
                     emojis: Some(vec![Emoji {
                         index: 0,
                         product_id: String::from("5ac1bfd5040ab15980c9b435"),
                         emoji_id: String::from("001"),
                     }]),
-                });
+                }));
                 // Add StickerMessage
-                messages.push(SendMessageType::StickerMessage {
+                messages.push(SendMessageType::StickerMessage(StickerMessage {
                     package_id: String::from("1"),
                     sticker_id: String::from("1"),
-                });
+                }));
                 println!("{:?}", messages);
                 // Reply message with reply_token
                 let _res = bot.reply_message(&message_event.reply_token, messages);
