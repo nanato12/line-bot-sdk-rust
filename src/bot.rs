@@ -417,12 +417,9 @@ impl LineBot {
     }
 
     pub fn get_follower_ids(&self, continuation_token: Option<&str>) -> Result<Response, Error> {
-        let mut query: Vec<(&str, &str)> = Vec::new();
-        match continuation_token {
-            Some(v) => {
-                &query.push(("start", v));
-            }
-            None => {}
+        let mut query: Vec<(&str, &str)> = vec![];
+        if let Some(v) = continuation_token {
+            &query.push(("start", v));
         }
         self.http_client.get("/followers/ids", query, json!({}))
     }
