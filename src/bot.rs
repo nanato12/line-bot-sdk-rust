@@ -328,10 +328,9 @@ impl LineBot {
     /// ```
     /// let res: Result<Response, Error> = bot.create_audience_group_for_uploading_user_ids_by_file();
     /// ```
-    pub fn create_audience_group_for_uploading_user_ids_by_file(
-        &self,
-        _description: &str,
-    ) -> Result<Response, Error> {
+    pub fn create_audience_group_for_uploading_user_ids_by_file(&self) -> Result<Response, Error> {
+        // TODO: Fix HTTPClient post
+        // File send
         self.http_client
             .post("/audienceGroup/upload/byFile", json!({}))
     }
@@ -358,10 +357,7 @@ impl LineBot {
     /// # Note
     /// **TODO: Unimplemented: File send <br>**
     /// Adds new user IDs or IFAs to an audience for uploading user IDs [\[detail\]](https://developers.line.biz/ja/reference/messaging-api/#update-upload-audience-group-by-file-request-body)
-    pub fn update_audience_group_for_uploading_user_ids_by_file(
-        &self,
-        _description: &str,
-    ) -> Result<Response, Error> {
+    pub fn update_audience_group_for_uploading_user_ids_by_file(&self) -> Result<Response, Error> {
         // ファイルを受け取り、HTTPClientに渡す。
         // HTTPClientの改修必須
         self.http_client
