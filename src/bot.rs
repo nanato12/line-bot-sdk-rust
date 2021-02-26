@@ -266,20 +266,21 @@ impl LineBot {
         &self,
         description: &str,
         request_id: i64,
-        click_url: Option<&str>,
+        click_url: Option<String>,
     ) -> Result<Response, Error> {
-        let mut url: &str = "";
-        match click_url {
-            Some(v) => url = v,
-            None => {}
+        #[derive(Serialize)]
+        struct Data {
+            description: String,
+            #[serde(rename = "requestId")]
+            request_id: i64,
+            #[serde(rename = "clickUrl", skip_serializing_if = "Option::is_none")]
+            click_url: Option<String>,
         }
-        let data: Value = json!(
-            {
-                "description": description,
-                "requestId": request_id,
-                "clickUrl": url
-            }
-        );
+        let data: Value = json!(Data {
+            description: String::from(description),
+            request_id: request_id,
+            click_url: click_url,
+        });
         self.http_client.post("/audienceGroup/click", data)
     }
 
@@ -339,10 +340,34 @@ impl LineBot {
     }
 
     // TODO: https://developers.line.biz/ja/reference/messaging-api/#get-audience-groups
-    pub fn get_many_audience_information(&self) -> Result<Response, Error> {
+    pub fn get_many_audience_information(
+        &self,
+        page: &str,
+        description: Option<&str>,
+        status: Option<&str>,
+        size: Option<&str>,
+        includes_external_public_groups: Option<&str>,
+        create_route: Option<&str>,
+    ) -> Result<Response, Error> {
+        let mut query: Vec<(&str, &str)> = vec![("page", page)];
+        if let Some(v) = description {
+            &query.push(("description", v));
+        }
+        if let Some(v) = status {
+            &query.push(("status", v));
+        }
+        if let Some(v) = size {
+            &query.push(("size", v));
+        }
+        if let Some(v) = includes_external_public_groups {
+            &query.push(("includesExternalPublicGroups", v));
+        }
+        if let Some(v) = create_route {
+            &query.push(("createRoute", v));
+        }
         // dataの処理・引数を増やす
         self.http_client
-            .get("/audienceGroup/list", vec![], json!({}))
+            .get("/audienceGroup/list", query, json!({}))
     }
 
     pub fn get_audience_authority_level(&self) -> Result<Response, Error> {
