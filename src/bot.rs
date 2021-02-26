@@ -223,10 +223,7 @@ impl LineBot {
 
     // TODO:  More Request Body
     // https://developers.line.biz/ja/reference/messaging-api/#create-upload-audience-group-by-file-request-body
-    pub fn create_audience_group_for_uploading_user_ids_by_file(
-        &self,
-        _description: &str,
-    ) -> Result<Response, Error> {
+    pub fn create_audience_group_for_uploading_user_ids_by_file(&self) -> Result<Response, Error> {
         // TODO: Fix HTTPClient post
         // File send
         self.http_client
@@ -252,10 +249,7 @@ impl LineBot {
 
     // TODO: More Request Body
     // https://developers.line.biz/ja/reference/messaging-api/#update-upload-audience-group-by-file-request-body
-    pub fn update_audience_group_for_uploading_user_ids_by_file(
-        &self,
-        _description: &str,
-    ) -> Result<Response, Error> {
+    pub fn update_audience_group_for_uploading_user_ids_by_file(&self) -> Result<Response, Error> {
         // ファイルを受け取り、HTTPClientに渡す。
         // HTTPClientの改修必須
         self.http_client
