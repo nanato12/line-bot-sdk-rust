@@ -1,3 +1,5 @@
+//! SendMessage Instances
+
 pub mod audio_message;
 pub mod flex_message;
 pub mod image_map_message;
