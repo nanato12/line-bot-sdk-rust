@@ -3,9 +3,9 @@ use serde_derive::Serialize;
 #[derive(Serialize, Debug)]
 pub struct Action {
     #[serde(flatten)]
-    r#type: ActionType,
+    pub r#type: ActionType,
     #[serde(skip_serializing_if = "Option::is_none")]
-    label: Option<String>,
+    pub label: Option<String>,
 }
 
 #[derive(Serialize, Debug)]
@@ -48,5 +48,5 @@ pub enum ActionType {
 
 #[derive(Serialize, Debug)]
 pub struct AltUri {
-    desktop: String,
+    pub desktop: String,
 }
