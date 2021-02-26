@@ -1,3 +1,5 @@
+//! Bot Client
+
 use crate::client::HttpClient;
 use crate::events::Events;
 use crate::messages::SendMessageType;
@@ -21,6 +23,11 @@ pub struct LineBot {
 }
 
 impl LineBot {
+    /// # Note
+    /// Instantiate a LineBot.
+    /// ```
+    /// let bot = LineBot::new("<channel secret>", "<channel access token>");
+    /// ```
     pub fn new(channel_secret: &str, channel_token: &str) -> LineBot {
         LineBot {
             channel_secret: String::from(channel_secret),
@@ -29,6 +36,12 @@ impl LineBot {
         }
     }
 
+    /// # Note
+    /// Parse the HttpRequest content.
+    /// ```
+    /// let result: Result<Events, &'static str> =
+    ///     bot.parse_event_request(signature, body);
+    /// ```
     pub fn parse_event_request(&self, signature: &str, body: &str) -> Result<Events, &'static str> {
         if webhook::validate_signature(&self.channel_secret, signature, body) {
             let res: Events = serde_json::from_str(body).expect("Failed event data parsing");
@@ -38,8 +51,11 @@ impl LineBot {
         }
     }
 
-    // webhook-settings
-
+    /// # Note
+    /// Set webhook endpoint URL [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#set-webhook-endpoint-url)
+    /// ```
+    /// let res: Result<Response, Error> = bot.update_webhook_endpoint("https://example.com/hoge");
+    /// ```
     pub fn update_webhook_endpoint(&self, endpoint: &str) -> Result<Response, Error> {
         let data: Value = json!(
             {
@@ -49,11 +65,21 @@ impl LineBot {
         self.http_client.put("/channel/webhook/endpoint", data)
     }
 
+    /// # Note
+    /// Get webhook endpoint information [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#get-webhook-endpoint-information)
+    /// ```
+    /// let res: Result<Response, Error> = bot.get_webhook_endpoint();
+    /// ```
     pub fn get_webhook_endpoint(&self) -> Result<Response, Error> {
         self.http_client
             .get("/channel/webhook/endpoint", vec![], json!({}))
     }
 
+    /// # Note
+    /// Test webhook endpoint [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#test-webhook-endpoint)
+    /// ```
+    /// let res: Result<Response, Error> = bot.test_webhook_endpoint("https://example.com/webhook");
+    /// ```
     pub fn test_webhook_endpoint(&self, endpoint: &str) -> Result<Response, Error> {
         let data: Value = json!(
             {
@@ -63,8 +89,11 @@ impl LineBot {
         self.http_client.post("/channel/webhook/test", data)
     }
 
-    // messages
-
+    /// # Note
+    /// Send reply message [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#send-reply-message)
+    /// ```
+    /// let res: Result<Response, Error> = bot.reply_message("xxxxxxxxx", vec![...]);
+    /// ```
     pub fn reply_message(
         &self,
         reply_token: &str,
@@ -79,6 +108,11 @@ impl LineBot {
         self.http_client.post("/message/reply", data)
     }
 
+    /// # Note
+    /// Send push message [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#send-push-message)
+    /// ```
+    /// let res: Result<Response, Error> = bot.push_message("xxxxxxxxx", vec![...]);
+    /// ```
     pub fn push_message(&self, to: &str, msgs: Vec<SendMessageType>) -> Result<Response, Error> {
         let data: Value = json!(
             {
@@ -89,6 +123,11 @@ impl LineBot {
         self.http_client.post("/message/push", data)
     }
 
+    /// # Note
+    /// Send multicast message [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#send-multicast-message)
+    /// ```
+    /// let res: Result<Response, Error> = bot.multicast(vec!["xxx", "yyy"], vec![...]);
+    /// ```
     pub fn multicast(
         &self,
         to: Vec<String>,
@@ -103,6 +142,11 @@ impl LineBot {
         self.http_client.post("/message/multicast", data)
     }
 
+    /// # Note
+    /// Send narrowcast message [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#send-narrowcast-message)
+    /// ```
+    /// let res: Result<Response, Error> = bot.narrowcast(vec![...], Some(...), None, Some(...), Some(false));
+    /// ```
     pub fn narrowcast(
         &self,
         msgs: Vec<SendMessageType>,
@@ -136,6 +180,11 @@ impl LineBot {
         self.http_client.post("/message/narrowcast", data)
     }
 
+    /// # Note
+    /// Get narrowcast message status [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#get-narrowcast-progress-status)
+    /// ```
+    /// let res: Result<Response, Error> = bot.get_narrowcast_progress("xxxxxxx");
+    /// ```
     pub fn get_narrowcast_progress(&self, request_id: &str) -> Result<Response, Error> {
         self.http_client.get(
             "/message/progress/narrowcast",
@@ -144,6 +193,11 @@ impl LineBot {
         )
     }
 
+    /// # Note
+    /// Send broadcast message [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#send-broadcast-message)
+    /// ```
+    /// let res: Result<Response, Error> = bot.broadcast(vec![...]);
+    /// ```
     pub fn broadcast(&self, msgs: Vec<SendMessageType>) -> Result<Response, Error> {
         let data: Value = json!(
             {
@@ -153,20 +207,40 @@ impl LineBot {
         self.http_client.post("/message/broadcast", data)
     }
 
+    /// # Note
+    /// Get content [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#get-content)
+    /// ```
+    /// let res: Result<Response, Error> = bot.get_content("xxxxxxx");
+    /// ```
     pub fn get_content(&self, message_id: &str) -> Result<Response, Error> {
         let endpoint = format!("/message/{messageId}/content", messageId = message_id);
         self.http_client.get(&endpoint, vec![], json!({}))
     }
 
+    /// # Note
+    /// Get the target limit for additional messages [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#get-quota)
+    /// ```
+    /// let res: Result<Response, Error> = bot.get_number_of_limit_additional();
+    /// ```
     pub fn get_number_of_limit_additional(&self) -> Result<Response, Error> {
         self.http_client.get("/message/quota", vec![], json!({}))
     }
 
+    /// # Note
+    /// Get number of messages sent this month [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#get-consumption)
+    /// ```
+    /// let res: Result<Response, Error> = bot.get_number_of_sent_this_month();
+    /// ```
     pub fn get_number_of_sent_this_month(&self) -> Result<Response, Error> {
         self.http_client
             .get("/message/quota/consumption", vec![], json!({}))
     }
 
+    /// # Note
+    /// Get number of sent reply messages [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#get-number-of-reply-messages)
+    /// ```
+    /// let res: Result<Response, Error> = bot.get_number_of_sent_reply_messages(NaiveDate::from_ymd(2021, 2, 26));
+    /// ```
     pub fn get_number_of_sent_reply_messages(&self, date: NaiveDate) -> Result<Response, Error> {
         self.http_client.get(
             "/message/delivery/reply",
@@ -175,6 +249,11 @@ impl LineBot {
         )
     }
 
+    /// # Note
+    /// Get number of sent push messages [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#get-number-of-push-messages)
+    /// ```
+    /// let res: Result<Response, Error> = bot.get_number_of_sent_push_messages(NaiveDate::from_ymd(2021, 2, 26));
+    /// ```
     pub fn get_number_of_sent_push_messages(&self, date: NaiveDate) -> Result<Response, Error> {
         self.http_client.get(
             "/message/delivery/push",
@@ -183,6 +262,11 @@ impl LineBot {
         )
     }
 
+    /// # Note
+    /// Get number of sent multicast messages [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#get-number-of-multicast-messages)
+    /// ```
+    /// let res: Result<Response, Error> = bot.get_number_of_sent_multicast_messages(NaiveDate::from_ymd(2021, 2, 26));
+    /// ```
     pub fn get_number_of_sent_multicast_messages(
         &self,
         date: NaiveDate,
@@ -194,6 +278,11 @@ impl LineBot {
         )
     }
 
+    /// # Note
+    /// Get number of sent broadcast messages [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#get-number-of-broadcast-messages)
+    /// ```
+    /// let res: Result<Response, Error> = bot.get_number_of_sent_broadcast_messages(NaiveDate::from_ymd(2021, 2, 26));
+    /// ```
     pub fn get_number_of_sent_broadcast_messages(
         &self,
         date: NaiveDate,
