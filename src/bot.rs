@@ -304,8 +304,8 @@ impl LineBot {
         )
     }
 
-    /// # Managing Audience
-    /// TODO: Unimplemented: More Request Body <br>
+    /// # Note
+    /// **TODO: Unimplemented: More Request Body <br>**
     /// You can create, update, activate, or delete an audience. Specify the audience when sending narrowcast messages [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#manage-audience-group)
     /// ```
     /// let res: Result<Response, Error> = bot.create_audience_group_for_uploading_user_ids("audienceGroupName");
@@ -322,9 +322,12 @@ impl LineBot {
         self.http_client.post("/audienceGroup/upload", data)
     }
 
-    /// # Create audience for uploading user IDs (by file)
-    /// TODO: Unimplemented: File send <br>
+    /// # Note
+    /// **TODO: Unimplemented: File send <br>**
     /// Creates an audience for uploading user IDs [\[detail\]](https://developers.line.biz/ja/reference/messaging-api/#create-upload-audience-group-by-file-request-body)
+    /// ```
+    /// let res: Result<Response, Error> = bot.create_audience_group_for_uploading_user_ids_by_file();
+    /// ```
     pub fn create_audience_group_for_uploading_user_ids_by_file(
         &self,
         _description: &str,
@@ -333,8 +336,8 @@ impl LineBot {
             .post("/audienceGroup/upload/byFile", json!({}))
     }
 
-    /// # Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by JSON)
-    /// TODO: Create Audience Object <br>
+    /// # Note
+    /// **TODO: Create Audience Object <br>**
     /// Adds new user IDs or IFAs to an audience for uploading user IDs [\[detail\]](https://developers.line.biz/ja/reference/messaging-api/#update-upload-audience-group)
     pub fn update_audience_group_for_uploading_user_ids(
         &self,
@@ -352,8 +355,8 @@ impl LineBot {
         self.http_client.post("/audienceGroup/upload", data)
     }
 
-    /// # Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by file）
-    /// TODO: Unimplemented: File send <br>
+    /// # Note
+    /// **TODO: Unimplemented: File send <br>**
     /// Adds new user IDs or IFAs to an audience for uploading user IDs [\[detail\]](https://developers.line.biz/ja/reference/messaging-api/#update-upload-audience-group-by-file-request-body)
     pub fn update_audience_group_for_uploading_user_ids_by_file(
         &self,
@@ -442,7 +445,7 @@ impl LineBot {
         self.http_client.get(&endpoint, vec![], json!({}))
     }
 
-    // TODO: https://developers.line.biz/ja/reference/messaging-api/#get-audience-groups
+    // **TODO: https://developers.line.biz/ja/reference/messaging-api/#get-audience-groups**
     pub fn get_many_audience_information(
         &self,
         page: &str,
@@ -606,7 +609,7 @@ impl LineBot {
         self.http_client.post(&endpoint, json!({}))
     }
 
-    // TODO: rich-menu
+    // **TODO: rich-menu**
     // https://developers.line.biz/ja/reference/messaging-api/#rich-menu
 
     pub fn issue_link_token(&self, user_id: &str) -> Result<Response, Error> {
