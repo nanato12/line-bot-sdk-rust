@@ -1,8 +1,8 @@
 use serde_derive::Serialize;
 
+/// # Details
 /// Please read.
-/// https://developers.line.biz/ja/reference/messaging-api/#narrowcast-recipient
-
+/// <https://developers.line.biz/ja/reference/messaging-api/#narrowcast-recipient>
 #[derive(Serialize, Debug)]
 pub struct Recipient {
     #[serde(flatten)]

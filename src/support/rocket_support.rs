@@ -1,3 +1,23 @@
+//! Support for `rocket` framework
+//! # Example
+//! ```
+//! #![feature(proc_macro_hygiene, decl_macro)]
+//!
+//! #[macro_use]
+//! extern crate rocket;
+//!
+//! extern crate line_bot_sdk_rust as line;
+//! use line::support::rocket_support::{Body, Signature};
+//!
+//! #[post("/callback", data = "<body>")]
+//! fn callback(signature: Signature, body: Body) {
+//!     // more
+//! }
+//!
+//! fn main() {
+//!     rocket::ignite().mount("/", routes![callback]).launch();
+//! }
+//! ```
 use rocket::data::{self, FromDataSimple};
 use rocket::http::{ContentType, Status};
 use rocket::request::{self, FromRequest};
@@ -5,6 +25,7 @@ use rocket::Outcome::{Failure, Forward, Success};
 use rocket::{Data, Request};
 use std::io::Read;
 
+/// Signature in HTTP Request headers
 #[derive(Debug)]
 pub struct Signature {
     pub key: String,
@@ -24,6 +45,7 @@ impl<'a, 'r> FromRequest<'a, 'r> for Signature {
     }
 }
 
+/// HTTP Request body
 #[derive(Debug)]
 pub struct Body {
     pub string: String,

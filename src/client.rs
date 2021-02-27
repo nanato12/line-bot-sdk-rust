@@ -1,3 +1,5 @@
+//! HTTP Client
+
 use reqwest::blocking::{Client, Response};
 use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION, CONTENT_TYPE};
 use reqwest::Error;
@@ -14,6 +16,11 @@ pub struct HttpClient {
 }
 
 impl HttpClient {
+    /// # Note
+    /// Instantiate a HttpClient.
+    /// ```
+    /// let http_client = HttpClient::new("<channel secret>");
+    /// ```
     pub fn new(channel_token: &str) -> HttpClient {
         let mut headers = HeaderMap::new();
         headers.insert(
@@ -28,6 +35,11 @@ impl HttpClient {
         }
     }
 
+    /// # Note
+    /// `GET` request
+    /// ```
+    /// let res: Result<Response, Error> = http_client.get("https://example.com");
+    /// ```
     pub fn get(
         &self,
         endpoint: &str,
@@ -43,6 +55,11 @@ impl HttpClient {
             .send()
     }
 
+    /// # Note
+    /// `POST` request
+    /// ```
+    /// let res: Result<Response, Error> = http_client.post("https://example.com");
+    /// ```
     pub fn post(&self, endpoint: &str, data: Value) -> Result<Response, Error> {
         let uri = Url::parse(&format!("{}{}", self.endpoint_base, endpoint)).unwrap();
         self.client
@@ -52,6 +69,11 @@ impl HttpClient {
             .send()
     }
 
+    /// # Note
+    /// `PUT` request
+    /// ```
+    /// let res: Result<Response, Error> = http_client.put("https://example.com");
+    /// ```
     pub fn put(&self, endpoint: &str, data: Value) -> Result<Response, Error> {
         let uri = Url::parse(&format!("{}{}", self.endpoint_base, endpoint)).unwrap();
         self.client
@@ -61,6 +83,11 @@ impl HttpClient {
             .send()
     }
 
+    /// # Note
+    /// `DELETE` request
+    /// ```
+    /// let res: Result<Response, Error> = http_client.delete("https://example.com");
+    /// ```
     pub fn delete(&self, endpoint: &str, data: Value) -> Result<Response, Error> {
         let uri = Url::parse(&format!("{}{}", self.endpoint_base, endpoint)).unwrap();
         self.client
