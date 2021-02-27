@@ -23,10 +23,11 @@ impl HttpClient {
     /// ```
     pub fn new(channel_token: &str) -> HttpClient {
         let mut headers = HeaderMap::new();
-        headers.insert(
-            AUTHORIZATION,
-            format!("Bearer {}", channel_token).parse().unwrap(),
-        );
+        if let Ok(v) = format!("Bearer {}", channel_token).parse::<String>() {
+            if let Ok(header_value) = HeaderValue::from_str(&v) {
+                headers.insert(AUTHORIZATION, header_value);
+            }
+        }
         headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
         HttpClient {
             client: Client::new(),

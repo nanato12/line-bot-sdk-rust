@@ -22,7 +22,7 @@ use chrono::NaiveDate;
 use reqwest::blocking::Response;
 use reqwest::Error;
 use serde_derive::Serialize;
-use serde_json::{json, Value};
+use serde_json::{json, Error as JsonError, Value};
 
 /// LineBot Client
 #[derive(Debug)]
@@ -626,13 +626,7 @@ impl LineBot {
     /// ```
     pub fn get_profile(&self, user_id: &str) -> Result<Profile, &str> {
         let endpoint = format!("/profile/{userId}", userId = user_id);
-        match self.http_client.get(&endpoint, vec![], json!({})) {
-            Ok(res) => {
-                let profile: Profile = serde_json::from_str(&res.text().unwrap()).unwrap();
-                Ok(profile)
-            }
-            Err(_) => Err("Failed get_profile"),
-        }
+        self.parse_profile_response(self.http_client.get(&endpoint, vec![], json!({})))
     }
 
     /// # Note
@@ -689,13 +683,7 @@ impl LineBot {
             groupId = group_id,
             userId = user_id
         );
-        match self.http_client.get(&endpoint, vec![], json!({})) {
-            Ok(res) => {
-                let profile: Profile = serde_json::from_str(&res.text().unwrap()).unwrap();
-                Ok(profile)
-            }
-            Err(_) => Err("Failed get_profile_from_group"),
-        }
+        self.parse_profile_response(self.http_client.get(&endpoint, vec![], json!({})))
     }
 
     /// # Note
@@ -742,13 +730,7 @@ impl LineBot {
             roomId = room_id,
             userId = user_id
         );
-        match self.http_client.get(&endpoint, vec![], json!({})) {
-            Ok(res) => {
-                let profile: Profile = serde_json::from_str(&res.text().unwrap()).unwrap();
-                Ok(profile)
-            }
-            Err(_) => Err("Failed get_profile_from_room"),
-        }
+        self.parse_profile_response(self.http_client.get(&endpoint, vec![], json!({})))
     }
 
     /// # Note
@@ -772,5 +754,26 @@ impl LineBot {
     pub fn issue_link_token(&self, user_id: &str) -> Result<Response, Error> {
         let endpoint = format!("/user/{userId}/linkToken", userId = user_id);
         self.http_client.post(&endpoint, json!({}))
+    }
+
+    fn parse_profile_response(
+        &self,
+        result: Result<Response, Error>,
+    ) -> Result<Profile, &'static str> {
+        // GET request
+        if let Ok(res) = result {
+            // Get response text
+            match res.text() {
+                Ok(text) => {
+                    let result: Result<Profile, JsonError> = serde_json::from_str(&text);
+                    match result {
+                        Ok(profile) => return Ok(profile),
+                        Err(_) => return Err("Failed response parsing."),
+                    }
+                }
+                Err(_) => return Err("Failed getting response."),
+            }
+        }
+        Err("Failed GET request.")
     }
 }
