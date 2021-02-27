@@ -3,11 +3,20 @@ name = "line-bot-sdk-rust"
 version = "0.1.0"
 authors = ["nanato12 <admin@nanato12.info>"]
 edition = "2018"
+description = "LINE Messaging API SDK for Rust"
+readme = "README.md"
+repository = "https://github.com/nanato12/line-bot-sdk-rust/"
+license = "Apache-2.0"
+license-file = "LICENSE"
+keywords = ["line", "linebot", "line-bot-sdk", "line-messaging-api"]
+categories = ["api-bindings"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+default = []
+rocket_support = ["rocket"]
 
 [dependencies]
-rocket = "0.4"
+rocket = { version = "0.4", optional = true }
 reqwest = { version = "0.11.0", features = ["blocking", "json"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
