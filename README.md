@@ -17,6 +17,11 @@ If you use `rocket support`.
 [dependencies]
 line-bot-sdk-rust = { version = "0.1", features = ["rocket_support"] }
 ```
+If you use `actix_web support`.
+```
+[dependencies]
+line-bot-sdk-rust = { version = "0.1", features = ["actix_support"] }
+```
 ## Configuration
 ```
 extern crate line_bot_sdk_rust as line;
@@ -28,39 +33,57 @@ fn main() {
 ```
 ## How to use
 The LINE Messaging API uses the JSON data format.
- parse_event_request() will help you to parse the HttpRequest content and return a Result<[Events](`events::Events`) , &'static str> Object.
- ```
+parse_event_request() will help you to parse the HttpRequest content and return a Result<[Events](`events::Events`) , &'static str> Object.
+```
  let result: Result<Events, &'static str> =
      bot.parse_event_request(signature, body);
- ```
+```
 
- ```
- match result {
-     Ok(events) => {
-         for event in events.events {
-             ...
-         }
-     }
-     Err(msg) => {}
- }
- ```
+```
+match result {
+    Ok(events) => {
+        for event in events.events {
+            ...
+        }
+    }
+    Err(msg) => {}
+}
+```
+
+## EchoBot examples
+
+**with Rocket framework**
+
+```bash
+cargo run --example echobot_rocket --features=rocket_support
+```
+
+source: [rocket example](./examples/echobot_rocket.rs)
+
+**with Actix_web framework**
+
+```bash
+cargo run --example echobot_actix_web --features=actix_support
+```
+
+source: [actix_web example](./examples/echobot_actix_web.rs)
 
 ## Contributing
 Please make a contribution 😆
 
 ## License
 ```
- Copyright 2021 nanato12
+Copyright 2021 nanato12
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- ```
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
