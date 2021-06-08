@@ -7,12 +7,14 @@ use reqwest::Url;
 use serde_json::Value;
 
 static BASE_URL: &str = "https://api.line.me/v2/bot";
+static BASEDATA_URL: &str = "https://api-data.line.me/v2/bot";
 
 #[derive(Debug)]
 pub struct HttpClient {
     client: Client,
     headers: HeaderMap,
     endpoint_base: String,
+    endpoint_base_data: String,
 }
 
 impl HttpClient {
@@ -33,6 +35,7 @@ impl HttpClient {
             client: Client::new(),
             headers: headers,
             endpoint_base: String::from(BASE_URL),
+            endpoint_base_data: String::from(BASEDATA_URL),
         }
     }
 
@@ -48,6 +51,26 @@ impl HttpClient {
         data: Value,
     ) -> Result<Response, Error> {
         let uri = Url::parse(&format!("{}{}", self.endpoint_base, endpoint)).unwrap();
+        self.client
+            .get(uri)
+            .query(&query)
+            .headers(self.headers.clone())
+            .json(&data)
+            .send()
+    }
+
+    /// # Note
+    /// `GET` request
+    /// ```
+    /// let res: Result<Response, Error> = http_client.get_data("https://example.com");
+    /// ```
+    pub fn get_data(
+        &self,
+        endpoint: &str,
+        query: Vec<(&str, &str)>,
+        data: Value,
+    ) -> Result<Response, Error> {
+        let uri = Url::parse(&format!("{}{}", self.endpoint_base_data, endpoint)).unwrap();
         self.client
             .get(uri)
             .query(&query)

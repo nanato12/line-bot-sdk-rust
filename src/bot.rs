@@ -224,7 +224,7 @@ impl LineBot {
     /// ```
     pub fn get_content(&self, message_id: &str) -> Result<Response, Error> {
         let endpoint = format!("/message/{messageId}/content", messageId = message_id);
-        self.http_client.get(&endpoint, vec![], json!({}))
+        self.http_client.get_data(&endpoint, vec![], json!({}))
     }
 
     /// # Note
