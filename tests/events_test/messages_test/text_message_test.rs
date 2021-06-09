@@ -3,7 +3,7 @@ mod text_message_test {
     extern crate line_bot_sdk_rust as line;
 
     use line::events::messages::MessageType;
-    use line::events::source::SouceType;
+    use line::events::source::SourceType;
     use line::events::{EventType, Events};
 
     #[test]
@@ -66,10 +66,10 @@ mod text_message_test {
 
                 // check source type
                 match &message_event.source.r#type {
-                    SouceType::User(source) => {
+                    SourceType::User(source) => {
                         assert_eq!("U4af4980629...", source.user_id);
                     }
-                    _ => panic!("Expected SouceType::User"),
+                    _ => panic!("Expected SourceType::User"),
                 }
 
                 // check text_message_event field value

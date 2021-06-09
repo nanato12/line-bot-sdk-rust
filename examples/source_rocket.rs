@@ -12,7 +12,7 @@ use std::env;
 use rocket::http::Status;
 
 use line::bot::LineBot;
-use line::events::source::SouceType;
+use line::events::source::SourceType;
 use line::events::{EventType, Events};
 use line::messages::{SendMessageType, TextMessage};
 use line::support::rocket_support::{Body, Signature};
@@ -40,7 +40,7 @@ fn callback(signature: Signature, body: Body) -> Status {
                 // Reply message with reply_token
                 match message_event.source.r#type {
                     // By Group
-                    SouceType::Group(source) => {
+                    SourceType::Group(source) => {
                         // Create TextMessage
                         let message = SendMessageType::TextMessage(TextMessage {
                             text: format!("Group Id: {}", source.group_id),
@@ -49,7 +49,7 @@ fn callback(signature: Signature, body: Body) -> Status {
                         let _res = bot.reply_message(&message_event.reply_token, vec![message]);
                     }
                     // By Room
-                    SouceType::Room(source) => {
+                    SourceType::Room(source) => {
                         // Create TextMessage
                         let message = SendMessageType::TextMessage(TextMessage {
                             text: format!("Room Id: {}", source.room_id),
@@ -58,7 +58,7 @@ fn callback(signature: Signature, body: Body) -> Status {
                         let _res = bot.reply_message(&message_event.reply_token, vec![message]);
                     }
                     // By User
-                    SouceType::User(source) => {
+                    SourceType::User(source) => {
                         // Create TextMessage
                         let message = SendMessageType::TextMessage(TextMessage {
                             text: format!("User Id: {}", source.user_id),

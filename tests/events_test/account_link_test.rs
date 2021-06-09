@@ -2,7 +2,7 @@
 mod account_link_test {
     extern crate line_bot_sdk_rust as line;
 
-    use line::events::source::SouceType;
+    use line::events::source::SourceType;
     use line::events::{EventType, Events};
 
     #[test]
@@ -50,10 +50,10 @@ mod account_link_test {
 
                 // check source type
                 match &account_link_event.source.r#type {
-                    SouceType::User(source) => {
+                    SourceType::User(source) => {
                         assert_eq!("U91eeaf62d...", source.user_id);
                     }
-                    _ => panic!("Expected SouceType::User"),
+                    _ => panic!("Expected SourceType::User"),
                 }
 
                 // check link field

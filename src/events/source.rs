@@ -3,12 +3,12 @@ use serde_derive::Deserialize;
 #[derive(Deserialize, Debug)]
 pub struct Source {
     #[serde(flatten)]
-    pub r#type: SouceType,
+    pub r#type: SourceType,
 }
 
 #[derive(Deserialize, Debug)]
 #[serde(tag = "type")]
-pub enum SouceType {
+pub enum SourceType {
     #[serde(rename = "user")]
     User(User),
     #[serde(rename = "group")]
