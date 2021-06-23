@@ -153,3 +153,24 @@ fn test_location_action_valid() {
     };
     assert_eq!(json!(location_action), expected_json);
 }
+
+#[test]
+fn test_richmenu_switch_action_valid() {
+    let expected_str: &str = r#"
+        {
+            "type": "richmenuswitch",
+            "richMenuAliasId": "richmenu-alias-b",
+            "data":"richmenu-changed-to-b"
+        }
+    "#;
+    let expected_json: Value = serde_json::from_str(expected_str).unwrap();
+
+    let location_action = Action {
+        r#type: ActionType::RichMenuSwitch {
+            rich_menu_alias_id: String::from("richmenu-alias-b"),
+            data: String::from("richmenu-changed-to-b"),
+        },
+        label: None,
+    };
+    assert_eq!(json!(location_action), expected_json);
+}
