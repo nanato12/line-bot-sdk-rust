@@ -3,6 +3,7 @@
 use base64::encode;
 use hmac::{Hmac, Mac};
 use sha2::Sha256;
+use std::io::Write;
 
 /// Signature validator
 /// # Note
@@ -18,8 +19,8 @@ use sha2::Sha256;
 pub fn validate_signature(channel_secret: &str, signature: &str, body: &str) -> bool {
     type HmacSha256 = Hmac<Sha256>;
 
-    let mut mac =
-        HmacSha256::new_varkey(channel_secret.as_bytes()).expect("HMAC can take key of any size");
-    mac.input(body.as_bytes());
-    encode(&mac.result().code().to_vec()) == signature
+    let mut mac = HmacSha256::new_from_slice(channel_secret.as_bytes())
+        .expect("HMAC can take key of any size");
+    mac.write_all(body.as_bytes()).unwrap();
+    encode(&mac.finalize().into_bytes()) == signature
 }
