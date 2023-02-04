@@ -20,13 +20,13 @@ actix_support = ["actix-web"]
 actix-web = { version = "4.3.0", optional = true, default-features = false }
 base64 = "0.21.0"
 bytes = "1.4.0"
-chrono = "0.4"
+chrono = "0.4.23"
 hmac = "0.12.1"
-reqwest = { version = "0.11.0", features = ["blocking", "json"] }
-rocket = { version = "0.4", optional = true }
-serde = { version = "1.0", features = ["derive"] }
-serde_derive = "1.0.97"
-serde_json = "1.0"
+reqwest = { version = "0.11.14", features = ["blocking", "json"] }
+rocket = { version = "0.4.11", optional = true }
+serde = { version = "1.0.152", features = ["derive"] }
+serde_derive = "1.0.152"
+serde_json = "1.0.91"
 sha2 = "0.10.6"
 
 [dev-dependencies]
