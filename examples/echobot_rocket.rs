@@ -20,7 +20,7 @@ use line::support::rocket_support::{Body, Signature};
 fn callback(signature: Signature, body: Body) -> Status {
     // Get channel secret and access token by environment variable
     let channel_secret: &str =
-        &env::var("LINE_CHANNEL_RECRET").expect("Failed getting LINE_CHANNEL_RECRET");
+        &env::var("LINE_CHANNEL_SECRET").expect("Failed getting LINE_CHANNEL_SECRET");
     let access_token: &str =
         &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed getting LINE_CHANNEL_ACCESS_TOKEN");
 
