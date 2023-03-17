@@ -53,7 +53,7 @@ async fn callback(
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
     HttpServer::new(|| App::new().service(callback))
-        .bind("127.0.0.1:3000")?
+        .bind("127.0.0.1:8000")?
         .run()
         .await
 }
