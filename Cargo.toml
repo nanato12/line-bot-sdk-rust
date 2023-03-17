@@ -33,3 +33,19 @@ dotenv = "0.15.0"
 actix-web = "4.3.1"
 actix-rt = "2.8.0"
 rocket = "0.4"
+
+[[example]]
+name = "echobot_actix_web"
+required-features = ["actix_support"]
+
+[[example]]
+name = "echobot_rocket"
+required-features = ["rocket_support"]
+
+[[example]]
+name = "source_rocket"
+required-features = ["rocket_support"]
+
+[[example]]
+name = "various_messages_rocket"
+required-features = ["rocket_support"]
