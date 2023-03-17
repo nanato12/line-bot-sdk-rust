@@ -10,10 +10,10 @@ use sha2::Sha256;
 pub fn create_signature(channel_secret: &str, body: &str) -> String {
     type HmacSha256 = Hmac<Sha256>;
 
-    let mut mac =
-        HmacSha256::new_varkey(channel_secret.as_bytes()).expect("HMAC can take key of any size");
-    mac.input(body.as_bytes());
-    return encode(&mac.result().code().to_vec());
+    let mut mac = HmacSha256::new_from_slice(channel_secret.as_bytes())
+        .expect("HMAC can take key of any size");
+    mac.update(body.as_bytes());
+    return encode(&mac.finalize().into_bytes().to_vec());
 }
 
 fn main() {
