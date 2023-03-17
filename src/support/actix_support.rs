@@ -10,7 +10,6 @@ pub struct Signature {
 impl FromRequest for Signature {
     type Error = Error;
     type Future = Pin<Box<dyn Future<Output = Result<Self, Self::Error>>>>;
-    type Config = ();
 
     fn from_request(req: &HttpRequest, _payload: &mut Payload) -> Self::Future {
         let res = if let Some(x_line_signature) = req.headers().get("x-line-signature") {
