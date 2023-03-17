@@ -6,7 +6,6 @@ edition = "2018"
 description = "LINE Messaging API SDK for Rust"
 readme = "README.md"
 repository = "https://github.com/nanato12/line-bot-sdk-rust/"
-license = "Apache-2.0"
 license-file = "LICENSE"
 keywords = ["line", "linebot", "line-bot-sdk", "line-messaging-api"]
 categories = ["api-bindings"]
@@ -17,9 +16,8 @@ rocket_support = ["rocket"]
 actix_support = ["actix-web"]
 
 [dependencies]
-actix-web = { version = "3", optional = true, default-features = false }
+actix-web = { version = "4.3.1", optional = true, default-features = false }
 base64 = "0.21.0"
-bytes = "0.4"
 chrono = "0.4"
 hmac = "0.12.1"
 reqwest = { version = "0.11.14", features = ["blocking", "json"] }
@@ -30,6 +28,8 @@ serde_json = "1.0"
 sha2 = "0.10.6"
 
 [dev-dependencies]
+bytes = "1.4.0"
 dotenv = "0.15.0"
-actix-web = "3.3"
-actix-rt = "1.1"
+actix-web = "4.3.1"
+actix-rt = "2.8.0"
+rocket = "0.4"
