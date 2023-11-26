@@ -11,3 +11,5 @@ Cargo.lock
 
 # enviroment value
 .env
+
+.openapi-generator
