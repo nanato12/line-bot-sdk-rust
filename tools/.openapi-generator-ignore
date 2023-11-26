@@ -1,0 +1,7 @@
+.openapi-generator
+docs/**.md
+.gitignore
+.travis.yml
+Cargo.toml
+git_push.sh
+README.md
