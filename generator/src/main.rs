@@ -40,6 +40,31 @@ fn replace_in_file(file_path: &Path, replacements: HashMap<&str, &str>) {
     file.write_all(contents.as_bytes()).unwrap();
 }
 
+fn fix_openapi_messaging_api(file_path: &Path) {
+    let mut replacements: HashMap<&str, &str> = [
+        // ("pub fn new(r#type: String, ", "pub fn new("),
+        // ("r#type,\n", "")
+        ]
+    .iter()
+    .cloned()
+    .collect();
+
+    let p = file_path.to_str().unwrap();
+
+    // delete type from event, source, message_content
+    if p.contains("_message.rs") {
+        replacements.insert("#[serde(rename = \"type\")]", "");
+        replacements.insert("pub r#type: String,", "");
+        replacements.insert("r#type,", "");
+        replacements.insert("pub fn new(r#type: String, ", "pub fn new(");
+        if p.contains("_message.rs") {
+            replacements.insert("/// Type of message", "");
+        }
+    }
+
+    replace_in_file(file_path, replacements);
+}
+
 fn fix_openapi_webhook(file_path: &Path) {
     let mut replacements: HashMap<&str, &str> = [
         // ("pub fn new(r#type: String, ", "pub fn new("),
@@ -107,8 +132,12 @@ fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
                     if extension == "rs" {
                         println!("{}", path.as_path().to_str().unwrap());
                         fix_openapi(path.as_path(), pkg_name);
+
                         if path.to_str().unwrap().contains("src/webhook/") {
                             fix_openapi_webhook(path.as_path());
+                        }
+                        if path.to_str().unwrap().contains("src/messaging_api/") {
+                            fix_openapi_messaging_api(path.as_path());
                         }
 
                         let mut file = File::open(path.as_path()).unwrap();
