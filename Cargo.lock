@@ -1224,6 +1224,7 @@ dependencies = [
 name = "line-bot-sdk-rust-openapi"
 version = "1.0.0"
 dependencies = [
+ "actix-web",
  "base64 0.21.5",
  "hmac 0.12.1",
  "reqwest",
@@ -1802,7 +1803,11 @@ checksum = "ef703b7cb59335eae2eb93ceb664c0eb7ea6bf567079d843e09420219668e072"
 name = "sample"
 version = "0.1.0"
 dependencies = [
+ "actix-rt",
+ "actix-web",
+ "dotenv",
  "line-bot-sdk-rust-openapi",
+ "serde_json",
  "tokio",
 ]
 
@@ -1872,9 +1877,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.94"
+version = "1.0.108"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1c533a59c9d8a93a09c6ab31f0fd5e5f4dd1b8fc9434804029839884765d04ea"
+checksum = "3d1c7e3eac408d115102c4c24ad393e0821bb3a5df4d506a80f85f7a742a526b"
 dependencies = [
  "itoa",
  "ryu",
