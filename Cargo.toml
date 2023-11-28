@@ -49,3 +49,6 @@ required-features = ["rocket_support"]
 [[example]]
 name = "various_messages_rocket"
 required-features = ["rocket_support"]
+
+[workspace]
+members = ["generator", "openapi"]
