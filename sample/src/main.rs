@@ -6,67 +6,35 @@ use actix_web::{
 };
 use dotenv::dotenv;
 use line::{
+    messaging_api::{
+        apis::{
+            configuration::Configuration,
+            messaging_api_api::{reply_message, ReplyMessageParams},
+        },
+        models::{Message, ReplyMessageRequest, TextMessage},
+    },
     parser::signature::validate_signature,
     support::actix::Signature,
-    webhook::models::{
-        CallbackRequest, DeliveryContext, Event, EventMode, GroupSource, MessageContent,
-        MessageEvent, Source, TextMessageContent,
-    },
+    webhook::models::{CallbackRequest, Event, MessageContent},
 };
 use std::env;
 
 #[post("/callback")]
-async fn callback(
-    signature: Signature,
-    req: HttpRequest,
-    bytes: web::Bytes,
-) -> Result<HttpResponse, Error> {
+async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpResponse, Error> {
     // Get channel secret and access token by environment variable
     let channel_secret: &str =
         &env::var("LINE_CHANNEL_SECRET").expect("Failed getting LINE_CHANNEL_SECRET");
     let access_token: &str =
         &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed getting LINE_CHANNEL_ACCESS_TOKEN");
 
+    let mut conf = Configuration::default();
+    conf.bearer_access_token = Some(access_token.to_string());
+
     println!("channel_secret: {channel_secret:?}");
     println!("access_token: {access_token:?}");
     println!("signature: {signature:?}");
 
     let body: &str = &String::from_utf8(bytes.to_vec()).unwrap();
-    println!("body: {body:?}");
-
-    let r = CallbackRequest {
-        destination: "U078cd692e67a90a66af06d18865830e3".to_string(),
-        events: vec![Event::MessageEvent(MessageEvent {
-            timestamp: 1,
-            mode: EventMode::Active,
-            webhook_event_id: "01HGACPYQE97R407J4AP7BZHB8".to_string(),
-            source: Some(Box::new(
-                Source::GroupSource(
-                    GroupSource{
-                        group_id: "C4e256f4c52df27c374275bb35f4e8e38".to_string(),
-                        user_id: Some("Ue10d267e7ad66d524781ccf16ca6ddbd".to_string()),
-                })
-            )),
-            delivery_context: Box::new(DeliveryContext {
-                is_redelivery: false,
-            }),
-            reply_token: Some("3aa2f1b85ca8426c9c39f4f99f812329".to_string()),
-            message: Box::new(MessageContent::TextMessageContent(TextMessageContent {
-                id: "483728449715306614".to_string(),
-                text: "ら".to_string(),
-                emojis: None,
-                mention: None,
-                quote_token: "RBaLgQIeMAHBP-o96z6deIxus28rLKH7dvCl2xp2uFHB8-ubJNQmPwY3On5vfRs04V0yMituk5qDgcSkZMA24_em2Iu0mimIJgH0gOPkzxQ4Q-u0f06iYqUuFp5W-LkXvmvyZaE85dno-tOsKeWv-w".to_string(),
-                quoted_message_id: None,
-            })),
-        })],
-    };
-
-    let json_string = serde_json::to_string(&r)?;
-    println!("{json_string:#?}");
-
-    let deserialized_request: CallbackRequest = serde_json::from_str(&json_string)?;
-    println!("{deserialized_request:#?}");
 
     if !validate_signature(channel_secret, &signature.key, body) {
         return Err(ErrorBadRequest("x-line-signature is invalid."));
@@ -74,11 +42,32 @@ async fn callback(
 
     let request: Result<CallbackRequest, serde_json::Error> = serde_json::from_str(body);
     match request {
-        Ok(req) => println!("REQ: {req:?}"),
         Err(err) => return Err(ErrorBadRequest(err.to_string())),
+        Ok(req) => {
+            println!("req: {req:#?}");
+            for e in req.events {
+                println!("event: {e:#?}");
+                if let Event::MessageEvent(message_event) = e {
+                    if let MessageContent::TextMessageContent(text_message) = *message_event.message
+                    {
+                        let params = ReplyMessageParams {
+                            reply_message_request: ReplyMessageRequest {
+                                reply_token: message_event.reply_token.unwrap(),
+                                messages: vec![Message::Text(TextMessage::new(text_message.text))],
+                                notification_disabled: Some(false),
+                            },
+                        };
+                        let result = reply_message(&conf, params).await;
+                        match result {
+                            Ok(r) => println!("{:#?}", r),
+                            Err(e) => println!("{:#?}", e),
+                        }
+                    };
+                };
+            }
+        }
     }
 
-    println!("REQ: {req:?}");
     Ok(HttpResponse::Ok().body("ok"))
 }
 
@@ -92,7 +81,6 @@ async fn main() -> std::io::Result<()> {
     dotenv().ok();
     HttpServer::new(|| {
         App::new()
-            // enable logger
             .wrap(middleware::Logger::default())
             .service(web::resource("/index.html").to(|| async { "Hello world!" }))
             .service(web::resource("/").to(index))
