@@ -25,15 +25,24 @@ use crate::messaging_api::models::text_message::TextMessage;
 use crate::messaging_api::models::video_message::VideoMessage;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "")]
+#[serde(tag = "type")]
 pub enum Message {
+    #[serde(rename = "text")]
     Text(TextMessage),
+    #[serde(rename = "sticker")]
     Sticker(StickerMessage),
+    #[serde(rename = "image")]
     Image(ImageMessage),
+    #[serde(rename = "video")]
     Video(VideoMessage),
+    #[serde(rename = "audio")]
     Audio(AudioMessage),
+    #[serde(rename = "location")]
     Location(LocationMessage),
+    #[serde(rename = "imagemap")]
     Imagemap(ImagemapMessage),
+    #[serde(rename = "template")]
     Template(TemplateMessage),
+    #[serde(rename = "flex")]
     Flex(FlexMessage),
 }
