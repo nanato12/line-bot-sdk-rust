@@ -75,7 +75,7 @@ pub async fn add_user_ids_to_audience(configuration: &configuration::Configurati
     let local_var_configuration = configuration;
 
     // unbox the parameters
-    let file = params.file;
+    let _file = params.file;
     let audience_group_id = params.audience_group_id;
     let upload_description = params.upload_description;
 
@@ -121,7 +121,7 @@ pub async fn create_audience_for_uploading_user_ids(configuration: &configuratio
     let local_var_configuration = configuration;
 
     // unbox the parameters
-    let file = params.file;
+    let _file = params.file;
     let description = params.description;
     let is_ifa_audience = params.is_ifa_audience;
     let upload_description = params.upload_description;
