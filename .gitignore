@@ -1,5 +1,10 @@
-!.vscode
+# env
+.env
+
+# cargo
 /target
+
+# openapi generator
 /openapi/src/.openapi-generator
 /openapi/src/.openapi-generator-ignore
 /tools/openapi-generator-cli-*.jar
