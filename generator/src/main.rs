@@ -179,4 +179,15 @@ fn main() {
         "./tools/sources/message.rs",
         "src/messaging_api/models/message.rs",
     );
+
+    let _ = Command::new("cargo")
+        .arg("fix")
+        .arg("--allow-dirty")
+        .current_dir("openapi")
+        .status();
+
+    let _ = Command::new("cargo")
+        .arg("fmt")
+        .current_dir("openapi")
+        .status();
 }
