@@ -27,9 +27,51 @@ const OPENAPI_GENERATOR_CLI_VERSION: &str = "7.1.0";
 const SPEC_DIR: &str = "line-openapi";
 const OUTPUT_DIR: &str = "openapi/src";
 
-fn replace_in_file(file_path: &Path, pkg_name: &str) {
-    let rep_model = &format!("crate::{}::models", pkg_name);
-    let rep_api = &format!("crate::{}::apis", pkg_name);
+fn replace_in_file(file_path: &Path, replacements: HashMap<&str, &str>) {
+    let mut file = File::open(file_path).unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).unwrap();
+
+    for (key, value) in replacements.iter() {
+        contents = contents.replace(key, value);
+    }
+
+    let mut file = File::create(file_path).unwrap();
+    file.write_all(contents.as_bytes()).unwrap();
+}
+
+fn fix_openapi_webhook(file_path: &Path) {
+    let mut replacements: HashMap<&str, &str> = [
+        // ("pub fn new(r#type: String, ", "pub fn new("),
+        // ("r#type,\n", "")
+        ]
+    .iter()
+    .cloned()
+    .collect();
+
+    let p = file_path.to_str().unwrap();
+
+    // delete type from event, source, message_content
+    if p.contains("_event.rs") || p.contains("_source.rs") || p.contains("_message_content.rs") {
+        replacements.insert("#[serde(rename = \"type\")]", "");
+        replacements.insert("pub r#type: String,", "");
+        replacements.insert("r#type,", "");
+        replacements.insert("pub fn new(r#type: String, ", "pub fn new(");
+        if p.contains("_event.rs") {
+            replacements.insert("/// Type of the event", "");
+        } else if p.contains("_source.rs") {
+            replacements.insert("/// source type", "");
+        } else {
+            replacements.insert("/// Type", "");
+        }
+    }
+
+    replace_in_file(file_path, replacements);
+}
+
+fn fix_openapi(file_path: &Path, pkg_name: &str) {
+    let rep_model = &format!("crate::{pkg_name}::models");
+    let rep_api = &format!("crate::{pkg_name}::apis");
 
     let replacements: HashMap<&str, &str> = [
         (
@@ -51,17 +93,7 @@ fn replace_in_file(file_path: &Path, pkg_name: &str) {
     .cloned()
     .collect();
 
-    let mut file = File::open(file_path).unwrap();
-    let mut contents = String::new();
-    file.read_to_string(&mut contents).unwrap();
-
-    for (key, value) in replacements.iter() {
-        contents = contents.replace(key, value);
-    }
-    contents = format!("{}\n{}", LICENSE, contents);
-
-    let mut file = File::create(file_path).unwrap();
-    file.write_all(contents.as_bytes()).unwrap();
+    replace_in_file(file_path, replacements);
 }
 
 fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
@@ -74,7 +106,19 @@ fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
                 } else if let Some(extension) = path.extension() {
                     if extension == "rs" {
                         println!("{}", path.as_path().to_str().unwrap());
-                        replace_in_file(path.as_path(), pkg_name);
+                        fix_openapi(path.as_path(), pkg_name);
+                        if path.to_str().unwrap().contains("src/webhook/") {
+                            fix_openapi_webhook(path.as_path());
+                        }
+
+                        let mut file = File::open(path.as_path()).unwrap();
+                        let mut contents = String::new();
+                        file.read_to_string(&mut contents).unwrap();
+
+                        contents = format!("{LICENSE}\n{contents}");
+
+                        let mut file = File::create(path.as_path()).unwrap();
+                        file.write_all(contents.as_bytes()).unwrap();
                     }
                 }
             }
@@ -83,16 +127,12 @@ fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
 }
 
 fn main() {
-    let jar_path: &str = &format!(
-        "./tools/openapi-generator-cli-{}.jar",
-        OPENAPI_GENERATOR_CLI_VERSION
-    );
+    let jar_path: &str =
+        &format!("./tools/openapi-generator-cli-{OPENAPI_GENERATOR_CLI_VERSION}.jar");
 
     if !std::path::Path::new(jar_path).exists() {
         let url = format!(
-            "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/{}/openapi-generator-cli-{}.jar",
-            OPENAPI_GENERATOR_CLI_VERSION,
-            OPENAPI_GENERATOR_CLI_VERSION
+            "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/{OPENAPI_GENERATOR_CLI_VERSION}/openapi-generator-cli-{OPENAPI_GENERATOR_CLI_VERSION}.jar"
         );
         let _ = Command::new("wget")
             .arg(&url)
@@ -103,7 +143,7 @@ fn main() {
 
     let _ = fs::copy(
         "./tools/.openapi-generator-ignore",
-        format!("{}/.openapi-generator-ignore", OUTPUT_DIR),
+        format!("{OUTPUT_DIR}/.openapi-generator-ignore"),
     );
 
     let services = vec![
@@ -120,7 +160,7 @@ fn main() {
 
     for service in services {
         let pkg_name = &service.replace("-", "_");
-        let pkg_dir_path = &format!("{}/{}", OUTPUT_DIR, pkg_name);
+        let pkg_dir_path = &format!("{OUTPUT_DIR}/{pkg_name}",);
 
         let remove_existing_pkg_file = Command::new("rm").arg("-rf").arg(pkg_dir_path).status();
         match remove_existing_pkg_file {
@@ -144,7 +184,7 @@ fn main() {
             // .arg("--library")
             // .arg("hyper")
             .arg("-i")
-            .arg(format!("{}/{}.yml", SPEC_DIR, service))
+            .arg(format!("{SPEC_DIR}/{service}.yml"))
             .arg("-g")
             .arg("rust")
             .arg("-o")
@@ -161,24 +201,33 @@ fn main() {
             .expect("failed to execute openapi-generator-cli");
 
         if openapi_generate_result.code() != Some(0) {
-            println!("failed to generate package: {}", pkg_name);
+            println!("failed to generate package: {pkg_name}");
             continue;
         }
 
         let _ = Command::new("mv")
-            .arg(format!("{}/src", OUTPUT_DIR))
+            .arg(format!("{OUTPUT_DIR}/src"))
             .arg(pkg_dir_path)
             .status();
 
-        let _ = fs::copy("./tools/sources/mod.rs", format!("{}/mod.rs", pkg_dir_path));
+        let _ = fs::copy("./tools/sources/mod.rs", format!("{pkg_dir_path}/mod.rs"));
 
         process_directory(&PathBuf::from(pkg_dir_path), pkg_name)
     }
 
-    let _ = fs::copy(
-        "./tools/sources/message.rs",
-        "openapi/src/messaging_api/models/message.rs",
-    );
+    let sources = vec![
+        "messaging_api/models/message.rs",
+        "webhook/models/message_content.rs",
+        "webhook/models/event.rs",
+        "webhook/models/source.rs",
+    ];
+
+    for source in sources {
+        let _ = fs::copy(
+            format!("./tools/sources/{source}"),
+            format!("openapi/src/{source}"),
+        );
+    }
 
     let _ = Command::new("cargo")
         .arg("fix")
