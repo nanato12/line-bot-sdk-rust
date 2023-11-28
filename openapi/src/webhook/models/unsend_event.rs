@@ -47,7 +47,6 @@ pub struct UnsendEvent {
 impl UnsendEvent {
     /// Event object for when the user unsends a message.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::webhook::models::EventMode,
         webhook_event_id: String,

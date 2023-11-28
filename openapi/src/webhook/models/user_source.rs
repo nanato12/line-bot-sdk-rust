@@ -26,19 +26,13 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UserSource {
-    /// source type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// ID of the source user
     #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
     pub user_id: Option<String>,
 }
 
 impl UserSource {
-    pub fn new(r#type: String) -> UserSource {
-        UserSource {
-            r#type,
-            user_id: None,
-        }
+    pub fn new() -> UserSource {
+        UserSource { user_id: None }
     }
 }

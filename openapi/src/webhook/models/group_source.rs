@@ -35,7 +35,7 @@ pub struct GroupSource {
 }
 
 impl GroupSource {
-    pub fn new(r#type: String, group_id: String) -> GroupSource {
+    pub fn new(group_id: String) -> GroupSource {
         GroupSource {
             group_id,
             user_id: None,
