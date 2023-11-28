@@ -177,7 +177,7 @@ fn main() {
 
     let _ = fs::copy(
         "./tools/sources/message.rs",
-        "src/messaging_api/models/message.rs",
+        "openapi/src/messaging_api/models/message.rs",
     );
 
     let _ = Command::new("cargo")
