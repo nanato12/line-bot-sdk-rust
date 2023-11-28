@@ -31,4 +31,5 @@ pub mod module;
 pub mod module_attach;
 pub mod parser;
 pub mod shop;
+pub mod support;
 pub mod webhook;
