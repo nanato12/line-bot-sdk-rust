@@ -43,10 +43,10 @@ pub struct BotInfoResponse {
     pub picture_url: Option<String>,
     /// Chat settings set in the LINE Official Account Manager. One of:  `chat`: Chat is set to \"On\". `bot`: Chat is set to \"Off\".
     #[serde(rename = "chatMode")]
-    pub chat_mode: ChatModeMessagingApi,
+    pub chat_mode: ChatMode,
     /// Automatic read setting for messages. If the chat is set to \"Off\", auto is returned. If the chat is set to \"On\", manual is returned.  `auto`: Auto read setting is enabled. `manual`: Auto read setting is disabled.  
     #[serde(rename = "markAsReadMode")]
-    pub mark_as_read_mode: MarkAsReadModeMessagingApi,
+    pub mark_as_read_mode: MarkAsReadMode,
 }
 
 impl BotInfoResponse {
@@ -54,8 +54,8 @@ impl BotInfoResponse {
         user_id: String,
         basic_id: String,
         display_name: String,
-        chat_mode: ChatModeMessagingApi,
-        mark_as_read_mode: MarkAsReadModeMessagingApi,
+        chat_mode: ChatMode,
+        mark_as_read_mode: MarkAsReadMode,
     ) -> BotInfoResponse {
         BotInfoResponse {
             user_id,
@@ -71,29 +71,29 @@ impl BotInfoResponse {
 
 /// Chat settings set in the LINE Official Account Manager. One of:  `chat`: Chat is set to \"On\". `bot`: Chat is set to \"Off\".
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ChatModeMessagingApi {
+pub enum ChatMode {
     #[serde(rename = "chat")]
     Chat,
     #[serde(rename = "bot")]
     Bot,
 }
 
-impl Default for ChatModeMessagingApi {
-    fn default() -> ChatModeMessagingApi {
+impl Default for ChatMode {
+    fn default() -> ChatMode {
         Self::Chat
     }
 }
 /// Automatic read setting for messages. If the chat is set to \"Off\", auto is returned. If the chat is set to \"On\", manual is returned.  `auto`: Auto read setting is enabled. `manual`: Auto read setting is disabled.  
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum MarkAsReadModeMessagingApi {
+pub enum MarkAsReadMode {
     #[serde(rename = "auto")]
     Auto,
     #[serde(rename = "manual")]
     Manual,
 }
 
-impl Default for MarkAsReadModeMessagingApi {
-    fn default() -> MarkAsReadModeMessagingApi {
+impl Default for MarkAsReadMode {
+    fn default() -> MarkAsReadMode {
         Self::Auto
     }
 }

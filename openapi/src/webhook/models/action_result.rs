@@ -27,29 +27,29 @@
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ActionResult {
     #[serde(rename = "type")]
-    pub r#type: TypeWebhook,
+    pub r#type: Type,
     /// Base64-encoded binary data
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
     pub data: Option<String>,
 }
 
 impl ActionResult {
-    pub fn new(r#type: TypeWebhook) -> ActionResult {
+    pub fn new(r#type: Type) -> ActionResult {
         ActionResult { r#type, data: None }
     }
 }
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum TypeWebhook {
+pub enum Type {
     #[serde(rename = "void")]
     Void,
     #[serde(rename = "binary")]
     Binary,
 }
 
-impl Default for TypeWebhook {
-    fn default() -> TypeWebhook {
+impl Default for Type {
+    fn default() -> Type {
         Self::Void
     }
 }

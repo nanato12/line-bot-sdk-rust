@@ -28,7 +28,7 @@
 pub struct SubscriptionPeriodTile {
     /// Subscription period. Possible values: `within7days`, `within90days`, `unknown` etc.
     #[serde(rename = "subscriptionPeriod", skip_serializing_if = "Option::is_none")]
-    pub subscription_period: Option<SubscriptionPeriodInsight>,
+    pub subscription_period: Option<SubscriptionPeriod>,
     /// Percentage. Possible values: [0.0,100.0] e.g. 0, 2.9, 37.6.
     #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<f64>,
@@ -45,7 +45,7 @@ impl SubscriptionPeriodTile {
 
 /// Subscription period. Possible values: `within7days`, `within90days`, `unknown` etc.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum SubscriptionPeriodInsight {
+pub enum SubscriptionPeriod {
     #[serde(rename = "within7days")]
     Within7days,
     #[serde(rename = "within30days")]
@@ -62,8 +62,8 @@ pub enum SubscriptionPeriodInsight {
     Unknown,
 }
 
-impl Default for SubscriptionPeriodInsight {
-    fn default() -> SubscriptionPeriodInsight {
+impl Default for SubscriptionPeriod {
+    fn default() -> SubscriptionPeriod {
         Self::Within7days
     }
 }

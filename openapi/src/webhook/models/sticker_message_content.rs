@@ -36,7 +36,7 @@ pub struct StickerMessageContent {
     #[serde(rename = "stickerId")]
     pub sticker_id: String,
     #[serde(rename = "stickerResourceType")]
-    pub sticker_resource_type: StickerResourceTypeWebhook,
+    pub sticker_resource_type: StickerResourceType,
     /// Array of up to 15 keywords describing the sticker. If a sticker has 16 or more keywords, a random selection of 15 keywords will be returned. The keyword selection is random for each event, so different keywords may be returned for the same sticker.
     #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
     pub keywords: Option<Vec<String>>,
@@ -46,7 +46,7 @@ pub struct StickerMessageContent {
     /// Quote token to quote this message.
     #[serde(rename = "quoteToken")]
     pub quote_token: String,
-    /// Message ID of a quoted message. Only included when the received message quotes a past message.
+    /// Message ID of a quoted message. Only included when the received message quotes a past message.  
     #[serde(rename = "quotedMessageId", skip_serializing_if = "Option::is_none")]
     pub quoted_message_id: Option<String>,
 }
@@ -56,7 +56,7 @@ impl StickerMessageContent {
         id: String,
         package_id: String,
         sticker_id: String,
-        sticker_resource_type: StickerResourceTypeWebhook,
+        sticker_resource_type: StickerResourceType,
         quote_token: String,
     ) -> StickerMessageContent {
         StickerMessageContent {
@@ -74,7 +74,7 @@ impl StickerMessageContent {
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum StickerResourceTypeWebhook {
+pub enum StickerResourceType {
     #[serde(rename = "STATIC")]
     Static,
     #[serde(rename = "ANIMATION")]
@@ -97,8 +97,8 @@ pub enum StickerResourceTypeWebhook {
     PerStickerText,
 }
 
-impl Default for StickerResourceTypeWebhook {
-    fn default() -> StickerResourceTypeWebhook {
+impl Default for StickerResourceType {
+    fn default() -> StickerResourceType {
         Self::Static
     }
 }

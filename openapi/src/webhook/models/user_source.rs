@@ -32,7 +32,7 @@ pub struct UserSource {
 }
 
 impl UserSource {
-    pub fn new() -> UserSource {
+    pub fn new(_type: String) -> UserSource {
         UserSource { user_id: None }
     }
 }

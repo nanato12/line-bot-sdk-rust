@@ -35,7 +35,7 @@ pub struct DatetimePickerAction {
     #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
     pub data: Option<String>,
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
-    pub mode: Option<ModeMessagingApi>,
+    pub mode: Option<Mode>,
     #[serde(rename = "initial", skip_serializing_if = "Option::is_none")]
     pub initial: Option<String>,
     #[serde(rename = "max", skip_serializing_if = "Option::is_none")]
@@ -60,7 +60,7 @@ impl DatetimePickerAction {
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ModeMessagingApi {
+pub enum Mode {
     #[serde(rename = "date")]
     Date,
     #[serde(rename = "time")]
@@ -69,8 +69,8 @@ pub enum ModeMessagingApi {
     Datetime,
 }
 
-impl Default for ModeMessagingApi {
-    fn default() -> ModeMessagingApi {
+impl Default for Mode {
+    fn default() -> Mode {
         Self::Date
     }
 }

@@ -28,7 +28,7 @@
 pub struct NarrowcastProgressResponse {
     /// The current status. One of:  `waiting`: Messages are not yet ready to be sent. They are currently being filtered or processed in some way. `sending`: Messages are currently being sent. `succeeded`: Messages were sent successfully. This may not mean the messages were successfully received. `failed`: Messages failed to be sent. Use the failedDescription property to find the cause of the failure.
     #[serde(rename = "phase")]
-    pub phase: PhaseMessagingApi,
+    pub phase: Phase,
     /// The number of users who successfully received the message.
     #[serde(rename = "successCount", skip_serializing_if = "Option::is_none")]
     pub success_count: Option<i64>,
@@ -53,7 +53,7 @@ pub struct NarrowcastProgressResponse {
 }
 
 impl NarrowcastProgressResponse {
-    pub fn new(phase: PhaseMessagingApi, accepted_time: String) -> NarrowcastProgressResponse {
+    pub fn new(phase: Phase, accepted_time: String) -> NarrowcastProgressResponse {
         NarrowcastProgressResponse {
             phase,
             success_count: None,
@@ -69,7 +69,7 @@ impl NarrowcastProgressResponse {
 
 /// The current status. One of:  `waiting`: Messages are not yet ready to be sent. They are currently being filtered or processed in some way. `sending`: Messages are currently being sent. `succeeded`: Messages were sent successfully. This may not mean the messages were successfully received. `failed`: Messages failed to be sent. Use the failedDescription property to find the cause of the failure.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum PhaseMessagingApi {
+pub enum Phase {
     #[serde(rename = "waiting")]
     Waiting,
     #[serde(rename = "sending")]
@@ -80,8 +80,8 @@ pub enum PhaseMessagingApi {
     Failed,
 }
 
-impl Default for PhaseMessagingApi {
-    fn default() -> PhaseMessagingApi {
+impl Default for Phase {
+    fn default() -> Phase {
         Self::Waiting
     }
 }

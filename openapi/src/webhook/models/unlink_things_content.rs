@@ -26,13 +26,16 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UnlinkThingsContent {
+    /// Type
+    #[serde(rename = "type")]
+    pub r#type: String,
     /// Device ID of the device that has been linked with LINE.
     #[serde(rename = "deviceId")]
     pub device_id: String,
 }
 
 impl UnlinkThingsContent {
-    pub fn new(device_id: String) -> UnlinkThingsContent {
-        UnlinkThingsContent { device_id }
+    pub fn new(r#type: String, device_id: String) -> UnlinkThingsContent {
+        UnlinkThingsContent { r#type, device_id }
     }
 }

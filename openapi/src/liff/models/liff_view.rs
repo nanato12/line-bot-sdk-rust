@@ -28,7 +28,7 @@
 pub struct LiffView {
     /// Size of the LIFF app view. Specify one of these values: - compact - tall - full
     #[serde(rename = "type")]
-    pub r#type: TypeLiff,
+    pub r#type: Type,
     /// Endpoint URL. This is the URL of the web app that implements the LIFF app (e.g. https://example.com). Used when the LIFF app is launched using the LIFF URL. The URL scheme must be https. URL fragments (#URL-fragment) can't be specified.
     #[serde(rename = "url")]
     pub url: String,
@@ -38,7 +38,7 @@ pub struct LiffView {
 }
 
 impl LiffView {
-    pub fn new(r#type: TypeLiff, url: String) -> LiffView {
+    pub fn new(r#type: Type, url: String) -> LiffView {
         LiffView {
             r#type,
             url,
@@ -49,7 +49,7 @@ impl LiffView {
 
 /// Size of the LIFF app view. Specify one of these values: - compact - tall - full
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum TypeLiff {
+pub enum Type {
     #[serde(rename = "compact")]
     Compact,
     #[serde(rename = "tall")]
@@ -58,8 +58,8 @@ pub enum TypeLiff {
     Full,
 }
 
-impl Default for TypeLiff {
-    fn default() -> TypeLiff {
+impl Default for Type {
+    fn default() -> Type {
         Self::Compact
     }
 }

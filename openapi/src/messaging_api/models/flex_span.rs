@@ -35,11 +35,11 @@ pub struct FlexSpan {
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
     #[serde(rename = "weight", skip_serializing_if = "Option::is_none")]
-    pub weight: Option<WeightMessagingApi>,
+    pub weight: Option<Weight>,
     #[serde(rename = "style", skip_serializing_if = "Option::is_none")]
-    pub style: Option<StyleMessagingApi>,
+    pub style: Option<Style>,
     #[serde(rename = "decoration", skip_serializing_if = "Option::is_none")]
-    pub decoration: Option<DecorationMessagingApi>,
+    pub decoration: Option<Decoration>,
 }
 
 impl FlexSpan {
@@ -58,35 +58,35 @@ impl FlexSpan {
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum WeightMessagingApi {
+pub enum Weight {
     #[serde(rename = "regular")]
     Regular,
     #[serde(rename = "bold")]
     Bold,
 }
 
-impl Default for WeightMessagingApi {
-    fn default() -> WeightMessagingApi {
+impl Default for Weight {
+    fn default() -> Weight {
         Self::Regular
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum StyleMessagingApi {
+pub enum Style {
     #[serde(rename = "normal")]
     Normal,
     #[serde(rename = "italic")]
     Italic,
 }
 
-impl Default for StyleMessagingApi {
-    fn default() -> StyleMessagingApi {
+impl Default for Style {
+    fn default() -> Style {
         Self::Normal
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum DecorationMessagingApi {
+pub enum Decoration {
     #[serde(rename = "none")]
     None,
     #[serde(rename = "underline")]
@@ -95,8 +95,8 @@ pub enum DecorationMessagingApi {
     LineThrough,
 }
 
-impl Default for DecorationMessagingApi {
-    fn default() -> DecorationMessagingApi {
+impl Default for Decoration {
+    fn default() -> Decoration {
         Self::None
     }
 }

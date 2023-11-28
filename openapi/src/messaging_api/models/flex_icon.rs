@@ -37,7 +37,7 @@ pub struct FlexIcon {
     #[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
     pub margin: Option<String>,
     #[serde(rename = "position", skip_serializing_if = "Option::is_none")]
-    pub position: Option<PositionMessagingApi>,
+    pub position: Option<Position>,
     #[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
     pub offset_top: Option<String>,
     #[serde(rename = "offsetBottom", skip_serializing_if = "Option::is_none")]
@@ -70,15 +70,15 @@ impl FlexIcon {
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum PositionMessagingApi {
+pub enum Position {
     #[serde(rename = "relative")]
     Relative,
     #[serde(rename = "absolute")]
     Absolute,
 }
 
-impl Default for PositionMessagingApi {
-    fn default() -> PositionMessagingApi {
+impl Default for Position {
+    fn default() -> Position {
         Self::Relative
     }
 }

@@ -28,7 +28,7 @@
 pub struct AppTypeTile {
     /// users' OS
     #[serde(rename = "appType", skip_serializing_if = "Option::is_none")]
-    pub app_type: Option<AppTypeInsight>,
+    pub app_type: Option<AppType>,
     /// Percentage
     #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<f64>,
@@ -45,7 +45,7 @@ impl AppTypeTile {
 
 /// users' OS
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AppTypeInsight {
+pub enum AppType {
     #[serde(rename = "ios")]
     Ios,
     #[serde(rename = "android")]
@@ -54,8 +54,8 @@ pub enum AppTypeInsight {
     Others,
 }
 
-impl Default for AppTypeInsight {
-    fn default() -> AppTypeInsight {
+impl Default for AppType {
+    fn default() -> AppType {
         Self::Ios
     }
 }

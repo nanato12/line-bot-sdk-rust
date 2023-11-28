@@ -28,7 +28,7 @@
 pub struct AgeTile {
     /// users' age
     #[serde(rename = "age", skip_serializing_if = "Option::is_none")]
-    pub age: Option<AgeInsight>,
+    pub age: Option<Age>,
     /// Percentage
     #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<f64>,
@@ -45,7 +45,7 @@ impl AgeTile {
 
 /// users' age
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AgeInsight {
+pub enum Age {
     #[serde(rename = "from0to14")]
     From0to14,
     #[serde(rename = "from15to19")]
@@ -68,8 +68,8 @@ pub enum AgeInsight {
     Unknown,
 }
 
-impl Default for AgeInsight {
-    fn default() -> AgeInsight {
+impl Default for Age {
+    fn default() -> Age {
         Self::From0to14
     }
 }

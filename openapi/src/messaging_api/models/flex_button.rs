@@ -33,15 +33,15 @@ pub struct FlexButton {
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
     #[serde(rename = "style", skip_serializing_if = "Option::is_none")]
-    pub style: Option<StyleMessagingApi>,
+    pub style: Option<Style>,
     #[serde(rename = "action")]
     pub action: Box<crate::messaging_api::models::Action>,
     #[serde(rename = "gravity", skip_serializing_if = "Option::is_none")]
-    pub gravity: Option<GravityMessagingApi>,
+    pub gravity: Option<Gravity>,
     #[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
     pub margin: Option<String>,
     #[serde(rename = "position", skip_serializing_if = "Option::is_none")]
-    pub position: Option<PositionMessagingApi>,
+    pub position: Option<Position>,
     #[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
     pub offset_top: Option<String>,
     #[serde(rename = "offsetBottom", skip_serializing_if = "Option::is_none")]
@@ -51,9 +51,9 @@ pub struct FlexButton {
     #[serde(rename = "offsetEnd", skip_serializing_if = "Option::is_none")]
     pub offset_end: Option<String>,
     #[serde(rename = "height", skip_serializing_if = "Option::is_none")]
-    pub height: Option<HeightMessagingApi>,
+    pub height: Option<Height>,
     #[serde(rename = "adjustMode", skip_serializing_if = "Option::is_none")]
-    pub adjust_mode: Option<AdjustModeMessagingApi>,
+    pub adjust_mode: Option<AdjustMode>,
     #[serde(rename = "scaling", skip_serializing_if = "Option::is_none")]
     pub scaling: Option<bool>,
 }
@@ -82,7 +82,7 @@ impl FlexButton {
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum StyleMessagingApi {
+pub enum Style {
     #[serde(rename = "primary")]
     Primary,
     #[serde(rename = "secondary")]
@@ -91,14 +91,14 @@ pub enum StyleMessagingApi {
     Link,
 }
 
-impl Default for StyleMessagingApi {
-    fn default() -> StyleMessagingApi {
+impl Default for Style {
+    fn default() -> Style {
         Self::Primary
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum GravityMessagingApi {
+pub enum Gravity {
     #[serde(rename = "top")]
     Top,
     #[serde(rename = "bottom")]
@@ -107,48 +107,48 @@ pub enum GravityMessagingApi {
     Center,
 }
 
-impl Default for GravityMessagingApi {
-    fn default() -> GravityMessagingApi {
+impl Default for Gravity {
+    fn default() -> Gravity {
         Self::Top
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum PositionMessagingApi {
+pub enum Position {
     #[serde(rename = "relative")]
     Relative,
     #[serde(rename = "absolute")]
     Absolute,
 }
 
-impl Default for PositionMessagingApi {
-    fn default() -> PositionMessagingApi {
+impl Default for Position {
+    fn default() -> Position {
         Self::Relative
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum HeightMessagingApi {
+pub enum Height {
     #[serde(rename = "md")]
     Md,
     #[serde(rename = "sm")]
     Sm,
 }
 
-impl Default for HeightMessagingApi {
-    fn default() -> HeightMessagingApi {
+impl Default for Height {
+    fn default() -> Height {
         Self::Md
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AdjustModeMessagingApi {
+pub enum AdjustMode {
     #[serde(rename = "shrink-to-fit")]
     ShrinkToFit,
 }
 
-impl Default for AdjustModeMessagingApi {
-    fn default() -> AdjustModeMessagingApi {
+impl Default for AdjustMode {
+    fn default() -> AdjustMode {
         Self::ShrinkToFit
     }
 }

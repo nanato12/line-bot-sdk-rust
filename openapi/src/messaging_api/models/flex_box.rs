@@ -29,7 +29,7 @@ pub struct FlexBox {
     #[serde(rename = "type")]
     pub r#type: String,
     #[serde(rename = "layout")]
-    pub layout: LayoutMessagingApi,
+    pub layout: Layout,
     #[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
     pub flex: Option<i32>,
     #[serde(rename = "contents")]
@@ -39,7 +39,7 @@ pub struct FlexBox {
     #[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
     pub margin: Option<String>,
     #[serde(rename = "position", skip_serializing_if = "Option::is_none")]
-    pub position: Option<PositionMessagingApi>,
+    pub position: Option<Position>,
     #[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
     pub offset_top: Option<String>,
     #[serde(rename = "offsetBottom", skip_serializing_if = "Option::is_none")]
@@ -77,9 +77,9 @@ pub struct FlexBox {
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
     pub action: Option<Box<crate::messaging_api::models::Action>>,
     #[serde(rename = "justifyContent", skip_serializing_if = "Option::is_none")]
-    pub justify_content: Option<JustifyContentMessagingApi>,
+    pub justify_content: Option<JustifyContent>,
     #[serde(rename = "alignItems", skip_serializing_if = "Option::is_none")]
-    pub align_items: Option<AlignItemsMessagingApi>,
+    pub align_items: Option<AlignItems>,
     #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<Box<crate::messaging_api::models::FlexBoxBackground>>,
 }
@@ -87,7 +87,7 @@ pub struct FlexBox {
 impl FlexBox {
     pub fn new(
         r#type: String,
-        layout: LayoutMessagingApi,
+        layout: Layout,
         contents: Vec<crate::messaging_api::models::FlexComponent>,
     ) -> FlexBox {
         FlexBox {
@@ -125,7 +125,7 @@ impl FlexBox {
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum LayoutMessagingApi {
+pub enum Layout {
     #[serde(rename = "horizontal")]
     Horizontal,
     #[serde(rename = "vertical")]
@@ -134,28 +134,28 @@ pub enum LayoutMessagingApi {
     Baseline,
 }
 
-impl Default for LayoutMessagingApi {
-    fn default() -> LayoutMessagingApi {
+impl Default for Layout {
+    fn default() -> Layout {
         Self::Horizontal
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum PositionMessagingApi {
+pub enum Position {
     #[serde(rename = "relative")]
     Relative,
     #[serde(rename = "absolute")]
     Absolute,
 }
 
-impl Default for PositionMessagingApi {
-    fn default() -> PositionMessagingApi {
+impl Default for Position {
+    fn default() -> Position {
         Self::Relative
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum JustifyContentMessagingApi {
+pub enum JustifyContent {
     #[serde(rename = "center")]
     Center,
     #[serde(rename = "flex-start")]
@@ -170,14 +170,14 @@ pub enum JustifyContentMessagingApi {
     SpaceEvenly,
 }
 
-impl Default for JustifyContentMessagingApi {
-    fn default() -> JustifyContentMessagingApi {
+impl Default for JustifyContent {
+    fn default() -> JustifyContent {
         Self::Center
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AlignItemsMessagingApi {
+pub enum AlignItems {
     #[serde(rename = "center")]
     Center,
     #[serde(rename = "flex-start")]
@@ -186,8 +186,8 @@ pub enum AlignItemsMessagingApi {
     FlexEnd,
 }
 
-impl Default for AlignItemsMessagingApi {
-    fn default() -> AlignItemsMessagingApi {
+impl Default for AlignItems {
+    fn default() -> AlignItems {
         Self::Center
     }
 }

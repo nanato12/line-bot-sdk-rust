@@ -31,14 +31,14 @@ pub struct BeaconContent {
     pub hwid: String,
     /// Type of beacon event.
     #[serde(rename = "type")]
-    pub r#type: TypeWebhook,
+    pub r#type: Type,
     /// Device message of beacon that was detected.
     #[serde(rename = "dm", skip_serializing_if = "Option::is_none")]
     pub dm: Option<String>,
 }
 
 impl BeaconContent {
-    pub fn new(hwid: String, r#type: TypeWebhook) -> BeaconContent {
+    pub fn new(hwid: String, r#type: Type) -> BeaconContent {
         BeaconContent {
             hwid,
             r#type,
@@ -49,7 +49,7 @@ impl BeaconContent {
 
 /// Type of beacon event.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum TypeWebhook {
+pub enum Type {
     #[serde(rename = "enter")]
     Enter,
     #[serde(rename = "banner")]
@@ -58,8 +58,8 @@ pub enum TypeWebhook {
     Stay,
 }
 
-impl Default for TypeWebhook {
-    fn default() -> TypeWebhook {
+impl Default for Type {
+    fn default() -> Type {
         Self::Enter
     }
 }

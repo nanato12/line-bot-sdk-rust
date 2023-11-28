@@ -28,7 +28,7 @@
 pub struct GenderTile {
     /// users' gender
     #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
-    pub gender: Option<GenderInsight>,
+    pub gender: Option<Gender>,
     /// Percentage
     #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<f64>,
@@ -45,7 +45,7 @@ impl GenderTile {
 
 /// users' gender
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum GenderInsight {
+pub enum Gender {
     #[serde(rename = "male")]
     Male,
     #[serde(rename = "female")]
@@ -54,8 +54,8 @@ pub enum GenderInsight {
     Unknown,
 }
 
-impl Default for GenderInsight {
-    fn default() -> GenderInsight {
+impl Default for Gender {
+    fn default() -> Gender {
         Self::Male
     }
 }

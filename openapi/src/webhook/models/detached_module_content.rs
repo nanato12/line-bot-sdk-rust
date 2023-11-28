@@ -26,29 +26,36 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DetachedModuleContent {
+    /// Type
+    #[serde(rename = "type")]
+    pub r#type: String,
     /// Detached LINE Official Account bot user ID
     #[serde(rename = "botId")]
     pub bot_id: String,
     /// Reason for detaching
     #[serde(rename = "reason")]
-    pub reason: ReasonWebhook,
+    pub reason: Reason,
 }
 
 impl DetachedModuleContent {
-    pub fn new(bot_id: String, reason: ReasonWebhook) -> DetachedModuleContent {
-        DetachedModuleContent { bot_id, reason }
+    pub fn new(r#type: String, bot_id: String, reason: Reason) -> DetachedModuleContent {
+        DetachedModuleContent {
+            r#type,
+            bot_id,
+            reason,
+        }
     }
 }
 
 /// Reason for detaching
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ReasonWebhook {
+pub enum Reason {
     #[serde(rename = "bot_deleted")]
     BotDeleted,
 }
 
-impl Default for ReasonWebhook {
-    fn default() -> ReasonWebhook {
+impl Default for Reason {
+    fn default() -> Reason {
         Self::BotDeleted
     }
 }

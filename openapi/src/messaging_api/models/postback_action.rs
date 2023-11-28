@@ -39,7 +39,7 @@ pub struct PostbackAction {
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
     #[serde(rename = "inputOption", skip_serializing_if = "Option::is_none")]
-    pub input_option: Option<InputOptionMessagingApi>,
+    pub input_option: Option<InputOption>,
     #[serde(rename = "fillInText", skip_serializing_if = "Option::is_none")]
     pub fill_in_text: Option<String>,
 }
@@ -60,7 +60,7 @@ impl PostbackAction {
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum InputOptionMessagingApi {
+pub enum InputOption {
     #[serde(rename = "closeRichMenu")]
     CloseRichMenu,
     #[serde(rename = "openRichMenu")]
@@ -71,8 +71,8 @@ pub enum InputOptionMessagingApi {
     OpenVoice,
 }
 
-impl Default for InputOptionMessagingApi {
-    fn default() -> InputOptionMessagingApi {
+impl Default for InputOption {
+    fn default() -> InputOption {
         Self::CloseRichMenu
     }
 }

@@ -30,7 +30,7 @@
 pub struct ContentProvider {
     /// Provider of the image file.
     #[serde(rename = "type")]
-    pub r#type: TypeWebhook,
+    pub r#type: Type,
     /// URL of the image file. Only included when contentProvider.type is external.
     #[serde(rename = "originalContentUrl", skip_serializing_if = "Option::is_none")]
     pub original_content_url: Option<String>,
@@ -41,7 +41,7 @@ pub struct ContentProvider {
 
 impl ContentProvider {
     /// Provider of the media file.
-    pub fn new(r#type: TypeWebhook) -> ContentProvider {
+    pub fn new(r#type: Type) -> ContentProvider {
         ContentProvider {
             r#type,
             original_content_url: None,
@@ -52,15 +52,15 @@ impl ContentProvider {
 
 /// Provider of the image file.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum TypeWebhook {
+pub enum Type {
     #[serde(rename = "line")]
     Line,
     #[serde(rename = "external")]
     External,
 }
 
-impl Default for TypeWebhook {
-    fn default() -> TypeWebhook {
+impl Default for Type {
+    fn default() -> Type {
         Self::Line
     }
 }

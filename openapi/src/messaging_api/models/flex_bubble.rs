@@ -29,7 +29,7 @@ pub struct FlexBubble {
     #[serde(rename = "type")]
     pub r#type: String,
     #[serde(rename = "direction", skip_serializing_if = "Option::is_none")]
-    pub direction: Option<DirectionMessagingApi>,
+    pub direction: Option<Direction>,
     #[serde(rename = "styles", skip_serializing_if = "Option::is_none")]
     pub styles: Option<Box<crate::messaging_api::models::FlexBubbleStyles>>,
     #[serde(rename = "header", skip_serializing_if = "Option::is_none")]
@@ -41,7 +41,7 @@ pub struct FlexBubble {
     #[serde(rename = "footer", skip_serializing_if = "Option::is_none")]
     pub footer: Option<Box<crate::messaging_api::models::FlexBox>>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
-    pub size: Option<SizeMessagingApi>,
+    pub size: Option<Size>,
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
     pub action: Option<Box<crate::messaging_api::models::Action>>,
 }
@@ -64,21 +64,21 @@ impl FlexBubble {
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum DirectionMessagingApi {
+pub enum Direction {
     #[serde(rename = "ltr")]
     Ltr,
     #[serde(rename = "rtl")]
     Rtl,
 }
 
-impl Default for DirectionMessagingApi {
-    fn default() -> DirectionMessagingApi {
+impl Default for Direction {
+    fn default() -> Direction {
         Self::Ltr
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum SizeMessagingApi {
+pub enum Size {
     #[serde(rename = "nano")]
     Nano,
     #[serde(rename = "micro")]
@@ -95,8 +95,8 @@ pub enum SizeMessagingApi {
     Giga,
 }
 
-impl Default for SizeMessagingApi {
-    fn default() -> SizeMessagingApi {
+impl Default for Size {
+    fn default() -> Size {
         Self::Nano
     }
 }

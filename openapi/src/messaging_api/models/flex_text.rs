@@ -35,17 +35,17 @@ pub struct FlexText {
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<String>,
     #[serde(rename = "align", skip_serializing_if = "Option::is_none")]
-    pub align: Option<AlignMessagingApi>,
+    pub align: Option<Align>,
     #[serde(rename = "gravity", skip_serializing_if = "Option::is_none")]
-    pub gravity: Option<GravityMessagingApi>,
+    pub gravity: Option<Gravity>,
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
     #[serde(rename = "weight", skip_serializing_if = "Option::is_none")]
-    pub weight: Option<WeightMessagingApi>,
+    pub weight: Option<Weight>,
     #[serde(rename = "style", skip_serializing_if = "Option::is_none")]
-    pub style: Option<StyleMessagingApi>,
+    pub style: Option<Style>,
     #[serde(rename = "decoration", skip_serializing_if = "Option::is_none")]
-    pub decoration: Option<DecorationMessagingApi>,
+    pub decoration: Option<Decoration>,
     #[serde(rename = "wrap", skip_serializing_if = "Option::is_none")]
     pub wrap: Option<bool>,
     #[serde(rename = "lineSpacing", skip_serializing_if = "Option::is_none")]
@@ -53,7 +53,7 @@ pub struct FlexText {
     #[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
     pub margin: Option<String>,
     #[serde(rename = "position", skip_serializing_if = "Option::is_none")]
-    pub position: Option<PositionMessagingApi>,
+    pub position: Option<Position>,
     #[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
     pub offset_top: Option<String>,
     #[serde(rename = "offsetBottom", skip_serializing_if = "Option::is_none")]
@@ -69,7 +69,7 @@ pub struct FlexText {
     #[serde(rename = "contents", skip_serializing_if = "Option::is_none")]
     pub contents: Option<Vec<crate::messaging_api::models::FlexSpan>>,
     #[serde(rename = "adjustMode", skip_serializing_if = "Option::is_none")]
-    pub adjust_mode: Option<AdjustModeMessagingApi>,
+    pub adjust_mode: Option<AdjustMode>,
     #[serde(rename = "scaling", skip_serializing_if = "Option::is_none")]
     pub scaling: Option<bool>,
 }
@@ -106,7 +106,7 @@ impl FlexText {
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AlignMessagingApi {
+pub enum Align {
     #[serde(rename = "start")]
     Start,
     #[serde(rename = "end")]
@@ -115,14 +115,14 @@ pub enum AlignMessagingApi {
     Center,
 }
 
-impl Default for AlignMessagingApi {
-    fn default() -> AlignMessagingApi {
+impl Default for Align {
+    fn default() -> Align {
         Self::Start
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum GravityMessagingApi {
+pub enum Gravity {
     #[serde(rename = "top")]
     Top,
     #[serde(rename = "bottom")]
@@ -131,42 +131,42 @@ pub enum GravityMessagingApi {
     Center,
 }
 
-impl Default for GravityMessagingApi {
-    fn default() -> GravityMessagingApi {
+impl Default for Gravity {
+    fn default() -> Gravity {
         Self::Top
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum WeightMessagingApi {
+pub enum Weight {
     #[serde(rename = "regular")]
     Regular,
     #[serde(rename = "bold")]
     Bold,
 }
 
-impl Default for WeightMessagingApi {
-    fn default() -> WeightMessagingApi {
+impl Default for Weight {
+    fn default() -> Weight {
         Self::Regular
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum StyleMessagingApi {
+pub enum Style {
     #[serde(rename = "normal")]
     Normal,
     #[serde(rename = "italic")]
     Italic,
 }
 
-impl Default for StyleMessagingApi {
-    fn default() -> StyleMessagingApi {
+impl Default for Style {
+    fn default() -> Style {
         Self::Normal
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum DecorationMessagingApi {
+pub enum Decoration {
     #[serde(rename = "none")]
     None,
     #[serde(rename = "underline")]
@@ -175,34 +175,34 @@ pub enum DecorationMessagingApi {
     LineThrough,
 }
 
-impl Default for DecorationMessagingApi {
-    fn default() -> DecorationMessagingApi {
+impl Default for Decoration {
+    fn default() -> Decoration {
         Self::None
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum PositionMessagingApi {
+pub enum Position {
     #[serde(rename = "relative")]
     Relative,
     #[serde(rename = "absolute")]
     Absolute,
 }
 
-impl Default for PositionMessagingApi {
-    fn default() -> PositionMessagingApi {
+impl Default for Position {
+    fn default() -> Position {
         Self::Relative
     }
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AdjustModeMessagingApi {
+pub enum AdjustMode {
     #[serde(rename = "shrink-to-fit")]
     ShrinkToFit,
 }
 
-impl Default for AdjustModeMessagingApi {
-    fn default() -> AdjustModeMessagingApi {
+impl Default for AdjustMode {
+    fn default() -> AdjustMode {
         Self::ShrinkToFit
     }
 }

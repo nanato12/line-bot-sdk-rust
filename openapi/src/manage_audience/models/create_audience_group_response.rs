@@ -33,7 +33,7 @@ pub struct CreateAudienceGroupResponse {
     pub audience_group_id: Option<i64>,
     /// How the audience was created.  `MESSAGING_API`: An audience created with Messaging API.
     #[serde(rename = "createRoute", skip_serializing_if = "Option::is_none")]
-    pub create_route: Option<CreateRouteManageAudience>,
+    pub create_route: Option<CreateRoute>,
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<crate::manage_audience::models::AudienceGroupType>,
     /// The audience's name.
@@ -44,7 +44,7 @@ pub struct CreateAudienceGroupResponse {
     pub created: Option<i64>,
     /// Audience's update permission. Audiences linked to the same channel will be READ_WRITE.  `READ`: Can use only. `READ_WRITE`: Can use and update.
     #[serde(rename = "permission", skip_serializing_if = "Option::is_none")]
-    pub permission: Option<PermissionManageAudience>,
+    pub permission: Option<Permission>,
     /// Time of audience expiration. Only returned for specific audiences.
     #[serde(rename = "expireTimestamp", skip_serializing_if = "Option::is_none")]
     pub expire_timestamp: Option<f32>,
@@ -71,27 +71,27 @@ impl CreateAudienceGroupResponse {
 
 /// How the audience was created.  `MESSAGING_API`: An audience created with Messaging API.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum CreateRouteManageAudience {
+pub enum CreateRoute {
     #[serde(rename = "MESSAGING_API")]
     MessagingApi,
 }
 
-impl Default for CreateRouteManageAudience {
-    fn default() -> CreateRouteManageAudience {
+impl Default for CreateRoute {
+    fn default() -> CreateRoute {
         Self::MessagingApi
     }
 }
 /// Audience's update permission. Audiences linked to the same channel will be READ_WRITE.  `READ`: Can use only. `READ_WRITE`: Can use and update.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum PermissionManageAudience {
+pub enum Permission {
     #[serde(rename = "READ")]
     Read,
     #[serde(rename = "READ_WRITE")]
     ReadWrite,
 }
 
-impl Default for PermissionManageAudience {
-    fn default() -> PermissionManageAudience {
+impl Default for Permission {
+    fn default() -> Permission {
         Self::Read
     }
 }

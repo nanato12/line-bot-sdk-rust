@@ -39,7 +39,7 @@ pub struct FlexImage {
     pub margin: Option<String>,
     /// Reference for offsetTop, offsetBottom, offsetStart, and offsetEnd. Specify one of the following values:  `relative`: Use the previous box as reference. `absolute`: Use the top left of parent element as reference. The default value is relative.
     #[serde(rename = "position", skip_serializing_if = "Option::is_none")]
-    pub position: Option<PositionMessagingApi>,
+    pub position: Option<Position>,
     /// Offset.
     #[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
     pub offset_top: Option<String>,
@@ -54,10 +54,10 @@ pub struct FlexImage {
     pub offset_end: Option<String>,
     /// Alignment style in horizontal direction.
     #[serde(rename = "align", skip_serializing_if = "Option::is_none")]
-    pub align: Option<AlignMessagingApi>,
+    pub align: Option<Align>,
     /// Alignment style in vertical direction.
     #[serde(rename = "gravity", skip_serializing_if = "Option::is_none")]
-    pub gravity: Option<GravityMessagingApi>,
+    pub gravity: Option<Gravity>,
     /// The maximum image width. This is md by default.
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<String>,
@@ -66,7 +66,7 @@ pub struct FlexImage {
     pub aspect_ratio: Option<String>,
     /// The display style of the image if the aspect ratio of the image and that specified by the aspectRatio property do not match.
     #[serde(rename = "aspectMode", skip_serializing_if = "Option::is_none")]
-    pub aspect_mode: Option<AspectModeMessagingApi>,
+    pub aspect_mode: Option<AspectMode>,
     /// Background color of the image. Use a hexadecimal color code.
     #[serde(rename = "backgroundColor", skip_serializing_if = "Option::is_none")]
     pub background_color: Option<String>,
@@ -103,21 +103,21 @@ impl FlexImage {
 
 /// Reference for offsetTop, offsetBottom, offsetStart, and offsetEnd. Specify one of the following values:  `relative`: Use the previous box as reference. `absolute`: Use the top left of parent element as reference. The default value is relative.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum PositionMessagingApi {
+pub enum Position {
     #[serde(rename = "relative")]
     Relative,
     #[serde(rename = "absolute")]
     Absolute,
 }
 
-impl Default for PositionMessagingApi {
-    fn default() -> PositionMessagingApi {
+impl Default for Position {
+    fn default() -> Position {
         Self::Relative
     }
 }
 /// Alignment style in horizontal direction.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AlignMessagingApi {
+pub enum Align {
     #[serde(rename = "start")]
     Start,
     #[serde(rename = "end")]
@@ -126,14 +126,14 @@ pub enum AlignMessagingApi {
     Center,
 }
 
-impl Default for AlignMessagingApi {
-    fn default() -> AlignMessagingApi {
+impl Default for Align {
+    fn default() -> Align {
         Self::Start
     }
 }
 /// Alignment style in vertical direction.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum GravityMessagingApi {
+pub enum Gravity {
     #[serde(rename = "top")]
     Top,
     #[serde(rename = "bottom")]
@@ -142,22 +142,22 @@ pub enum GravityMessagingApi {
     Center,
 }
 
-impl Default for GravityMessagingApi {
-    fn default() -> GravityMessagingApi {
+impl Default for Gravity {
+    fn default() -> Gravity {
         Self::Top
     }
 }
 /// The display style of the image if the aspect ratio of the image and that specified by the aspectRatio property do not match.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AspectModeMessagingApi {
+pub enum AspectMode {
     #[serde(rename = "fit")]
     Fit,
     #[serde(rename = "cover")]
     Cover,
 }
 
-impl Default for AspectModeMessagingApi {
-    fn default() -> AspectModeMessagingApi {
+impl Default for AspectMode {
+    fn default() -> AspectMode {
         Self::Fit
     }
 }

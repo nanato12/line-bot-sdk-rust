@@ -30,7 +30,7 @@
 pub struct GetNumberOfFollowersResponse {
     /// Calculation status.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<StatusInsight>,
+    pub status: Option<Status>,
     /// The number of times, as of the specified date, that a user added this LINE Official Account as a friend for the first time. The number doesn't decrease even if a user later blocks the account or when they delete their LINE account.
     #[serde(rename = "followers", skip_serializing_if = "Option::is_none")]
     pub followers: Option<i64>,
@@ -56,7 +56,7 @@ impl GetNumberOfFollowersResponse {
 
 /// Calculation status.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum StatusInsight {
+pub enum Status {
     #[serde(rename = "ready")]
     Ready,
     #[serde(rename = "unready")]
@@ -65,8 +65,8 @@ pub enum StatusInsight {
     OutOfService,
 }
 
-impl Default for StatusInsight {
-    fn default() -> StatusInsight {
+impl Default for Status {
+    fn default() -> Status {
         Self::Ready
     }
 }

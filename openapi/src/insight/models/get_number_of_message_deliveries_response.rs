@@ -30,7 +30,7 @@
 pub struct GetNumberOfMessageDeliveriesResponse {
     /// Status of the counting process.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<StatusInsight>,
+    pub status: Option<Status>,
     /// Number of messages sent to all of this LINE Official Account's friends (broadcast messages).
     #[serde(rename = "broadcast", skip_serializing_if = "Option::is_none")]
     pub broadcast: Option<i64>,
@@ -84,7 +84,7 @@ impl GetNumberOfMessageDeliveriesResponse {
 
 /// Status of the counting process.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum StatusInsight {
+pub enum Status {
     #[serde(rename = "ready")]
     Ready,
     #[serde(rename = "unready")]
@@ -93,8 +93,8 @@ pub enum StatusInsight {
     OutOfService,
 }
 
-impl Default for StatusInsight {
-    fn default() -> StatusInsight {
+impl Default for Status {
+    fn default() -> Status {
         Self::Ready
     }
 }
