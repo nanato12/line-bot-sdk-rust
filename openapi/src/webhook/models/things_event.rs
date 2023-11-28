@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ThingsEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::webhook::models::Source>>,
     /// Time of the event in milliseconds.
@@ -53,7 +50,6 @@ pub struct ThingsEvent {
 impl ThingsEvent {
     /// Indicates that a user linked a device with LINE.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::webhook::models::EventMode,
         webhook_event_id: String,
@@ -62,7 +58,6 @@ impl ThingsEvent {
         things: crate::webhook::models::ThingsContent,
     ) -> ThingsEvent {
         ThingsEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

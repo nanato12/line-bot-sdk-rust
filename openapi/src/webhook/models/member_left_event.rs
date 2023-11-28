@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MemberLeftEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::webhook::models::Source>>,
     /// Time of the event in milliseconds.
@@ -50,7 +47,6 @@ pub struct MemberLeftEvent {
 impl MemberLeftEvent {
     /// Event object for when a user leaves a group chat or multi-person chat that the LINE Official Account is in.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::webhook::models::EventMode,
         webhook_event_id: String,
@@ -58,7 +54,6 @@ impl MemberLeftEvent {
         left: crate::webhook::models::LeftMembers,
     ) -> MemberLeftEvent {
         MemberLeftEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

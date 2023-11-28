@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BotSuspendedEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::webhook::models::Source>>,
     /// Time of the event in milliseconds.
@@ -48,14 +45,12 @@ pub struct BotSuspendedEvent {
 impl BotSuspendedEvent {
     /// This event indicates that the LINE Official Account has been suspended (Suspend). Sent to the webhook URL server of the module channel.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::webhook::models::EventMode,
         webhook_event_id: String,
         delivery_context: crate::webhook::models::DeliveryContext,
     ) -> BotSuspendedEvent {
         BotSuspendedEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

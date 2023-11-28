@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AccountLinkEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::webhook::models::Source>>,
     /// Time of the event in milliseconds.
@@ -53,7 +50,6 @@ pub struct AccountLinkEvent {
 impl AccountLinkEvent {
     /// Event object for when a user has linked their LINE account with a provider's service account. You can reply to account link events.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::webhook::models::EventMode,
         webhook_event_id: String,
@@ -61,7 +57,6 @@ impl AccountLinkEvent {
         link: crate::webhook::models::LinkContent,
     ) -> AccountLinkEvent {
         AccountLinkEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FollowEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::webhook::models::Source>>,
     /// Time of the event in milliseconds.
@@ -51,7 +48,6 @@ pub struct FollowEvent {
 impl FollowEvent {
     /// Event object for when your LINE Official Account is added as a friend (or unblocked). You can reply to follow events.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::webhook::models::EventMode,
         webhook_event_id: String,
@@ -59,7 +55,6 @@ impl FollowEvent {
         reply_token: String,
     ) -> FollowEvent {
         FollowEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct VideoPlayCompleteEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::webhook::models::Source>>,
     /// Time of the event in milliseconds.
@@ -53,7 +50,6 @@ pub struct VideoPlayCompleteEvent {
 impl VideoPlayCompleteEvent {
     /// Event for when a user finishes viewing a video at least once with the specified trackingId sent by the LINE Official Account.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::webhook::models::EventMode,
         webhook_event_id: String,
@@ -62,7 +58,6 @@ impl VideoPlayCompleteEvent {
         video_play_complete: crate::webhook::models::VideoPlayComplete,
     ) -> VideoPlayCompleteEvent {
         VideoPlayCompleteEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

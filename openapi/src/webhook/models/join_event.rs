@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct JoinEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::webhook::models::Source>>,
     /// Time of the event in milliseconds.
@@ -51,7 +48,6 @@ pub struct JoinEvent {
 impl JoinEvent {
     /// Event object for when your LINE Official Account joins a group chat or multi-person chat. You can reply to join events.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::webhook::models::EventMode,
         webhook_event_id: String,
@@ -59,7 +55,6 @@ impl JoinEvent {
         reply_token: String,
     ) -> JoinEvent {
         JoinEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ActivatedEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::webhook::models::Source>>,
     /// Time of the event in milliseconds.
@@ -50,7 +47,6 @@ pub struct ActivatedEvent {
 impl ActivatedEvent {
     /// This event indicates that the module channel has been switched to Active Channel by calling the Acquire Control API. Sent to the webhook URL server of the module channel.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::webhook::models::EventMode,
         webhook_event_id: String,
@@ -58,7 +54,6 @@ impl ActivatedEvent {
         chat_control: crate::webhook::models::ChatControl,
     ) -> ActivatedEvent {
         ActivatedEvent {
-            r#type,
             source: None,
             timestamp,
             mode,
