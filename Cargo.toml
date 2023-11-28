@@ -2,7 +2,7 @@
 name = "line-bot-sdk-rust"
 version = "0.1.2"
 authors = ["nanato12 <admin@nanato12.info>"]
-edition = "2018"
+edition = "2021"
 description = "LINE Messaging API SDK for Rust"
 readme = "README.md"
 repository = "https://github.com/nanato12/line-bot-sdk-rust/"
@@ -51,4 +51,4 @@ name = "various_messages_rocket"
 required-features = ["rocket_support"]
 
 [workspace]
-members = ["generator", "openapi"]
+members = ["generator", "openapi", "sample"]
