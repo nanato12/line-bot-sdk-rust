@@ -1803,6 +1803,7 @@ name = "sample"
 version = "0.1.0"
 dependencies = [
  "line-bot-sdk-rust-openapi",
+ "tokio",
 ]
 
 [[package]]
