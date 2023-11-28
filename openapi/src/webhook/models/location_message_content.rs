@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LocationMessageContent {
-    /// Type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// Message ID
     #[serde(rename = "id")]
     pub id: String,
@@ -47,14 +44,8 @@ pub struct LocationMessageContent {
 }
 
 impl LocationMessageContent {
-    pub fn new(
-        r#type: String,
-        id: String,
-        latitude: f64,
-        longitude: f64,
-    ) -> LocationMessageContent {
+    pub fn new(id: String, latitude: f64, longitude: f64) -> LocationMessageContent {
         LocationMessageContent {
-            r#type,
             id,
             title: None,
             address: None,

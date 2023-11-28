@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct VideoMessageContent {
-    /// Type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// Message ID
     #[serde(rename = "id")]
     pub id: String,
@@ -44,13 +41,11 @@ pub struct VideoMessageContent {
 
 impl VideoMessageContent {
     pub fn new(
-        r#type: String,
         id: String,
         content_provider: crate::webhook::models::ContentProvider,
         quote_token: String,
     ) -> VideoMessageContent {
         VideoMessageContent {
-            r#type,
             id,
             duration: None,
             content_provider: Box::new(content_provider),

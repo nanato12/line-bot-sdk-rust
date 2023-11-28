@@ -46,12 +46,7 @@ pub struct TextMessageContent {
 }
 
 impl TextMessageContent {
-    pub fn new(
-        r#type: String,
-        id: String,
-        text: String,
-        quote_token: String,
-    ) -> TextMessageContent {
+    pub fn new(id: String, text: String, quote_token: String) -> TextMessageContent {
         TextMessageContent {
             id,
             text,

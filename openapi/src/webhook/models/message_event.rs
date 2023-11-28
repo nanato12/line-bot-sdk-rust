@@ -49,7 +49,6 @@ pub struct MessageEvent {
 impl MessageEvent {
     /// Webhook event object which contains the sent message.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::webhook::models::EventMode,
         webhook_event_id: String,

@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StickerMessageContent {
-    /// Type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// Message ID
     #[serde(rename = "id")]
     pub id: String,
@@ -49,14 +46,13 @@ pub struct StickerMessageContent {
     /// Quote token to quote this message.
     #[serde(rename = "quoteToken")]
     pub quote_token: String,
-    /// Message ID of a quoted message. Only included when the received message quotes a past message.  
+    /// Message ID of a quoted message. Only included when the received message quotes a past message.
     #[serde(rename = "quotedMessageId", skip_serializing_if = "Option::is_none")]
     pub quoted_message_id: Option<String>,
 }
 
 impl StickerMessageContent {
     pub fn new(
-        r#type: String,
         id: String,
         package_id: String,
         sticker_id: String,
@@ -64,7 +60,6 @@ impl StickerMessageContent {
         quote_token: String,
     ) -> StickerMessageContent {
         StickerMessageContent {
-            r#type,
             id,
             package_id,
             sticker_id,

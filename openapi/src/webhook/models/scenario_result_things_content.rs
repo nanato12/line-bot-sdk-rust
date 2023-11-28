@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ScenarioResultThingsContent {
-    /// Type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// Device ID of the device that has been linked with LINE.
     #[serde(rename = "deviceId")]
     pub device_id: String,
@@ -38,12 +35,10 @@ pub struct ScenarioResultThingsContent {
 
 impl ScenarioResultThingsContent {
     pub fn new(
-        r#type: String,
         device_id: String,
         result: crate::webhook::models::ScenarioResult,
     ) -> ScenarioResultThingsContent {
         ScenarioResultThingsContent {
-            r#type,
             device_id,
             result: Box::new(result),
         }

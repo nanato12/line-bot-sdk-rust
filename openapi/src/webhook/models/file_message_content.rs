@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FileMessageContent {
-    /// Type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// Message ID
     #[serde(rename = "id")]
     pub id: String,
@@ -41,14 +38,8 @@ pub struct FileMessageContent {
 }
 
 impl FileMessageContent {
-    pub fn new(
-        r#type: String,
-        id: String,
-        file_name: String,
-        file_size: i32,
-    ) -> FileMessageContent {
+    pub fn new(id: String, file_name: String, file_size: i32) -> FileMessageContent {
         FileMessageContent {
-            r#type,
             id,
             file_name,
             file_size,
