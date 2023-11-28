@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StickerMessage {
-    /// Type of message
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<crate::messaging_api::models::QuickReply>>,
     #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
@@ -43,9 +40,8 @@ pub struct StickerMessage {
 }
 
 impl StickerMessage {
-    pub fn new(r#type: String, package_id: String, sticker_id: String) -> StickerMessage {
+    pub fn new(package_id: String, sticker_id: String) -> StickerMessage {
         StickerMessage {
-            r#type,
             quick_reply: None,
             sender: None,
             package_id,

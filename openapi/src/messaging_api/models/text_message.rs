@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TextMessage {
-    /// Type of message
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<crate::messaging_api::models::QuickReply>>,
     #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
@@ -43,9 +40,8 @@ pub struct TextMessage {
 }
 
 impl TextMessage {
-    pub fn new(r#type: String, text: String) -> TextMessage {
+    pub fn new(text: String) -> TextMessage {
         TextMessage {
-            r#type,
             quick_reply: None,
             sender: None,
             text,

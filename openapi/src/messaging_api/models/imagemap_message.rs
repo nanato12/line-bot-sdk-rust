@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ImagemapMessage {
-    /// Type of message
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<crate::messaging_api::models::QuickReply>>,
     #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
@@ -47,14 +44,12 @@ pub struct ImagemapMessage {
 
 impl ImagemapMessage {
     pub fn new(
-        r#type: String,
         base_url: String,
         alt_text: String,
         base_size: crate::messaging_api::models::ImagemapBaseSize,
         actions: Vec<crate::messaging_api::models::ImagemapAction>,
     ) -> ImagemapMessage {
         ImagemapMessage {
-            r#type,
             quick_reply: None,
             sender: None,
             base_url,

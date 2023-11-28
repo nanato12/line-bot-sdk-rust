@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TemplateMessage {
-    /// Type of message
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<crate::messaging_api::models::QuickReply>>,
     #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
@@ -41,12 +38,10 @@ pub struct TemplateMessage {
 
 impl TemplateMessage {
     pub fn new(
-        r#type: String,
         alt_text: String,
         template: crate::messaging_api::models::Template,
     ) -> TemplateMessage {
         TemplateMessage {
-            r#type,
             quick_reply: None,
             sender: None,
             alt_text,
