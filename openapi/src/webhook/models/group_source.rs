@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GroupSource {
-    /// source type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// Group ID of the source group chat
     #[serde(rename = "groupId")]
     pub group_id: String,
@@ -40,7 +37,6 @@ pub struct GroupSource {
 impl GroupSource {
     pub fn new(r#type: String, group_id: String) -> GroupSource {
         GroupSource {
-            r#type,
             group_id,
             user_id: None,
         }

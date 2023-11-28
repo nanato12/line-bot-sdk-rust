@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MessageEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::webhook::models::Source>>,
     /// Time of the event in milliseconds.
@@ -60,7 +57,6 @@ impl MessageEvent {
         message: crate::webhook::models::MessageContent,
     ) -> MessageEvent {
         MessageEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

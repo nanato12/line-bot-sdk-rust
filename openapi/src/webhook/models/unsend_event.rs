@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UnsendEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::webhook::models::Source>>,
     /// Time of the event in milliseconds.
@@ -58,7 +55,6 @@ impl UnsendEvent {
         unsend: crate::webhook::models::UnsendDetail,
     ) -> UnsendEvent {
         UnsendEvent {
-            r#type,
             source: None,
             timestamp,
             mode,
