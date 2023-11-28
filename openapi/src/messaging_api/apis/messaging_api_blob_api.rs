@@ -65,6 +65,46 @@ pub struct SetRichMenuImageParams {
     pub body: Option<std::path::PathBuf>,
 }
 
+/// struct for typed successes of method [`get_message_content`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetMessageContentSuccess {
+    Status200(std::path::PathBuf),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_message_content_preview`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetMessageContentPreviewSuccess {
+    Status200(std::path::PathBuf),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_message_content_transcoding_by_message_id`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetMessageContentTranscodingByMessageIdSuccess {
+    Status200(crate::messaging_api::models::GetMessageContentTranscodingResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_rich_menu_image`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRichMenuImageSuccess {
+    Status200(std::path::PathBuf),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`set_rich_menu_image`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SetRichMenuImageSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_message_content`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -104,7 +144,7 @@ pub enum SetRichMenuImageError {
 pub async fn get_message_content(
     configuration: &configuration::Configuration,
     params: GetMessageContentParams,
-) -> Result<std::path::PathBuf, Error<GetMessageContentError>> {
+) -> Result<ResponseContent<GetMessageContentSuccess>, Error<GetMessageContentError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -135,7 +175,14 @@ pub async fn get_message_content(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetMessageContentSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetMessageContentError> =
             serde_json::from_str(&local_var_content).ok();
@@ -152,7 +199,8 @@ pub async fn get_message_content(
 pub async fn get_message_content_preview(
     configuration: &configuration::Configuration,
     params: GetMessageContentPreviewParams,
-) -> Result<std::path::PathBuf, Error<GetMessageContentPreviewError>> {
+) -> Result<ResponseContent<GetMessageContentPreviewSuccess>, Error<GetMessageContentPreviewError>>
+{
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -183,7 +231,14 @@ pub async fn get_message_content_preview(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetMessageContentPreviewSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetMessageContentPreviewError> =
             serde_json::from_str(&local_var_content).ok();
@@ -201,7 +256,7 @@ pub async fn get_message_content_transcoding_by_message_id(
     configuration: &configuration::Configuration,
     params: GetMessageContentTranscodingByMessageIdParams,
 ) -> Result<
-    crate::messaging_api::models::GetMessageContentTranscodingResponse,
+    ResponseContent<GetMessageContentTranscodingByMessageIdSuccess>,
     Error<GetMessageContentTranscodingByMessageIdError>,
 > {
     let local_var_configuration = configuration;
@@ -234,7 +289,14 @@ pub async fn get_message_content_transcoding_by_message_id(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetMessageContentTranscodingByMessageIdSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetMessageContentTranscodingByMessageIdError> =
             serde_json::from_str(&local_var_content).ok();
@@ -251,7 +313,7 @@ pub async fn get_message_content_transcoding_by_message_id(
 pub async fn get_rich_menu_image(
     configuration: &configuration::Configuration,
     params: GetRichMenuImageParams,
-) -> Result<std::path::PathBuf, Error<GetRichMenuImageError>> {
+) -> Result<ResponseContent<GetRichMenuImageSuccess>, Error<GetRichMenuImageError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -282,7 +344,14 @@ pub async fn get_rich_menu_image(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetRichMenuImageSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetRichMenuImageError> =
             serde_json::from_str(&local_var_content).ok();
@@ -299,7 +368,7 @@ pub async fn get_rich_menu_image(
 pub async fn set_rich_menu_image(
     configuration: &configuration::Configuration,
     params: SetRichMenuImageParams,
-) -> Result<(), Error<SetRichMenuImageError>> {
+) -> Result<ResponseContent<SetRichMenuImageSuccess>, Error<SetRichMenuImageError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -332,7 +401,14 @@ pub async fn set_rich_menu_image(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<SetRichMenuImageSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<SetRichMenuImageError> =
             serde_json::from_str(&local_var_content).ok();

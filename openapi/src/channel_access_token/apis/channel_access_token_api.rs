@@ -107,6 +107,70 @@ pub struct VerifyChannelTokenByJwtParams {
     pub access_token: String,
 }
 
+/// struct for typed successes of method [`gets_all_valid_channel_access_token_key_ids`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetsAllValidChannelAccessTokenKeyIdsSuccess {
+    Status200(crate::channel_access_token::models::ChannelAccessTokenKeyIdsResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`issue_channel_token`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum IssueChannelTokenSuccess {
+    Status200(crate::channel_access_token::models::IssueShortLivedChannelAccessTokenResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`issue_channel_token_by_jwt`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum IssueChannelTokenByJwtSuccess {
+    Status200(crate::channel_access_token::models::IssueChannelAccessTokenResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`issue_stateless_channel_token`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum IssueStatelessChannelTokenSuccess {
+    Status200(crate::channel_access_token::models::IssueStatelessChannelAccessTokenResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`revoke_channel_token`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RevokeChannelTokenSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`revoke_channel_token_by_jwt`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RevokeChannelTokenByJwtSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`verify_channel_token`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum VerifyChannelTokenSuccess {
+    Status200(crate::channel_access_token::models::VerifyChannelAccessTokenResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`verify_channel_token_by_jwt`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum VerifyChannelTokenByJwtSuccess {
+    Status200(crate::channel_access_token::models::VerifyChannelAccessTokenResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`gets_all_valid_channel_access_token_key_ids`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -169,7 +233,7 @@ pub async fn gets_all_valid_channel_access_token_key_ids(
     configuration: &configuration::Configuration,
     params: GetsAllValidChannelAccessTokenKeyIdsParams,
 ) -> Result<
-    crate::channel_access_token::models::ChannelAccessTokenKeyIdsResponse,
+    ResponseContent<GetsAllValidChannelAccessTokenKeyIdsSuccess>,
     Error<GetsAllValidChannelAccessTokenKeyIdsError>,
 > {
     let local_var_configuration = configuration;
@@ -203,7 +267,14 @@ pub async fn gets_all_valid_channel_access_token_key_ids(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetsAllValidChannelAccessTokenKeyIdsSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetsAllValidChannelAccessTokenKeyIdsError> =
             serde_json::from_str(&local_var_content).ok();
@@ -220,10 +291,7 @@ pub async fn gets_all_valid_channel_access_token_key_ids(
 pub async fn issue_channel_token(
     configuration: &configuration::Configuration,
     params: IssueChannelTokenParams,
-) -> Result<
-    crate::channel_access_token::models::IssueShortLivedChannelAccessTokenResponse,
-    Error<IssueChannelTokenError>,
-> {
+) -> Result<ResponseContent<IssueChannelTokenSuccess>, Error<IssueChannelTokenError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -260,7 +328,14 @@ pub async fn issue_channel_token(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<IssueChannelTokenSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<IssueChannelTokenError> =
             serde_json::from_str(&local_var_content).ok();
@@ -277,10 +352,7 @@ pub async fn issue_channel_token(
 pub async fn issue_channel_token_by_jwt(
     configuration: &configuration::Configuration,
     params: IssueChannelTokenByJwtParams,
-) -> Result<
-    crate::channel_access_token::models::IssueChannelAccessTokenResponse,
-    Error<IssueChannelTokenByJwtError>,
-> {
+) -> Result<ResponseContent<IssueChannelTokenByJwtSuccess>, Error<IssueChannelTokenByJwtError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -317,7 +389,14 @@ pub async fn issue_channel_token_by_jwt(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<IssueChannelTokenByJwtSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<IssueChannelTokenByJwtError> =
             serde_json::from_str(&local_var_content).ok();
@@ -335,7 +414,7 @@ pub async fn issue_stateless_channel_token(
     configuration: &configuration::Configuration,
     params: IssueStatelessChannelTokenParams,
 ) -> Result<
-    crate::channel_access_token::models::IssueStatelessChannelAccessTokenResponse,
+    ResponseContent<IssueStatelessChannelTokenSuccess>,
     Error<IssueStatelessChannelTokenError>,
 > {
     let local_var_configuration = configuration;
@@ -382,7 +461,14 @@ pub async fn issue_stateless_channel_token(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<IssueStatelessChannelTokenSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<IssueStatelessChannelTokenError> =
             serde_json::from_str(&local_var_content).ok();
@@ -399,7 +485,7 @@ pub async fn issue_stateless_channel_token(
 pub async fn revoke_channel_token(
     configuration: &configuration::Configuration,
     params: RevokeChannelTokenParams,
-) -> Result<(), Error<RevokeChannelTokenError>> {
+) -> Result<ResponseContent<RevokeChannelTokenSuccess>, Error<RevokeChannelTokenError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -428,7 +514,14 @@ pub async fn revoke_channel_token(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<RevokeChannelTokenSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<RevokeChannelTokenError> =
             serde_json::from_str(&local_var_content).ok();
@@ -445,7 +538,7 @@ pub async fn revoke_channel_token(
 pub async fn revoke_channel_token_by_jwt(
     configuration: &configuration::Configuration,
     params: RevokeChannelTokenByJwtParams,
-) -> Result<(), Error<RevokeChannelTokenByJwtError>> {
+) -> Result<ResponseContent<RevokeChannelTokenByJwtSuccess>, Error<RevokeChannelTokenByJwtError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -482,7 +575,14 @@ pub async fn revoke_channel_token_by_jwt(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<RevokeChannelTokenByJwtSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<RevokeChannelTokenByJwtError> =
             serde_json::from_str(&local_var_content).ok();
@@ -499,10 +599,7 @@ pub async fn revoke_channel_token_by_jwt(
 pub async fn verify_channel_token(
     configuration: &configuration::Configuration,
     params: VerifyChannelTokenParams,
-) -> Result<
-    crate::channel_access_token::models::VerifyChannelAccessTokenResponse,
-    Error<VerifyChannelTokenError>,
-> {
+) -> Result<ResponseContent<VerifyChannelTokenSuccess>, Error<VerifyChannelTokenError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -531,7 +628,14 @@ pub async fn verify_channel_token(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<VerifyChannelTokenSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<VerifyChannelTokenError> =
             serde_json::from_str(&local_var_content).ok();
@@ -548,10 +652,7 @@ pub async fn verify_channel_token(
 pub async fn verify_channel_token_by_jwt(
     configuration: &configuration::Configuration,
     params: VerifyChannelTokenByJwtParams,
-) -> Result<
-    crate::channel_access_token::models::VerifyChannelAccessTokenResponse,
-    Error<VerifyChannelTokenByJwtError>,
-> {
+) -> Result<ResponseContent<VerifyChannelTokenByJwtSuccess>, Error<VerifyChannelTokenByJwtError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -577,7 +678,14 @@ pub async fn verify_channel_token_by_jwt(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<VerifyChannelTokenByJwtSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<VerifyChannelTokenByJwtError> =
             serde_json::from_str(&local_var_content).ok();

@@ -27,6 +27,7 @@ const OPENAPI_GENERATOR_CLI_VERSION: &str = "7.1.0";
 const SPEC_DIR: &str = "line-openapi";
 const OUTPUT_DIR: &str = "openapi/src";
 
+// replace_in_file - Use hashmap to replace the entire contents of a file.
 fn replace_in_file(file_path: &Path, replacements: HashMap<&str, &str>) {
     let mut file = File::open(file_path).unwrap();
     let mut contents = String::new();
@@ -41,14 +42,7 @@ fn replace_in_file(file_path: &Path, replacements: HashMap<&str, &str>) {
 }
 
 fn fix_openapi_messaging_api(file_path: &Path) {
-    let mut replacements: HashMap<&str, &str> = [
-        // ("pub fn new(r#type: String, ", "pub fn new("),
-        // ("r#type,\n", "")
-        ]
-    .iter()
-    .cloned()
-    .collect();
-
+    let mut replacements: HashMap<&str, &str> = HashMap::new();
     let p = file_path.to_str().unwrap();
 
     // delete type from event, source, message_content
@@ -66,13 +60,7 @@ fn fix_openapi_messaging_api(file_path: &Path) {
 }
 
 fn fix_openapi_webhook(file_path: &Path) {
-    let mut replacements: HashMap<&str, &str> = [
-        // ("pub fn new(r#type: String, ", "pub fn new("),
-        // ("r#type,\n", "")
-        ]
-    .iter()
-    .cloned()
-    .collect();
+    let mut replacements: HashMap<&str, &str> = HashMap::new();
 
     let p = file_path.to_str().unwrap();
 
@@ -222,8 +210,8 @@ fn main() {
             // .arg(format!("enumNameSuffix={}", pkg_name.to_case(Case::Pascal)))
             // .arg("--additional-properties")
             // .arg("supportMiddleware=true")
-            // .arg("--additional-properties")
-            // .arg("supportMultipleResponses=true")
+            .arg("--additional-properties")
+            .arg("supportMultipleResponses=true")
             .arg("--additional-properties")
             .arg("useSingleRequestParameter=true")
             .status()

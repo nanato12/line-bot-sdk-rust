@@ -35,6 +35,14 @@ pub struct MissionStickerV3Params {
     pub mission_sticker_request: crate::shop::models::MissionStickerRequest,
 }
 
+/// struct for typed successes of method [`mission_sticker_v3`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum MissionStickerV3Success {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`mission_sticker_v3`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -46,7 +54,7 @@ pub enum MissionStickerV3Error {
 pub async fn mission_sticker_v3(
     configuration: &configuration::Configuration,
     params: MissionStickerV3Params,
-) -> Result<(), Error<MissionStickerV3Error>> {
+) -> Result<ResponseContent<MissionStickerV3Success>, Error<MissionStickerV3Error>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -74,7 +82,14 @@ pub async fn mission_sticker_v3(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<MissionStickerV3Success> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<MissionStickerV3Error> =
             serde_json::from_str(&local_var_content).ok();

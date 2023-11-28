@@ -35,6 +35,14 @@ pub struct CallbackParams {
     pub callback_request: crate::webhook::models::CallbackRequest,
 }
 
+/// struct for typed successes of method [`callback`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CallbackSuccess {
+    Status200(String),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`callback`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -46,7 +54,7 @@ pub enum CallbackError {
 pub async fn callback(
     configuration: &configuration::Configuration,
     params: CallbackParams,
-) -> Result<String, Error<CallbackError>> {
+) -> Result<ResponseContent<CallbackSuccess>, Error<CallbackError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -71,7 +79,14 @@ pub async fn callback(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<CallbackSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<CallbackError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent {

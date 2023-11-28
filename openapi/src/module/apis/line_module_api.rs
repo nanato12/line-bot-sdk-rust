@@ -59,6 +59,38 @@ pub struct ReleaseChatControlParams {
     pub chat_id: String,
 }
 
+/// struct for typed successes of method [`acquire_chat_control`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AcquireChatControlSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`detach_module`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DetachModuleSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_modules`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetModulesSuccess {
+    Status200(crate::module::models::GetModulesResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`release_chat_control`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ReleaseChatControlSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`acquire_chat_control`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -91,7 +123,7 @@ pub enum ReleaseChatControlError {
 pub async fn acquire_chat_control(
     configuration: &configuration::Configuration,
     params: AcquireChatControlParams,
-) -> Result<(), Error<AcquireChatControlError>> {
+) -> Result<ResponseContent<AcquireChatControlSuccess>, Error<AcquireChatControlError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -124,7 +156,14 @@ pub async fn acquire_chat_control(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<AcquireChatControlSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<AcquireChatControlError> =
             serde_json::from_str(&local_var_content).ok();
@@ -141,7 +180,7 @@ pub async fn acquire_chat_control(
 pub async fn detach_module(
     configuration: &configuration::Configuration,
     params: DetachModuleParams,
-) -> Result<(), Error<DetachModuleError>> {
+) -> Result<ResponseContent<DetachModuleSuccess>, Error<DetachModuleError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -172,7 +211,14 @@ pub async fn detach_module(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<DetachModuleSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<DetachModuleError> =
             serde_json::from_str(&local_var_content).ok();
@@ -189,7 +235,7 @@ pub async fn detach_module(
 pub async fn get_modules(
     configuration: &configuration::Configuration,
     params: GetModulesParams,
-) -> Result<crate::module::models::GetModulesResponse, Error<GetModulesError>> {
+) -> Result<ResponseContent<GetModulesSuccess>, Error<GetModulesError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -225,7 +271,14 @@ pub async fn get_modules(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetModulesSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetModulesError> =
             serde_json::from_str(&local_var_content).ok();
@@ -242,7 +295,7 @@ pub async fn get_modules(
 pub async fn release_chat_control(
     configuration: &configuration::Configuration,
     params: ReleaseChatControlParams,
-) -> Result<(), Error<ReleaseChatControlError>> {
+) -> Result<ResponseContent<ReleaseChatControlSuccess>, Error<ReleaseChatControlError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -273,7 +326,14 @@ pub async fn release_chat_control(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<ReleaseChatControlSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<ReleaseChatControlError> =
             serde_json::from_str(&local_var_content).ok();

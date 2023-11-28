@@ -110,6 +110,94 @@ pub struct UpdateAudienceGroupDescriptionParams {
         crate::manage_audience::models::UpdateAudienceGroupDescriptionRequest,
 }
 
+/// struct for typed successes of method [`activate_audience_group`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ActivateAudienceGroupSuccess {
+    Status202(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`add_audience_to_audience_group`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddAudienceToAudienceGroupSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`create_audience_group`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAudienceGroupSuccess {
+    Status200(crate::manage_audience::models::CreateAudienceGroupResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`create_click_based_audience_group`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateClickBasedAudienceGroupSuccess {
+    Status200(crate::manage_audience::models::CreateClickBasedAudienceGroupResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`create_imp_based_audience_group`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateImpBasedAudienceGroupSuccess {
+    Status200(crate::manage_audience::models::CreateImpBasedAudienceGroupResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`delete_audience_group`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteAudienceGroupSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_audience_data`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAudienceDataSuccess {
+    Status200(crate::manage_audience::models::GetAudienceDataResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_audience_group_authority_level`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAudienceGroupAuthorityLevelSuccess {
+    Status200(crate::manage_audience::models::GetAudienceGroupAuthorityLevelResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_audience_groups`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAudienceGroupsSuccess {
+    Status200(crate::manage_audience::models::GetAudienceGroupsResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`update_audience_group_authority_level`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAudienceGroupAuthorityLevelSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`update_audience_group_description`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAudienceGroupDescriptionSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`activate_audience_group`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -192,7 +280,7 @@ pub enum UpdateAudienceGroupDescriptionError {
 pub async fn activate_audience_group(
     configuration: &configuration::Configuration,
     params: ActivateAudienceGroupParams,
-) -> Result<(), Error<ActivateAudienceGroupError>> {
+) -> Result<ResponseContent<ActivateAudienceGroupSuccess>, Error<ActivateAudienceGroupError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -223,7 +311,14 @@ pub async fn activate_audience_group(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<ActivateAudienceGroupSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<ActivateAudienceGroupError> =
             serde_json::from_str(&local_var_content).ok();
@@ -240,7 +335,10 @@ pub async fn activate_audience_group(
 pub async fn add_audience_to_audience_group(
     configuration: &configuration::Configuration,
     params: AddAudienceToAudienceGroupParams,
-) -> Result<(), Error<AddAudienceToAudienceGroupError>> {
+) -> Result<
+    ResponseContent<AddAudienceToAudienceGroupSuccess>,
+    Error<AddAudienceToAudienceGroupError>,
+> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -271,7 +369,14 @@ pub async fn add_audience_to_audience_group(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<AddAudienceToAudienceGroupSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<AddAudienceToAudienceGroupError> =
             serde_json::from_str(&local_var_content).ok();
@@ -288,10 +393,7 @@ pub async fn add_audience_to_audience_group(
 pub async fn create_audience_group(
     configuration: &configuration::Configuration,
     params: CreateAudienceGroupParams,
-) -> Result<
-    crate::manage_audience::models::CreateAudienceGroupResponse,
-    Error<CreateAudienceGroupError>,
-> {
+) -> Result<ResponseContent<CreateAudienceGroupSuccess>, Error<CreateAudienceGroupError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -322,7 +424,14 @@ pub async fn create_audience_group(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<CreateAudienceGroupSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<CreateAudienceGroupError> =
             serde_json::from_str(&local_var_content).ok();
@@ -340,7 +449,7 @@ pub async fn create_click_based_audience_group(
     configuration: &configuration::Configuration,
     params: CreateClickBasedAudienceGroupParams,
 ) -> Result<
-    crate::manage_audience::models::CreateClickBasedAudienceGroupResponse,
+    ResponseContent<CreateClickBasedAudienceGroupSuccess>,
     Error<CreateClickBasedAudienceGroupError>,
 > {
     let local_var_configuration = configuration;
@@ -374,7 +483,14 @@ pub async fn create_click_based_audience_group(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<CreateClickBasedAudienceGroupSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<CreateClickBasedAudienceGroupError> =
             serde_json::from_str(&local_var_content).ok();
@@ -392,7 +508,7 @@ pub async fn create_imp_based_audience_group(
     configuration: &configuration::Configuration,
     params: CreateImpBasedAudienceGroupParams,
 ) -> Result<
-    crate::manage_audience::models::CreateImpBasedAudienceGroupResponse,
+    ResponseContent<CreateImpBasedAudienceGroupSuccess>,
     Error<CreateImpBasedAudienceGroupError>,
 > {
     let local_var_configuration = configuration;
@@ -425,7 +541,14 @@ pub async fn create_imp_based_audience_group(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<CreateImpBasedAudienceGroupSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<CreateImpBasedAudienceGroupError> =
             serde_json::from_str(&local_var_content).ok();
@@ -442,7 +565,7 @@ pub async fn create_imp_based_audience_group(
 pub async fn delete_audience_group(
     configuration: &configuration::Configuration,
     params: DeleteAudienceGroupParams,
-) -> Result<(), Error<DeleteAudienceGroupError>> {
+) -> Result<ResponseContent<DeleteAudienceGroupSuccess>, Error<DeleteAudienceGroupError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -473,7 +596,14 @@ pub async fn delete_audience_group(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<DeleteAudienceGroupSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<DeleteAudienceGroupError> =
             serde_json::from_str(&local_var_content).ok();
@@ -490,7 +620,7 @@ pub async fn delete_audience_group(
 pub async fn get_audience_data(
     configuration: &configuration::Configuration,
     params: GetAudienceDataParams,
-) -> Result<crate::manage_audience::models::GetAudienceDataResponse, Error<GetAudienceDataError>> {
+) -> Result<ResponseContent<GetAudienceDataSuccess>, Error<GetAudienceDataError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -521,7 +651,14 @@ pub async fn get_audience_data(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetAudienceDataSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetAudienceDataError> =
             serde_json::from_str(&local_var_content).ok();
@@ -538,7 +675,7 @@ pub async fn get_audience_data(
 pub async fn get_audience_group_authority_level(
     configuration: &configuration::Configuration,
 ) -> Result<
-    crate::manage_audience::models::GetAudienceGroupAuthorityLevelResponse,
+    ResponseContent<GetAudienceGroupAuthorityLevelSuccess>,
     Error<GetAudienceGroupAuthorityLevelError>,
 > {
     let local_var_configuration = configuration;
@@ -569,7 +706,14 @@ pub async fn get_audience_group_authority_level(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetAudienceGroupAuthorityLevelSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetAudienceGroupAuthorityLevelError> =
             serde_json::from_str(&local_var_content).ok();
@@ -586,8 +730,7 @@ pub async fn get_audience_group_authority_level(
 pub async fn get_audience_groups(
     configuration: &configuration::Configuration,
     params: GetAudienceGroupsParams,
-) -> Result<crate::manage_audience::models::GetAudienceGroupsResponse, Error<GetAudienceGroupsError>>
-{
+) -> Result<ResponseContent<GetAudienceGroupsSuccess>, Error<GetAudienceGroupsError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -643,7 +786,14 @@ pub async fn get_audience_groups(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetAudienceGroupsSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetAudienceGroupsError> =
             serde_json::from_str(&local_var_content).ok();
@@ -660,7 +810,10 @@ pub async fn get_audience_groups(
 pub async fn update_audience_group_authority_level(
     configuration: &configuration::Configuration,
     params: UpdateAudienceGroupAuthorityLevelParams,
-) -> Result<(), Error<UpdateAudienceGroupAuthorityLevelError>> {
+) -> Result<
+    ResponseContent<UpdateAudienceGroupAuthorityLevelSuccess>,
+    Error<UpdateAudienceGroupAuthorityLevelError>,
+> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -693,7 +846,14 @@ pub async fn update_audience_group_authority_level(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<UpdateAudienceGroupAuthorityLevelSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<UpdateAudienceGroupAuthorityLevelError> =
             serde_json::from_str(&local_var_content).ok();
@@ -710,7 +870,10 @@ pub async fn update_audience_group_authority_level(
 pub async fn update_audience_group_description(
     configuration: &configuration::Configuration,
     params: UpdateAudienceGroupDescriptionParams,
-) -> Result<(), Error<UpdateAudienceGroupDescriptionError>> {
+) -> Result<
+    ResponseContent<UpdateAudienceGroupDescriptionSuccess>,
+    Error<UpdateAudienceGroupDescriptionError>,
+> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -744,7 +907,14 @@ pub async fn update_audience_group_description(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<UpdateAudienceGroupDescriptionSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<UpdateAudienceGroupDescriptionError> =
             serde_json::from_str(&local_var_content).ok();

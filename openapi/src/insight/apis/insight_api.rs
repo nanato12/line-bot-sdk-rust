@@ -61,6 +61,46 @@ pub struct GetStatisticsPerUnitParams {
     pub to: String,
 }
 
+/// struct for typed successes of method [`get_friends_demographics`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetFriendsDemographicsSuccess {
+    Status200(crate::insight::models::GetFriendsDemographicsResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_message_event`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetMessageEventSuccess {
+    Status200(crate::insight::models::GetMessageEventResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_number_of_followers`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetNumberOfFollowersSuccess {
+    Status200(crate::insight::models::GetNumberOfFollowersResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_number_of_message_deliveries`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetNumberOfMessageDeliveriesSuccess {
+    Status200(crate::insight::models::GetNumberOfMessageDeliveriesResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_statistics_per_unit`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetStatisticsPerUnitSuccess {
+    Status200(crate::insight::models::GetStatisticsPerUnitResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_friends_demographics`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -99,10 +139,7 @@ pub enum GetStatisticsPerUnitError {
 /// Retrieves the demographic attributes for a LINE Official Account's friends.You can only retrieve information about friends for LINE Official Accounts created by users in Japan (JP), Thailand (TH), Taiwan (TW) and Indonesia (ID).
 pub async fn get_friends_demographics(
     configuration: &configuration::Configuration,
-) -> Result<
-    crate::insight::models::GetFriendsDemographicsResponse,
-    Error<GetFriendsDemographicsError>,
-> {
+) -> Result<ResponseContent<GetFriendsDemographicsSuccess>, Error<GetFriendsDemographicsError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -131,7 +168,14 @@ pub async fn get_friends_demographics(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetFriendsDemographicsSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetFriendsDemographicsError> =
             serde_json::from_str(&local_var_content).ok();
@@ -148,7 +192,7 @@ pub async fn get_friends_demographics(
 pub async fn get_message_event(
     configuration: &configuration::Configuration,
     params: GetMessageEventParams,
-) -> Result<crate::insight::models::GetMessageEventResponse, Error<GetMessageEventError>> {
+) -> Result<ResponseContent<GetMessageEventSuccess>, Error<GetMessageEventError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -179,7 +223,14 @@ pub async fn get_message_event(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetMessageEventSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetMessageEventError> =
             serde_json::from_str(&local_var_content).ok();
@@ -196,8 +247,7 @@ pub async fn get_message_event(
 pub async fn get_number_of_followers(
     configuration: &configuration::Configuration,
     params: GetNumberOfFollowersParams,
-) -> Result<crate::insight::models::GetNumberOfFollowersResponse, Error<GetNumberOfFollowersError>>
-{
+) -> Result<ResponseContent<GetNumberOfFollowersSuccess>, Error<GetNumberOfFollowersError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -231,7 +281,14 @@ pub async fn get_number_of_followers(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetNumberOfFollowersSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetNumberOfFollowersError> =
             serde_json::from_str(&local_var_content).ok();
@@ -249,7 +306,7 @@ pub async fn get_number_of_message_deliveries(
     configuration: &configuration::Configuration,
     params: GetNumberOfMessageDeliveriesParams,
 ) -> Result<
-    crate::insight::models::GetNumberOfMessageDeliveriesResponse,
+    ResponseContent<GetNumberOfMessageDeliveriesSuccess>,
     Error<GetNumberOfMessageDeliveriesError>,
 > {
     let local_var_configuration = configuration;
@@ -282,7 +339,14 @@ pub async fn get_number_of_message_deliveries(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetNumberOfMessageDeliveriesSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetNumberOfMessageDeliveriesError> =
             serde_json::from_str(&local_var_content).ok();
@@ -299,8 +363,7 @@ pub async fn get_number_of_message_deliveries(
 pub async fn get_statistics_per_unit(
     configuration: &configuration::Configuration,
     params: GetStatisticsPerUnitParams,
-) -> Result<crate::insight::models::GetStatisticsPerUnitResponse, Error<GetStatisticsPerUnitError>>
-{
+) -> Result<ResponseContent<GetStatisticsPerUnitSuccess>, Error<GetStatisticsPerUnitError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -338,7 +401,14 @@ pub async fn get_statistics_per_unit(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetStatisticsPerUnitSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetStatisticsPerUnitError> =
             serde_json::from_str(&local_var_content).ok();

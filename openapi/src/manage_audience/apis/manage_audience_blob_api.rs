@@ -53,6 +53,22 @@ pub struct CreateAudienceForUploadingUserIdsParams {
     pub upload_description: Option<String>,
 }
 
+/// struct for typed successes of method [`add_user_ids_to_audience`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddUserIdsToAudienceSuccess {
+    Status202(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`create_audience_for_uploading_user_ids`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAudienceForUploadingUserIdsSuccess {
+    Status200(crate::manage_audience::models::CreateAudienceGroupResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`add_user_ids_to_audience`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -71,7 +87,7 @@ pub enum CreateAudienceForUploadingUserIdsError {
 pub async fn add_user_ids_to_audience(
     configuration: &configuration::Configuration,
     params: AddUserIdsToAudienceParams,
-) -> Result<(), Error<AddUserIdsToAudienceError>> {
+) -> Result<ResponseContent<AddUserIdsToAudienceSuccess>, Error<AddUserIdsToAudienceError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -113,7 +129,14 @@ pub async fn add_user_ids_to_audience(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<AddUserIdsToAudienceSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<AddUserIdsToAudienceError> =
             serde_json::from_str(&local_var_content).ok();
@@ -131,7 +154,7 @@ pub async fn create_audience_for_uploading_user_ids(
     configuration: &configuration::Configuration,
     params: CreateAudienceForUploadingUserIdsParams,
 ) -> Result<
-    crate::manage_audience::models::CreateAudienceGroupResponse,
+    ResponseContent<CreateAudienceForUploadingUserIdsSuccess>,
     Error<CreateAudienceForUploadingUserIdsError>,
 > {
     let local_var_configuration = configuration;
@@ -179,7 +202,14 @@ pub async fn create_audience_for_uploading_user_ids(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<CreateAudienceForUploadingUserIdsSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<CreateAudienceForUploadingUserIdsError> =
             serde_json::from_str(&local_var_content).ok();

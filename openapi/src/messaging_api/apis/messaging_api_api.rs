@@ -397,6 +397,494 @@ pub struct ValidateRichMenuObjectParams {
     pub rich_menu_request: crate::messaging_api::models::RichMenuRequest,
 }
 
+/// struct for typed successes of method [`audience_match`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AudienceMatchSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`broadcast`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BroadcastSuccess {
+    Status200(serde_json::Value),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`cancel_default_rich_menu`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CancelDefaultRichMenuSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`create_rich_menu`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateRichMenuSuccess {
+    Status200(crate::messaging_api::models::RichMenuIdResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`create_rich_menu_alias`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateRichMenuAliasSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`delete_rich_menu`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteRichMenuSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`delete_rich_menu_alias`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteRichMenuAliasSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_ad_phone_message_statistics`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAdPhoneMessageStatisticsSuccess {
+    Status200(crate::messaging_api::models::NumberOfMessagesResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_aggregation_unit_name_list`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAggregationUnitNameListSuccess {
+    Status200(crate::messaging_api::models::GetAggregationUnitNameListResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_aggregation_unit_usage`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAggregationUnitUsageSuccess {
+    Status200(crate::messaging_api::models::GetAggregationUnitUsageResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_bot_info`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetBotInfoSuccess {
+    Status200(crate::messaging_api::models::BotInfoResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_default_rich_menu_id`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDefaultRichMenuIdSuccess {
+    Status200(crate::messaging_api::models::RichMenuIdResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_followers`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetFollowersSuccess {
+    Status200(crate::messaging_api::models::GetFollowersResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_group_member_count`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetGroupMemberCountSuccess {
+    Status200(crate::messaging_api::models::GroupMemberCountResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_group_member_profile`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetGroupMemberProfileSuccess {
+    Status200(crate::messaging_api::models::GroupUserProfileResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_group_members_ids`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetGroupMembersIdsSuccess {
+    Status200(crate::messaging_api::models::MembersIdsResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_group_summary`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetGroupSummarySuccess {
+    Status200(crate::messaging_api::models::GroupSummaryResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_message_quota`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetMessageQuotaSuccess {
+    Status200(crate::messaging_api::models::MessageQuotaResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_message_quota_consumption`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetMessageQuotaConsumptionSuccess {
+    Status200(crate::messaging_api::models::QuotaConsumptionResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_narrowcast_progress`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetNarrowcastProgressSuccess {
+    Status200(crate::messaging_api::models::NarrowcastProgressResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_number_of_sent_broadcast_messages`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetNumberOfSentBroadcastMessagesSuccess {
+    Status200(crate::messaging_api::models::NumberOfMessagesResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_number_of_sent_multicast_messages`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetNumberOfSentMulticastMessagesSuccess {
+    Status200(crate::messaging_api::models::NumberOfMessagesResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_number_of_sent_push_messages`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetNumberOfSentPushMessagesSuccess {
+    Status200(crate::messaging_api::models::NumberOfMessagesResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_number_of_sent_reply_messages`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetNumberOfSentReplyMessagesSuccess {
+    Status200(crate::messaging_api::models::NumberOfMessagesResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_pnp_message_statistics`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetPnpMessageStatisticsSuccess {
+    Status200(crate::messaging_api::models::NumberOfMessagesResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_profile`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetProfileSuccess {
+    Status200(crate::messaging_api::models::UserProfileResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_rich_menu`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRichMenuSuccess {
+    Status200(crate::messaging_api::models::RichMenuResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_rich_menu_alias`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRichMenuAliasSuccess {
+    Status200(crate::messaging_api::models::RichMenuAliasResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_rich_menu_alias_list`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRichMenuAliasListSuccess {
+    Status200(crate::messaging_api::models::RichMenuAliasListResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_rich_menu_batch_progress`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRichMenuBatchProgressSuccess {
+    Status200(crate::messaging_api::models::RichMenuBatchProgressResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_rich_menu_id_of_user`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRichMenuIdOfUserSuccess {
+    Status200(crate::messaging_api::models::RichMenuIdResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_rich_menu_list`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRichMenuListSuccess {
+    Status200(crate::messaging_api::models::RichMenuListResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_room_member_count`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRoomMemberCountSuccess {
+    Status200(crate::messaging_api::models::RoomMemberCountResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_room_member_profile`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRoomMemberProfileSuccess {
+    Status200(crate::messaging_api::models::RoomUserProfileResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_room_members_ids`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRoomMembersIdsSuccess {
+    Status200(crate::messaging_api::models::MembersIdsResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_webhook_endpoint`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetWebhookEndpointSuccess {
+    Status200(crate::messaging_api::models::GetWebhookEndpointResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`issue_link_token`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum IssueLinkTokenSuccess {
+    Status200(crate::messaging_api::models::IssueLinkTokenResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`leave_group`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum LeaveGroupSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`leave_room`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum LeaveRoomSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`link_rich_menu_id_to_user`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum LinkRichMenuIdToUserSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`link_rich_menu_id_to_users`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum LinkRichMenuIdToUsersSuccess {
+    Status202(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`mark_messages_as_read`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum MarkMessagesAsReadSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`multicast`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum MulticastSuccess {
+    Status200(serde_json::Value),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`narrowcast`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum NarrowcastSuccess {
+    Status202(serde_json::Value),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`push_message`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PushMessageSuccess {
+    Status200(crate::messaging_api::models::PushMessageResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`push_messages_by_phone`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PushMessagesByPhoneSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`reply_message`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ReplyMessageSuccess {
+    Status200(crate::messaging_api::models::ReplyMessageResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`rich_menu_batch`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RichMenuBatchSuccess {
+    Status202(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`set_default_rich_menu`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SetDefaultRichMenuSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`set_webhook_endpoint`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SetWebhookEndpointSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`test_webhook_endpoint`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum TestWebhookEndpointSuccess {
+    Status200(crate::messaging_api::models::TestWebhookEndpointResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`unlink_rich_menu_id_from_user`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UnlinkRichMenuIdFromUserSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`unlink_rich_menu_id_from_users`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UnlinkRichMenuIdFromUsersSuccess {
+    Status202(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`update_rich_menu_alias`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateRichMenuAliasSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`validate_broadcast`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ValidateBroadcastSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`validate_multicast`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ValidateMulticastSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`validate_narrowcast`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ValidateNarrowcastSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`validate_push`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ValidatePushSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`validate_reply`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ValidateReplySuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`validate_rich_menu_batch_request`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ValidateRichMenuBatchRequestSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`validate_rich_menu_object`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ValidateRichMenuObjectSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`audience_match`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -852,7 +1340,7 @@ pub enum ValidateRichMenuObjectError {
 pub async fn audience_match(
     configuration: &configuration::Configuration,
     params: AudienceMatchParams,
-) -> Result<(), Error<AudienceMatchError>> {
+) -> Result<ResponseContent<AudienceMatchSuccess>, Error<AudienceMatchError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -883,7 +1371,14 @@ pub async fn audience_match(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<AudienceMatchSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<AudienceMatchError> =
             serde_json::from_str(&local_var_content).ok();
@@ -900,7 +1395,7 @@ pub async fn audience_match(
 pub async fn broadcast(
     configuration: &configuration::Configuration,
     params: BroadcastParams,
-) -> Result<serde_json::Value, Error<BroadcastError>> {
+) -> Result<ResponseContent<BroadcastSuccess>, Error<BroadcastError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -936,7 +1431,14 @@ pub async fn broadcast(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<BroadcastSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<BroadcastError> =
             serde_json::from_str(&local_var_content).ok();
@@ -952,7 +1454,7 @@ pub async fn broadcast(
 /// Cancel default rich menu
 pub async fn cancel_default_rich_menu(
     configuration: &configuration::Configuration,
-) -> Result<(), Error<CancelDefaultRichMenuError>> {
+) -> Result<ResponseContent<CancelDefaultRichMenuSuccess>, Error<CancelDefaultRichMenuError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -981,7 +1483,14 @@ pub async fn cancel_default_rich_menu(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<CancelDefaultRichMenuSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<CancelDefaultRichMenuError> =
             serde_json::from_str(&local_var_content).ok();
@@ -998,7 +1507,7 @@ pub async fn cancel_default_rich_menu(
 pub async fn create_rich_menu(
     configuration: &configuration::Configuration,
     params: CreateRichMenuParams,
-) -> Result<crate::messaging_api::models::RichMenuIdResponse, Error<CreateRichMenuError>> {
+) -> Result<ResponseContent<CreateRichMenuSuccess>, Error<CreateRichMenuError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1026,7 +1535,14 @@ pub async fn create_rich_menu(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<CreateRichMenuSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<CreateRichMenuError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1043,7 +1559,7 @@ pub async fn create_rich_menu(
 pub async fn create_rich_menu_alias(
     configuration: &configuration::Configuration,
     params: CreateRichMenuAliasParams,
-) -> Result<(), Error<CreateRichMenuAliasError>> {
+) -> Result<ResponseContent<CreateRichMenuAliasSuccess>, Error<CreateRichMenuAliasError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1074,7 +1590,14 @@ pub async fn create_rich_menu_alias(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<CreateRichMenuAliasSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<CreateRichMenuAliasError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1091,7 +1614,7 @@ pub async fn create_rich_menu_alias(
 pub async fn delete_rich_menu(
     configuration: &configuration::Configuration,
     params: DeleteRichMenuParams,
-) -> Result<(), Error<DeleteRichMenuError>> {
+) -> Result<ResponseContent<DeleteRichMenuSuccess>, Error<DeleteRichMenuError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1122,7 +1645,14 @@ pub async fn delete_rich_menu(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<DeleteRichMenuSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<DeleteRichMenuError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1139,7 +1669,7 @@ pub async fn delete_rich_menu(
 pub async fn delete_rich_menu_alias(
     configuration: &configuration::Configuration,
     params: DeleteRichMenuAliasParams,
-) -> Result<(), Error<DeleteRichMenuAliasError>> {
+) -> Result<ResponseContent<DeleteRichMenuAliasSuccess>, Error<DeleteRichMenuAliasError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1170,7 +1700,14 @@ pub async fn delete_rich_menu_alias(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<DeleteRichMenuAliasSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<DeleteRichMenuAliasError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1188,7 +1725,7 @@ pub async fn get_ad_phone_message_statistics(
     configuration: &configuration::Configuration,
     params: GetAdPhoneMessageStatisticsParams,
 ) -> Result<
-    crate::messaging_api::models::NumberOfMessagesResponse,
+    ResponseContent<GetAdPhoneMessageStatisticsSuccess>,
     Error<GetAdPhoneMessageStatisticsError>,
 > {
     let local_var_configuration = configuration;
@@ -1221,7 +1758,14 @@ pub async fn get_ad_phone_message_statistics(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetAdPhoneMessageStatisticsSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetAdPhoneMessageStatisticsError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1239,7 +1783,7 @@ pub async fn get_aggregation_unit_name_list(
     configuration: &configuration::Configuration,
     params: GetAggregationUnitNameListParams,
 ) -> Result<
-    crate::messaging_api::models::GetAggregationUnitNameListResponse,
+    ResponseContent<GetAggregationUnitNameListSuccess>,
     Error<GetAggregationUnitNameListError>,
 > {
     let local_var_configuration = configuration;
@@ -1280,7 +1824,14 @@ pub async fn get_aggregation_unit_name_list(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetAggregationUnitNameListSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetAggregationUnitNameListError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1296,10 +1847,7 @@ pub async fn get_aggregation_unit_name_list(
 /// Get number of units used this month
 pub async fn get_aggregation_unit_usage(
     configuration: &configuration::Configuration,
-) -> Result<
-    crate::messaging_api::models::GetAggregationUnitUsageResponse,
-    Error<GetAggregationUnitUsageError>,
-> {
+) -> Result<ResponseContent<GetAggregationUnitUsageSuccess>, Error<GetAggregationUnitUsageError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1328,7 +1876,14 @@ pub async fn get_aggregation_unit_usage(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetAggregationUnitUsageSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetAggregationUnitUsageError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1344,7 +1899,7 @@ pub async fn get_aggregation_unit_usage(
 /// Get bot info
 pub async fn get_bot_info(
     configuration: &configuration::Configuration,
-) -> Result<crate::messaging_api::models::BotInfoResponse, Error<GetBotInfoError>> {
+) -> Result<ResponseContent<GetBotInfoSuccess>, Error<GetBotInfoError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1370,7 +1925,14 @@ pub async fn get_bot_info(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetBotInfoSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetBotInfoError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1386,7 +1948,7 @@ pub async fn get_bot_info(
 /// Gets the ID of the default rich menu set with the Messaging API.
 pub async fn get_default_rich_menu_id(
     configuration: &configuration::Configuration,
-) -> Result<crate::messaging_api::models::RichMenuIdResponse, Error<GetDefaultRichMenuIdError>> {
+) -> Result<ResponseContent<GetDefaultRichMenuIdSuccess>, Error<GetDefaultRichMenuIdError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1415,7 +1977,14 @@ pub async fn get_default_rich_menu_id(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetDefaultRichMenuIdSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetDefaultRichMenuIdError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1432,7 +2001,7 @@ pub async fn get_default_rich_menu_id(
 pub async fn get_followers(
     configuration: &configuration::Configuration,
     params: GetFollowersParams,
-) -> Result<crate::messaging_api::models::GetFollowersResponse, Error<GetFollowersError>> {
+) -> Result<ResponseContent<GetFollowersSuccess>, Error<GetFollowersError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1468,7 +2037,14 @@ pub async fn get_followers(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetFollowersSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetFollowersError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1485,8 +2061,7 @@ pub async fn get_followers(
 pub async fn get_group_member_count(
     configuration: &configuration::Configuration,
     params: GetGroupMemberCountParams,
-) -> Result<crate::messaging_api::models::GroupMemberCountResponse, Error<GetGroupMemberCountError>>
-{
+) -> Result<ResponseContent<GetGroupMemberCountSuccess>, Error<GetGroupMemberCountError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1517,7 +2092,14 @@ pub async fn get_group_member_count(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetGroupMemberCountSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetGroupMemberCountError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1534,8 +2116,7 @@ pub async fn get_group_member_count(
 pub async fn get_group_member_profile(
     configuration: &configuration::Configuration,
     params: GetGroupMemberProfileParams,
-) -> Result<crate::messaging_api::models::GroupUserProfileResponse, Error<GetGroupMemberProfileError>>
-{
+) -> Result<ResponseContent<GetGroupMemberProfileSuccess>, Error<GetGroupMemberProfileError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1568,7 +2149,14 @@ pub async fn get_group_member_profile(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetGroupMemberProfileSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetGroupMemberProfileError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1585,7 +2173,7 @@ pub async fn get_group_member_profile(
 pub async fn get_group_members_ids(
     configuration: &configuration::Configuration,
     params: GetGroupMembersIdsParams,
-) -> Result<crate::messaging_api::models::MembersIdsResponse, Error<GetGroupMembersIdsError>> {
+) -> Result<ResponseContent<GetGroupMembersIdsSuccess>, Error<GetGroupMembersIdsError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1621,7 +2209,14 @@ pub async fn get_group_members_ids(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetGroupMembersIdsSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetGroupMembersIdsError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1638,7 +2233,7 @@ pub async fn get_group_members_ids(
 pub async fn get_group_summary(
     configuration: &configuration::Configuration,
     params: GetGroupSummaryParams,
-) -> Result<crate::messaging_api::models::GroupSummaryResponse, Error<GetGroupSummaryError>> {
+) -> Result<ResponseContent<GetGroupSummarySuccess>, Error<GetGroupSummaryError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1669,7 +2264,14 @@ pub async fn get_group_summary(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetGroupSummarySuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetGroupSummaryError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1685,7 +2287,7 @@ pub async fn get_group_summary(
 /// Gets the target limit for sending messages in the current month. The total number of the free messages and the additional messages is returned.
 pub async fn get_message_quota(
     configuration: &configuration::Configuration,
-) -> Result<crate::messaging_api::models::MessageQuotaResponse, Error<GetMessageQuotaError>> {
+) -> Result<ResponseContent<GetMessageQuotaSuccess>, Error<GetMessageQuotaError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1711,7 +2313,14 @@ pub async fn get_message_quota(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetMessageQuotaSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetMessageQuotaError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1728,7 +2337,7 @@ pub async fn get_message_quota(
 pub async fn get_message_quota_consumption(
     configuration: &configuration::Configuration,
 ) -> Result<
-    crate::messaging_api::models::QuotaConsumptionResponse,
+    ResponseContent<GetMessageQuotaConsumptionSuccess>,
     Error<GetMessageQuotaConsumptionError>,
 > {
     let local_var_configuration = configuration;
@@ -1759,7 +2368,14 @@ pub async fn get_message_quota_consumption(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetMessageQuotaConsumptionSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetMessageQuotaConsumptionError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1776,10 +2392,7 @@ pub async fn get_message_quota_consumption(
 pub async fn get_narrowcast_progress(
     configuration: &configuration::Configuration,
     params: GetNarrowcastProgressParams,
-) -> Result<
-    crate::messaging_api::models::NarrowcastProgressResponse,
-    Error<GetNarrowcastProgressError>,
-> {
+) -> Result<ResponseContent<GetNarrowcastProgressSuccess>, Error<GetNarrowcastProgressError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -1810,7 +2423,14 @@ pub async fn get_narrowcast_progress(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetNarrowcastProgressSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetNarrowcastProgressError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1828,7 +2448,7 @@ pub async fn get_number_of_sent_broadcast_messages(
     configuration: &configuration::Configuration,
     params: GetNumberOfSentBroadcastMessagesParams,
 ) -> Result<
-    crate::messaging_api::models::NumberOfMessagesResponse,
+    ResponseContent<GetNumberOfSentBroadcastMessagesSuccess>,
     Error<GetNumberOfSentBroadcastMessagesError>,
 > {
     let local_var_configuration = configuration;
@@ -1861,7 +2481,14 @@ pub async fn get_number_of_sent_broadcast_messages(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetNumberOfSentBroadcastMessagesSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetNumberOfSentBroadcastMessagesError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1879,7 +2506,7 @@ pub async fn get_number_of_sent_multicast_messages(
     configuration: &configuration::Configuration,
     params: GetNumberOfSentMulticastMessagesParams,
 ) -> Result<
-    crate::messaging_api::models::NumberOfMessagesResponse,
+    ResponseContent<GetNumberOfSentMulticastMessagesSuccess>,
     Error<GetNumberOfSentMulticastMessagesError>,
 > {
     let local_var_configuration = configuration;
@@ -1912,7 +2539,14 @@ pub async fn get_number_of_sent_multicast_messages(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetNumberOfSentMulticastMessagesSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetNumberOfSentMulticastMessagesError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1930,7 +2564,7 @@ pub async fn get_number_of_sent_push_messages(
     configuration: &configuration::Configuration,
     params: GetNumberOfSentPushMessagesParams,
 ) -> Result<
-    crate::messaging_api::models::NumberOfMessagesResponse,
+    ResponseContent<GetNumberOfSentPushMessagesSuccess>,
     Error<GetNumberOfSentPushMessagesError>,
 > {
     let local_var_configuration = configuration;
@@ -1963,7 +2597,14 @@ pub async fn get_number_of_sent_push_messages(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetNumberOfSentPushMessagesSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetNumberOfSentPushMessagesError> =
             serde_json::from_str(&local_var_content).ok();
@@ -1981,7 +2622,7 @@ pub async fn get_number_of_sent_reply_messages(
     configuration: &configuration::Configuration,
     params: GetNumberOfSentReplyMessagesParams,
 ) -> Result<
-    crate::messaging_api::models::NumberOfMessagesResponse,
+    ResponseContent<GetNumberOfSentReplyMessagesSuccess>,
     Error<GetNumberOfSentReplyMessagesError>,
 > {
     let local_var_configuration = configuration;
@@ -2014,7 +2655,14 @@ pub async fn get_number_of_sent_reply_messages(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetNumberOfSentReplyMessagesSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetNumberOfSentReplyMessagesError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2031,10 +2679,7 @@ pub async fn get_number_of_sent_reply_messages(
 pub async fn get_pnp_message_statistics(
     configuration: &configuration::Configuration,
     params: GetPnpMessageStatisticsParams,
-) -> Result<
-    crate::messaging_api::models::NumberOfMessagesResponse,
-    Error<GetPnpMessageStatisticsError>,
-> {
+) -> Result<ResponseContent<GetPnpMessageStatisticsSuccess>, Error<GetPnpMessageStatisticsError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2065,7 +2710,14 @@ pub async fn get_pnp_message_statistics(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetPnpMessageStatisticsSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetPnpMessageStatisticsError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2082,7 +2734,7 @@ pub async fn get_pnp_message_statistics(
 pub async fn get_profile(
     configuration: &configuration::Configuration,
     params: GetProfileParams,
-) -> Result<crate::messaging_api::models::UserProfileResponse, Error<GetProfileError>> {
+) -> Result<ResponseContent<GetProfileSuccess>, Error<GetProfileError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2113,7 +2765,14 @@ pub async fn get_profile(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetProfileSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetProfileError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2130,7 +2789,7 @@ pub async fn get_profile(
 pub async fn get_rich_menu(
     configuration: &configuration::Configuration,
     params: GetRichMenuParams,
-) -> Result<crate::messaging_api::models::RichMenuResponse, Error<GetRichMenuError>> {
+) -> Result<ResponseContent<GetRichMenuSuccess>, Error<GetRichMenuError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2161,7 +2820,14 @@ pub async fn get_rich_menu(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetRichMenuSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetRichMenuError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2178,7 +2844,7 @@ pub async fn get_rich_menu(
 pub async fn get_rich_menu_alias(
     configuration: &configuration::Configuration,
     params: GetRichMenuAliasParams,
-) -> Result<crate::messaging_api::models::RichMenuAliasResponse, Error<GetRichMenuAliasError>> {
+) -> Result<ResponseContent<GetRichMenuAliasSuccess>, Error<GetRichMenuAliasError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2209,7 +2875,14 @@ pub async fn get_rich_menu_alias(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetRichMenuAliasSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetRichMenuAliasError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2225,8 +2898,7 @@ pub async fn get_rich_menu_alias(
 /// Get list of rich menu alias
 pub async fn get_rich_menu_alias_list(
     configuration: &configuration::Configuration,
-) -> Result<crate::messaging_api::models::RichMenuAliasListResponse, Error<GetRichMenuAliasListError>>
-{
+) -> Result<ResponseContent<GetRichMenuAliasListSuccess>, Error<GetRichMenuAliasListError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2255,7 +2927,14 @@ pub async fn get_rich_menu_alias_list(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetRichMenuAliasListSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetRichMenuAliasListError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2272,10 +2951,8 @@ pub async fn get_rich_menu_alias_list(
 pub async fn get_rich_menu_batch_progress(
     configuration: &configuration::Configuration,
     params: GetRichMenuBatchProgressParams,
-) -> Result<
-    crate::messaging_api::models::RichMenuBatchProgressResponse,
-    Error<GetRichMenuBatchProgressError>,
-> {
+) -> Result<ResponseContent<GetRichMenuBatchProgressSuccess>, Error<GetRichMenuBatchProgressError>>
+{
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2306,7 +2983,14 @@ pub async fn get_rich_menu_batch_progress(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetRichMenuBatchProgressSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetRichMenuBatchProgressError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2323,7 +3007,7 @@ pub async fn get_rich_menu_batch_progress(
 pub async fn get_rich_menu_id_of_user(
     configuration: &configuration::Configuration,
     params: GetRichMenuIdOfUserParams,
-) -> Result<crate::messaging_api::models::RichMenuIdResponse, Error<GetRichMenuIdOfUserError>> {
+) -> Result<ResponseContent<GetRichMenuIdOfUserSuccess>, Error<GetRichMenuIdOfUserError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2354,7 +3038,14 @@ pub async fn get_rich_menu_id_of_user(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetRichMenuIdOfUserSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetRichMenuIdOfUserError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2370,7 +3061,7 @@ pub async fn get_rich_menu_id_of_user(
 /// Get rich menu list
 pub async fn get_rich_menu_list(
     configuration: &configuration::Configuration,
-) -> Result<crate::messaging_api::models::RichMenuListResponse, Error<GetRichMenuListError>> {
+) -> Result<ResponseContent<GetRichMenuListSuccess>, Error<GetRichMenuListError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2396,7 +3087,14 @@ pub async fn get_rich_menu_list(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetRichMenuListSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetRichMenuListError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2413,7 +3111,7 @@ pub async fn get_rich_menu_list(
 pub async fn get_room_member_count(
     configuration: &configuration::Configuration,
     params: GetRoomMemberCountParams,
-) -> Result<crate::messaging_api::models::RoomMemberCountResponse, Error<GetRoomMemberCountError>> {
+) -> Result<ResponseContent<GetRoomMemberCountSuccess>, Error<GetRoomMemberCountError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2444,7 +3142,14 @@ pub async fn get_room_member_count(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetRoomMemberCountSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetRoomMemberCountError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2461,8 +3166,7 @@ pub async fn get_room_member_count(
 pub async fn get_room_member_profile(
     configuration: &configuration::Configuration,
     params: GetRoomMemberProfileParams,
-) -> Result<crate::messaging_api::models::RoomUserProfileResponse, Error<GetRoomMemberProfileError>>
-{
+) -> Result<ResponseContent<GetRoomMemberProfileSuccess>, Error<GetRoomMemberProfileError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2495,7 +3199,14 @@ pub async fn get_room_member_profile(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetRoomMemberProfileSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetRoomMemberProfileError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2512,7 +3223,7 @@ pub async fn get_room_member_profile(
 pub async fn get_room_members_ids(
     configuration: &configuration::Configuration,
     params: GetRoomMembersIdsParams,
-) -> Result<crate::messaging_api::models::MembersIdsResponse, Error<GetRoomMembersIdsError>> {
+) -> Result<ResponseContent<GetRoomMembersIdsSuccess>, Error<GetRoomMembersIdsError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2548,7 +3259,14 @@ pub async fn get_room_members_ids(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetRoomMembersIdsSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetRoomMembersIdsError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2564,8 +3282,7 @@ pub async fn get_room_members_ids(
 /// Get webhook endpoint information
 pub async fn get_webhook_endpoint(
     configuration: &configuration::Configuration,
-) -> Result<crate::messaging_api::models::GetWebhookEndpointResponse, Error<GetWebhookEndpointError>>
-{
+) -> Result<ResponseContent<GetWebhookEndpointSuccess>, Error<GetWebhookEndpointError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2594,7 +3311,14 @@ pub async fn get_webhook_endpoint(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetWebhookEndpointSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetWebhookEndpointError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2611,7 +3335,7 @@ pub async fn get_webhook_endpoint(
 pub async fn issue_link_token(
     configuration: &configuration::Configuration,
     params: IssueLinkTokenParams,
-) -> Result<crate::messaging_api::models::IssueLinkTokenResponse, Error<IssueLinkTokenError>> {
+) -> Result<ResponseContent<IssueLinkTokenSuccess>, Error<IssueLinkTokenError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2642,7 +3366,14 @@ pub async fn issue_link_token(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<IssueLinkTokenSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<IssueLinkTokenError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2659,7 +3390,7 @@ pub async fn issue_link_token(
 pub async fn leave_group(
     configuration: &configuration::Configuration,
     params: LeaveGroupParams,
-) -> Result<(), Error<LeaveGroupError>> {
+) -> Result<ResponseContent<LeaveGroupSuccess>, Error<LeaveGroupError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2690,7 +3421,14 @@ pub async fn leave_group(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<LeaveGroupSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<LeaveGroupError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2707,7 +3445,7 @@ pub async fn leave_group(
 pub async fn leave_room(
     configuration: &configuration::Configuration,
     params: LeaveRoomParams,
-) -> Result<(), Error<LeaveRoomError>> {
+) -> Result<ResponseContent<LeaveRoomSuccess>, Error<LeaveRoomError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2738,7 +3476,14 @@ pub async fn leave_room(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<LeaveRoomSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<LeaveRoomError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2755,7 +3500,7 @@ pub async fn leave_room(
 pub async fn link_rich_menu_id_to_user(
     configuration: &configuration::Configuration,
     params: LinkRichMenuIdToUserParams,
-) -> Result<(), Error<LinkRichMenuIdToUserError>> {
+) -> Result<ResponseContent<LinkRichMenuIdToUserSuccess>, Error<LinkRichMenuIdToUserError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2788,7 +3533,14 @@ pub async fn link_rich_menu_id_to_user(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<LinkRichMenuIdToUserSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<LinkRichMenuIdToUserError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2805,7 +3557,7 @@ pub async fn link_rich_menu_id_to_user(
 pub async fn link_rich_menu_id_to_users(
     configuration: &configuration::Configuration,
     params: LinkRichMenuIdToUsersParams,
-) -> Result<(), Error<LinkRichMenuIdToUsersError>> {
+) -> Result<ResponseContent<LinkRichMenuIdToUsersSuccess>, Error<LinkRichMenuIdToUsersError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2836,7 +3588,14 @@ pub async fn link_rich_menu_id_to_users(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<LinkRichMenuIdToUsersSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<LinkRichMenuIdToUsersError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2853,7 +3612,7 @@ pub async fn link_rich_menu_id_to_users(
 pub async fn mark_messages_as_read(
     configuration: &configuration::Configuration,
     params: MarkMessagesAsReadParams,
-) -> Result<(), Error<MarkMessagesAsReadError>> {
+) -> Result<ResponseContent<MarkMessagesAsReadSuccess>, Error<MarkMessagesAsReadError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2884,7 +3643,14 @@ pub async fn mark_messages_as_read(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<MarkMessagesAsReadSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<MarkMessagesAsReadError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2901,7 +3667,7 @@ pub async fn mark_messages_as_read(
 pub async fn multicast(
     configuration: &configuration::Configuration,
     params: MulticastParams,
-) -> Result<serde_json::Value, Error<MulticastError>> {
+) -> Result<ResponseContent<MulticastSuccess>, Error<MulticastError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2937,7 +3703,14 @@ pub async fn multicast(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<MulticastSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<MulticastError> =
             serde_json::from_str(&local_var_content).ok();
@@ -2954,7 +3727,7 @@ pub async fn multicast(
 pub async fn narrowcast(
     configuration: &configuration::Configuration,
     params: NarrowcastParams,
-) -> Result<serde_json::Value, Error<NarrowcastError>> {
+) -> Result<ResponseContent<NarrowcastSuccess>, Error<NarrowcastError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -2990,7 +3763,14 @@ pub async fn narrowcast(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<NarrowcastSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<NarrowcastError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3007,7 +3787,7 @@ pub async fn narrowcast(
 pub async fn push_message(
     configuration: &configuration::Configuration,
     params: PushMessageParams,
-) -> Result<crate::messaging_api::models::PushMessageResponse, Error<PushMessageError>> {
+) -> Result<ResponseContent<PushMessageSuccess>, Error<PushMessageError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3040,7 +3820,14 @@ pub async fn push_message(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<PushMessageSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<PushMessageError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3057,7 +3844,7 @@ pub async fn push_message(
 pub async fn push_messages_by_phone(
     configuration: &configuration::Configuration,
     params: PushMessagesByPhoneParams,
-) -> Result<(), Error<PushMessagesByPhoneError>> {
+) -> Result<ResponseContent<PushMessagesByPhoneSuccess>, Error<PushMessagesByPhoneError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3090,7 +3877,14 @@ pub async fn push_messages_by_phone(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<PushMessagesByPhoneSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<PushMessagesByPhoneError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3107,7 +3901,7 @@ pub async fn push_messages_by_phone(
 pub async fn reply_message(
     configuration: &configuration::Configuration,
     params: ReplyMessageParams,
-) -> Result<crate::messaging_api::models::ReplyMessageResponse, Error<ReplyMessageError>> {
+) -> Result<ResponseContent<ReplyMessageSuccess>, Error<ReplyMessageError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3135,7 +3929,14 @@ pub async fn reply_message(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<ReplyMessageSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<ReplyMessageError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3152,7 +3953,7 @@ pub async fn reply_message(
 pub async fn rich_menu_batch(
     configuration: &configuration::Configuration,
     params: RichMenuBatchParams,
-) -> Result<(), Error<RichMenuBatchError>> {
+) -> Result<ResponseContent<RichMenuBatchSuccess>, Error<RichMenuBatchError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3183,7 +3984,14 @@ pub async fn rich_menu_batch(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<RichMenuBatchSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<RichMenuBatchError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3200,7 +4008,7 @@ pub async fn rich_menu_batch(
 pub async fn set_default_rich_menu(
     configuration: &configuration::Configuration,
     params: SetDefaultRichMenuParams,
-) -> Result<(), Error<SetDefaultRichMenuError>> {
+) -> Result<ResponseContent<SetDefaultRichMenuSuccess>, Error<SetDefaultRichMenuError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3231,7 +4039,14 @@ pub async fn set_default_rich_menu(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<SetDefaultRichMenuSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<SetDefaultRichMenuError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3248,7 +4063,7 @@ pub async fn set_default_rich_menu(
 pub async fn set_webhook_endpoint(
     configuration: &configuration::Configuration,
     params: SetWebhookEndpointParams,
-) -> Result<(), Error<SetWebhookEndpointError>> {
+) -> Result<ResponseContent<SetWebhookEndpointSuccess>, Error<SetWebhookEndpointError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3279,7 +4094,14 @@ pub async fn set_webhook_endpoint(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<SetWebhookEndpointSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<SetWebhookEndpointError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3296,10 +4118,7 @@ pub async fn set_webhook_endpoint(
 pub async fn test_webhook_endpoint(
     configuration: &configuration::Configuration,
     params: TestWebhookEndpointParams,
-) -> Result<
-    crate::messaging_api::models::TestWebhookEndpointResponse,
-    Error<TestWebhookEndpointError>,
-> {
+) -> Result<ResponseContent<TestWebhookEndpointSuccess>, Error<TestWebhookEndpointError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3330,7 +4149,14 @@ pub async fn test_webhook_endpoint(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<TestWebhookEndpointSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<TestWebhookEndpointError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3347,7 +4173,8 @@ pub async fn test_webhook_endpoint(
 pub async fn unlink_rich_menu_id_from_user(
     configuration: &configuration::Configuration,
     params: UnlinkRichMenuIdFromUserParams,
-) -> Result<(), Error<UnlinkRichMenuIdFromUserError>> {
+) -> Result<ResponseContent<UnlinkRichMenuIdFromUserSuccess>, Error<UnlinkRichMenuIdFromUserError>>
+{
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3378,7 +4205,14 @@ pub async fn unlink_rich_menu_id_from_user(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<UnlinkRichMenuIdFromUserSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<UnlinkRichMenuIdFromUserError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3395,7 +4229,8 @@ pub async fn unlink_rich_menu_id_from_user(
 pub async fn unlink_rich_menu_id_from_users(
     configuration: &configuration::Configuration,
     params: UnlinkRichMenuIdFromUsersParams,
-) -> Result<(), Error<UnlinkRichMenuIdFromUsersError>> {
+) -> Result<ResponseContent<UnlinkRichMenuIdFromUsersSuccess>, Error<UnlinkRichMenuIdFromUsersError>>
+{
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3426,7 +4261,14 @@ pub async fn unlink_rich_menu_id_from_users(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<UnlinkRichMenuIdFromUsersSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<UnlinkRichMenuIdFromUsersError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3443,7 +4285,7 @@ pub async fn unlink_rich_menu_id_from_users(
 pub async fn update_rich_menu_alias(
     configuration: &configuration::Configuration,
     params: UpdateRichMenuAliasParams,
-) -> Result<(), Error<UpdateRichMenuAliasError>> {
+) -> Result<ResponseContent<UpdateRichMenuAliasSuccess>, Error<UpdateRichMenuAliasError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3476,7 +4318,14 @@ pub async fn update_rich_menu_alias(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<UpdateRichMenuAliasSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<UpdateRichMenuAliasError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3493,7 +4342,7 @@ pub async fn update_rich_menu_alias(
 pub async fn validate_broadcast(
     configuration: &configuration::Configuration,
     params: ValidateBroadcastParams,
-) -> Result<(), Error<ValidateBroadcastError>> {
+) -> Result<ResponseContent<ValidateBroadcastSuccess>, Error<ValidateBroadcastError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3524,7 +4373,14 @@ pub async fn validate_broadcast(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<ValidateBroadcastSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<ValidateBroadcastError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3541,7 +4397,7 @@ pub async fn validate_broadcast(
 pub async fn validate_multicast(
     configuration: &configuration::Configuration,
     params: ValidateMulticastParams,
-) -> Result<(), Error<ValidateMulticastError>> {
+) -> Result<ResponseContent<ValidateMulticastSuccess>, Error<ValidateMulticastError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3572,7 +4428,14 @@ pub async fn validate_multicast(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<ValidateMulticastSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<ValidateMulticastError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3589,7 +4452,7 @@ pub async fn validate_multicast(
 pub async fn validate_narrowcast(
     configuration: &configuration::Configuration,
     params: ValidateNarrowcastParams,
-) -> Result<(), Error<ValidateNarrowcastError>> {
+) -> Result<ResponseContent<ValidateNarrowcastSuccess>, Error<ValidateNarrowcastError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3620,7 +4483,14 @@ pub async fn validate_narrowcast(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<ValidateNarrowcastSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<ValidateNarrowcastError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3637,7 +4507,7 @@ pub async fn validate_narrowcast(
 pub async fn validate_push(
     configuration: &configuration::Configuration,
     params: ValidatePushParams,
-) -> Result<(), Error<ValidatePushError>> {
+) -> Result<ResponseContent<ValidatePushSuccess>, Error<ValidatePushError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3668,7 +4538,14 @@ pub async fn validate_push(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<ValidatePushSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<ValidatePushError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3685,7 +4562,7 @@ pub async fn validate_push(
 pub async fn validate_reply(
     configuration: &configuration::Configuration,
     params: ValidateReplyParams,
-) -> Result<(), Error<ValidateReplyError>> {
+) -> Result<ResponseContent<ValidateReplySuccess>, Error<ValidateReplyError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3716,7 +4593,14 @@ pub async fn validate_reply(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<ValidateReplySuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<ValidateReplyError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3733,7 +4617,10 @@ pub async fn validate_reply(
 pub async fn validate_rich_menu_batch_request(
     configuration: &configuration::Configuration,
     params: ValidateRichMenuBatchRequestParams,
-) -> Result<(), Error<ValidateRichMenuBatchRequestError>> {
+) -> Result<
+    ResponseContent<ValidateRichMenuBatchRequestSuccess>,
+    Error<ValidateRichMenuBatchRequestError>,
+> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3764,7 +4651,14 @@ pub async fn validate_rich_menu_batch_request(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<ValidateRichMenuBatchRequestSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<ValidateRichMenuBatchRequestError> =
             serde_json::from_str(&local_var_content).ok();
@@ -3781,7 +4675,7 @@ pub async fn validate_rich_menu_batch_request(
 pub async fn validate_rich_menu_object(
     configuration: &configuration::Configuration,
     params: ValidateRichMenuObjectParams,
-) -> Result<(), Error<ValidateRichMenuObjectError>> {
+) -> Result<ResponseContent<ValidateRichMenuObjectSuccess>, Error<ValidateRichMenuObjectError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -3812,7 +4706,14 @@ pub async fn validate_rich_menu_object(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<ValidateRichMenuObjectSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<ValidateRichMenuObjectError> =
             serde_json::from_str(&local_var_content).ok();

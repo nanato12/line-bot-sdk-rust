@@ -54,6 +54,14 @@ pub struct AttachModuleParams {
     pub brand_type: Option<String>,
 }
 
+/// struct for typed successes of method [`attach_module`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AttachModuleSuccess {
+    Status200(crate::module_attach::models::AttachModuleResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`attach_module`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -65,7 +73,7 @@ pub enum AttachModuleError {
 pub async fn attach_module(
     configuration: &configuration::Configuration,
     params: AttachModuleParams,
-) -> Result<crate::module_attach::models::AttachModuleResponse, Error<AttachModuleError>> {
+) -> Result<ResponseContent<AttachModuleSuccess>, Error<AttachModuleError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -136,7 +144,14 @@ pub async fn attach_module(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<AttachModuleSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<AttachModuleError> =
             serde_json::from_str(&local_var_content).ok();

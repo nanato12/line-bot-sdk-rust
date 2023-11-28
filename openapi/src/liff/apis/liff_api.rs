@@ -50,6 +50,38 @@ pub struct UpdateLiffAppParams {
     pub update_liff_app_request: crate::liff::models::UpdateLiffAppRequest,
 }
 
+/// struct for typed successes of method [`add_liff_app`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddLiffAppSuccess {
+    Status200(crate::liff::models::AddLiffAppResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`delete_liff_app`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteLiffAppSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`get_all_liff_apps`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAllLiffAppsSuccess {
+    Status200(crate::liff::models::GetAllLiffAppsResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`update_liff_app`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateLiffAppSuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`add_liff_app`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -91,7 +123,7 @@ pub enum UpdateLiffAppError {
 pub async fn add_liff_app(
     configuration: &configuration::Configuration,
     params: AddLiffAppParams,
-) -> Result<crate::liff::models::AddLiffAppResponse, Error<AddLiffAppError>> {
+) -> Result<ResponseContent<AddLiffAppSuccess>, Error<AddLiffAppError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -119,7 +151,14 @@ pub async fn add_liff_app(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<AddLiffAppSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<AddLiffAppError> =
             serde_json::from_str(&local_var_content).ok();
@@ -136,7 +175,7 @@ pub async fn add_liff_app(
 pub async fn delete_liff_app(
     configuration: &configuration::Configuration,
     params: DeleteLiffAppParams,
-) -> Result<(), Error<DeleteLiffAppError>> {
+) -> Result<ResponseContent<DeleteLiffAppSuccess>, Error<DeleteLiffAppError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -167,7 +206,14 @@ pub async fn delete_liff_app(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<DeleteLiffAppSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<DeleteLiffAppError> =
             serde_json::from_str(&local_var_content).ok();
@@ -183,7 +229,7 @@ pub async fn delete_liff_app(
 /// Gets information on all the LIFF apps added to the channel.
 pub async fn get_all_liff_apps(
     configuration: &configuration::Configuration,
-) -> Result<crate::liff::models::GetAllLiffAppsResponse, Error<GetAllLiffAppsError>> {
+) -> Result<ResponseContent<GetAllLiffAppsSuccess>, Error<GetAllLiffAppsError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -209,7 +255,14 @@ pub async fn get_all_liff_apps(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        let local_var_entity: Option<GetAllLiffAppsSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<GetAllLiffAppsError> =
             serde_json::from_str(&local_var_content).ok();
@@ -226,7 +279,7 @@ pub async fn get_all_liff_apps(
 pub async fn update_liff_app(
     configuration: &configuration::Configuration,
     params: UpdateLiffAppParams,
-) -> Result<(), Error<UpdateLiffAppError>> {
+) -> Result<ResponseContent<UpdateLiffAppSuccess>, Error<UpdateLiffAppError>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -259,7 +312,14 @@ pub async fn update_liff_app(
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        let local_var_entity: Option<UpdateLiffAppSuccess> =
+            serde_json::from_str(&local_var_content).ok();
+        let local_var_result = ResponseContent {
+            status: local_var_status,
+            content: local_var_content,
+            entity: local_var_entity,
+        };
+        Ok(local_var_result)
     } else {
         let local_var_entity: Option<UpdateLiffAppError> =
             serde_json::from_str(&local_var_content).ok();
