@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod callback_request_test {
-    extern crate line_bot_sdk_rust_openapi as line;
+    extern crate line_bot_sdk_rust as line;
 
     use line::webhook::models::{
         CallbackRequest, DeliveryContext, Event, EventMode, GroupSource, MessageContent,
