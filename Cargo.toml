@@ -1,5 +1,5 @@
 [package]
-name = "line-bot-sdk-rust-openapi"
+name = "line-bot-sdk-rust"
 version = "1.0.0"
 authors = ["nanato12 <admin@okj.info>"]
 edition = "2021"
@@ -33,7 +33,7 @@ version = "^0.11"
 features = ["json", "multipart"]
 
 [[example]]
-name = "echobot_actix_web"
+name = "actix-sample"
 required-features = ["actix_support"]
 
 [[example]]
