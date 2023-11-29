@@ -5,6 +5,6 @@
 /target
 
 # openapi generator
-/openapi/src/.openapi-generator
-/openapi/src/.openapi-generator-ignore
+src/.openapi-generator
+src/.openapi-generator-ignore
 /tools/openapi-generator-cli-*.jar
