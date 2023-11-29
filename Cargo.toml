@@ -1,7 +1,7 @@
 [package]
-name = "line-bot-sdk-rust"
-version = "0.1.2"
-authors = ["nanato12 <admin@nanato12.info>"]
+name = "line-bot-sdk-rust-openapi"
+version = "1.0.0"
+authors = ["nanato12 <admin@okj.info>"]
 edition = "2021"
 description = "LINE Messaging API SDK for Rust"
 readme = "README.md"
@@ -16,23 +16,20 @@ rocket_support = ["rocket"]
 actix_support = ["actix-web"]
 
 [dependencies]
-actix-web = { version = "4.3.1", optional = true, default-features = false }
-base64 = "0.21.0"
-chrono = "0.4"
+actix-web = { version = "4.4.0", optional = true, default-features = false }
+base64 = "0.21.5"
 hmac = "0.12.1"
-reqwest = { version = "0.11.14", features = ["blocking", "json"] }
-rocket = { version = "0.4", optional = true }
-serde = { version = "1.0", features = ["derive"] }
-serde_derive = "1.0.156"
-serde_json = "1.0"
-sha2 = "0.10.6"
-
-[dev-dependencies]
-bytes = "1.4.0"
-dotenv = "0.15.0"
-actix-web = "4.3.1"
-actix-rt = "2.8.0"
-rocket = "0.4"
+serde = "^1.0"
+serde_derive = "^1.0"
+serde_json = "^1.0"
+serde_with = "3.4.0"
+sha2 = "0.10.8"
+tokio = { version = "1.34.0", features = ["rt-multi-thread", "macros"] }
+url = "^2.2"
+uuid = { version = "^1.0", features = ["serde", "v4"] }
+[dependencies.reqwest]
+version = "^0.11"
+features = ["json", "multipart"]
 
 [[example]]
 name = "echobot_actix_web"
@@ -51,4 +48,4 @@ name = "various_messages_rocket"
 required-features = ["rocket_support"]
 
 [workspace]
-members = ["generator", "openapi", "sample"]
+members = ["generator"]
