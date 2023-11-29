@@ -1,4 +1,3 @@
-// use convert_case::{Case, Casing};
 use std::collections::HashMap;
 use std::fs;
 use std::fs::File;
@@ -69,7 +68,7 @@ fn fix_openapi_webhook(file_path: &Path) {
         replacements.insert("#[serde(rename = \"type\")]", "");
         replacements.insert("pub r#type: String,", "");
         replacements.insert("r#type,", "");
-        replacements.insert("pub fn new(r#type: String, ", "pub fn new(");
+        replacements.insert("new(r#type: String, ", "new(");
         if p.contains("_event.rs") {
             replacements.insert("/// Type of the event", "");
         } else if p.contains("_source.rs") {
@@ -147,7 +146,7 @@ fn main() {
     let jar_path: &str =
         &format!("./tools/openapi-generator-cli-{OPENAPI_GENERATOR_CLI_VERSION}.jar");
 
-    if !std::path::Path::new(jar_path).exists() {
+    if !Path::new(jar_path).exists() {
         let url = format!(
             "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/{OPENAPI_GENERATOR_CLI_VERSION}/openapi-generator-cli-{OPENAPI_GENERATOR_CLI_VERSION}.jar"
         );
