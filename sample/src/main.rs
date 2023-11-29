@@ -1,8 +1,7 @@
 extern crate line_bot_sdk_rust_openapi as line;
 
 use actix_web::{
-    error::ErrorBadRequest, middleware, post, web, App, Error, HttpRequest, HttpResponse,
-    HttpServer,
+    error::ErrorBadRequest, middleware, post, web, App, Error, HttpResponse, HttpServer,
 };
 use dotenv::dotenv;
 use line::{
@@ -30,10 +29,6 @@ async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpRespons
     let mut conf = Configuration::default();
     conf.bearer_access_token = Some(access_token.to_string());
 
-    println!("channel_secret: {channel_secret:?}");
-    println!("access_token: {access_token:?}");
-    println!("signature: {signature:?}");
-
     let body: &str = &String::from_utf8(bytes.to_vec()).unwrap();
 
     if !validate_signature(channel_secret, &signature.key, body) {
@@ -46,7 +41,6 @@ async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpRespons
         Ok(req) => {
             println!("req: {req:#?}");
             for e in req.events {
-                println!("event: {e:#?}");
                 if let Event::MessageEvent(message_event) = e {
                     if let MessageContent::TextMessageContent(text_message) = *message_event.message
                     {
@@ -71,19 +65,12 @@ async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpRespons
     Ok(HttpResponse::Ok().body("ok"))
 }
 
-async fn index(req: HttpRequest) -> &'static str {
-    println!("REQ: {req:?}");
-    "Hello world!"
-}
-
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
     HttpServer::new(|| {
         App::new()
             .wrap(middleware::Logger::default())
-            .service(web::resource("/index.html").to(|| async { "Hello world!" }))
-            .service(web::resource("/").to(index))
             .service(callback)
     })
     .bind(("127.0.0.1", 8080))?
