@@ -5,4 +5,4 @@ docs/**.md
 Cargo.toml
 git_push.sh
 README.md
-*/lib.rs
+src/lib.rs
