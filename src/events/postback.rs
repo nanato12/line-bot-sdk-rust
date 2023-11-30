@@ -19,8 +19,16 @@ pub struct PostBack {
 }
 
 #[derive(Deserialize, Debug)]
-pub struct Params {
-    pub date: Option<String>,
-    pub time: Option<String>,
-    pub datetime: Option<String>,
+#[serde(untagged)]
+pub enum Params {
+    RichMenuSwitch {
+        #[serde(rename = "newRichMenuAliasId")]
+        new_rich_menu_alias_id: String,
+        status: String,
+    },
+    DatetimePicker {
+        date: Option<String>,
+        time: Option<String>,
+        datetime: Option<String>,
+    },
 }
