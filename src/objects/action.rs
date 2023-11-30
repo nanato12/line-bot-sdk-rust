@@ -51,6 +51,12 @@ pub enum ActionType {
     CameraRoll {},
     #[serde(rename = "location")]
     Location {},
+    #[serde(rename = "richmenuswitch")]
+    RichMenuSwitch {
+        #[serde(rename = "richMenuAliasId")]
+        rich_menu_alias_id: String,
+        data: String,
+    },
 }
 
 /// Alt uri object
