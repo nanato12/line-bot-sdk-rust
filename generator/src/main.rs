@@ -63,7 +63,7 @@ fn fix_openapi_webhook(file_path: &Path) {
 }
 
 fn fix_openapi_manage_audience(file_path: &Path) {
-    let mut replacements: HashMap<&str, &str> = [
+    let replacements: HashMap<&str, &str> = [
         (
             "status: Option<AudienceGroupStatus>",
             "status: Option<crate::models::AudienceGroupStatus>",
@@ -73,6 +73,18 @@ fn fix_openapi_manage_audience(file_path: &Path) {
             "create_route: Option<crate::models::AudienceGroupCreateRoute>",
         ),
     ]
+    .iter()
+    .cloned()
+    .collect();
+
+    replace_in_file(file_path, replacements);
+}
+
+fn fix_openapi_messaging_api(file_path: &Path) {
+    let mut replacements: HashMap<&str, &str> = [(
+        "pub enum AreaDemographic",
+        "#[allow(non_camel_case_types)]\npub enum AreaDemographic",
+    )]
     .iter()
     .cloned()
     .collect();
@@ -89,19 +101,6 @@ fn fix_openapi_manage_audience(file_path: &Path) {
             replacements.insert("/// Type of message", "");
         }
     }
-
-    replace_in_file(file_path, replacements);
-}
-
-fn fix_openapi_messaging_api(file_path: &Path) {
-    let replacements: HashMap<&str, &str> = [(
-        "pub enum AreaDemographic",
-        "#[allow(non_camel_case_types)]\npub enum AreaDemographic",
-    )]
-    .iter()
-    .cloned()
-    .collect();
-
     replace_in_file(file_path, replacements);
 }
 
