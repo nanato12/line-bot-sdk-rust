@@ -25,7 +25,7 @@ use sha2::Sha256;
 /// The signature in the `x-line-signature` request header must be verified to confirm that the request was sent from the LINE Platform. [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#signature-validation)
 /// # Example
 /// ```
-/// if parser::validate_signature(channel_secret, signature, body) {
+/// if validate_signature(channel_secret, signature, body) {
 ///     // OK
 /// } else {
 ///     // NG
