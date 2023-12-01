@@ -40,27 +40,8 @@ fn replace_in_file(file_path: &Path, replacements: HashMap<&str, &str>) {
     file.write_all(contents.as_bytes()).unwrap();
 }
 
-// fn fix_openapi_messaging_api(file_path: &Path) {
-//     let mut replacements: HashMap<&str, &str> = HashMap::new();
-//     let p = file_path.to_str().unwrap();
-
-//     // delete type from event, source, message_content
-//     if p.contains("_message.rs") {
-//         replacements.insert("#[serde(rename = \"type\")]", "");
-//         replacements.insert("pub r#type: String,", "");
-//         replacements.insert("r#type,", "");
-//         replacements.insert("pub fn new(r#type: String, ", "pub fn new(");
-//         if p.contains("_message.rs") {
-//             replacements.insert("/// Type of message", "");
-//         }
-//     }
-
-//     replace_in_file(file_path, replacements);
-// }
-
 fn fix_openapi_webhook(file_path: &Path) {
     let mut replacements: HashMap<&str, &str> = HashMap::new();
-
     let p = file_path.to_str().unwrap();
 
     // delete type from event, source, message_content
@@ -82,7 +63,7 @@ fn fix_openapi_webhook(file_path: &Path) {
 }
 
 fn fix_openapi_manage_audience(file_path: &Path) {
-    let replacements: HashMap<&str, &str> = [
+    let mut replacements: HashMap<&str, &str> = [
         (
             "status: Option<AudienceGroupStatus>",
             "status: Option<crate::models::AudienceGroupStatus>",
@@ -95,6 +76,19 @@ fn fix_openapi_manage_audience(file_path: &Path) {
     .iter()
     .cloned()
     .collect();
+
+    let p = file_path.to_str().unwrap();
+
+    // delete type from event, source, message_content
+    if p.contains("_message.rs") {
+        replacements.insert("#[serde(rename = \"type\")]", "");
+        replacements.insert("pub r#type: String,", "");
+        replacements.insert("r#type,", "");
+        replacements.insert("pub fn new(r#type: String, ", "pub fn new(");
+        if p.contains("_message.rs") {
+            replacements.insert("/// Type of message", "");
+        }
+    }
 
     replace_in_file(file_path, replacements);
 }
@@ -134,7 +128,7 @@ fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
                             .unwrap()
                             .contains(&format!("{OUTPUT_DIR}/webhook/"))
                         {
-                            // fix_openapi_webhook(path.as_path());
+                            fix_openapi_webhook(path.as_path());
                         }
                         if path
                             .to_str()
@@ -233,19 +227,19 @@ fn main() {
         process_directory(&PathBuf::from(pkg_dir), pkg_name)
     }
 
-    // let sources = vec![
-    //     "messaging_api/models/message.rs",
-    //     "webhook/models/message_content.rs",
-    //     "webhook/models/event.rs",
-    //     "webhook/models/source.rs",
-    // ];
+    let sources = vec![
+        "messaging_api/src/models/message.rs",
+        "webhook/src/models/message_content.rs",
+        "webhook/src/models/event.rs",
+        "webhook/src/models/source.rs",
+    ];
 
-    // for source in sources {
-    //     let _ = fs::copy(
-    //         format!("./tools/sources/{source}"),
-    //         format!("openapi/src/{source}"),
-    //     );
-    // }
+    for source in sources {
+        let _ = fs::copy(
+            format!("./tools/sources/{source}"),
+            format!("core/{source}"),
+        );
+    }
 
     let _ = Command::new("cargo")
         .arg("fix")
