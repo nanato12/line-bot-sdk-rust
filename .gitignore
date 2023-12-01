@@ -3,6 +3,7 @@
 
 # cargo
 target
+Cargo.lock
 
 # openapi generator
 .openapi-generator
