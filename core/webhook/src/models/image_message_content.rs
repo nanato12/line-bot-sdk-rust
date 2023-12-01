@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ImageMessageContent {
-    /// Type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// Message ID
     #[serde(rename = "id")]
     pub id: String,
@@ -43,13 +40,11 @@ pub struct ImageMessageContent {
 
 impl ImageMessageContent {
     pub fn new(
-        r#type: String,
         id: String,
         content_provider: crate::models::ContentProvider,
         quote_token: String,
     ) -> ImageMessageContent {
         ImageMessageContent {
-            r#type,
             id,
             content_provider: Box::new(content_provider),
             image_set: None,

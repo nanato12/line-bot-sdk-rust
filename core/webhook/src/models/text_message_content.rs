@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TextMessageContent {
-    /// Type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// Message ID
     #[serde(rename = "id")]
     pub id: String,
@@ -49,14 +46,8 @@ pub struct TextMessageContent {
 }
 
 impl TextMessageContent {
-    pub fn new(
-        r#type: String,
-        id: String,
-        text: String,
-        quote_token: String,
-    ) -> TextMessageContent {
+    pub fn new(id: String, text: String, quote_token: String) -> TextMessageContent {
         TextMessageContent {
-            r#type,
             id,
             text,
             emojis: None,

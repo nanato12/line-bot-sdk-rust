@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LeaveEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::models::Source>>,
     /// Time of the event in milliseconds.
@@ -48,14 +45,12 @@ pub struct LeaveEvent {
 impl LeaveEvent {
     /// Event object for when a user removes your LINE Official Account from a group chat or when your LINE Official Account leaves a group chat or multi-person chat.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::models::EventMode,
         webhook_event_id: String,
         delivery_context: crate::models::DeliveryContext,
     ) -> LeaveEvent {
         LeaveEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

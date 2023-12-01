@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexMessage {
-    /// Type of message
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<crate::models::QuickReply>>,
     #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
@@ -40,13 +37,8 @@ pub struct FlexMessage {
 }
 
 impl FlexMessage {
-    pub fn new(
-        r#type: String,
-        alt_text: String,
-        contents: crate::models::FlexContainer,
-    ) -> FlexMessage {
+    pub fn new(alt_text: String, contents: crate::models::FlexContainer) -> FlexMessage {
         FlexMessage {
-            r#type,
             quick_reply: None,
             sender: None,
             alt_text,

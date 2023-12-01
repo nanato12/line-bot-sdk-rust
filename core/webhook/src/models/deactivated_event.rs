@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DeactivatedEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::models::Source>>,
     /// Time of the event in milliseconds.
@@ -48,14 +45,12 @@ pub struct DeactivatedEvent {
 impl DeactivatedEvent {
     /// This event indicates that the module channel has been switched to Standby Channel by calling Acquire Control API or Release Control API. Sent to the webhook URL server of the module channel.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::models::EventMode,
         webhook_event_id: String,
         delivery_context: crate::models::DeliveryContext,
     ) -> DeactivatedEvent {
         DeactivatedEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

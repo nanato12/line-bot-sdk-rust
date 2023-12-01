@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RoomSource {
-    /// source type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// ID of the source user. Only included in message events. Only users of LINE for iOS and LINE for Android are included in userId.
     #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
     pub user_id: Option<String>,
@@ -38,9 +35,8 @@ pub struct RoomSource {
 }
 
 impl RoomSource {
-    pub fn new(r#type: String, room_id: String) -> RoomSource {
+    pub fn new(room_id: String) -> RoomSource {
         RoomSource {
-            r#type,
             user_id: None,
             room_id,
         }

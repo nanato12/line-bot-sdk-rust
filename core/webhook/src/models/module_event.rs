@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ModuleEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::models::Source>>,
     /// Time of the event in milliseconds.
@@ -50,7 +47,6 @@ pub struct ModuleEvent {
 impl ModuleEvent {
     /// This event indicates that the module channel has been attached to the LINE Official Account. Sent to the webhook URL server of the module channel.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::models::EventMode,
         webhook_event_id: String,
@@ -58,7 +54,6 @@ impl ModuleEvent {
         module: crate::models::ModuleContent,
     ) -> ModuleEvent {
         ModuleEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

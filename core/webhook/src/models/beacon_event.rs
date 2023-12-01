@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BeaconEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::models::Source>>,
     /// Time of the event in milliseconds.
@@ -53,7 +50,6 @@ pub struct BeaconEvent {
 impl BeaconEvent {
     /// Event object for when a user enters the range of a LINE Beacon. You can reply to beacon events.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::models::EventMode,
         webhook_event_id: String,
@@ -62,7 +58,6 @@ impl BeaconEvent {
         beacon: crate::models::BeaconContent,
     ) -> BeaconEvent {
         BeaconEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

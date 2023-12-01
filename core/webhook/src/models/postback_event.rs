@@ -28,9 +28,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PostbackEvent {
-    /// Type of the event
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<crate::models::Source>>,
     /// Time of the event in milliseconds.
@@ -53,7 +50,6 @@ pub struct PostbackEvent {
 impl PostbackEvent {
     /// Event object for when a user performs a postback action which initiates a postback. You can reply to postback events.
     pub fn new(
-        r#type: String,
         timestamp: i64,
         mode: crate::models::EventMode,
         webhook_event_id: String,
@@ -61,7 +57,6 @@ impl PostbackEvent {
         postback: crate::models::PostbackContent,
     ) -> PostbackEvent {
         PostbackEvent {
-            r#type,
             source: None,
             timestamp,
             mode,

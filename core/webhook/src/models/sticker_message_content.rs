@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StickerMessageContent {
-    /// Type
-    #[serde(rename = "type")]
-    pub r#type: String,
     /// Message ID
     #[serde(rename = "id")]
     pub id: String,
@@ -56,7 +53,6 @@ pub struct StickerMessageContent {
 
 impl StickerMessageContent {
     pub fn new(
-        r#type: String,
         id: String,
         package_id: String,
         sticker_id: String,
@@ -64,7 +60,6 @@ impl StickerMessageContent {
         quote_token: String,
     ) -> StickerMessageContent {
         StickerMessageContent {
-            r#type,
             id,
             package_id,
             sticker_id,

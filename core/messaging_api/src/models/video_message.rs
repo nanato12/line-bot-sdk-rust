@@ -26,9 +26,6 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct VideoMessage {
-    /// Type of message
-    #[serde(rename = "type")]
-    pub r#type: String,
     #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<crate::models::QuickReply>>,
     #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
@@ -42,13 +39,8 @@ pub struct VideoMessage {
 }
 
 impl VideoMessage {
-    pub fn new(
-        r#type: String,
-        original_content_url: String,
-        preview_image_url: String,
-    ) -> VideoMessage {
+    pub fn new(original_content_url: String, preview_image_url: String) -> VideoMessage {
         VideoMessage {
-            r#type,
             quick_reply: None,
             sender: None,
             original_content_url,
