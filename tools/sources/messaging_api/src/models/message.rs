@@ -14,15 +14,15 @@
 * limitations under the License.
 */
 
-use crate::messaging_api::models::audio_message::AudioMessage;
-use crate::messaging_api::models::flex_message::FlexMessage;
-use crate::messaging_api::models::image_message::ImageMessage;
-use crate::messaging_api::models::imagemap_message::ImagemapMessage;
-use crate::messaging_api::models::location_message::LocationMessage;
-use crate::messaging_api::models::sticker_message::StickerMessage;
-use crate::messaging_api::models::template_message::TemplateMessage;
-use crate::messaging_api::models::text_message::TextMessage;
-use crate::messaging_api::models::video_message::VideoMessage;
+use crate::models::audio_message::AudioMessage;
+use crate::models::flex_message::FlexMessage;
+use crate::models::image_message::ImageMessage;
+use crate::models::imagemap_message::ImagemapMessage;
+use crate::models::location_message::LocationMessage;
+use crate::models::sticker_message::StickerMessage;
+use crate::models::template_message::TemplateMessage;
+use crate::models::text_message::TextMessage;
+use crate::models::video_message::VideoMessage;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
