@@ -2,9 +2,9 @@
 .env
 
 # cargo
-/target
+target
 
 # openapi generator
-src/.openapi-generator
-src/.openapi-generator-ignore
+.openapi-generator
+/core/*/.openapi-generator-ignore
 /tools/openapi-generator-cli-*.jar
