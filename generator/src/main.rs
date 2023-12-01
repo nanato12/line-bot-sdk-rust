@@ -189,7 +189,6 @@ fn main() {
     for service in services {
         let pkg_name = &service.replace("-", "_");
         let pkg_dir = &format!("{OUTPUT_DIR}/{pkg_name}");
-        let lib_pkg_dir = &format!("{OUTPUT_DIR}/lib/src/{pkg_name}");
 
         // Initialize package directory
         let _ = Command::new("rm").arg("-rf").arg(pkg_dir).status();
@@ -251,6 +250,7 @@ fn main() {
     let _ = Command::new("cargo")
         .arg("fix")
         .arg("--allow-dirty")
+        .arg("--allow-staged")
         .status();
 
     let _ = Command::new("cargo").arg("fmt").status();
