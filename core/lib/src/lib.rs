@@ -25,5 +25,6 @@ pub use module_attach;
 pub use shop;
 pub use webhook;
 
+pub mod client;
 pub mod parser;
 pub mod support;

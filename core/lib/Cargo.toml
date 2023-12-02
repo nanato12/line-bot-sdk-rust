@@ -19,6 +19,8 @@ actix_support = ["actix-web"]
 base64 = "0.21.5"
 hmac = "0.12.1"
 sha2 = "0.10.8"
+hyper = { version = "~0.14", features = ["full"] }
+hyper-rustls = "0.24.2"
 
 [dependencies.rocket]
 version = "0.5.0"
