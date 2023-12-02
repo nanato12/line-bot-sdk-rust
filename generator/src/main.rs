@@ -1,3 +1,19 @@
+/*
+* Copyright 2023 nanato12
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
 use std::collections::HashMap;
 use std::fs;
 use std::fs::File;
@@ -203,16 +219,14 @@ fn main() {
             .arg(pkg_name)
             .arg("--http-user-agent")
             .arg("LINE-Bot-SDK-Rust/1")
-            // .arg("--library")
-            // .arg("hyper")
+            .arg("--library")
+            .arg("hyper")
             .arg("-i")
             .arg(format!("{SPEC_DIR}/{service}.yml"))
             .arg("-g")
             .arg("rust")
             .arg("-o")
             .arg(pkg_dir)
-            .arg("--additional-properties")
-            .arg("supportMultipleResponses=true")
             .arg("--additional-properties")
             .arg("useSingleRequestParameter=true")
             .status()
