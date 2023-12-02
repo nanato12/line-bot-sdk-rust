@@ -25,14 +25,14 @@ All URIs are relative to *https://api.line.me*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ChannelAccessTokenApi* | [**gets_all_valid_channel_access_token_key_ids**](docs/ChannelAccessTokenApi.md#gets_all_valid_channel_access_token_key_ids) | **GET** /oauth2/v2.1/tokens/kid | 
-*ChannelAccessTokenApi* | [**issue_channel_token**](docs/ChannelAccessTokenApi.md#issue_channel_token) | **POST** /v2/oauth/accessToken | 
-*ChannelAccessTokenApi* | [**issue_channel_token_by_jwt**](docs/ChannelAccessTokenApi.md#issue_channel_token_by_jwt) | **POST** /oauth2/v2.1/token | 
-*ChannelAccessTokenApi* | [**issue_stateless_channel_token**](docs/ChannelAccessTokenApi.md#issue_stateless_channel_token) | **POST** /oauth2/v3/token | 
-*ChannelAccessTokenApi* | [**revoke_channel_token**](docs/ChannelAccessTokenApi.md#revoke_channel_token) | **POST** /v2/oauth/revoke | 
-*ChannelAccessTokenApi* | [**revoke_channel_token_by_jwt**](docs/ChannelAccessTokenApi.md#revoke_channel_token_by_jwt) | **POST** /oauth2/v2.1/revoke | 
-*ChannelAccessTokenApi* | [**verify_channel_token**](docs/ChannelAccessTokenApi.md#verify_channel_token) | **POST** /v2/oauth/verify | 
-*ChannelAccessTokenApi* | [**verify_channel_token_by_jwt**](docs/ChannelAccessTokenApi.md#verify_channel_token_by_jwt) | **GET** /oauth2/v2.1/verify | 
+*ChannelAccessTokenApi* | [**gets_all_valid_channel_access_token_key_ids**](docs/ChannelAccessTokenApi.md#gets_all_valid_channel_access_token_key_ids) | **Get** /oauth2/v2.1/tokens/kid | 
+*ChannelAccessTokenApi* | [**issue_channel_token**](docs/ChannelAccessTokenApi.md#issue_channel_token) | **Post** /v2/oauth/accessToken | 
+*ChannelAccessTokenApi* | [**issue_channel_token_by_jwt**](docs/ChannelAccessTokenApi.md#issue_channel_token_by_jwt) | **Post** /oauth2/v2.1/token | 
+*ChannelAccessTokenApi* | [**issue_stateless_channel_token**](docs/ChannelAccessTokenApi.md#issue_stateless_channel_token) | **Post** /oauth2/v3/token | 
+*ChannelAccessTokenApi* | [**revoke_channel_token**](docs/ChannelAccessTokenApi.md#revoke_channel_token) | **Post** /v2/oauth/revoke | 
+*ChannelAccessTokenApi* | [**revoke_channel_token_by_jwt**](docs/ChannelAccessTokenApi.md#revoke_channel_token_by_jwt) | **Post** /oauth2/v2.1/revoke | 
+*ChannelAccessTokenApi* | [**verify_channel_token**](docs/ChannelAccessTokenApi.md#verify_channel_token) | **Post** /v2/oauth/verify | 
+*ChannelAccessTokenApi* | [**verify_channel_token_by_jwt**](docs/ChannelAccessTokenApi.md#verify_channel_token_by_jwt) | **Get** /oauth2/v2.1/verify | 
 
 
 ## Documentation For Models

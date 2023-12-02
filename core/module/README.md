@@ -25,10 +25,10 @@ All URIs are relative to *https://api.line.me*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*LineModuleApi* | [**acquire_chat_control**](docs/LineModuleApi.md#acquire_chat_control) | **POST** /v2/bot/chat/{chatId}/control/acquire | 
-*LineModuleApi* | [**detach_module**](docs/LineModuleApi.md#detach_module) | **POST** /v2/bot/channel/detach | 
-*LineModuleApi* | [**get_modules**](docs/LineModuleApi.md#get_modules) | **GET** /v2/bot/list | 
-*LineModuleApi* | [**release_chat_control**](docs/LineModuleApi.md#release_chat_control) | **POST** /v2/bot/chat/{chatId}/control/release | 
+*LineModuleApi* | [**acquire_chat_control**](docs/LineModuleApi.md#acquire_chat_control) | **Post** /v2/bot/chat/{chatId}/control/acquire | 
+*LineModuleApi* | [**detach_module**](docs/LineModuleApi.md#detach_module) | **Post** /v2/bot/channel/detach | 
+*LineModuleApi* | [**get_modules**](docs/LineModuleApi.md#get_modules) | **Get** /v2/bot/list | 
+*LineModuleApi* | [**release_chat_control**](docs/LineModuleApi.md#release_chat_control) | **Post** /v2/bot/chat/{chatId}/control/release | 
 
 
 ## Documentation For Models

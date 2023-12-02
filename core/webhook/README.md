@@ -25,7 +25,7 @@ All URIs are relative to *https://example.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DummyApi* | [**callback**](docs/DummyApi.md#callback) | **POST** /callback | 
+*DummyApi* | [**callback**](docs/DummyApi.md#callback) | **Post** /callback | 
 
 
 ## Documentation For Models

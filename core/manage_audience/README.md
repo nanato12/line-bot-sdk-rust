@@ -25,19 +25,19 @@ All URIs are relative to *https://api.line.me*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ManageAudienceApi* | [**activate_audience_group**](docs/ManageAudienceApi.md#activate_audience_group) | **PUT** /v2/bot/audienceGroup/{audienceGroupId}/activate | 
-*ManageAudienceApi* | [**add_audience_to_audience_group**](docs/ManageAudienceApi.md#add_audience_to_audience_group) | **PUT** /v2/bot/audienceGroup/upload | 
-*ManageAudienceApi* | [**create_audience_group**](docs/ManageAudienceApi.md#create_audience_group) | **POST** /v2/bot/audienceGroup/upload | 
-*ManageAudienceApi* | [**create_click_based_audience_group**](docs/ManageAudienceApi.md#create_click_based_audience_group) | **POST** /v2/bot/audienceGroup/click | 
-*ManageAudienceApi* | [**create_imp_based_audience_group**](docs/ManageAudienceApi.md#create_imp_based_audience_group) | **POST** /v2/bot/audienceGroup/imp | 
-*ManageAudienceApi* | [**delete_audience_group**](docs/ManageAudienceApi.md#delete_audience_group) | **DELETE** /v2/bot/audienceGroup/{audienceGroupId} | 
-*ManageAudienceApi* | [**get_audience_data**](docs/ManageAudienceApi.md#get_audience_data) | **GET** /v2/bot/audienceGroup/{audienceGroupId} | 
-*ManageAudienceApi* | [**get_audience_group_authority_level**](docs/ManageAudienceApi.md#get_audience_group_authority_level) | **GET** /v2/bot/audienceGroup/authorityLevel | 
-*ManageAudienceApi* | [**get_audience_groups**](docs/ManageAudienceApi.md#get_audience_groups) | **GET** /v2/bot/audienceGroup/list | 
-*ManageAudienceApi* | [**update_audience_group_authority_level**](docs/ManageAudienceApi.md#update_audience_group_authority_level) | **PUT** /v2/bot/audienceGroup/authorityLevel | 
-*ManageAudienceApi* | [**update_audience_group_description**](docs/ManageAudienceApi.md#update_audience_group_description) | **PUT** /v2/bot/audienceGroup/{audienceGroupId}/updateDescription | 
-*ManageAudienceBlobApi* | [**add_user_ids_to_audience**](docs/ManageAudienceBlobApi.md#add_user_ids_to_audience) | **PUT** /v2/bot/audienceGroup/upload/byFile | 
-*ManageAudienceBlobApi* | [**create_audience_for_uploading_user_ids**](docs/ManageAudienceBlobApi.md#create_audience_for_uploading_user_ids) | **POST** /v2/bot/audienceGroup/upload/byFile | 
+*ManageAudienceApi* | [**activate_audience_group**](docs/ManageAudienceApi.md#activate_audience_group) | **Put** /v2/bot/audienceGroup/{audienceGroupId}/activate | 
+*ManageAudienceApi* | [**add_audience_to_audience_group**](docs/ManageAudienceApi.md#add_audience_to_audience_group) | **Put** /v2/bot/audienceGroup/upload | 
+*ManageAudienceApi* | [**create_audience_group**](docs/ManageAudienceApi.md#create_audience_group) | **Post** /v2/bot/audienceGroup/upload | 
+*ManageAudienceApi* | [**create_click_based_audience_group**](docs/ManageAudienceApi.md#create_click_based_audience_group) | **Post** /v2/bot/audienceGroup/click | 
+*ManageAudienceApi* | [**create_imp_based_audience_group**](docs/ManageAudienceApi.md#create_imp_based_audience_group) | **Post** /v2/bot/audienceGroup/imp | 
+*ManageAudienceApi* | [**delete_audience_group**](docs/ManageAudienceApi.md#delete_audience_group) | **Delete** /v2/bot/audienceGroup/{audienceGroupId} | 
+*ManageAudienceApi* | [**get_audience_data**](docs/ManageAudienceApi.md#get_audience_data) | **Get** /v2/bot/audienceGroup/{audienceGroupId} | 
+*ManageAudienceApi* | [**get_audience_group_authority_level**](docs/ManageAudienceApi.md#get_audience_group_authority_level) | **Get** /v2/bot/audienceGroup/authorityLevel | 
+*ManageAudienceApi* | [**get_audience_groups**](docs/ManageAudienceApi.md#get_audience_groups) | **Get** /v2/bot/audienceGroup/list | 
+*ManageAudienceApi* | [**update_audience_group_authority_level**](docs/ManageAudienceApi.md#update_audience_group_authority_level) | **Put** /v2/bot/audienceGroup/authorityLevel | 
+*ManageAudienceApi* | [**update_audience_group_description**](docs/ManageAudienceApi.md#update_audience_group_description) | **Put** /v2/bot/audienceGroup/{audienceGroupId}/updateDescription | 
+*ManageAudienceBlobApi* | [**add_user_ids_to_audience**](docs/ManageAudienceBlobApi.md#add_user_ids_to_audience) | **Put** /v2/bot/audienceGroup/upload/byFile | 
+*ManageAudienceBlobApi* | [**create_audience_for_uploading_user_ids**](docs/ManageAudienceBlobApi.md#create_audience_for_uploading_user_ids) | **Post** /v2/bot/audienceGroup/upload/byFile | 
 
 
 ## Documentation For Models

@@ -4,14 +4,14 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**gets_all_valid_channel_access_token_key_ids**](ChannelAccessTokenApi.md#gets_all_valid_channel_access_token_key_ids) | **GET** /oauth2/v2.1/tokens/kid | 
-[**issue_channel_token**](ChannelAccessTokenApi.md#issue_channel_token) | **POST** /v2/oauth/accessToken | 
-[**issue_channel_token_by_jwt**](ChannelAccessTokenApi.md#issue_channel_token_by_jwt) | **POST** /oauth2/v2.1/token | 
-[**issue_stateless_channel_token**](ChannelAccessTokenApi.md#issue_stateless_channel_token) | **POST** /oauth2/v3/token | 
-[**revoke_channel_token**](ChannelAccessTokenApi.md#revoke_channel_token) | **POST** /v2/oauth/revoke | 
-[**revoke_channel_token_by_jwt**](ChannelAccessTokenApi.md#revoke_channel_token_by_jwt) | **POST** /oauth2/v2.1/revoke | 
-[**verify_channel_token**](ChannelAccessTokenApi.md#verify_channel_token) | **POST** /v2/oauth/verify | 
-[**verify_channel_token_by_jwt**](ChannelAccessTokenApi.md#verify_channel_token_by_jwt) | **GET** /oauth2/v2.1/verify | 
+[**gets_all_valid_channel_access_token_key_ids**](ChannelAccessTokenApi.md#gets_all_valid_channel_access_token_key_ids) | **Get** /oauth2/v2.1/tokens/kid | 
+[**issue_channel_token**](ChannelAccessTokenApi.md#issue_channel_token) | **Post** /v2/oauth/accessToken | 
+[**issue_channel_token_by_jwt**](ChannelAccessTokenApi.md#issue_channel_token_by_jwt) | **Post** /oauth2/v2.1/token | 
+[**issue_stateless_channel_token**](ChannelAccessTokenApi.md#issue_stateless_channel_token) | **Post** /oauth2/v3/token | 
+[**revoke_channel_token**](ChannelAccessTokenApi.md#revoke_channel_token) | **Post** /v2/oauth/revoke | 
+[**revoke_channel_token_by_jwt**](ChannelAccessTokenApi.md#revoke_channel_token_by_jwt) | **Post** /oauth2/v2.1/revoke | 
+[**verify_channel_token**](ChannelAccessTokenApi.md#verify_channel_token) | **Post** /v2/oauth/verify | 
+[**verify_channel_token_by_jwt**](ChannelAccessTokenApi.md#verify_channel_token_by_jwt) | **Get** /oauth2/v2.1/verify | 
 
 
 

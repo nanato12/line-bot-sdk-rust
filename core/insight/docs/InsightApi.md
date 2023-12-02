@@ -4,11 +4,11 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_friends_demographics**](InsightApi.md#get_friends_demographics) | **GET** /v2/bot/insight/demographic | 
-[**get_message_event**](InsightApi.md#get_message_event) | **GET** /v2/bot/insight/message/event | Get user interaction statistics
-[**get_number_of_followers**](InsightApi.md#get_number_of_followers) | **GET** /v2/bot/insight/followers | Get number of followers
-[**get_number_of_message_deliveries**](InsightApi.md#get_number_of_message_deliveries) | **GET** /v2/bot/insight/message/delivery | Get number of message deliveries
-[**get_statistics_per_unit**](InsightApi.md#get_statistics_per_unit) | **GET** /v2/bot/insight/message/event/aggregation | 
+[**get_friends_demographics**](InsightApi.md#get_friends_demographics) | **Get** /v2/bot/insight/demographic | 
+[**get_message_event**](InsightApi.md#get_message_event) | **Get** /v2/bot/insight/message/event | Get user interaction statistics
+[**get_number_of_followers**](InsightApi.md#get_number_of_followers) | **Get** /v2/bot/insight/followers | Get number of followers
+[**get_number_of_message_deliveries**](InsightApi.md#get_number_of_message_deliveries) | **Get** /v2/bot/insight/message/delivery | Get number of message deliveries
+[**get_statistics_per_unit**](InsightApi.md#get_statistics_per_unit) | **Get** /v2/bot/insight/message/event/aggregation | 
 
 
 

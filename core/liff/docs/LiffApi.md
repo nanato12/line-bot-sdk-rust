@@ -4,10 +4,10 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_liff_app**](LiffApi.md#add_liff_app) | **POST** /liff/v1/apps | 
-[**delete_liff_app**](LiffApi.md#delete_liff_app) | **DELETE** /liff/v1/apps/{liffId} | Delete LIFF app from a channel
-[**get_all_liff_apps**](LiffApi.md#get_all_liff_apps) | **GET** /liff/v1/apps | Get all LIFF apps
-[**update_liff_app**](LiffApi.md#update_liff_app) | **PUT** /liff/v1/apps/{liffId} | 
+[**add_liff_app**](LiffApi.md#add_liff_app) | **Post** /liff/v1/apps | 
+[**delete_liff_app**](LiffApi.md#delete_liff_app) | **Delete** /liff/v1/apps/{liffId} | Delete LIFF app from a channel
+[**get_all_liff_apps**](LiffApi.md#get_all_liff_apps) | **Get** /liff/v1/apps | Get all LIFF apps
+[**update_liff_app**](LiffApi.md#update_liff_app) | **Put** /liff/v1/apps/{liffId} | 
 
 
 

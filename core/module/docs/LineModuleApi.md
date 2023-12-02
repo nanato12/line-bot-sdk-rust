@@ -4,10 +4,10 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**acquire_chat_control**](LineModuleApi.md#acquire_chat_control) | **POST** /v2/bot/chat/{chatId}/control/acquire | 
-[**detach_module**](LineModuleApi.md#detach_module) | **POST** /v2/bot/channel/detach | 
-[**get_modules**](LineModuleApi.md#get_modules) | **GET** /v2/bot/list | 
-[**release_chat_control**](LineModuleApi.md#release_chat_control) | **POST** /v2/bot/chat/{chatId}/control/release | 
+[**acquire_chat_control**](LineModuleApi.md#acquire_chat_control) | **Post** /v2/bot/chat/{chatId}/control/acquire | 
+[**detach_module**](LineModuleApi.md#detach_module) | **Post** /v2/bot/channel/detach | 
+[**get_modules**](LineModuleApi.md#get_modules) | **Get** /v2/bot/list | 
+[**release_chat_control**](LineModuleApi.md#release_chat_control) | **Post** /v2/bot/chat/{chatId}/control/release | 
 
 
 

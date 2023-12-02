@@ -4,8 +4,8 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_user_ids_to_audience**](ManageAudienceBlobApi.md#add_user_ids_to_audience) | **PUT** /v2/bot/audienceGroup/upload/byFile | 
-[**create_audience_for_uploading_user_ids**](ManageAudienceBlobApi.md#create_audience_for_uploading_user_ids) | **POST** /v2/bot/audienceGroup/upload/byFile | 
+[**add_user_ids_to_audience**](ManageAudienceBlobApi.md#add_user_ids_to_audience) | **Put** /v2/bot/audienceGroup/upload/byFile | 
+[**create_audience_for_uploading_user_ids**](ManageAudienceBlobApi.md#create_audience_for_uploading_user_ids) | **Post** /v2/bot/audienceGroup/upload/byFile | 
 
 
 

@@ -4,7 +4,7 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**mission_sticker_v3**](ShopApi.md#mission_sticker_v3) | **POST** /shop/v3/mission | 
+[**mission_sticker_v3**](ShopApi.md#mission_sticker_v3) | **Post** /shop/v3/mission | 
 
 
 

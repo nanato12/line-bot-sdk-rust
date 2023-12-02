@@ -25,10 +25,10 @@ All URIs are relative to *https://api.line.me*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*LiffApi* | [**add_liff_app**](docs/LiffApi.md#add_liff_app) | **POST** /liff/v1/apps | 
-*LiffApi* | [**delete_liff_app**](docs/LiffApi.md#delete_liff_app) | **DELETE** /liff/v1/apps/{liffId} | Delete LIFF app from a channel
-*LiffApi* | [**get_all_liff_apps**](docs/LiffApi.md#get_all_liff_apps) | **GET** /liff/v1/apps | Get all LIFF apps
-*LiffApi* | [**update_liff_app**](docs/LiffApi.md#update_liff_app) | **PUT** /liff/v1/apps/{liffId} | 
+*LiffApi* | [**add_liff_app**](docs/LiffApi.md#add_liff_app) | **Post** /liff/v1/apps | 
+*LiffApi* | [**delete_liff_app**](docs/LiffApi.md#delete_liff_app) | **Delete** /liff/v1/apps/{liffId} | Delete LIFF app from a channel
+*LiffApi* | [**get_all_liff_apps**](docs/LiffApi.md#get_all_liff_apps) | **Get** /liff/v1/apps | Get all LIFF apps
+*LiffApi* | [**update_liff_app**](docs/LiffApi.md#update_liff_app) | **Put** /liff/v1/apps/{liffId} | 
 
 
 ## Documentation For Models

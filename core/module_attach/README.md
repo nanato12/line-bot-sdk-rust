@@ -25,7 +25,7 @@ All URIs are relative to *https://manager.line.biz*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*LineModuleAttachApi* | [**attach_module**](docs/LineModuleAttachApi.md#attach_module) | **POST** /module/auth/v1/token | 
+*LineModuleAttachApi* | [**attach_module**](docs/LineModuleAttachApi.md#attach_module) | **Post** /module/auth/v1/token | 
 
 
 ## Documentation For Models

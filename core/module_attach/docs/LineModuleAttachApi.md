@@ -4,7 +4,7 @@ All URIs are relative to *https://manager.line.biz*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**attach_module**](LineModuleAttachApi.md#attach_module) | **POST** /module/auth/v1/token | 
+[**attach_module**](LineModuleAttachApi.md#attach_module) | **Post** /module/auth/v1/token | 
 
 
 

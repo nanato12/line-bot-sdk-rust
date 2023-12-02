@@ -4,17 +4,17 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**activate_audience_group**](ManageAudienceApi.md#activate_audience_group) | **PUT** /v2/bot/audienceGroup/{audienceGroupId}/activate | 
-[**add_audience_to_audience_group**](ManageAudienceApi.md#add_audience_to_audience_group) | **PUT** /v2/bot/audienceGroup/upload | 
-[**create_audience_group**](ManageAudienceApi.md#create_audience_group) | **POST** /v2/bot/audienceGroup/upload | 
-[**create_click_based_audience_group**](ManageAudienceApi.md#create_click_based_audience_group) | **POST** /v2/bot/audienceGroup/click | 
-[**create_imp_based_audience_group**](ManageAudienceApi.md#create_imp_based_audience_group) | **POST** /v2/bot/audienceGroup/imp | 
-[**delete_audience_group**](ManageAudienceApi.md#delete_audience_group) | **DELETE** /v2/bot/audienceGroup/{audienceGroupId} | 
-[**get_audience_data**](ManageAudienceApi.md#get_audience_data) | **GET** /v2/bot/audienceGroup/{audienceGroupId} | 
-[**get_audience_group_authority_level**](ManageAudienceApi.md#get_audience_group_authority_level) | **GET** /v2/bot/audienceGroup/authorityLevel | 
-[**get_audience_groups**](ManageAudienceApi.md#get_audience_groups) | **GET** /v2/bot/audienceGroup/list | 
-[**update_audience_group_authority_level**](ManageAudienceApi.md#update_audience_group_authority_level) | **PUT** /v2/bot/audienceGroup/authorityLevel | 
-[**update_audience_group_description**](ManageAudienceApi.md#update_audience_group_description) | **PUT** /v2/bot/audienceGroup/{audienceGroupId}/updateDescription | 
+[**activate_audience_group**](ManageAudienceApi.md#activate_audience_group) | **Put** /v2/bot/audienceGroup/{audienceGroupId}/activate | 
+[**add_audience_to_audience_group**](ManageAudienceApi.md#add_audience_to_audience_group) | **Put** /v2/bot/audienceGroup/upload | 
+[**create_audience_group**](ManageAudienceApi.md#create_audience_group) | **Post** /v2/bot/audienceGroup/upload | 
+[**create_click_based_audience_group**](ManageAudienceApi.md#create_click_based_audience_group) | **Post** /v2/bot/audienceGroup/click | 
+[**create_imp_based_audience_group**](ManageAudienceApi.md#create_imp_based_audience_group) | **Post** /v2/bot/audienceGroup/imp | 
+[**delete_audience_group**](ManageAudienceApi.md#delete_audience_group) | **Delete** /v2/bot/audienceGroup/{audienceGroupId} | 
+[**get_audience_data**](ManageAudienceApi.md#get_audience_data) | **Get** /v2/bot/audienceGroup/{audienceGroupId} | 
+[**get_audience_group_authority_level**](ManageAudienceApi.md#get_audience_group_authority_level) | **Get** /v2/bot/audienceGroup/authorityLevel | 
+[**get_audience_groups**](ManageAudienceApi.md#get_audience_groups) | **Get** /v2/bot/audienceGroup/list | 
+[**update_audience_group_authority_level**](ManageAudienceApi.md#update_audience_group_authority_level) | **Put** /v2/bot/audienceGroup/authorityLevel | 
+[**update_audience_group_description**](ManageAudienceApi.md#update_audience_group_description) | **Put** /v2/bot/audienceGroup/{audienceGroupId}/updateDescription | 
 
 
 

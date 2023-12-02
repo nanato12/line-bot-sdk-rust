@@ -4,11 +4,11 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_message_content**](MessagingApiBlobApi.md#get_message_content) | **GET** /v2/bot/message/{messageId}/content | 
-[**get_message_content_preview**](MessagingApiBlobApi.md#get_message_content_preview) | **GET** /v2/bot/message/{messageId}/content/preview | 
-[**get_message_content_transcoding_by_message_id**](MessagingApiBlobApi.md#get_message_content_transcoding_by_message_id) | **GET** /v2/bot/message/{messageId}/content/transcoding | 
-[**get_rich_menu_image**](MessagingApiBlobApi.md#get_rich_menu_image) | **GET** /v2/bot/richmenu/{richMenuId}/content | 
-[**set_rich_menu_image**](MessagingApiBlobApi.md#set_rich_menu_image) | **POST** /v2/bot/richmenu/{richMenuId}/content | 
+[**get_message_content**](MessagingApiBlobApi.md#get_message_content) | **Get** /v2/bot/message/{messageId}/content | 
+[**get_message_content_preview**](MessagingApiBlobApi.md#get_message_content_preview) | **Get** /v2/bot/message/{messageId}/content/preview | 
+[**get_message_content_transcoding_by_message_id**](MessagingApiBlobApi.md#get_message_content_transcoding_by_message_id) | **Get** /v2/bot/message/{messageId}/content/transcoding | 
+[**get_rich_menu_image**](MessagingApiBlobApi.md#get_rich_menu_image) | **Get** /v2/bot/richmenu/{richMenuId}/content | 
+[**set_rich_menu_image**](MessagingApiBlobApi.md#set_rich_menu_image) | **Post** /v2/bot/richmenu/{richMenuId}/content | 
 
 
 

@@ -25,7 +25,7 @@ All URIs are relative to *https://api.line.me*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ShopApi* | [**mission_sticker_v3**](docs/ShopApi.md#mission_sticker_v3) | **POST** /shop/v3/mission | 
+*ShopApi* | [**mission_sticker_v3**](docs/ShopApi.md#mission_sticker_v3) | **Post** /shop/v3/mission | 
 
 
 ## Documentation For Models

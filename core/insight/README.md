@@ -25,11 +25,11 @@ All URIs are relative to *https://api.line.me*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*InsightApi* | [**get_friends_demographics**](docs/InsightApi.md#get_friends_demographics) | **GET** /v2/bot/insight/demographic | 
-*InsightApi* | [**get_message_event**](docs/InsightApi.md#get_message_event) | **GET** /v2/bot/insight/message/event | Get user interaction statistics
-*InsightApi* | [**get_number_of_followers**](docs/InsightApi.md#get_number_of_followers) | **GET** /v2/bot/insight/followers | Get number of followers
-*InsightApi* | [**get_number_of_message_deliveries**](docs/InsightApi.md#get_number_of_message_deliveries) | **GET** /v2/bot/insight/message/delivery | Get number of message deliveries
-*InsightApi* | [**get_statistics_per_unit**](docs/InsightApi.md#get_statistics_per_unit) | **GET** /v2/bot/insight/message/event/aggregation | 
+*InsightApi* | [**get_friends_demographics**](docs/InsightApi.md#get_friends_demographics) | **Get** /v2/bot/insight/demographic | 
+*InsightApi* | [**get_message_event**](docs/InsightApi.md#get_message_event) | **Get** /v2/bot/insight/message/event | Get user interaction statistics
+*InsightApi* | [**get_number_of_followers**](docs/InsightApi.md#get_number_of_followers) | **Get** /v2/bot/insight/followers | Get number of followers
+*InsightApi* | [**get_number_of_message_deliveries**](docs/InsightApi.md#get_number_of_message_deliveries) | **Get** /v2/bot/insight/message/delivery | Get number of message deliveries
+*InsightApi* | [**get_statistics_per_unit**](docs/InsightApi.md#get_statistics_per_unit) | **Get** /v2/bot/insight/message/event/aggregation | 
 
 
 ## Documentation For Models

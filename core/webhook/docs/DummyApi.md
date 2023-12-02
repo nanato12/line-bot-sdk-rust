@@ -4,7 +4,7 @@ All URIs are relative to *https://example.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callback**](DummyApi.md#callback) | **POST** /callback | 
+[**callback**](DummyApi.md#callback) | **Post** /callback | 
 
 
 
