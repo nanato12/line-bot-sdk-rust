@@ -1,15 +1,11 @@
-extern crate line_bot_sdk_rust as line;
-
 use actix_web::{
     error::ErrorBadRequest, middleware, post, web, App, Error, HttpResponse, HttpServer,
 };
 use dotenv::dotenv;
-use line::{
+use line_bot_sdk_rust::{
+    client::LINE,
     messaging_api::{
-        apis::{
-            configuration::Configuration,
-            messaging_api_api::{reply_message, ReplyMessageParams},
-        },
+        apis::MessagingApiApi,
         models::{Message, ReplyMessageRequest, TextMessage},
     },
     parser::signature::validate_signature,
@@ -26,8 +22,7 @@ async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpRespons
     let access_token: &str =
         &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed getting LINE_CHANNEL_ACCESS_TOKEN");
 
-    let mut conf = Configuration::default();
-    conf.bearer_access_token = Some(access_token.to_string());
+    let line = LINE::new(access_token.to_string());
 
     let body: &str = &String::from_utf8(bytes.to_vec()).unwrap();
 
@@ -44,14 +39,15 @@ async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpRespons
                 if let Event::MessageEvent(message_event) = e {
                     if let MessageContent::TextMessageContent(text_message) = *message_event.message
                     {
-                        let params = ReplyMessageParams {
-                            reply_message_request: ReplyMessageRequest {
-                                reply_token: message_event.reply_token.unwrap(),
-                                messages: vec![Message::Text(TextMessage::new(text_message.text))],
-                                notification_disabled: Some(false),
-                            },
+                        let reply_message_request = ReplyMessageRequest {
+                            reply_token: message_event.reply_token.unwrap(),
+                            messages: vec![Message::Text(TextMessage::new(text_message.text))],
+                            notification_disabled: Some(false),
                         };
-                        let result = reply_message(&conf, params).await;
+                        let result = line
+                            .messaging_api_client
+                            .reply_message(reply_message_request)
+                            .await;
                         match result {
                             Ok(r) => println!("{:#?}", r),
                             Err(e) => println!("{:#?}", e),
