@@ -2,14 +2,14 @@
 resolver = "2"
 members = [
     "generator",
-    "core/channel_access_token",
-    "core/insight",
+    "core/line_channel_access_token",
+    "core/line_insight",
     "core/lib/",
-    "core/liff",
-    "core/manage_audience",
-    "core/messaging_api",
-    "core/module",
-    "core/module_attach",
-    "core/shop",
-    "core/webhook",
+    "core/line_liff",
+    "core/line_manage_audience",
+    "core/line_messaging_api",
+    "core/line_module",
+    "core/line_module_attach",
+    "core/line_shop",
+    "core/line_webhook",
 ]
