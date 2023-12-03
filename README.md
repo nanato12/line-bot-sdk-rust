@@ -17,12 +17,15 @@ This library requires stable/beta Rust.
 
 ## Installation
 
-```toml
-[dependencies]
-line-bot-sdk-rust = "1.0.0"
+```bash
+$ cargo add line-bot-sdk-rust
 ```
 
-If you use `rocket support`.
+## Web framework support
+
+Extract `x-line-signature` from the request header.
+
+### Use `rocket` framework
 
 ```toml
 [dependencies.line-bot-sdk-rust]
@@ -30,7 +33,17 @@ version = "1.0.0"
 features = ["rocket_support"]
 ```
 
-If you use `actix_web support`.
+```rust
+use line_bot_sdk_rust::support::rocket::Signature;
+use rocket::{http::Status, post};
+
+#[post("/callback", data = "<body>")]
+async fn world(signature: Signature, body: String) -> (Status, &'static str) {
+    ...
+}
+```
+
+### Use `actix_web` framework
 
 ```toml
 [dependencies.line-bot-sdk-rust]
@@ -38,19 +51,27 @@ version = "1.0.0"
 features = ["actix_support"]
 ```
 
+```rust
+use actix_web::{post, web, Error, HttpResponse};
+use line_bot_sdk_rust::support::actix::Signature;
+
+#[post("/callback")]
+async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpResponse, Error> {
+    ...
+}
+```
+
 ## Configuration
 
 ```rust
-extern crate line_bot_sdk_rust as line;
-use line::messaging_api::apis::configuration::Configuration;
+use line_bot_sdk_rust::client::LINE;
 use std::env;
 
 fn main() {
     let access_token: &str =
-        &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed getting LINE_CHANNEL_ACCESS_TOKEN");
+        &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed to get LINE_CHANNEL_ACCESS_TOKEN");
 
-    let mut conf = Configuration::default();
-    conf.bearer_access_token = Some(access_token.to_string());
+    let line = LINE::new(access_token.to_string());
 }
 ```
 
@@ -58,7 +79,7 @@ fn main() {
 
 The LINE Messaging API uses the JSON data format.
 
-Parse body (`&str`) into Result<CallbackRequest, serde_json::Error>.
+Example. Parse body (`&str`) into Result<CallbackRequest, serde_json::Error>.
 
 ```rust
 let request: Result<CallbackRequest, serde_json::Error> = serde_json::from_str(body);
@@ -86,7 +107,7 @@ $ cd examples
 $ cargo run --bin rocket
 ```
 
-source: [rocket example](./examples/rocket/src/main.rs)
+source: [rocket example](./examples/rocket_example/src/main.rs)
 
 ### with actix_web framework
 
@@ -95,7 +116,7 @@ $ cd examples
 $ cargo run --bin actix_web
 ```
 
-source: [actix_web example](./examples/actix_web/src/main.rs)
+source: [actix_web example](./examples/actix_web_example/src/main.rs)
 
 ## Contributing
 
