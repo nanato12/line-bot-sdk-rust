@@ -21,8 +21,9 @@ use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+// line-openapi LICENSE : https://github.com/line/line-openapi/blob/main/LICENSE
 const LICENSE: &str = r#"/*
-* Copyright 2023 nanato12
+* Copyright (C) 2016 LINE Corp.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -37,7 +38,7 @@ const LICENSE: &str = r#"/*
 * limitations under the License.
 */
 "#;
-
+const PKG_NAME_PREFIX: &str = "line";
 const OPENAPI_GENERATOR_CLI_VERSION: &str = "7.1.0";
 const SPEC_DIR: &str = "line-openapi";
 const OUTPUT_DIR: &str = "core";
@@ -196,7 +197,7 @@ fn main() {
     ];
 
     for service in services {
-        let pkg_name = &service.replace("-", "_");
+        let pkg_name = &format!("{PKG_NAME_PREFIX}/{}", service.replace("-", "_"));
         let pkg_dir = &format!("{OUTPUT_DIR}/{pkg_name}");
 
         // Initialize package directory
