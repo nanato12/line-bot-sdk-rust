@@ -31,7 +31,7 @@ use sha2::Sha256;
 ///     // NG
 /// }
 /// ```
-pub fn validate_signature(channel_secret: &str, signature: &str, body: &str) -> bool {
+pub fn validate_signature(channel_secret: String, signature: String, body: String) -> bool {
     type HmacSha256 = Hmac<Sha256>;
 
     let mut mac = HmacSha256::new_from_slice(channel_secret.as_bytes())
