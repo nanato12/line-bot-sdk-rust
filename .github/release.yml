@@ -1,0 +1,20 @@
+changelog:
+  categories:
+    - title: 🚀 New Features
+      labels:
+        - feature
+    - title: 📄 New Documentation
+      labels:
+        - documentation
+    - title: 🐛 Fixed Bug
+      labels:
+        - bug
+    - title: ✔ Changes to GitHub Actions
+      labels:
+        - actions
+    - title: 🎉 Changes for Release
+      labels:
+        - release
+    - title: Other Changes
+      labels:
+        - "*"
