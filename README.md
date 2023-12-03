@@ -22,7 +22,17 @@ This library requires stable/beta Rust.
 line-bot-sdk-rust = "1.0.0"
 ```
 
-If you use `rocket support`.
+or
+
+```bash
+$ cargo add line-bot-sdk-rust
+```
+
+## Web framework support
+
+Extract `x-line-signature` from the request header.
+
+### Use `rocket` framework
 
 ```toml
 [dependencies.line-bot-sdk-rust]
@@ -30,12 +40,32 @@ version = "1.0.0"
 features = ["rocket_support"]
 ```
 
-If you use `actix_web support`.
+```rust
+use line_bot_sdk_rust::support::rocket::Signature;
+use rocket::{http::Status, post};
+
+#[post("/callback", data = "<body>")]
+async fn world(signature: Signature, body: String) -> (Status, &'static str) {
+    ...
+}
+```
+
+### Use `actix_web` framework
 
 ```toml
 [dependencies.line-bot-sdk-rust]
 version = "1.0.0"
 features = ["actix_support"]
+```
+
+```rust
+use actix_web::{post, web, Error, HttpResponse};
+use line_bot_sdk_rust::support::actix::Signature;
+
+#[post("/callback")]
+async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpResponse, Error> {
+    ...
+}
 ```
 
 ## Configuration
@@ -46,7 +76,7 @@ use std::env;
 
 fn main() {
     let access_token: &str =
-        &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed getting LINE_CHANNEL_ACCESS_TOKEN");
+        &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed to get LINE_CHANNEL_ACCESS_TOKEN");
 
     let line = LINE::new(access_token.to_string());
 }
