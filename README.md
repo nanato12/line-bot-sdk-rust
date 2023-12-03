@@ -41,16 +41,14 @@ features = ["actix_support"]
 ## Configuration
 
 ```rust
-extern crate line_bot_sdk_rust as line;
-use line::messaging_api::apis::configuration::Configuration;
+use line_bot_sdk_rust::client::LINE;
 use std::env;
 
 fn main() {
     let access_token: &str =
         &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed getting LINE_CHANNEL_ACCESS_TOKEN");
 
-    let mut conf = Configuration::default();
-    conf.bearer_access_token = Some(access_token.to_string());
+    let line = LINE::new(access_token.to_string());
 }
 ```
 
@@ -58,7 +56,7 @@ fn main() {
 
 The LINE Messaging API uses the JSON data format.
 
-Parse body (`&str`) into Result<CallbackRequest, serde_json::Error>.
+Example. Parse body (`&str`) into Result<CallbackRequest, serde_json::Error>.
 
 ```rust
 let request: Result<CallbackRequest, serde_json::Error> = serde_json::from_str(body);
