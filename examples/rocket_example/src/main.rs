@@ -17,9 +17,9 @@ use std::env;
 async fn world(signature: Signature, body: String) -> (Status, &'static str) {
     // Get channel secret and access token by environment variable
     let channel_secret: &str =
-        &env::var("LINE_CHANNEL_SECRET").expect("Failed getting LINE_CHANNEL_SECRET");
+        &env::var("LINE_CHANNEL_SECRET").expect("Failed to get LINE_CHANNEL_SECRET");
     let access_token: &str =
-        &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed getting LINE_CHANNEL_ACCESS_TOKEN");
+        &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed to get LINE_CHANNEL_ACCESS_TOKEN");
 
     let _line = LINE::new(access_token.to_string());
 
