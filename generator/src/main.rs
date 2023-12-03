@@ -135,21 +135,21 @@ fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
                         if path
                             .to_str()
                             .unwrap()
-                            .contains(&format!("{OUTPUT_DIR}/manage_audience/"))
+                            .contains(&format!("{OUTPUT_DIR}/{PKG_NAME_PREFIX}_manage_audience/"))
                         {
                             fix_openapi_manage_audience(path.as_path());
                         }
                         if path
                             .to_str()
                             .unwrap()
-                            .contains(&format!("{OUTPUT_DIR}/webhook/"))
+                            .contains(&format!("{OUTPUT_DIR}/{PKG_NAME_PREFIX}_webhook/"))
                         {
                             fix_openapi_webhook(path.as_path());
                         }
                         if path
                             .to_str()
                             .unwrap()
-                            .contains(&format!("{OUTPUT_DIR}/messaging_api/"))
+                            .contains(&format!("{OUTPUT_DIR}/{PKG_NAME_PREFIX}_messaging_api/"))
                         {
                             fix_openapi_messaging_api(path.as_path());
                         }
@@ -197,7 +197,7 @@ fn main() {
     ];
 
     for service in services {
-        let pkg_name = &format!("{PKG_NAME_PREFIX}/{}", service.replace("-", "_"));
+        let pkg_name = &format!("{PKG_NAME_PREFIX}_{}", service.replace("-", "_"));
         let pkg_dir = &format!("{OUTPUT_DIR}/{pkg_name}");
 
         // Initialize package directory
@@ -251,7 +251,7 @@ fn main() {
     for source in sources {
         let _ = fs::copy(
             format!("./tools/sources/{source}"),
-            format!("core/{source}"),
+            format!("core/{PKG_NAME_PREFIX}_{source}"),
         );
     }
 
