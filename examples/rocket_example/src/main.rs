@@ -1,13 +1,13 @@
 use dotenv::dotenv;
 use line_bot_sdk_rust::{
     client::LINE,
-    messaging_api::{
+    line_messaging_api::{
         apis::MessagingApiApi,
         models::{Message, ReplyMessageRequest, TextMessage},
     },
     parser::signature::validate_signature,
     support::rocket::Signature,
-    webhook::models::{CallbackRequest, Event, MessageContent},
+    line_webhook::models::{CallbackRequest, Event, MessageContent},
 };
 
 use rocket::{http::Status, launch, post, routes};
