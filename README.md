@@ -1,79 +1,110 @@
 # LINE Messaging API SDK for Rust
+
 ## Introduction
+
 The LINE Messaging API SDK for Rust makes it easy to develop bots using LINE Messaging API, and you can create a sample bot within minutes.
+
 ## Documentation
+
 See the official API documentation for more information.
+
 - English: <https://developers.line.biz/en/docs/messaging-api/overview/>
 - Japanese: <https://developers.line.biz/ja/docs/messaging-api/overview/>
+
 ## Requirements
-This library requires Rust nightly.
+
+This library requires stable/beta Rust.
+
 ## Installation
-```
+
+```toml
 [dependencies]
-line-bot-sdk-rust = "0.1"
+line-bot-sdk-rust = "1.0.0"
 ```
+
 If you use `rocket support`.
+
+```toml
+[dependencies.line-bot-sdk-rust]
+version = "1.0.0"
+features = ["rocket_support"]
 ```
-[dependencies]
-line-bot-sdk-rust = { version = "0.1", features = ["rocket_support"] }
-```
+
 If you use `actix_web support`.
+
+```toml
+[dependencies.line-bot-sdk-rust]
+version = "1.0.0"
+features = ["actix_support"]
 ```
-[dependencies]
-line-bot-sdk-rust = { version = "0.1", features = ["actix_support"] }
-```
+
 ## Configuration
-```
+
+```rust
 extern crate line_bot_sdk_rust as line;
-use line::bot::LineBot;
+use line::messaging_api::apis::configuration::Configuration;
+use std::env;
 
 fn main() {
-    let bot = LineBot::new("<channel secret>", "<channel access token>");
+    let access_token: &str =
+        &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed getting LINE_CHANNEL_ACCESS_TOKEN");
+
+    let mut conf = Configuration::default();
+    conf.bearer_access_token = Some(access_token.to_string());
 }
 ```
+
 ## How to use
+
 The LINE Messaging API uses the JSON data format.
-parse_event_request() will help you to parse the HttpRequest content and return a Result<[Events](`events::Events`) , &'static str> Object.
-```
- let result: Result<Events, &'static str> =
-     bot.parse_event_request(signature, body);
+
+Parse body (`&str`) into Result<CallbackRequest, serde_json::Error>.
+
+```rust
+let request: Result<CallbackRequest, serde_json::Error> = serde_json::from_str(body);
 ```
 
-```
-match result {
-    Ok(events) => {
-        for event in events.events {
-            ...
+```rust
+match request {
+    Err(err) => {
+        // error handling
+    },
+    Ok(req) => {
+        for e in req.events {
+            // Processing for various events
         }
     }
-    Err(msg) => {}
 }
 ```
 
 ## EchoBot examples
 
-**with Rocket framework**
+### with Rocket framework
 
 ```bash
-cargo run --example echobot_rocket --features=rocket_support
+$ cd examples
+$ cargo run --bin rocket
 ```
 
-source: [rocket example](./examples/echobot_rocket.rs)
+source: [rocket example](./examples/rocket/src/main.rs)
 
-**with Actix_web framework**
+### with actix_web framework
 
 ```bash
-cargo run --example echobot_actix_web --features=actix_support
+$ cd examples
+$ cargo run --bin actix_web
 ```
 
-source: [actix_web example](./examples/echobot_actix_web.rs)
+source: [actix_web example](./examples/actix_web/src/main.rs)
 
 ## Contributing
+
 Please make a contribution 😆
 
 ## License
-```
-Copyright 2021 nanato12
+
+```plain
+Copyright 2023 nanato12
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

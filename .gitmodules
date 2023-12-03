@@ -1,0 +1,3 @@
+[submodule "line-openapi"]
+	path = line-openapi
+	url = git@github.com:nanato12/line-openapi.git

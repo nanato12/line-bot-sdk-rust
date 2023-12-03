@@ -1,0 +1,16 @@
+[package]
+name = "actix_web_example"
+version = "0.1.0"
+edition = "2021"
+workspace = "../"
+publish = false
+
+[dependencies]
+actix-rt = "2.9.0"
+actix-web = "4.4.0"
+dotenv = "0.15.0"
+serde_json = "1.0.108"
+
+[dependencies.line-bot-sdk-rust]
+path = "../../core/lib"
+features = ["actix_support"]

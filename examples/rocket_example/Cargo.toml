@@ -1,0 +1,18 @@
+[package]
+name = "rocket_example"
+version = "0.1.0"
+edition = "2021"
+workspace = "../"
+publish = false
+
+[dependencies]
+dotenv = "0.15.0"
+serde_json = "1.0.108"
+
+[dependencies.rocket]
+version = "0.5.0"
+features = ["json"]
+
+[dependencies.line-bot-sdk-rust]
+path = "../../core/lib"
+features = ["rocket_support"]

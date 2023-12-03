@@ -1,51 +1,15 @@
-[package]
-name = "line-bot-sdk-rust"
-version = "0.1.2"
-authors = ["nanato12 <admin@nanato12.info>"]
-edition = "2018"
-description = "LINE Messaging API SDK for Rust"
-readme = "README.md"
-repository = "https://github.com/nanato12/line-bot-sdk-rust/"
-license-file = "LICENSE"
-keywords = ["line", "linebot", "line-bot-sdk", "line-messaging-api"]
-categories = ["api-bindings"]
-
-[features]
-default = []
-rocket_support = ["rocket"]
-actix_support = ["actix-web"]
-
-[dependencies]
-actix-web = { version = "4.3.1", optional = true, default-features = false }
-base64 = "0.21.0"
-chrono = "0.4"
-hmac = "0.12.1"
-reqwest = { version = "0.11.14", features = ["blocking", "json"] }
-rocket = { version = "0.4", optional = true }
-serde = { version = "1.0", features = ["derive"] }
-serde_derive = "1.0.156"
-serde_json = "1.0"
-sha2 = "0.10.6"
-
-[dev-dependencies]
-bytes = "1.4.0"
-dotenv = "0.15.0"
-actix-web = "4.3.1"
-actix-rt = "2.8.0"
-rocket = "0.4"
-
-[[example]]
-name = "echobot_actix_web"
-required-features = ["actix_support"]
-
-[[example]]
-name = "echobot_rocket"
-required-features = ["rocket_support"]
-
-[[example]]
-name = "source_rocket"
-required-features = ["rocket_support"]
-
-[[example]]
-name = "various_messages_rocket"
-required-features = ["rocket_support"]
+[workspace]
+resolver = "2"
+members = [
+    "generator",
+    "core/line_channel_access_token",
+    "core/line_insight",
+    "core/lib/",
+    "core/line_liff",
+    "core/line_manage_audience",
+    "core/line_messaging_api",
+    "core/line_module",
+    "core/line_module_attach",
+    "core/line_shop",
+    "core/line_webhook",
+]
