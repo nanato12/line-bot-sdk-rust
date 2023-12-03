@@ -2,11 +2,18 @@ name: Rust
 
 on:
   pull_request:
-    branches:
-      - develop
+    paths:
+      - .github/workflows/rust.yml
+      - "**.toml"
+      - "**.rs"
+
   push:
     branches:
       - develop
+    paths:
+      - .github/workflows/rust.yml
+      - "**.toml"
+      - "**.rs"
 
 jobs:
   build:
@@ -37,3 +44,12 @@ jobs:
       - name: Run tests
         run: cargo test --verbose --tests
         continue-on-error: ${{ matrix.rust == 'nightly' }}
+
+      - name: Build for examples
+        run: cargo build --verbose
+        working-directory: examples
+
+      - name: Run tests for examples
+        run: cargo test --verbose --tests
+        continue-on-error: ${{ matrix.rust == 'nightly' }}
+        working-directory: examples
