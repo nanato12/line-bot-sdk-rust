@@ -17,13 +17,6 @@ This library requires stable/beta Rust.
 
 ## Installation
 
-```toml
-[dependencies]
-line-bot-sdk-rust = "1.0.0"
-```
-
-or
-
 ```bash
 $ cargo add line-bot-sdk-rust
 ```
@@ -114,7 +107,7 @@ $ cd examples
 $ cargo run --bin rocket
 ```
 
-source: [rocket example](./examples/rocket/src/main.rs)
+source: [rocket example](./examples/rocket_example/src/main.rs)
 
 ### with actix_web framework
 
@@ -123,7 +116,7 @@ $ cd examples
 $ cargo run --bin actix_web
 ```
 
-source: [actix_web example](./examples/actix_web/src/main.rs)
+source: [actix_web example](./examples/actix_web_example/src/main.rs)
 
 ## Contributing
 
