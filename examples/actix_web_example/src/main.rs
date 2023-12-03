@@ -26,11 +26,11 @@ async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpRespons
 
     let body: &str = &String::from_utf8(bytes.to_vec()).unwrap();
 
-    if !validate_signature(channel_secret, &signature.key, body) {
+    if !validate_signature(channel_secret.to_string(), signature.key, body.to_string()) {
         return Err(ErrorBadRequest("x-line-signature is invalid."));
     }
 
-    let request: Result<CallbackRequest, serde_json::Error> = serde_json::from_str(body);
+    let request: Result<CallbackRequest, serde_json::Error> = serde_json::from_str(&body);
     match request {
         Err(err) => return Err(ErrorBadRequest(err.to_string())),
         Ok(req) => {
