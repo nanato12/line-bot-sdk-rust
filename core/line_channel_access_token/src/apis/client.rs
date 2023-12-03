@@ -16,8 +16,8 @@
 
 use std::rc::Rc;
 
-use hyper;
 use super::configuration::Configuration;
+use hyper;
 
 pub struct APIClient {
     channel_access_token_api: Box<dyn crate::apis::ChannelAccessTokenApi>,
@@ -25,16 +25,19 @@ pub struct APIClient {
 
 impl APIClient {
     pub fn new<C: hyper::client::connect::Connect>(configuration: Configuration<C>) -> APIClient
-        where C: Clone + std::marker::Send + Sync + 'static {
+    where
+        C: Clone + std::marker::Send + Sync + 'static,
+    {
         let rc = Rc::new(configuration);
 
         APIClient {
-            channel_access_token_api: Box::new(crate::apis::ChannelAccessTokenApiClient::new(rc.clone())),
+            channel_access_token_api: Box::new(crate::apis::ChannelAccessTokenApiClient::new(
+                rc.clone(),
+            )),
         }
     }
 
-    pub fn channel_access_token_api(&self) -> &dyn crate::apis::ChannelAccessTokenApi{
+    pub fn channel_access_token_api(&self) -> &dyn crate::apis::ChannelAccessTokenApi {
         self.channel_access_token_api.as_ref()
     }
-
 }

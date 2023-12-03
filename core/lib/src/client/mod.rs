@@ -16,26 +16,28 @@
 
 use std::rc::Rc;
 
-use channel_access_token::apis::{
-    configuration::Configuration as ChannelAccessTokenApiConfiguration, ChannelAccessTokenApiClient,
-};
 use hyper::{client::HttpConnector, Client as hyperClient};
 use hyper_rustls::HttpsConnector;
 use hyper_rustls::HttpsConnectorBuilder;
-use insight::apis::{configuration::Configuration as InsightConfiguration, InsightApiClient};
-use liff::apis::{configuration::Configuration as LiffConfiguration, LiffApiClient};
-use manage_audience::apis::{
+use line_channel_access_token::apis::{
+    configuration::Configuration as ChannelAccessTokenApiConfiguration, ChannelAccessTokenApiClient,
+};
+use line_insight::apis::{configuration::Configuration as InsightConfiguration, InsightApiClient};
+use line_liff::apis::{configuration::Configuration as LiffConfiguration, LiffApiClient};
+use line_manage_audience::apis::{
     configuration::Configuration as ManageAudienceConfiguration, ManageAudienceApiClient,
 };
-use messaging_api::apis::{
+use line_messaging_api::apis::{
     configuration::Configuration as MessagingApiConfiguration, MessagingApiApiClient,
 };
-use module::apis::{configuration::Configuration as LineModuleConfiguration, LineModuleApiClient};
-use module_attach::apis::{
+use line_module::apis::{
+    configuration::Configuration as LineModuleConfiguration, LineModuleApiClient,
+};
+use line_module_attach::apis::{
     configuration::Configuration as LineModuleAttachConfiguration, LineModuleAttachApiClient,
 };
-use shop::apis::{configuration::Configuration as ShopConfiguration, ShopApiClient};
-use webhook::apis::{
+use line_shop::apis::{configuration::Configuration as ShopConfiguration, ShopApiClient};
+use line_webhook::apis::{
     configuration::Configuration as WebhookConfiguration, DummyApiClient as WebhookDummyApiClient,
 };
 

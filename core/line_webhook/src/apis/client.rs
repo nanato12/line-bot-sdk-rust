@@ -16,8 +16,8 @@
 
 use std::rc::Rc;
 
-use hyper;
 use super::configuration::Configuration;
+use hyper;
 
 pub struct APIClient {
     dummy_api: Box<dyn crate::apis::DummyApi>,
@@ -25,7 +25,9 @@ pub struct APIClient {
 
 impl APIClient {
     pub fn new<C: hyper::client::connect::Connect>(configuration: Configuration<C>) -> APIClient
-        where C: Clone + std::marker::Send + Sync + 'static {
+    where
+        C: Clone + std::marker::Send + Sync + 'static,
+    {
         let rc = Rc::new(configuration);
 
         APIClient {
@@ -33,8 +35,7 @@ impl APIClient {
         }
     }
 
-    pub fn dummy_api(&self) -> &dyn crate::apis::DummyApi{
+    pub fn dummy_api(&self) -> &dyn crate::apis::DummyApi {
         self.dummy_api.as_ref()
     }
-
 }

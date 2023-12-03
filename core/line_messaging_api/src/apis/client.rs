@@ -16,8 +16,8 @@
 
 use std::rc::Rc;
 
-use hyper;
 use super::configuration::Configuration;
+use hyper;
 
 pub struct APIClient {
     messaging_api_api: Box<dyn crate::apis::MessagingApiApi>,
@@ -26,21 +26,24 @@ pub struct APIClient {
 
 impl APIClient {
     pub fn new<C: hyper::client::connect::Connect>(configuration: Configuration<C>) -> APIClient
-        where C: Clone + std::marker::Send + Sync + 'static {
+    where
+        C: Clone + std::marker::Send + Sync + 'static,
+    {
         let rc = Rc::new(configuration);
 
         APIClient {
             messaging_api_api: Box::new(crate::apis::MessagingApiApiClient::new(rc.clone())),
-            messaging_api_blob_api: Box::new(crate::apis::MessagingApiBlobApiClient::new(rc.clone())),
+            messaging_api_blob_api: Box::new(crate::apis::MessagingApiBlobApiClient::new(
+                rc.clone(),
+            )),
         }
     }
 
-    pub fn messaging_api_api(&self) -> &dyn crate::apis::MessagingApiApi{
+    pub fn messaging_api_api(&self) -> &dyn crate::apis::MessagingApiApi {
         self.messaging_api_api.as_ref()
     }
 
-    pub fn messaging_api_blob_api(&self) -> &dyn crate::apis::MessagingApiBlobApi{
+    pub fn messaging_api_blob_api(&self) -> &dyn crate::apis::MessagingApiBlobApi {
         self.messaging_api_blob_api.as_ref()
     }
-
 }

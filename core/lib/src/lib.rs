@@ -15,15 +15,15 @@
 */
 
 // line-openapi modules
-pub use channel_access_token;
-pub use insight;
-pub use liff;
-pub use manage_audience;
-pub use messaging_api;
-pub use module;
-pub use module_attach;
-pub use shop;
-pub use webhook;
+pub use line_channel_access_token;
+pub use line_insight;
+pub use line_liff;
+pub use line_manage_audience;
+pub use line_messaging_api;
+pub use line_module;
+pub use line_module_attach;
+pub use line_shop;
+pub use line_webhook;
 
 pub mod client;
 pub mod parser;
