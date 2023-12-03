@@ -6,10 +6,13 @@ changelog:
     - title: 📄 New Documentation
       labels:
         - documentation
-    - title: 🐛 Fixed Bug
+    - title: 🐛 Bug Fixes
       labels:
         - bug
-    - title: ✔ Changes to GitHub Actions
+    - title: 🔧 Refactoring
+      labels:
+        - refactor
+    - title: ✅ Changes to GitHub Actions
       labels:
         - actions
     - title: 🎉 Changes for Release
