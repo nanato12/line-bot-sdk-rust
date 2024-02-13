@@ -7,6 +7,7 @@ members = [
     "core/lib/",
     "core/line_liff",
     "core/line_manage_audience",
+    "core/line_membership",
     "core/line_messaging_api",
     "core/line_module",
     "core/line_module_attach",

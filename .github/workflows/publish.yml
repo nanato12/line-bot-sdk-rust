@@ -16,4 +16,4 @@ jobs:
         run: cargo login ${{ secrets.CARGO_TOKEN }}
 
       - name: publish
-        run: cargo publish
+        run: make publish

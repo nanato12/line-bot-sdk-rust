@@ -1,6 +1,6 @@
 [package]
 name = "line_messaging_api"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["OpenAPI Generator team and contributors"]
 description = "This document describes LINE Messaging API."
 # Override this license by providing a License Object in the OpenAPI.
