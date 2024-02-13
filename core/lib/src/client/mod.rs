@@ -27,6 +27,9 @@ use line_liff::apis::{configuration::Configuration as LiffConfiguration, LiffApi
 use line_manage_audience::apis::{
     configuration::Configuration as ManageAudienceConfiguration, ManageAudienceApiClient,
 };
+use line_membership::apis::{
+    configuration::Configuration as MembershipConfiguration, MembershipApiClient,
+};
 use line_messaging_api::apis::{
     configuration::Configuration as MessagingApiConfiguration, MessagingApiApiClient,
 };
@@ -48,6 +51,7 @@ pub struct LINE {
     pub insight_api_client: InsightApiClient<C>,
     pub liff_api_client: LiffApiClient<C>,
     pub manage_audience_api_client: ManageAudienceApiClient<C>,
+    pub membership_api_client: MembershipApiClient<C>,
     pub messaging_api_client: MessagingApiApiClient<C>,
     pub module_api_client: LineModuleApiClient<C>,
     pub module_attach_api_client: LineModuleAttachApiClient<C>,
@@ -82,6 +86,11 @@ impl LINE {
         let manage_audience_api_client =
             ManageAudienceApiClient::new(Rc::new(manage_audience_conf));
 
+        // membership
+        let mut membership_conf = MembershipConfiguration::new(client.clone());
+        membership_conf.oauth_access_token = Some(token.to_owned());
+        let membership_api_client = MembershipApiClient::new(Rc::new(membership_conf));
+
         // messaging_api
         let mut messaging_api_conf = MessagingApiConfiguration::new(client.clone());
         messaging_api_conf.oauth_access_token = Some(token.to_owned());
@@ -112,6 +121,7 @@ impl LINE {
             insight_api_client,
             liff_api_client,
             manage_audience_api_client,
+            membership_api_client,
             messaging_api_client,
             module_api_client,
             module_attach_api_client,
