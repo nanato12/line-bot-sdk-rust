@@ -6,7 +6,7 @@ edition = "2021"
 description = "LINE Messaging API SDK for Rust"
 readme = "../../README.md"
 repository = "https://github.com/nanato12/line-bot-sdk-rust/"
-license-file = "../../LICENSE"
+license = "Apache-2.0"
 keywords = ["line", "linebot", "line-bot-sdk", "line-messaging-api"]
 categories = ["api-bindings"]
 
