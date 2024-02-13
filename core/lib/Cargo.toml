@@ -1,6 +1,6 @@
 [package]
 name = "line-bot-sdk-rust"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["nanato12 <admin@okj.info>"]
 edition = "2021"
 description = "LINE Messaging API SDK for Rust"
