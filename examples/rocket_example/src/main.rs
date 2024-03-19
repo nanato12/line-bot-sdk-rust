@@ -26,7 +26,7 @@ async fn world(signature: Signature, body: String) -> (Status, &'static str) {
     println!("{signature:#?}");
     println!("{body:#?}");
 
-    if !validate_signature(channel_secret.to_string(), signature.key, body.clone()) {
+    if !validate_signature(channel_secret, &signature.key, &body) {
         return (Status::BadRequest, "x-line-signature is invalid.");
     }
 

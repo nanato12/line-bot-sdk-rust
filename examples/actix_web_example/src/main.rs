@@ -26,7 +26,7 @@ async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpRespons
 
     let body: &str = &String::from_utf8(bytes.to_vec()).unwrap();
 
-    if !validate_signature(channel_secret.to_string(), signature.key, body.to_string()) {
+    if !validate_signature(channel_secret, &signature.key, body) {
         return Err(ErrorBadRequest("x-line-signature is invalid."));
     }
 
