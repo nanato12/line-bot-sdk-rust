@@ -21,6 +21,8 @@ Method | HTTP request | Description
 [**get_group_member_profile**](MessagingApiApi.md#get_group_member_profile) | **Get** /v2/bot/group/{groupId}/member/{userId} | 
 [**get_group_members_ids**](MessagingApiApi.md#get_group_members_ids) | **Get** /v2/bot/group/{groupId}/members/ids | 
 [**get_group_summary**](MessagingApiApi.md#get_group_summary) | **Get** /v2/bot/group/{groupId}/summary | 
+[**get_membership_list**](MessagingApiApi.md#get_membership_list) | **Get** /v2/bot/membership/list | 
+[**get_membership_subscription**](MessagingApiApi.md#get_membership_subscription) | **Get** /v2/bot/membership/subscription/{userId} | 
 [**get_message_quota**](MessagingApiApi.md#get_message_quota) | **Get** /v2/bot/message/quota | 
 [**get_message_quota_consumption**](MessagingApiApi.md#get_message_quota_consumption) | **Get** /v2/bot/message/quota/consumption | 
 [**get_narrowcast_progress**](MessagingApiApi.md#get_narrowcast_progress) | **Get** /v2/bot/message/progress/narrowcast | 
@@ -54,6 +56,7 @@ Method | HTTP request | Description
 [**rich_menu_batch**](MessagingApiApi.md#rich_menu_batch) | **Post** /v2/bot/richmenu/batch | 
 [**set_default_rich_menu**](MessagingApiApi.md#set_default_rich_menu) | **Post** /v2/bot/user/all/richmenu/{richMenuId} | 
 [**set_webhook_endpoint**](MessagingApiApi.md#set_webhook_endpoint) | **Put** /v2/bot/channel/webhook/endpoint | 
+[**show_loading_animation**](MessagingApiApi.md#show_loading_animation) | **Post** /v2/bot/chat/loading/start | 
 [**test_webhook_endpoint**](MessagingApiApi.md#test_webhook_endpoint) | **Post** /v2/bot/channel/webhook/test | 
 [**unlink_rich_menu_id_from_user**](MessagingApiApi.md#unlink_rich_menu_id_from_user) | **Delete** /v2/bot/user/{userId}/richmenu | 
 [**unlink_rich_menu_id_from_users**](MessagingApiApi.md#unlink_rich_menu_id_from_users) | **Post** /v2/bot/richmenu/bulk/unlink | 
@@ -558,6 +561,63 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**crate::models::GroupSummaryResponse**](GroupSummaryResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_membership_list
+
+> crate::models::MembershipListResponse get_membership_list()
+
+
+Get a list of memberships.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**crate::models::MembershipListResponse**](MembershipListResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_membership_subscription
+
+> crate::models::GetMembershipSubscriptionResponse get_membership_subscription(user_id)
+
+
+Get a user's membership subscription.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**user_id** | **String** | User ID | [required] |
+
+### Return type
+
+[**crate::models::GetMembershipSubscriptionResponse**](GetMembershipSubscriptionResponse.md)
 
 ### Authorization
 
@@ -1549,6 +1609,36 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## show_loading_animation
+
+> serde_json::Value show_loading_animation(show_loading_animation_request)
+
+
+Display a loading animation in one-on-one chats between users and LINE Official Accounts.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**show_loading_animation_request** | [**ShowLoadingAnimationRequest**](ShowLoadingAnimationRequest.md) |  | [required] |
+
+### Return type
+
+[**serde_json::Value**](serde_json::Value.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

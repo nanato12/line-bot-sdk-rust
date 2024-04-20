@@ -122,6 +122,15 @@ pub trait MessagingApiApi {
         &self,
         group_id: &str,
     ) -> Pin<Box<dyn Future<Output = Result<crate::models::GroupSummaryResponse, Error>>>>;
+    fn get_membership_list(
+        &self,
+    ) -> Pin<Box<dyn Future<Output = Result<crate::models::MembershipListResponse, Error>>>>;
+    fn get_membership_subscription(
+        &self,
+        user_id: &str,
+    ) -> Pin<
+        Box<dyn Future<Output = Result<crate::models::GetMembershipSubscriptionResponse, Error>>>,
+    >;
     fn get_message_quota(
         &self,
     ) -> Pin<Box<dyn Future<Output = Result<crate::models::MessageQuotaResponse, Error>>>>;
@@ -250,6 +259,10 @@ pub trait MessagingApiApi {
         &self,
         set_webhook_endpoint_request: crate::models::SetWebhookEndpointRequest,
     ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    fn show_loading_animation(
+        &self,
+        show_loading_animation_request: crate::models::ShowLoadingAnimationRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>>>>;
     fn test_webhook_endpoint(
         &self,
         test_webhook_endpoint_request: Option<crate::models::TestWebhookEndpointRequest>,
@@ -559,6 +572,34 @@ where
             "/v2/bot/group/{groupId}/summary".to_string(),
         );
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
+
+        req.execute(self.configuration.borrow())
+    }
+
+    #[allow(unused_mut)]
+    fn get_membership_list(
+        &self,
+    ) -> Pin<Box<dyn Future<Output = Result<crate::models::MembershipListResponse, Error>>>> {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::GET,
+            "/v2/bot/membership/list".to_string(),
+        );
+
+        req.execute(self.configuration.borrow())
+    }
+
+    #[allow(unused_mut)]
+    fn get_membership_subscription(
+        &self,
+        user_id: &str,
+    ) -> Pin<
+        Box<dyn Future<Output = Result<crate::models::GetMembershipSubscriptionResponse, Error>>>,
+    > {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::GET,
+            "/v2/bot/membership/subscription/{userId}".to_string(),
+        );
+        req = req.with_path_param("userId".to_string(), user_id.to_string());
 
         req.execute(self.configuration.borrow())
     }
@@ -1044,6 +1085,20 @@ where
         );
         req = req.with_body_param(set_webhook_endpoint_request);
         req = req.returns_nothing();
+
+        req.execute(self.configuration.borrow())
+    }
+
+    #[allow(unused_mut)]
+    fn show_loading_animation(
+        &self,
+        show_loading_animation_request: crate::models::ShowLoadingAnimationRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>>>> {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::POST,
+            "/v2/bot/chat/loading/start".to_string(),
+        );
+        req = req.with_body_param(show_loading_animation_request);
 
         req.execute(self.configuration.borrow())
     }
