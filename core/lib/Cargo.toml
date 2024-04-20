@@ -48,10 +48,6 @@ path = "../line_liff"
 version = "0.0.1"
 path = "../line_manage_audience"
 
-[dependencies.line_membership]
-version = "0.0.1"
-path = "../line_membership"
-
 [dependencies.line_messaging_api]
 version = "0.0.2"
 path = "../line_messaging_api"

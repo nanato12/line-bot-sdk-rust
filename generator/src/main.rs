@@ -189,7 +189,6 @@ fn main() {
         "insight",
         "liff",
         "manage-audience",
-        "membership",
         "messaging-api",
         "module-attach",
         "module",
