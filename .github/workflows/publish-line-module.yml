@@ -1,10 +1,10 @@
-name: cargo publish
+name: cargo publish line module
 
 on:
   workflow_dispatch:
     inputs:
       category:
-        description: 'Select submodules to publish'
+        description: 'Select line modules to publish'
         required: true
         type: choice
         options:
@@ -27,5 +27,5 @@ jobs:
       - name: login
         run: cargo login ${{ secrets.CARGO_TOKEN }}
 
-      - name: publish
+      - name: publish line module
         run: cargo publish --manifest-path core/${{ inputs.category }}/Cargo.toml
