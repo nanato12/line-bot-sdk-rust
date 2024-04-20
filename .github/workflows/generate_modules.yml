@@ -1,0 +1,43 @@
+name: Run generator
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+          submodules: recursive
+
+      - name: update submodule
+        run: git submodule update --remote --recursive
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: generate line bot modules
+        run: make generate
+
+      - uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: Generate LINEBot modules
+          delete-branch: true
+          title: Generate line bot modules
+          body: Auto generate line bot modules
+          reviewers: nanato12
+          assignees: octocat
+          labels: auto generate
