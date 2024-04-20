@@ -42,6 +42,8 @@ Class | Method | HTTP request | Description
 *MessagingApiApi* | [**get_group_member_profile**](docs/MessagingApiApi.md#get_group_member_profile) | **Get** /v2/bot/group/{groupId}/member/{userId} | 
 *MessagingApiApi* | [**get_group_members_ids**](docs/MessagingApiApi.md#get_group_members_ids) | **Get** /v2/bot/group/{groupId}/members/ids | 
 *MessagingApiApi* | [**get_group_summary**](docs/MessagingApiApi.md#get_group_summary) | **Get** /v2/bot/group/{groupId}/summary | 
+*MessagingApiApi* | [**get_membership_list**](docs/MessagingApiApi.md#get_membership_list) | **Get** /v2/bot/membership/list | 
+*MessagingApiApi* | [**get_membership_subscription**](docs/MessagingApiApi.md#get_membership_subscription) | **Get** /v2/bot/membership/subscription/{userId} | 
 *MessagingApiApi* | [**get_message_quota**](docs/MessagingApiApi.md#get_message_quota) | **Get** /v2/bot/message/quota | 
 *MessagingApiApi* | [**get_message_quota_consumption**](docs/MessagingApiApi.md#get_message_quota_consumption) | **Get** /v2/bot/message/quota/consumption | 
 *MessagingApiApi* | [**get_narrowcast_progress**](docs/MessagingApiApi.md#get_narrowcast_progress) | **Get** /v2/bot/message/progress/narrowcast | 
@@ -75,6 +77,7 @@ Class | Method | HTTP request | Description
 *MessagingApiApi* | [**rich_menu_batch**](docs/MessagingApiApi.md#rich_menu_batch) | **Post** /v2/bot/richmenu/batch | 
 *MessagingApiApi* | [**set_default_rich_menu**](docs/MessagingApiApi.md#set_default_rich_menu) | **Post** /v2/bot/user/all/richmenu/{richMenuId} | 
 *MessagingApiApi* | [**set_webhook_endpoint**](docs/MessagingApiApi.md#set_webhook_endpoint) | **Put** /v2/bot/channel/webhook/endpoint | 
+*MessagingApiApi* | [**show_loading_animation**](docs/MessagingApiApi.md#show_loading_animation) | **Post** /v2/bot/chat/loading/start | 
 *MessagingApiApi* | [**test_webhook_endpoint**](docs/MessagingApiApi.md#test_webhook_endpoint) | **Post** /v2/bot/channel/webhook/test | 
 *MessagingApiApi* | [**unlink_rich_menu_id_from_user**](docs/MessagingApiApi.md#unlink_rich_menu_id_from_user) | **Delete** /v2/bot/user/{userId}/richmenu | 
 *MessagingApiApi* | [**unlink_rich_menu_id_from_users**](docs/MessagingApiApi.md#unlink_rich_menu_id_from_users) | **Post** /v2/bot/richmenu/bulk/unlink | 
@@ -157,6 +160,7 @@ Class | Method | HTTP request | Description
  - [GetAggregationUnitNameListResponse](docs/GetAggregationUnitNameListResponse.md)
  - [GetAggregationUnitUsageResponse](docs/GetAggregationUnitUsageResponse.md)
  - [GetFollowersResponse](docs/GetFollowersResponse.md)
+ - [GetMembershipSubscriptionResponse](docs/GetMembershipSubscriptionResponse.md)
  - [GetMessageContentTranscodingResponse](docs/GetMessageContentTranscodingResponse.md)
  - [GetWebhookEndpointResponse](docs/GetWebhookEndpointResponse.md)
  - [GroupMemberCountResponse](docs/GroupMemberCountResponse.md)
@@ -177,6 +181,8 @@ Class | Method | HTTP request | Description
  - [LocationMessage](docs/LocationMessage.md)
  - [MarkMessagesAsReadRequest](docs/MarkMessagesAsReadRequest.md)
  - [MembersIdsResponse](docs/MembersIdsResponse.md)
+ - [Membership](docs/Membership.md)
+ - [MembershipListResponse](docs/MembershipListResponse.md)
  - [Message](docs/Message.md)
  - [MessageAction](docs/MessageAction.md)
  - [MessageImagemapAction](docs/MessageImagemapAction.md)
@@ -223,7 +229,11 @@ Class | Method | HTTP request | Description
  - [Sender](docs/Sender.md)
  - [SentMessage](docs/SentMessage.md)
  - [SetWebhookEndpointRequest](docs/SetWebhookEndpointRequest.md)
+ - [ShowLoadingAnimationRequest](docs/ShowLoadingAnimationRequest.md)
  - [StickerMessage](docs/StickerMessage.md)
+ - [SubscribedMembershipPlan](docs/SubscribedMembershipPlan.md)
+ - [SubscribedMembershipUser](docs/SubscribedMembershipUser.md)
+ - [Subscription](docs/Subscription.md)
  - [SubscriptionPeriodDemographic](docs/SubscriptionPeriodDemographic.md)
  - [SubscriptionPeriodDemographicFilter](docs/SubscriptionPeriodDemographicFilter.md)
  - [Template](docs/Template.md)
