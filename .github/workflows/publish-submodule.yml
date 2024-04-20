@@ -1,0 +1,31 @@
+name: cargo publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      category:
+        description: 'Select submodules to publish'
+        required: true
+        type: choice
+        options:
+          - line_channel_access_token
+          - line_insight
+          - line_liff
+          - line_manage_audience
+          - line_messaging_api
+          - line_module_attach
+          - line_shop
+          - line_webhook
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: login
+        run: cargo login ${{ secrets.CARGO_TOKEN }}
+
+      - name: publish
+        run: cargo publish --manifest-path core/${{ inputs.category }}/Cargo.toml
