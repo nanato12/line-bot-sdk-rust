@@ -49,7 +49,7 @@ version = "0.0.1"
 path = "../line_manage_audience"
 
 [dependencies.line_messaging_api]
-version = "0.0.2"
+version = "0.0.3"
 path = "../line_messaging_api"
 
 [dependencies.line_module]
