@@ -64,7 +64,6 @@ impl FlexBubble {
 
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[serde(untagged)]
 pub enum Direction {
     #[serde(rename = "ltr")]
     Ltr,
