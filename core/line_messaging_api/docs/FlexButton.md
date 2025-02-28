@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **flex** | Option<**i32**> |  | [optional]
 **color** | Option<**String**> |  | [optional]
 **style** | Option<**String**> |  | [optional]
-**action** | [**crate::models::Action**](Action.md) |  | 
+**action** | [**models::Action**](Action.md) |  | 
 **gravity** | Option<**String**> |  | [optional]
 **margin** | Option<**String**> |  | [optional]
 **position** | Option<**String**> |  | [optional]

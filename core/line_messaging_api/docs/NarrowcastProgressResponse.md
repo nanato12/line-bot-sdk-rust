@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **failure_count** | Option<**i64**> | The number of users who failed to send the message. | [optional]
 **target_count** | Option<**i64**> | The number of intended recipients of the message. | [optional]
 **failed_description** | Option<**String**> | The reason the message failed to be sent. This is only included with a `phase` property value of `failed`. | [optional]
-**error_code** | Option<**i64**> | Error summary. This is only included with a phase property value of failed. One of:  `1`: An internal error occurred. `2`: An error occurred because there weren't enough recipients. `3`: A conflict error of requests occurs because a request that has already been accepted is retried.  | [optional]
+**error_code** | Option<**i64**> | Error summary. This is only included with a phase property value of failed. One of:  `1`: An internal error occurred. `2`: An error occurred because there weren't enough recipients. `3`: A conflict error of requests occurs because a request that has already been accepted is retried. `4`: An audience of less than 50 recipients is included as a condition of sending.  | [optional]
 **accepted_time** | **String** | Narrowcast message request accepted time in milliseconds.  Format: ISO 8601 (e.g. 2020-12-03T10:15:30.121Z) Timezone: UTC  | 
 **completed_time** | Option<**String**> | Processing of narrowcast message request completion time in milliseconds. Returned when the phase property is succeeded or failed.  Format: ISO 8601 (e.g. 2020-12-03T10:15:30.121Z) Timezone: UTC  | [optional]
 

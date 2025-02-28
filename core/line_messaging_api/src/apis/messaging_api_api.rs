@@ -53,10 +53,6 @@ where
 }
 
 pub trait MessagingApiApi {
-    fn audience_match(
-        &self,
-        audience_match_messages_request: crate::models::AudienceMatchMessagesRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
     fn broadcast(
         &self,
         broadcast_request: crate::models::BroadcastRequest,
@@ -314,21 +310,6 @@ impl<C: hyper::client::connect::Connect> MessagingApiApi for MessagingApiApiClie
 where
     C: Clone + std::marker::Send + Sync,
 {
-    #[allow(unused_mut)]
-    fn audience_match(
-        &self,
-        audience_match_messages_request: crate::models::AudienceMatchMessagesRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
-        let mut req = __internal_request::Request::new(
-            hyper::Method::POST,
-            "/bot/ad/multicast/phone".to_string(),
-        );
-        req = req.with_body_param(audience_match_messages_request);
-        req = req.returns_nothing();
-
-        req.execute(self.configuration.borrow())
-    }
-
     #[allow(unused_mut)]
     fn broadcast(
         &self,

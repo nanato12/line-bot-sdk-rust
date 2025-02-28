@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **aspect_ratio** | Option<**String**> | Aspect ratio of the image. `{width}:{height}` format. Specify the value of `{width}` and `{height}` in the range from `1` to `100000`. However, you cannot set `{height}` to a value that is more than three times the value of `{width}`. The default value is `1:1`.  | [optional]
 **aspect_mode** | Option<**String**> | The display style of the image if the aspect ratio of the image and that specified by the aspectRatio property do not match.  | [optional]
 **background_color** | Option<**String**> | Background color of the image. Use a hexadecimal color code. | [optional]
-**action** | Option<[**crate::models::Action**](Action.md)> |  | [optional]
+**action** | Option<[**models::Action**](Action.md)> |  | [optional]
 **animated** | Option<**bool**> | When this is `true`, an animated image (APNG) plays. You can specify a value of true up to 10 images in a single message. You can't send messages that exceed this limit. This is `false` by default. Animated images larger than 300 KB aren't played back.  | [optional][default to false]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

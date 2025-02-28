@@ -4,14 +4,12 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**audience_match**](MessagingApiApi.md#audience_match) | **Post** /bot/ad/multicast/phone | 
 [**broadcast**](MessagingApiApi.md#broadcast) | **Post** /v2/bot/message/broadcast | 
 [**cancel_default_rich_menu**](MessagingApiApi.md#cancel_default_rich_menu) | **Delete** /v2/bot/user/all/richmenu | 
 [**create_rich_menu**](MessagingApiApi.md#create_rich_menu) | **Post** /v2/bot/richmenu | 
 [**create_rich_menu_alias**](MessagingApiApi.md#create_rich_menu_alias) | **Post** /v2/bot/richmenu/alias | 
 [**delete_rich_menu**](MessagingApiApi.md#delete_rich_menu) | **Delete** /v2/bot/richmenu/{richMenuId} | 
 [**delete_rich_menu_alias**](MessagingApiApi.md#delete_rich_menu_alias) | **Delete** /v2/bot/richmenu/alias/{richMenuAliasId} | 
-[**get_ad_phone_message_statistics**](MessagingApiApi.md#get_ad_phone_message_statistics) | **Get** /v2/bot/message/delivery/ad_phone | 
 [**get_aggregation_unit_name_list**](MessagingApiApi.md#get_aggregation_unit_name_list) | **Get** /v2/bot/message/aggregation/list | 
 [**get_aggregation_unit_usage**](MessagingApiApi.md#get_aggregation_unit_usage) | **Get** /v2/bot/message/aggregation/info | 
 [**get_bot_info**](MessagingApiApi.md#get_bot_info) | **Get** /v2/bot/info | 
@@ -21,6 +19,7 @@ Method | HTTP request | Description
 [**get_group_member_profile**](MessagingApiApi.md#get_group_member_profile) | **Get** /v2/bot/group/{groupId}/member/{userId} | 
 [**get_group_members_ids**](MessagingApiApi.md#get_group_members_ids) | **Get** /v2/bot/group/{groupId}/members/ids | 
 [**get_group_summary**](MessagingApiApi.md#get_group_summary) | **Get** /v2/bot/group/{groupId}/summary | 
+[**get_joined_membership_users**](MessagingApiApi.md#get_joined_membership_users) | **Get** /v2/bot/membership/{membershipId}/users/ids | 
 [**get_membership_list**](MessagingApiApi.md#get_membership_list) | **Get** /v2/bot/membership/list | 
 [**get_membership_subscription**](MessagingApiApi.md#get_membership_subscription) | **Get** /v2/bot/membership/subscription/{userId} | 
 [**get_message_quota**](MessagingApiApi.md#get_message_quota) | **Get** /v2/bot/message/quota | 
@@ -69,36 +68,6 @@ Method | HTTP request | Description
 [**validate_rich_menu_batch_request**](MessagingApiApi.md#validate_rich_menu_batch_request) | **Post** /v2/bot/richmenu/validate/batch | 
 [**validate_rich_menu_object**](MessagingApiApi.md#validate_rich_menu_object) | **Post** /v2/bot/richmenu/validate | 
 
-
-
-## audience_match
-
-> audience_match(audience_match_messages_request)
-
-
-Send a message using phone number
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**audience_match_messages_request** | [**AudienceMatchMessagesRequest**](AudienceMatchMessagesRequest.md) |  | [required] |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## broadcast
@@ -161,7 +130,7 @@ This endpoint does not need any parameter.
 
 ## create_rich_menu
 
-> crate::models::RichMenuIdResponse create_rich_menu(rich_menu_request)
+> models::RichMenuIdResponse create_rich_menu(rich_menu_request)
 
 
 Create rich menu
@@ -175,7 +144,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::RichMenuIdResponse**](RichMenuIdResponse.md)
+[**models::RichMenuIdResponse**](RichMenuIdResponse.md)
 
 ### Authorization
 
@@ -279,39 +248,9 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_ad_phone_message_statistics
-
-> crate::models::NumberOfMessagesResponse get_ad_phone_message_statistics(date)
-
-
-Get result of message delivery using phone number
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**date** | **String** | Date the message was sent  Format: `yyyyMMdd` (e.g. `20190831`) Time Zone: UTC+9  | [required] |
-
-### Return type
-
-[**crate::models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## get_aggregation_unit_name_list
 
-> crate::models::GetAggregationUnitNameListResponse get_aggregation_unit_name_list(limit, start)
+> models::GetAggregationUnitNameListResponse get_aggregation_unit_name_list(limit, start)
 
 
 Get name list of units used this month
@@ -326,7 +265,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetAggregationUnitNameListResponse**](GetAggregationUnitNameListResponse.md)
+[**models::GetAggregationUnitNameListResponse**](GetAggregationUnitNameListResponse.md)
 
 ### Authorization
 
@@ -342,7 +281,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_aggregation_unit_usage
 
-> crate::models::GetAggregationUnitUsageResponse get_aggregation_unit_usage()
+> models::GetAggregationUnitUsageResponse get_aggregation_unit_usage()
 
 
 Get number of units used this month
@@ -353,7 +292,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::GetAggregationUnitUsageResponse**](GetAggregationUnitUsageResponse.md)
+[**models::GetAggregationUnitUsageResponse**](GetAggregationUnitUsageResponse.md)
 
 ### Authorization
 
@@ -369,7 +308,7 @@ This endpoint does not need any parameter.
 
 ## get_bot_info
 
-> crate::models::BotInfoResponse get_bot_info()
+> models::BotInfoResponse get_bot_info()
 
 
 Get bot info
@@ -380,7 +319,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::BotInfoResponse**](BotInfoResponse.md)
+[**models::BotInfoResponse**](BotInfoResponse.md)
 
 ### Authorization
 
@@ -396,7 +335,7 @@ This endpoint does not need any parameter.
 
 ## get_default_rich_menu_id
 
-> crate::models::RichMenuIdResponse get_default_rich_menu_id()
+> models::RichMenuIdResponse get_default_rich_menu_id()
 
 
 Gets the ID of the default rich menu set with the Messaging API.
@@ -407,7 +346,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::RichMenuIdResponse**](RichMenuIdResponse.md)
+[**models::RichMenuIdResponse**](RichMenuIdResponse.md)
 
 ### Authorization
 
@@ -423,7 +362,7 @@ This endpoint does not need any parameter.
 
 ## get_followers
 
-> crate::models::GetFollowersResponse get_followers(start, limit)
+> models::GetFollowersResponse get_followers(start, limit)
 
 
 Get a list of users who added your LINE Official Account as a friend
@@ -438,7 +377,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetFollowersResponse**](GetFollowersResponse.md)
+[**models::GetFollowersResponse**](GetFollowersResponse.md)
 
 ### Authorization
 
@@ -454,7 +393,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_group_member_count
 
-> crate::models::GroupMemberCountResponse get_group_member_count(group_id)
+> models::GroupMemberCountResponse get_group_member_count(group_id)
 
 
 Get number of users in a group chat
@@ -468,7 +407,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GroupMemberCountResponse**](GroupMemberCountResponse.md)
+[**models::GroupMemberCountResponse**](GroupMemberCountResponse.md)
 
 ### Authorization
 
@@ -484,7 +423,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_group_member_profile
 
-> crate::models::GroupUserProfileResponse get_group_member_profile(group_id, user_id)
+> models::GroupUserProfileResponse get_group_member_profile(group_id, user_id)
 
 
 Get group chat member profile
@@ -499,7 +438,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GroupUserProfileResponse**](GroupUserProfileResponse.md)
+[**models::GroupUserProfileResponse**](GroupUserProfileResponse.md)
 
 ### Authorization
 
@@ -515,7 +454,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_group_members_ids
 
-> crate::models::MembersIdsResponse get_group_members_ids(group_id, start)
+> models::MembersIdsResponse get_group_members_ids(group_id, start)
 
 
 Get group chat member user IDs
@@ -530,7 +469,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::MembersIdsResponse**](MembersIdsResponse.md)
+[**models::MembersIdsResponse**](MembersIdsResponse.md)
 
 ### Authorization
 
@@ -546,7 +485,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_group_summary
 
-> crate::models::GroupSummaryResponse get_group_summary(group_id)
+> models::GroupSummaryResponse get_group_summary(group_id)
 
 
 Get group chat summary
@@ -560,7 +499,39 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GroupSummaryResponse**](GroupSummaryResponse.md)
+[**models::GroupSummaryResponse**](GroupSummaryResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_joined_membership_users
+
+> models::GetJoinedMembershipUsersResponse get_joined_membership_users(membership_id, start, limit)
+
+
+Get a list of user IDs who joined the membership.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**membership_id** | **i32** | Membership plan ID. | [required] |
+**start** | Option<**String**> | A continuation token to get next remaining membership user IDs. Returned only when there are remaining user IDs that weren't returned in the userIds property in the previous request. The continuation token expires in 24 hours (86,400 seconds).  |  |
+**limit** | Option<**i32**> | The max number of items to return for this API call. The value is set to 300 by default, but the max acceptable value is 1000.  |  |[default to 300]
+
+### Return type
+
+[**models::GetJoinedMembershipUsersResponse**](GetJoinedMembershipUsersResponse.md)
 
 ### Authorization
 
@@ -576,7 +547,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_membership_list
 
-> crate::models::MembershipListResponse get_membership_list()
+> models::MembershipListResponse get_membership_list()
 
 
 Get a list of memberships.
@@ -587,7 +558,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::MembershipListResponse**](MembershipListResponse.md)
+[**models::MembershipListResponse**](MembershipListResponse.md)
 
 ### Authorization
 
@@ -603,7 +574,7 @@ This endpoint does not need any parameter.
 
 ## get_membership_subscription
 
-> crate::models::GetMembershipSubscriptionResponse get_membership_subscription(user_id)
+> models::GetMembershipSubscriptionResponse get_membership_subscription(user_id)
 
 
 Get a user's membership subscription.
@@ -617,7 +588,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetMembershipSubscriptionResponse**](GetMembershipSubscriptionResponse.md)
+[**models::GetMembershipSubscriptionResponse**](GetMembershipSubscriptionResponse.md)
 
 ### Authorization
 
@@ -633,7 +604,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_message_quota
 
-> crate::models::MessageQuotaResponse get_message_quota()
+> models::MessageQuotaResponse get_message_quota()
 
 
 Gets the target limit for sending messages in the current month. The total number of the free messages and the additional messages is returned.
@@ -644,7 +615,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::MessageQuotaResponse**](MessageQuotaResponse.md)
+[**models::MessageQuotaResponse**](MessageQuotaResponse.md)
 
 ### Authorization
 
@@ -660,7 +631,7 @@ This endpoint does not need any parameter.
 
 ## get_message_quota_consumption
 
-> crate::models::QuotaConsumptionResponse get_message_quota_consumption()
+> models::QuotaConsumptionResponse get_message_quota_consumption()
 
 
 Gets the number of messages sent in the current month.
@@ -671,7 +642,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::QuotaConsumptionResponse**](QuotaConsumptionResponse.md)
+[**models::QuotaConsumptionResponse**](QuotaConsumptionResponse.md)
 
 ### Authorization
 
@@ -687,7 +658,7 @@ This endpoint does not need any parameter.
 
 ## get_narrowcast_progress
 
-> crate::models::NarrowcastProgressResponse get_narrowcast_progress(request_id)
+> models::NarrowcastProgressResponse get_narrowcast_progress(request_id)
 
 
 Gets the status of a narrowcast message.
@@ -701,7 +672,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::NarrowcastProgressResponse**](NarrowcastProgressResponse.md)
+[**models::NarrowcastProgressResponse**](NarrowcastProgressResponse.md)
 
 ### Authorization
 
@@ -717,7 +688,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_number_of_sent_broadcast_messages
 
-> crate::models::NumberOfMessagesResponse get_number_of_sent_broadcast_messages(date)
+> models::NumberOfMessagesResponse get_number_of_sent_broadcast_messages(date)
 
 
 Get number of sent broadcast messages
@@ -731,7 +702,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
+[**models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
 
 ### Authorization
 
@@ -747,7 +718,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_number_of_sent_multicast_messages
 
-> crate::models::NumberOfMessagesResponse get_number_of_sent_multicast_messages(date)
+> models::NumberOfMessagesResponse get_number_of_sent_multicast_messages(date)
 
 
 Get number of sent multicast messages
@@ -761,7 +732,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
+[**models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
 
 ### Authorization
 
@@ -777,7 +748,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_number_of_sent_push_messages
 
-> crate::models::NumberOfMessagesResponse get_number_of_sent_push_messages(date)
+> models::NumberOfMessagesResponse get_number_of_sent_push_messages(date)
 
 
 Get number of sent push messages
@@ -791,7 +762,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
+[**models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
 
 ### Authorization
 
@@ -807,7 +778,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_number_of_sent_reply_messages
 
-> crate::models::NumberOfMessagesResponse get_number_of_sent_reply_messages(date)
+> models::NumberOfMessagesResponse get_number_of_sent_reply_messages(date)
 
 
 Get number of sent reply messages
@@ -821,7 +792,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
+[**models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
 
 ### Authorization
 
@@ -837,7 +808,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_pnp_message_statistics
 
-> crate::models::NumberOfMessagesResponse get_pnp_message_statistics(date)
+> models::NumberOfMessagesResponse get_pnp_message_statistics(date)
 
 
 Get number of sent LINE notification messages　
@@ -851,7 +822,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
+[**models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
 
 ### Authorization
 
@@ -867,7 +838,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_profile
 
-> crate::models::UserProfileResponse get_profile(user_id)
+> models::UserProfileResponse get_profile(user_id)
 
 
 Get profile
@@ -881,7 +852,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::UserProfileResponse**](UserProfileResponse.md)
+[**models::UserProfileResponse**](UserProfileResponse.md)
 
 ### Authorization
 
@@ -897,7 +868,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_rich_menu
 
-> crate::models::RichMenuResponse get_rich_menu(rich_menu_id)
+> models::RichMenuResponse get_rich_menu(rich_menu_id)
 
 
 Gets a rich menu via a rich menu ID.
@@ -911,7 +882,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::RichMenuResponse**](RichMenuResponse.md)
+[**models::RichMenuResponse**](RichMenuResponse.md)
 
 ### Authorization
 
@@ -927,7 +898,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_rich_menu_alias
 
-> crate::models::RichMenuAliasResponse get_rich_menu_alias(rich_menu_alias_id)
+> models::RichMenuAliasResponse get_rich_menu_alias(rich_menu_alias_id)
 
 
 Get rich menu alias information
@@ -941,7 +912,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::RichMenuAliasResponse**](RichMenuAliasResponse.md)
+[**models::RichMenuAliasResponse**](RichMenuAliasResponse.md)
 
 ### Authorization
 
@@ -957,7 +928,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_rich_menu_alias_list
 
-> crate::models::RichMenuAliasListResponse get_rich_menu_alias_list()
+> models::RichMenuAliasListResponse get_rich_menu_alias_list()
 
 
 Get list of rich menu alias
@@ -968,7 +939,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::RichMenuAliasListResponse**](RichMenuAliasListResponse.md)
+[**models::RichMenuAliasListResponse**](RichMenuAliasListResponse.md)
 
 ### Authorization
 
@@ -984,7 +955,7 @@ This endpoint does not need any parameter.
 
 ## get_rich_menu_batch_progress
 
-> crate::models::RichMenuBatchProgressResponse get_rich_menu_batch_progress(request_id)
+> models::RichMenuBatchProgressResponse get_rich_menu_batch_progress(request_id)
 
 
 Get the status of Replace or unlink a linked rich menus in batches.
@@ -998,7 +969,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::RichMenuBatchProgressResponse**](RichMenuBatchProgressResponse.md)
+[**models::RichMenuBatchProgressResponse**](RichMenuBatchProgressResponse.md)
 
 ### Authorization
 
@@ -1014,7 +985,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_rich_menu_id_of_user
 
-> crate::models::RichMenuIdResponse get_rich_menu_id_of_user(user_id)
+> models::RichMenuIdResponse get_rich_menu_id_of_user(user_id)
 
 
 Get rich menu ID of user
@@ -1028,7 +999,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::RichMenuIdResponse**](RichMenuIdResponse.md)
+[**models::RichMenuIdResponse**](RichMenuIdResponse.md)
 
 ### Authorization
 
@@ -1044,7 +1015,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_rich_menu_list
 
-> crate::models::RichMenuListResponse get_rich_menu_list()
+> models::RichMenuListResponse get_rich_menu_list()
 
 
 Get rich menu list
@@ -1055,7 +1026,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::RichMenuListResponse**](RichMenuListResponse.md)
+[**models::RichMenuListResponse**](RichMenuListResponse.md)
 
 ### Authorization
 
@@ -1071,7 +1042,7 @@ This endpoint does not need any parameter.
 
 ## get_room_member_count
 
-> crate::models::RoomMemberCountResponse get_room_member_count(room_id)
+> models::RoomMemberCountResponse get_room_member_count(room_id)
 
 
 Get number of users in a multi-person chat
@@ -1085,7 +1056,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::RoomMemberCountResponse**](RoomMemberCountResponse.md)
+[**models::RoomMemberCountResponse**](RoomMemberCountResponse.md)
 
 ### Authorization
 
@@ -1101,7 +1072,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_room_member_profile
 
-> crate::models::RoomUserProfileResponse get_room_member_profile(room_id, user_id)
+> models::RoomUserProfileResponse get_room_member_profile(room_id, user_id)
 
 
 Get multi-person chat member profile
@@ -1116,7 +1087,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::RoomUserProfileResponse**](RoomUserProfileResponse.md)
+[**models::RoomUserProfileResponse**](RoomUserProfileResponse.md)
 
 ### Authorization
 
@@ -1132,7 +1103,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_room_members_ids
 
-> crate::models::MembersIdsResponse get_room_members_ids(room_id, start)
+> models::MembersIdsResponse get_room_members_ids(room_id, start)
 
 
 Get multi-person chat member user IDs
@@ -1147,7 +1118,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::MembersIdsResponse**](MembersIdsResponse.md)
+[**models::MembersIdsResponse**](MembersIdsResponse.md)
 
 ### Authorization
 
@@ -1163,7 +1134,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_webhook_endpoint
 
-> crate::models::GetWebhookEndpointResponse get_webhook_endpoint()
+> models::GetWebhookEndpointResponse get_webhook_endpoint()
 
 
 Get webhook endpoint information
@@ -1174,7 +1145,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::GetWebhookEndpointResponse**](GetWebhookEndpointResponse.md)
+[**models::GetWebhookEndpointResponse**](GetWebhookEndpointResponse.md)
 
 ### Authorization
 
@@ -1190,7 +1161,7 @@ This endpoint does not need any parameter.
 
 ## issue_link_token
 
-> crate::models::IssueLinkTokenResponse issue_link_token(user_id)
+> models::IssueLinkTokenResponse issue_link_token(user_id)
 
 
 Issue link token
@@ -1204,7 +1175,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::IssueLinkTokenResponse**](IssueLinkTokenResponse.md)
+[**models::IssueLinkTokenResponse**](IssueLinkTokenResponse.md)
 
 ### Authorization
 
@@ -1433,7 +1404,7 @@ Name | Type | Description  | Required | Notes
 
 ## push_message
 
-> crate::models::PushMessageResponse push_message(push_message_request, x_line_retry_key)
+> models::PushMessageResponse push_message(push_message_request, x_line_retry_key)
 
 
 Sends a message to a user, group chat, or multi-person chat at any time.
@@ -1448,7 +1419,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::PushMessageResponse**](PushMessageResponse.md)
+[**models::PushMessageResponse**](PushMessageResponse.md)
 
 ### Authorization
 
@@ -1495,7 +1466,7 @@ Name | Type | Description  | Required | Notes
 
 ## reply_message
 
-> crate::models::ReplyMessageResponse reply_message(reply_message_request)
+> models::ReplyMessageResponse reply_message(reply_message_request)
 
 
 Send reply message
@@ -1509,7 +1480,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::ReplyMessageResponse**](ReplyMessageResponse.md)
+[**models::ReplyMessageResponse**](ReplyMessageResponse.md)
 
 ### Authorization
 
@@ -1645,7 +1616,7 @@ Name | Type | Description  | Required | Notes
 
 ## test_webhook_endpoint
 
-> crate::models::TestWebhookEndpointResponse test_webhook_endpoint(test_webhook_endpoint_request)
+> models::TestWebhookEndpointResponse test_webhook_endpoint(test_webhook_endpoint_request)
 
 
 Test webhook endpoint
@@ -1659,7 +1630,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::TestWebhookEndpointResponse**](TestWebhookEndpointResponse.md)
+[**models::TestWebhookEndpointResponse**](TestWebhookEndpointResponse.md)
 
 ### Authorization
 

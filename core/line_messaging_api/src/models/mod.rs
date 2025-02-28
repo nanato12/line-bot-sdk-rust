@@ -1,25 +1,11 @@
-/*
-* Copyright (C) 2016 LINE Corp.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-
 pub mod action;
 pub use self::action::Action;
 pub mod age_demographic;
 pub use self::age_demographic::AgeDemographic;
 pub mod age_demographic_filter;
 pub use self::age_demographic_filter::AgeDemographicFilter;
+pub mod all_mention_target;
+pub use self::all_mention_target::AllMentionTarget;
 pub mod alt_uri;
 pub use self::alt_uri::AltUri;
 pub mod app_type_demographic;
@@ -30,8 +16,6 @@ pub mod area_demographic;
 pub use self::area_demographic::AreaDemographic;
 pub mod area_demographic_filter;
 pub use self::area_demographic_filter::AreaDemographicFilter;
-pub mod audience_match_messages_request;
-pub use self::audience_match_messages_request::AudienceMatchMessagesRequest;
 pub mod audience_recipient;
 pub use self::audience_recipient::AudienceRecipient;
 pub mod audio_message;
@@ -66,6 +50,8 @@ pub mod demographic_filter;
 pub use self::demographic_filter::DemographicFilter;
 pub mod emoji;
 pub use self::emoji::Emoji;
+pub mod emoji_substitution_object;
+pub use self::emoji_substitution_object::EmojiSubstitutionObject;
 pub mod error_detail;
 pub use self::error_detail::ErrorDetail;
 pub mod error_response;
@@ -138,6 +124,8 @@ pub mod get_aggregation_unit_usage_response;
 pub use self::get_aggregation_unit_usage_response::GetAggregationUnitUsageResponse;
 pub mod get_followers_response;
 pub use self::get_followers_response::GetFollowersResponse;
+pub mod get_joined_membership_users_response;
+pub use self::get_joined_membership_users_response::GetJoinedMembershipUsersResponse;
 pub mod get_membership_subscription_response;
 pub use self::get_membership_subscription_response::GetMembershipSubscriptionResponse;
 pub mod get_message_content_transcoding_response;
@@ -184,6 +172,10 @@ pub mod membership;
 pub use self::membership::Membership;
 pub mod membership_list_response;
 pub use self::membership_list_response::MembershipListResponse;
+pub mod mention_substitution_object;
+pub use self::mention_substitution_object::MentionSubstitutionObject;
+pub mod mention_target;
+pub use self::mention_target::MentionTarget;
 pub mod message;
 pub use self::message::Message;
 pub mod message_action;
@@ -290,6 +282,8 @@ pub mod subscription_period_demographic;
 pub use self::subscription_period_demographic::SubscriptionPeriodDemographic;
 pub mod subscription_period_demographic_filter;
 pub use self::subscription_period_demographic_filter::SubscriptionPeriodDemographicFilter;
+pub mod substitution_object;
+pub use self::substitution_object::SubstitutionObject;
 pub mod template;
 pub use self::template::Template;
 pub mod template_image_aspect_ratio;
@@ -304,12 +298,16 @@ pub mod test_webhook_endpoint_response;
 pub use self::test_webhook_endpoint_response::TestWebhookEndpointResponse;
 pub mod text_message;
 pub use self::text_message::TextMessage;
+pub mod text_message_v2;
+pub use self::text_message_v2::TextMessageV2;
 pub mod update_rich_menu_alias_request;
 pub use self::update_rich_menu_alias_request::UpdateRichMenuAliasRequest;
 pub mod uri_action;
 pub use self::uri_action::UriAction;
 pub mod uri_imagemap_action;
 pub use self::uri_imagemap_action::UriImagemapAction;
+pub mod user_mention_target;
+pub use self::user_mention_target::UserMentionTarget;
 pub mod user_profile_response;
 pub use self::user_profile_response::UserProfileResponse;
 pub mod validate_message_request;

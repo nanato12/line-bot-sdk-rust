@@ -22,9 +22,9 @@ Name | Type | Description | Notes
 **offset_bottom** | Option<**String**> |  | [optional]
 **offset_start** | Option<**String**> |  | [optional]
 **offset_end** | Option<**String**> |  | [optional]
-**action** | Option<[**crate::models::Action**](Action.md)> |  | [optional]
+**action** | Option<[**models::Action**](Action.md)> |  | [optional]
 **max_lines** | Option<**i32**> |  | [optional]
-**contents** | Option<[**Vec<crate::models::FlexSpan>**](FlexSpan.md)> |  | [optional]
+**contents** | Option<[**Vec<models::FlexSpan>**](FlexSpan.md)> |  | [optional]
 **adjust_mode** | Option<**String**> |  | [optional]
 **scaling** | Option<**bool**> |  | [optional]
 

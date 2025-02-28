@@ -74,7 +74,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_message_content_transcoding_by_message_id
 
-> crate::models::GetMessageContentTranscodingResponse get_message_content_transcoding_by_message_id(message_id)
+> models::GetMessageContentTranscodingResponse get_message_content_transcoding_by_message_id(message_id)
 
 
 Verify the preparation status of a video or audio for getting
@@ -88,7 +88,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetMessageContentTranscodingResponse**](GetMessageContentTranscodingResponse.md)
+[**models::GetMessageContentTranscodingResponse**](GetMessageContentTranscodingResponse.md)
 
 ### Authorization
 
