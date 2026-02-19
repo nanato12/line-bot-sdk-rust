@@ -15,6 +15,7 @@
 */
 
 use crate::models::audio_message::AudioMessage;
+use crate::models::coupon_message::CouponMessage;
 use crate::models::flex_message::FlexMessage;
 use crate::models::image_message::ImageMessage;
 use crate::models::imagemap_message::ImagemapMessage;
@@ -45,4 +46,6 @@ pub enum Message {
     Template(TemplateMessage),
     #[serde(rename = "flex")]
     Flex(FlexMessage),
+    #[serde(rename = "coupon")]
+    Coupon(CouponMessage),
 }

@@ -17,8 +17,8 @@
 use super::{
     AccountLinkEvent, ActivatedEvent, BeaconEvent, BotResumedEvent, BotSuspendedEvent,
     DeactivatedEvent, FollowEvent, JoinEvent, LeaveEvent, MemberJoinedEvent, MemberLeftEvent,
-    MessageEvent, ModuleEvent, PostbackEvent, ThingsEvent, UnfollowEvent, UnsendEvent,
-    VideoPlayCompleteEvent,
+    MembershipEvent, MessageEvent, ModuleEvent, PnpDeliveryCompletionEvent, PostbackEvent,
+    UnfollowEvent, UnsendEvent, VideoPlayCompleteEvent,
 };
 
 /// Event : Webhook event
@@ -42,6 +42,8 @@ pub enum Event {
     MemberJoinedEvent(MemberJoinedEvent),
     #[serde(rename = "memberLeft")]
     MemberLeftEvent(MemberLeftEvent),
+    #[serde(rename = "membership")]
+    MembershipEvent(MembershipEvent),
     #[serde(rename = "postback")]
     PostbackEvent(PostbackEvent),
     #[serde(rename = "videoPlayComplete")]
@@ -50,8 +52,6 @@ pub enum Event {
     BeaconEvent(BeaconEvent),
     #[serde(rename = "accountLink")]
     AccountLinkEvent(AccountLinkEvent),
-    #[serde(rename = "things")]
-    ThingsEvent(ThingsEvent),
     #[serde(rename = "module")]
     ModuleEvent(ModuleEvent),
     #[serde(rename = "activated")]
@@ -62,4 +62,6 @@ pub enum Event {
     BotSuspendedEvent(BotSuspendedEvent),
     #[serde(rename = "botResumed")]
     BotResumedEvent(BotResumedEvent),
+    #[serde(rename = "delivery")]
+    PnpDeliveryCompletionEvent(PnpDeliveryCompletionEvent),
 }
