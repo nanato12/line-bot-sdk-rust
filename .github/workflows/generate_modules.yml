@@ -1,39 +1,37 @@
-name: Run generator
+name: Check generated modules
 
 on:
+  pull_request:
+    paths:
+      - .github/workflows/generate_modules.yml
+      - "line-openapi"
+      - "generator/**"
+      - "tools/**"
+      - "core/line_*/**"
   workflow_dispatch:
-  push:
-    branches:
-      - develop
-
-permissions:
-  contents: write
-  pull-requests: write
 
 jobs:
-  generate:
+  check-generate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: develop
           submodules: recursive
 
-      - name: update submodule
-        run: git submodule update --remote --recursive
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: generate line bot modules
+      - name: Run generator
         run: make generate
 
-      - uses: peter-evans/create-pull-request@v7
-        with:
-          commit-message: Generate LINEBot modules
-          delete-branch: true
-          title: Generate line bot modules
-          body: Auto generate line bot modules
-          reviewers: nanato12
-          assignees: octocat
-          labels: auto generate
+      - name: Check for uncommitted changes
+        run: |
+          if ! git diff --exit-code core/; then
+            echo "::error::Generated code is out of date. Run 'make generate' and commit the changes."
+            exit 1
+          fi
