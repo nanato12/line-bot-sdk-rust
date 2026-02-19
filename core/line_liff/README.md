@@ -25,10 +25,10 @@ All URIs are relative to *https://api.line.me*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*LiffApi* | [**add_liff_app**](docs/LiffApi.md#add_liff_app) | **Post** /liff/v1/apps | 
+*LiffApi* | [**add_liff_app**](docs/LiffApi.md#add_liff_app) | **Post** /liff/v1/apps | Create LIFF app
 *LiffApi* | [**delete_liff_app**](docs/LiffApi.md#delete_liff_app) | **Delete** /liff/v1/apps/{liffId} | Delete LIFF app from a channel
 *LiffApi* | [**get_all_liff_apps**](docs/LiffApi.md#get_all_liff_apps) | **Get** /liff/v1/apps | Get all LIFF apps
-*LiffApi* | [**update_liff_app**](docs/LiffApi.md#update_liff_app) | **Put** /liff/v1/apps/{liffId} | 
+*LiffApi* | [**update_liff_app**](docs/LiffApi.md#update_liff_app) | **Put** /liff/v1/apps/{liffId} | Update LIFF app from a channel
 
 
 ## Documentation For Models
@@ -42,6 +42,7 @@ Class | Method | HTTP request | Description
  - [LiffScope](docs/LiffScope.md)
  - [LiffView](docs/LiffView.md)
  - [UpdateLiffAppRequest](docs/UpdateLiffAppRequest.md)
+ - [UpdateLiffView](docs/UpdateLiffView.md)
 
 
 To get access to the crate's generated documentation, use:

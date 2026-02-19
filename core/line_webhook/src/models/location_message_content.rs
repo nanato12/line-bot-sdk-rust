@@ -41,6 +41,9 @@ pub struct LocationMessageContent {
     /// Longitude
     #[serde(rename = "longitude")]
     pub longitude: f64,
+    /// Token used to mark the message as read.
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    pub mark_as_read_token: Option<String>,
 }
 
 impl LocationMessageContent {
@@ -51,6 +54,7 @@ impl LocationMessageContent {
             address: None,
             latitude,
             longitude,
+            mark_as_read_token: None,
         }
     }
 }

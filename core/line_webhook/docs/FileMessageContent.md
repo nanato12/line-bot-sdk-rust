@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | **String** | Message ID | 
 **file_name** | **String** | File name | 
 **file_size** | **i32** | File size in bytes | 
+**mark_as_read_token** | Option<**String**> | Token used to mark the message as read.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **address** | Option<**String**> | Address | [optional]
 **latitude** | **f64** | Latitude | 
 **longitude** | **f64** | Longitude | 
+**mark_as_read_token** | Option<**String**> | Token used to mark the message as read.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

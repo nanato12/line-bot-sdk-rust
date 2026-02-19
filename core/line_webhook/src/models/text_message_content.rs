@@ -43,6 +43,9 @@ pub struct TextMessageContent {
     /// Message ID of a quoted message. Only included when the received message quotes a past message.
     #[serde(rename = "quotedMessageId", skip_serializing_if = "Option::is_none")]
     pub quoted_message_id: Option<String>,
+    /// Token used to mark the message as read.
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    pub mark_as_read_token: Option<String>,
 }
 
 impl TextMessageContent {
@@ -54,6 +57,7 @@ impl TextMessageContent {
             mention: None,
             quote_token,
             quoted_message_id: None,
+            mark_as_read_token: None,
         }
     }
 }

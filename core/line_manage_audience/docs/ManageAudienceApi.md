@@ -4,48 +4,17 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**activate_audience_group**](ManageAudienceApi.md#activate_audience_group) | **Put** /v2/bot/audienceGroup/{audienceGroupId}/activate | 
 [**add_audience_to_audience_group**](ManageAudienceApi.md#add_audience_to_audience_group) | **Put** /v2/bot/audienceGroup/upload | 
 [**create_audience_group**](ManageAudienceApi.md#create_audience_group) | **Post** /v2/bot/audienceGroup/upload | 
 [**create_click_based_audience_group**](ManageAudienceApi.md#create_click_based_audience_group) | **Post** /v2/bot/audienceGroup/click | 
 [**create_imp_based_audience_group**](ManageAudienceApi.md#create_imp_based_audience_group) | **Post** /v2/bot/audienceGroup/imp | 
 [**delete_audience_group**](ManageAudienceApi.md#delete_audience_group) | **Delete** /v2/bot/audienceGroup/{audienceGroupId} | 
 [**get_audience_data**](ManageAudienceApi.md#get_audience_data) | **Get** /v2/bot/audienceGroup/{audienceGroupId} | 
-[**get_audience_group_authority_level**](ManageAudienceApi.md#get_audience_group_authority_level) | **Get** /v2/bot/audienceGroup/authorityLevel | 
 [**get_audience_groups**](ManageAudienceApi.md#get_audience_groups) | **Get** /v2/bot/audienceGroup/list | 
-[**update_audience_group_authority_level**](ManageAudienceApi.md#update_audience_group_authority_level) | **Put** /v2/bot/audienceGroup/authorityLevel | 
+[**get_shared_audience_data**](ManageAudienceApi.md#get_shared_audience_data) | **Get** /v2/bot/audienceGroup/shared/{audienceGroupId} | 
+[**get_shared_audience_groups**](ManageAudienceApi.md#get_shared_audience_groups) | **Get** /v2/bot/audienceGroup/shared/list | 
 [**update_audience_group_description**](ManageAudienceApi.md#update_audience_group_description) | **Put** /v2/bot/audienceGroup/{audienceGroupId}/updateDescription | 
 
-
-
-## activate_audience_group
-
-> activate_audience_group(audience_group_id)
-
-
-Activate audience
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**audience_group_id** | **i64** | The audience ID. | [required] |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## add_audience_to_audience_group
@@ -228,33 +197,6 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_audience_group_authority_level
-
-> crate::models::GetAudienceGroupAuthorityLevelResponse get_audience_group_authority_level()
-
-
-Get the authority level of the audience
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-[**crate::models::GetAudienceGroupAuthorityLevelResponse**](GetAudienceGroupAuthorityLevelResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## get_audience_groups
 
 > crate::models::GetAudienceGroupsResponse get_audience_groups(page, description, status, size, includes_external_public_groups, create_route)
@@ -290,23 +232,23 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## update_audience_group_authority_level
+## get_shared_audience_data
 
-> update_audience_group_authority_level(update_audience_group_authority_level_request)
+> crate::models::GetSharedAudienceDataResponse get_shared_audience_data(audience_group_id)
 
 
-Change the authority level of the audience
+Gets audience data.
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**update_audience_group_authority_level_request** | [**UpdateAudienceGroupAuthorityLevelRequest**](UpdateAudienceGroupAuthorityLevelRequest.md) |  | [required] |
+**audience_group_id** | **i64** | The audience ID. | [required] |
 
 ### Return type
 
- (empty response body)
+[**crate::models::GetSharedAudienceDataResponse**](GetSharedAudienceDataResponse.md)
 
 ### Authorization
 
@@ -314,8 +256,43 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: Not defined
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_shared_audience_groups
+
+> crate::models::GetSharedAudienceGroupsResponse get_shared_audience_groups(page, description, status, size, create_route, includes_owned_audience_groups)
+
+
+Gets data for more than one audience, including those shared by the Business Manager.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**page** | **i64** | The page to return when getting (paginated) results. Must be 1 or higher. | [required] |
+**description** | Option<**String**> | The name of the audience(s) to return. You can search for partial matches. This is case-insensitive, meaning AUDIENCE and audience are considered identical. If omitted, the name of the audience(s) will not be used as a search criterion.  |  |
+**status** | Option<[**AudienceGroupStatus**](.md)> | The status of the audience(s) to return. If omitted, the status of the audience(s) will not be used as a search criterion.  |  |
+**size** | Option<**i64**> | The number of audiences per page. Default: 20 Max: 40  |  |
+**create_route** | Option<[**AudienceGroupCreateRoute**](.md)> | How the audience was created. If omitted, all audiences are included.  `OA_MANAGER`: Return only audiences created with LINE Official Account Manager (opens new window). `MESSAGING_API`: Return only audiences created with Messaging API.  |  |
+**includes_owned_audience_groups** | Option<**bool**> | true: Include audienceGroups owned by LINE Official Account Manager false: Respond only audienceGroups shared by Business Manager  |  |[default to false]
+
+### Return type
+
+[**crate::models::GetSharedAudienceGroupsResponse**](GetSharedAudienceGroupsResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

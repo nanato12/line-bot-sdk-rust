@@ -47,7 +47,7 @@ pub struct CreateAudienceGroupResponse {
     pub permission: Option<Permission>,
     /// Time of audience expiration. Only returned for specific audiences.
     #[serde(rename = "expireTimestamp", skip_serializing_if = "Option::is_none")]
-    pub expire_timestamp: Option<f32>,
+    pub expire_timestamp: Option<i64>,
     /// The value indicating the type of account to be sent, as specified when creating the audience for uploading user IDs. One of:  `true`: Accounts are specified with IFAs. `false` (default): Accounts are specified with user IDs.
     #[serde(rename = "isIfaAudience", skip_serializing_if = "Option::is_none")]
     pub is_ifa_audience: Option<bool>,

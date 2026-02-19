@@ -41,7 +41,7 @@ pub struct NarrowcastProgressResponse {
     /// The reason the message failed to be sent. This is only included with a `phase` property value of `failed`.
     #[serde(rename = "failedDescription", skip_serializing_if = "Option::is_none")]
     pub failed_description: Option<String>,
-    /// Error summary. This is only included with a phase property value of failed. One of:  `1`: An internal error occurred. `2`: An error occurred because there weren't enough recipients. `3`: A conflict error of requests occurs because a request that has already been accepted is retried.
+    /// Error summary. This is only included with a phase property value of failed. One of:  `1`: An internal error occurred. `2`: An error occurred because there weren't enough recipients. `3`: A conflict error of requests occurs because a request that has already been accepted is retried. `4`: An audience of less than 50 recipients is included as a condition of sending. `5`: Message delivery has been canceled to prevent messages from being delivered only to a subset of the target audience.
     #[serde(rename = "errorCode", skip_serializing_if = "Option::is_none")]
     pub error_code: Option<i64>,
     /// Narrowcast message request accepted time in milliseconds.  Format: ISO 8601 (e.g. 2020-12-03T10:15:30.121Z) Timezone: UTC

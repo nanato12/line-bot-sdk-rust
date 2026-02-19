@@ -34,6 +34,9 @@ pub struct AudioMessageContent {
     /// Length of audio file (milliseconds)
     #[serde(rename = "duration", skip_serializing_if = "Option::is_none")]
     pub duration: Option<i64>,
+    /// Token used to mark the message as read.
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    pub mark_as_read_token: Option<String>,
 }
 
 impl AudioMessageContent {
@@ -45,6 +48,7 @@ impl AudioMessageContent {
             id,
             content_provider: Box::new(content_provider),
             duration: None,
+            mark_as_read_token: None,
         }
     }
 }

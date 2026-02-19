@@ -43,6 +43,14 @@ pub enum AgeDemographic {
     Variant45,
     #[serde(rename = "age_50")]
     Variant50,
+    #[serde(rename = "age_55")]
+    Variant55,
+    #[serde(rename = "age_60")]
+    Variant60,
+    #[serde(rename = "age_65")]
+    Variant65,
+    #[serde(rename = "age_70")]
+    Variant70,
 }
 
 impl ToString for AgeDemographic {
@@ -56,6 +64,10 @@ impl ToString for AgeDemographic {
             Self::Variant40 => String::from("age_40"),
             Self::Variant45 => String::from("age_45"),
             Self::Variant50 => String::from("age_50"),
+            Self::Variant55 => String::from("age_55"),
+            Self::Variant60 => String::from("age_60"),
+            Self::Variant65 => String::from("age_65"),
+            Self::Variant70 => String::from("age_70"),
         }
     }
 }

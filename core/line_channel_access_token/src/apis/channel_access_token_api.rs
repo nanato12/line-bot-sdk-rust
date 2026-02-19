@@ -62,9 +62,9 @@ pub trait ChannelAccessTokenApi {
     ) -> Pin<Box<dyn Future<Output = Result<crate::models::ChannelAccessTokenKeyIdsResponse, Error>>>>;
     fn issue_channel_token(
         &self,
-        grant_type: Option<&str>,
-        client_id: Option<&str>,
-        client_secret: Option<&str>,
+        grant_type: &str,
+        client_id: &str,
+        client_secret: &str,
     ) -> Pin<
         Box<
             dyn Future<
@@ -74,9 +74,9 @@ pub trait ChannelAccessTokenApi {
     >;
     fn issue_channel_token_by_jwt(
         &self,
-        grant_type: Option<&str>,
-        client_assertion_type: Option<&str>,
-        client_assertion: Option<&str>,
+        grant_type: &str,
+        client_assertion_type: &str,
+        client_assertion: &str,
     ) -> Pin<Box<dyn Future<Output = Result<crate::models::IssueChannelAccessTokenResponse, Error>>>>;
     fn issue_stateless_channel_token(
         &self,
@@ -94,17 +94,17 @@ pub trait ChannelAccessTokenApi {
     >;
     fn revoke_channel_token(
         &self,
-        access_token: Option<&str>,
+        access_token: &str,
     ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
     fn revoke_channel_token_by_jwt(
         &self,
-        client_id: Option<&str>,
-        client_secret: Option<&str>,
-        access_token: Option<&str>,
+        client_id: &str,
+        client_secret: &str,
+        access_token: &str,
     ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
     fn verify_channel_token(
         &self,
-        access_token: Option<&str>,
+        access_token: &str,
     ) -> Pin<Box<dyn Future<Output = Result<crate::models::VerifyChannelAccessTokenResponse, Error>>>>;
     fn verify_channel_token_by_jwt(
         &self,
@@ -139,9 +139,9 @@ where
     #[allow(unused_mut)]
     fn issue_channel_token(
         &self,
-        grant_type: Option<&str>,
-        client_id: Option<&str>,
-        client_secret: Option<&str>,
+        grant_type: &str,
+        client_id: &str,
+        client_secret: &str,
     ) -> Pin<
         Box<
             dyn Future<
@@ -153,15 +153,9 @@ where
             hyper::Method::POST,
             "/v2/oauth/accessToken".to_string(),
         );
-        if let Some(param_value) = grant_type {
-            req = req.with_form_param("grant_type".to_string(), param_value.to_string());
-        }
-        if let Some(param_value) = client_id {
-            req = req.with_form_param("client_id".to_string(), param_value.to_string());
-        }
-        if let Some(param_value) = client_secret {
-            req = req.with_form_param("client_secret".to_string(), param_value.to_string());
-        }
+        req = req.with_form_param("grant_type".to_string(), grant_type.to_string());
+        req = req.with_form_param("client_id".to_string(), client_id.to_string());
+        req = req.with_form_param("client_secret".to_string(), client_secret.to_string());
 
         req.execute(self.configuration.borrow())
     }
@@ -169,22 +163,19 @@ where
     #[allow(unused_mut)]
     fn issue_channel_token_by_jwt(
         &self,
-        grant_type: Option<&str>,
-        client_assertion_type: Option<&str>,
-        client_assertion: Option<&str>,
+        grant_type: &str,
+        client_assertion_type: &str,
+        client_assertion: &str,
     ) -> Pin<Box<dyn Future<Output = Result<crate::models::IssueChannelAccessTokenResponse, Error>>>>
     {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/oauth2/v2.1/token".to_string());
-        if let Some(param_value) = grant_type {
-            req = req.with_form_param("grant_type".to_string(), param_value.to_string());
-        }
-        if let Some(param_value) = client_assertion_type {
-            req = req.with_form_param("client_assertion_type".to_string(), param_value.to_string());
-        }
-        if let Some(param_value) = client_assertion {
-            req = req.with_form_param("client_assertion".to_string(), param_value.to_string());
-        }
+        req = req.with_form_param("grant_type".to_string(), grant_type.to_string());
+        req = req.with_form_param(
+            "client_assertion_type".to_string(),
+            client_assertion_type.to_string(),
+        );
+        req = req.with_form_param("client_assertion".to_string(), client_assertion.to_string());
 
         req.execute(self.configuration.borrow())
     }
@@ -228,13 +219,11 @@ where
     #[allow(unused_mut)]
     fn revoke_channel_token(
         &self,
-        access_token: Option<&str>,
+        access_token: &str,
     ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/oauth/revoke".to_string());
-        if let Some(param_value) = access_token {
-            req = req.with_form_param("access_token".to_string(), param_value.to_string());
-        }
+        req = req.with_form_param("access_token".to_string(), access_token.to_string());
         req = req.returns_nothing();
 
         req.execute(self.configuration.borrow())
@@ -243,23 +232,17 @@ where
     #[allow(unused_mut)]
     fn revoke_channel_token_by_jwt(
         &self,
-        client_id: Option<&str>,
-        client_secret: Option<&str>,
-        access_token: Option<&str>,
+        client_id: &str,
+        client_secret: &str,
+        access_token: &str,
     ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/oauth2/v2.1/revoke".to_string(),
         );
-        if let Some(param_value) = client_id {
-            req = req.with_form_param("client_id".to_string(), param_value.to_string());
-        }
-        if let Some(param_value) = client_secret {
-            req = req.with_form_param("client_secret".to_string(), param_value.to_string());
-        }
-        if let Some(param_value) = access_token {
-            req = req.with_form_param("access_token".to_string(), param_value.to_string());
-        }
+        req = req.with_form_param("client_id".to_string(), client_id.to_string());
+        req = req.with_form_param("client_secret".to_string(), client_secret.to_string());
+        req = req.with_form_param("access_token".to_string(), access_token.to_string());
         req = req.returns_nothing();
 
         req.execute(self.configuration.borrow())
@@ -268,14 +251,12 @@ where
     #[allow(unused_mut)]
     fn verify_channel_token(
         &self,
-        access_token: Option<&str>,
+        access_token: &str,
     ) -> Pin<Box<dyn Future<Output = Result<crate::models::VerifyChannelAccessTokenResponse, Error>>>>
     {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/oauth/verify".to_string());
-        if let Some(param_value) = access_token {
-            req = req.with_form_param("access_token".to_string(), param_value.to_string());
-        }
+        req = req.with_form_param("access_token".to_string(), access_token.to_string());
 
         req.execute(self.configuration.borrow())
     }

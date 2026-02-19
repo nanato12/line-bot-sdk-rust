@@ -58,9 +58,9 @@ Issue short-lived channel access token
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**grant_type** | Option<**String**> | `client_credentials` |  |
-**client_id** | Option<**String**> | Channel ID. |  |
-**client_secret** | Option<**String**> | Channel secret. |  |
+**grant_type** | **String** | `client_credentials` | [required] |
+**client_id** | **String** | Channel ID. | [required] |
+**client_secret** | **String** | Channel secret. | [required] |
 
 ### Return type
 
@@ -90,9 +90,9 @@ Issues a channel access token that allows you to specify a desired expiration da
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**grant_type** | Option<**String**> | client_credentials |  |
-**client_assertion_type** | Option<**String**> | urn:ietf:params:oauth:client-assertion-type:jwt-bearer |  |
-**client_assertion** | Option<**String**> | A JSON Web Token the client needs to create and sign with the private key of the Assertion Signing Key. |  |
+**grant_type** | **String** | client_credentials | [required] |
+**client_assertion_type** | **String** | urn:ietf:params:oauth:client-assertion-type:jwt-bearer | [required] |
+**client_assertion** | **String** | A JSON Web Token the client needs to create and sign with the private key of the Assertion Signing Key. | [required] |
 
 ### Return type
 
@@ -156,7 +156,7 @@ Revoke short-lived or long-lived channel access token
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**access_token** | Option<**String**> | Channel access token |  |
+**access_token** | **String** | Channel access token | [required] |
 
 ### Return type
 
@@ -186,9 +186,9 @@ Revoke channel access token v2.1
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**client_id** | Option<**String**> | Channel ID |  |
-**client_secret** | Option<**String**> | Channel Secret |  |
-**access_token** | Option<**String**> | Channel access token |  |
+**client_id** | **String** | Channel ID | [required] |
+**client_secret** | **String** | Channel Secret | [required] |
+**access_token** | **String** | Channel access token | [required] |
 
 ### Return type
 
@@ -218,7 +218,7 @@ Verify the validity of short-lived and long-lived channel access tokens
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**access_token** | Option<**String**> | A short-lived or long-lived channel access token. |  |
+**access_token** | **String** | A short-lived or long-lived channel access token. | [required] |
 
 ### Return type
 

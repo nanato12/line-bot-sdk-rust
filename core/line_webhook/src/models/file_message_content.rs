@@ -35,6 +35,9 @@ pub struct FileMessageContent {
     /// File size in bytes
     #[serde(rename = "fileSize")]
     pub file_size: i32,
+    /// Token used to mark the message as read.
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    pub mark_as_read_token: Option<String>,
 }
 
 impl FileMessageContent {
@@ -43,6 +46,7 @@ impl FileMessageContent {
             id,
             file_name,
             file_size,
+            mark_as_read_token: None,
         }
     }
 }

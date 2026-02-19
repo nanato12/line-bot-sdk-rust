@@ -40,6 +40,9 @@ pub struct UserMentionee {
     /// User ID of the mentioned user. Only included if mention.mentions[].type is user and the user consents to the LINE Official Account obtaining their user profile information.
     #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
     pub user_id: Option<String>,
+    /// Whether the mentioned user is the bot that receives the webhook.
+    #[serde(rename = "isSelf", skip_serializing_if = "Option::is_none")]
+    pub is_self: Option<bool>,
 }
 
 impl UserMentionee {
@@ -50,6 +53,7 @@ impl UserMentionee {
             index,
             length,
             user_id: None,
+            is_self: None,
         }
     }
 }
