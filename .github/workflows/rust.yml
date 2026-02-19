@@ -17,33 +17,24 @@ on:
 
 jobs:
   build:
-    name: Rust ${{ matrix.os }} ${{ matrix.rust }}
+    name: Rust ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        rust:
-          - stable
-          - beta
-          - nightly
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: ${{ matrix.rust }}
-          override: true
+        uses: dtolnay/rust-toolchain@stable
 
       - name: Build
         run: cargo build --verbose
 
       - name: Run tests
         run: cargo test --verbose --tests
-        continue-on-error: ${{ matrix.rust == 'nightly' }}
 
       - name: Build for examples
         run: cargo build --verbose
@@ -51,5 +42,4 @@ jobs:
 
       - name: Run tests for examples
         run: cargo test --verbose --tests
-        continue-on-error: ${{ matrix.rust == 'nightly' }}
         working-directory: examples

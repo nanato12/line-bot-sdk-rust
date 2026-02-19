@@ -23,16 +23,12 @@ jobs:
         run: git submodule update --remote --recursive
 
       - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
+        uses: dtolnay/rust-toolchain@stable
 
       - name: generate line bot modules
         run: make generate
 
-      - uses: peter-evans/create-pull-request@v5
+      - uses: peter-evans/create-pull-request@v7
         with:
           commit-message: Generate LINEBot modules
           delete-branch: true
