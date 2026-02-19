@@ -10,10 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: login
-        run: cargo login ${{ secrets.CARGO_TOKEN }}
+      - uses: actions/checkout@v4
 
       - name: publish
         run: make publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_TOKEN }}
