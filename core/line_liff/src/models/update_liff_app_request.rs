@@ -27,7 +27,7 @@
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateLiffAppRequest {
     #[serde(rename = "view", skip_serializing_if = "Option::is_none")]
-    pub view: Option<Box<crate::models::LiffView>>,
+    pub view: Option<Box<crate::models::UpdateLiffView>>,
     /// Name of the LIFF app.  The LIFF app name can't include \"LINE\" or similar strings, or inappropriate strings.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,

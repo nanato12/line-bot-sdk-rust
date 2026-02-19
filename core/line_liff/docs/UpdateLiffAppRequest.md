@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**view** | Option<[**crate::models::LiffView**](LiffView.md)> |  | [optional]
+**view** | Option<[**crate::models::UpdateLiffView**](UpdateLiffView.md)> |  | [optional]
 **description** | Option<**String**> | Name of the LIFF app.  The LIFF app name can't include \"LINE\" or similar strings, or inappropriate strings.  | [optional]
 **features** | Option<[**crate::models::LiffFeatures**](LiffFeatures.md)> |  | [optional]
 **permanent_link_pattern** | Option<**String**> | How additional information in LIFF URLs is handled. Specify `concat`.  | [optional]

@@ -20,9 +20,9 @@ Attach by operation of the module channel provider
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**grant_type** | Option<**String**> | authorization_code |  |
-**code** | Option<**String**> | Authorization code received from the LINE Platform. |  |
-**redirect_uri** | Option<**String**> | Specify the redirect_uri specified in the URL for authentication and authorization. |  |
+**grant_type** | **String** | authorization_code | [required] |
+**code** | **String** | Authorization code received from the LINE Platform. | [required] |
+**redirect_uri** | **String** | Specify the redirect_uri specified in the URL for authentication and authorization. | [required] |
 **code_verifier** | Option<**String**> | Specify when using PKCE (Proof Key for Code Exchange) defined in the OAuth 2.0 extension specification as a countermeasure against authorization code interception attacks. |  |
 **client_id** | Option<**String**> | Instead of using Authorization header, you can use this parameter to specify the channel ID of the module channel. You can find the channel ID of the module channel in the LINE Developers Console.  |  |
 **client_secret** | Option<**String**> | Instead of using Authorization header, you can use this parameter to specify the channel secret of the module channel. You can find the channel secret of the module channel in the LINE Developers Console.  |  |

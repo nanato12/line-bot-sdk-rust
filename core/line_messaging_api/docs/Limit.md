@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **max** | Option<**i32**> | The maximum number of narrowcast messages to send. Use this parameter to limit the number of narrowcast messages sent. The recipients will be chosen at random.  | [optional]
 **up_to_remaining_quota** | Option<**bool**> | If true, the message will be sent within the maximum number of deliverable messages. The default value is `false`.  Targets will be selected at random.  | [optional][default to false]
+**forbid_partial_delivery** | Option<**bool**> | This option prevents messages from being delivered to only a subset of the target audience. If true, the narrowcast request success but fails asynchronously. You can check whether message delivery was canceled by retrieving the narrowcast message progress.  This property can be set to true only if upToRemainingQuota is set to true.  | [optional][default to false]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

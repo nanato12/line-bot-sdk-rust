@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **mention** | Option<[**crate::models::Mention**](Mention.md)> |  | [optional]
 **quote_token** | **String** | Quote token to quote this message.  | 
 **quoted_message_id** | Option<**String**> | Message ID of a quoted message. Only included when the received message quotes a past message. | [optional]
+**mark_as_read_token** | Option<**String**> | Token used to mark the message as read.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

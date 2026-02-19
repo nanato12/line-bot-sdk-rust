@@ -33,6 +33,8 @@ pub struct GetAudienceDataResponse {
     /// An array of jobs. This array is used to keep track of each attempt to add new user IDs or IFAs to an audience for uploading user IDs. Empty array is returned for any other type of audience. Max: 50
     #[serde(rename = "jobs", skip_serializing_if = "Option::is_none")]
     pub jobs: Option<Vec<crate::models::AudienceGroupJob>>,
+    #[serde(rename = "adaccount", skip_serializing_if = "Option::is_none")]
+    pub adaccount: Option<Box<crate::models::Adaccount>>,
 }
 
 impl GetAudienceDataResponse {
@@ -41,6 +43,7 @@ impl GetAudienceDataResponse {
         GetAudienceDataResponse {
             audience_group: None,
             jobs: None,
+            adaccount: None,
         }
     }
 }

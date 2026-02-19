@@ -77,7 +77,7 @@ where
     #[allow(unused_mut)]
     fn add_user_ids_to_audience(
         &self,
-        _file: std::path::PathBuf,
+        file: std::path::PathBuf,
         audience_group_id: Option<i64>,
         upload_description: Option<&str>,
     ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
@@ -100,7 +100,7 @@ where
     #[allow(unused_mut)]
     fn create_audience_for_uploading_user_ids(
         &self,
-        _file: std::path::PathBuf,
+        file: std::path::PathBuf,
         description: Option<&str>,
         is_ifa_audience: Option<bool>,
         upload_description: Option<&str>,

@@ -4,17 +4,17 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_liff_app**](LiffApi.md#add_liff_app) | **Post** /liff/v1/apps | 
+[**add_liff_app**](LiffApi.md#add_liff_app) | **Post** /liff/v1/apps | Create LIFF app
 [**delete_liff_app**](LiffApi.md#delete_liff_app) | **Delete** /liff/v1/apps/{liffId} | Delete LIFF app from a channel
 [**get_all_liff_apps**](LiffApi.md#get_all_liff_apps) | **Get** /liff/v1/apps | Get all LIFF apps
-[**update_liff_app**](LiffApi.md#update_liff_app) | **Put** /liff/v1/apps/{liffId} | 
+[**update_liff_app**](LiffApi.md#update_liff_app) | **Put** /liff/v1/apps/{liffId} | Update LIFF app from a channel
 
 
 
 ## add_liff_app
 
 > crate::models::AddLiffAppResponse add_liff_app(add_liff_app_request)
-
+Create LIFF app
 
 Adding the LIFF app to a channel
 
@@ -101,7 +101,7 @@ This endpoint does not need any parameter.
 ## update_liff_app
 
 > update_liff_app(liff_id, update_liff_app_request)
-
+Update LIFF app from a channel
 
 Update LIFF app settings
 

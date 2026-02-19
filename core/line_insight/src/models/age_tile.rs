@@ -64,6 +64,16 @@ pub enum Age {
     From45to49,
     #[serde(rename = "from50")]
     From50,
+    #[serde(rename = "from50to54")]
+    From50to54,
+    #[serde(rename = "from55to59")]
+    From55to59,
+    #[serde(rename = "from60to64")]
+    From60to64,
+    #[serde(rename = "from65to69")]
+    From65to69,
+    #[serde(rename = "from70")]
+    From70,
     #[serde(rename = "unknown")]
     Unknown,
 }
