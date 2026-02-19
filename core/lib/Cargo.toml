@@ -49,7 +49,7 @@ version = "0.0.1"
 path = "../line_manage_audience"
 
 [dependencies.line_messaging_api]
-version = "0.0.3"
+version = "0.0.1"
 path = "../line_messaging_api"
 
 [dependencies.line_module]
@@ -65,5 +65,5 @@ version = "0.0.1"
 path = "../line_shop"
 
 [dependencies.line_webhook]
-version = "1.0.1"
+version = "1.0.0"
 path = "../line_webhook"
