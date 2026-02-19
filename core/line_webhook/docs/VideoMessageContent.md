@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **duration** | Option<**i64**> | Length of video file (milliseconds) | [optional]
 **content_provider** | [**crate::models::ContentProvider**](ContentProvider.md) |  | 
 **quote_token** | **String** | Quote token to quote this message.  | 
+**mark_as_read_token** | Option<**String**> | Token used to mark the message as read.  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

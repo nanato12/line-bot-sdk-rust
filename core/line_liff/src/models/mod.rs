@@ -32,3 +32,5 @@ pub mod liff_view;
 pub use self::liff_view::LiffView;
 pub mod update_liff_app_request;
 pub use self::update_liff_app_request::UpdateLiffAppRequest;
+pub mod update_liff_view;
+pub use self::update_liff_view::UpdateLiffView;

@@ -4,23 +4,25 @@ All URIs are relative to *https://api.line.me*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**audience_match**](MessagingApiApi.md#audience_match) | **Post** /bot/ad/multicast/phone | 
 [**broadcast**](MessagingApiApi.md#broadcast) | **Post** /v2/bot/message/broadcast | 
 [**cancel_default_rich_menu**](MessagingApiApi.md#cancel_default_rich_menu) | **Delete** /v2/bot/user/all/richmenu | 
+[**close_coupon**](MessagingApiApi.md#close_coupon) | **Put** /v2/bot/coupon/{couponId}/close | 
+[**create_coupon**](MessagingApiApi.md#create_coupon) | **Post** /v2/bot/coupon | 
 [**create_rich_menu**](MessagingApiApi.md#create_rich_menu) | **Post** /v2/bot/richmenu | 
 [**create_rich_menu_alias**](MessagingApiApi.md#create_rich_menu_alias) | **Post** /v2/bot/richmenu/alias | 
 [**delete_rich_menu**](MessagingApiApi.md#delete_rich_menu) | **Delete** /v2/bot/richmenu/{richMenuId} | 
 [**delete_rich_menu_alias**](MessagingApiApi.md#delete_rich_menu_alias) | **Delete** /v2/bot/richmenu/alias/{richMenuAliasId} | 
-[**get_ad_phone_message_statistics**](MessagingApiApi.md#get_ad_phone_message_statistics) | **Get** /v2/bot/message/delivery/ad_phone | 
 [**get_aggregation_unit_name_list**](MessagingApiApi.md#get_aggregation_unit_name_list) | **Get** /v2/bot/message/aggregation/list | 
 [**get_aggregation_unit_usage**](MessagingApiApi.md#get_aggregation_unit_usage) | **Get** /v2/bot/message/aggregation/info | 
 [**get_bot_info**](MessagingApiApi.md#get_bot_info) | **Get** /v2/bot/info | 
+[**get_coupon_detail**](MessagingApiApi.md#get_coupon_detail) | **Get** /v2/bot/coupon/{couponId} | 
 [**get_default_rich_menu_id**](MessagingApiApi.md#get_default_rich_menu_id) | **Get** /v2/bot/user/all/richmenu | 
 [**get_followers**](MessagingApiApi.md#get_followers) | **Get** /v2/bot/followers/ids | 
 [**get_group_member_count**](MessagingApiApi.md#get_group_member_count) | **Get** /v2/bot/group/{groupId}/members/count | 
 [**get_group_member_profile**](MessagingApiApi.md#get_group_member_profile) | **Get** /v2/bot/group/{groupId}/member/{userId} | 
 [**get_group_members_ids**](MessagingApiApi.md#get_group_members_ids) | **Get** /v2/bot/group/{groupId}/members/ids | 
 [**get_group_summary**](MessagingApiApi.md#get_group_summary) | **Get** /v2/bot/group/{groupId}/summary | 
+[**get_joined_membership_users**](MessagingApiApi.md#get_joined_membership_users) | **Get** /v2/bot/membership/{membershipId}/users/ids | 
 [**get_membership_list**](MessagingApiApi.md#get_membership_list) | **Get** /v2/bot/membership/list | 
 [**get_membership_subscription**](MessagingApiApi.md#get_membership_subscription) | **Get** /v2/bot/membership/subscription/{userId} | 
 [**get_message_quota**](MessagingApiApi.md#get_message_quota) | **Get** /v2/bot/message/quota | 
@@ -47,7 +49,9 @@ Method | HTTP request | Description
 [**leave_room**](MessagingApiApi.md#leave_room) | **Post** /v2/bot/room/{roomId}/leave | 
 [**link_rich_menu_id_to_user**](MessagingApiApi.md#link_rich_menu_id_to_user) | **Post** /v2/bot/user/{userId}/richmenu/{richMenuId} | 
 [**link_rich_menu_id_to_users**](MessagingApiApi.md#link_rich_menu_id_to_users) | **Post** /v2/bot/richmenu/bulk/link | 
+[**list_coupon**](MessagingApiApi.md#list_coupon) | **Get** /v2/bot/coupon | 
 [**mark_messages_as_read**](MessagingApiApi.md#mark_messages_as_read) | **Post** /v2/bot/message/markAsRead | 
+[**mark_messages_as_read_by_token**](MessagingApiApi.md#mark_messages_as_read_by_token) | **Post** /v2/bot/chat/markAsRead | 
 [**multicast**](MessagingApiApi.md#multicast) | **Post** /v2/bot/message/multicast | 
 [**narrowcast**](MessagingApiApi.md#narrowcast) | **Post** /v2/bot/message/narrowcast | 
 [**push_message**](MessagingApiApi.md#push_message) | **Post** /v2/bot/message/push | 
@@ -69,36 +73,6 @@ Method | HTTP request | Description
 [**validate_rich_menu_batch_request**](MessagingApiApi.md#validate_rich_menu_batch_request) | **Post** /v2/bot/richmenu/validate/batch | 
 [**validate_rich_menu_object**](MessagingApiApi.md#validate_rich_menu_object) | **Post** /v2/bot/richmenu/validate | 
 
-
-
-## audience_match
-
-> audience_match(audience_match_messages_request)
-
-
-Send a message using phone number
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**audience_match_messages_request** | [**AudienceMatchMessagesRequest**](AudienceMatchMessagesRequest.md) |  | [required] |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## broadcast
@@ -155,6 +129,66 @@ This endpoint does not need any parameter.
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## close_coupon
+
+> close_coupon(coupon_id)
+
+
+Close coupon
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**coupon_id** | **String** |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_coupon
+
+> crate::models::CouponCreateResponse create_coupon(coupon_create_request)
+
+
+Create a new coupon. Define coupon details such as type, title, and validity period.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**coupon_create_request** | Option<[**CouponCreateRequest**](CouponCreateRequest.md)> |  |  |
+
+### Return type
+
+[**crate::models::CouponCreateResponse**](CouponCreateResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -279,36 +313,6 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_ad_phone_message_statistics
-
-> crate::models::NumberOfMessagesResponse get_ad_phone_message_statistics(date)
-
-
-Get result of message delivery using phone number
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**date** | **String** | Date the message was sent  Format: `yyyyMMdd` (e.g. `20190831`) Time Zone: UTC+9  | [required] |
-
-### Return type
-
-[**crate::models::NumberOfMessagesResponse**](NumberOfMessagesResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## get_aggregation_unit_name_list
 
 > crate::models::GetAggregationUnitNameListResponse get_aggregation_unit_name_list(limit, start)
@@ -381,6 +385,36 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**crate::models::BotInfoResponse**](BotInfoResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_coupon_detail
+
+> crate::models::CouponResponse get_coupon_detail(coupon_id)
+
+
+Get coupon detail
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**coupon_id** | **String** |  | [required] |
+
+### Return type
+
+[**crate::models::CouponResponse**](CouponResponse.md)
 
 ### Authorization
 
@@ -561,6 +595,38 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**crate::models::GroupSummaryResponse**](GroupSummaryResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_joined_membership_users
+
+> crate::models::GetJoinedMembershipUsersResponse get_joined_membership_users(membership_id, start, limit)
+
+
+Get a list of user IDs who joined the membership.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**membership_id** | **i32** | Membership plan ID. | [required] |
+**start** | Option<**String**> | A continuation token to get next remaining membership user IDs. Returned only when there are remaining user IDs that weren't returned in the userIds property in the previous request. The continuation token expires in 24 hours (86,400 seconds).  |  |
+**limit** | Option<**i32**> | The max number of items to return for this API call. The value is set to 300 by default, but the max acceptable value is 1000.  |  |[default to 300]
+
+### Return type
+
+[**crate::models::GetJoinedMembershipUsersResponse**](GetJoinedMembershipUsersResponse.md)
 
 ### Authorization
 
@@ -1339,6 +1405,38 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_coupon
+
+> crate::models::MessagingApiPagerCouponListResponse list_coupon(status, start, limit)
+
+
+Get a paginated list of coupons.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**status** | Option<[**Vec<String>**](String.md)> | Filter coupons by their status. |  |
+**start** | Option<**String**> | Pagination token to retrieve the next page of results. |  |
+**limit** | Option<**i32**> | Maximum number of coupons to return per request. |  |[default to 20]
+
+### Return type
+
+[**crate::models::MessagingApiPagerCouponListResponse**](MessagingApiPagerCouponListResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## mark_messages_as_read
 
 > mark_messages_as_read(mark_messages_as_read_request)
@@ -1365,6 +1463,36 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## mark_messages_as_read_by_token
+
+> mark_messages_as_read_by_token(mark_messages_as_read_by_token_request)
+
+
+Mark messages from users as read by token
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**mark_messages_as_read_by_token_request** | [**MarkMessagesAsReadByTokenRequest**](MarkMessagesAsReadByTokenRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

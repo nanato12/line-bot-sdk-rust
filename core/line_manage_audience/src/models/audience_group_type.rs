@@ -53,6 +53,10 @@ pub enum AudienceGroupType {
     RichmenuImp,
     #[serde(rename = "RICHMENU_CLICK")]
     RichmenuClick,
+    #[serde(rename = "POP_AD_IMP")]
+    PopAdImp,
+    #[serde(rename = "TRACKINGTAG_WEBTRAFFIC")]
+    TrackingtagWebtraffic,
 }
 
 impl ToString for AudienceGroupType {
@@ -70,6 +74,8 @@ impl ToString for AudienceGroupType {
             Self::ImageClick => String::from("IMAGE_CLICK"),
             Self::RichmenuImp => String::from("RICHMENU_IMP"),
             Self::RichmenuClick => String::from("RICHMENU_CLICK"),
+            Self::PopAdImp => String::from("POP_AD_IMP"),
+            Self::TrackingtagWebtraffic => String::from("TRACKINGTAG_WEBTRAFFIC"),
         }
     }
 }

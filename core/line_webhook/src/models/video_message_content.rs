@@ -37,6 +37,9 @@ pub struct VideoMessageContent {
     /// Quote token to quote this message.
     #[serde(rename = "quoteToken")]
     pub quote_token: String,
+    /// Token used to mark the message as read.
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    pub mark_as_read_token: Option<String>,
 }
 
 impl VideoMessageContent {
@@ -50,6 +53,7 @@ impl VideoMessageContent {
             duration: None,
             content_provider: Box::new(content_provider),
             quote_token,
+            mark_as_read_token: None,
         }
     }
 }

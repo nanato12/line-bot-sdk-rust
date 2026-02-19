@@ -14,14 +14,14 @@
 * limitations under the License.
 */
 
+pub mod adaccount;
+pub use self::adaccount::Adaccount;
 pub mod add_audience_to_audience_group_request;
 pub use self::add_audience_to_audience_group_request::AddAudienceToAudienceGroupRequest;
 pub mod audience;
 pub use self::audience::Audience;
 pub mod audience_group;
 pub use self::audience_group::AudienceGroup;
-pub mod audience_group_authority_level;
-pub use self::audience_group_authority_level::AudienceGroupAuthorityLevel;
 pub mod audience_group_create_route;
 pub use self::audience_group_create_route::AudienceGroupCreateRoute;
 pub mod audience_group_failed_type;
@@ -52,17 +52,19 @@ pub mod create_imp_based_audience_group_request;
 pub use self::create_imp_based_audience_group_request::CreateImpBasedAudienceGroupRequest;
 pub mod create_imp_based_audience_group_response;
 pub use self::create_imp_based_audience_group_response::CreateImpBasedAudienceGroupResponse;
+pub mod detailed_owner;
+pub use self::detailed_owner::DetailedOwner;
 pub mod error_detail;
 pub use self::error_detail::ErrorDetail;
 pub mod error_response;
 pub use self::error_response::ErrorResponse;
 pub mod get_audience_data_response;
 pub use self::get_audience_data_response::GetAudienceDataResponse;
-pub mod get_audience_group_authority_level_response;
-pub use self::get_audience_group_authority_level_response::GetAudienceGroupAuthorityLevelResponse;
 pub mod get_audience_groups_response;
 pub use self::get_audience_groups_response::GetAudienceGroupsResponse;
-pub mod update_audience_group_authority_level_request;
-pub use self::update_audience_group_authority_level_request::UpdateAudienceGroupAuthorityLevelRequest;
+pub mod get_shared_audience_data_response;
+pub use self::get_shared_audience_data_response::GetSharedAudienceDataResponse;
+pub mod get_shared_audience_groups_response;
+pub use self::get_shared_audience_groups_response::GetSharedAudienceGroupsResponse;
 pub mod update_audience_group_description_request;
 pub use self::update_audience_group_description_request::UpdateAudienceGroupDescriptionRequest;

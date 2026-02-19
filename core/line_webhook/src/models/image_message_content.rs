@@ -36,6 +36,9 @@ pub struct ImageMessageContent {
     /// Quote token to quote this message.
     #[serde(rename = "quoteToken")]
     pub quote_token: String,
+    /// Token used to mark the message as read.
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    pub mark_as_read_token: Option<String>,
 }
 
 impl ImageMessageContent {
@@ -49,6 +52,7 @@ impl ImageMessageContent {
             content_provider: Box::new(content_provider),
             image_set: None,
             quote_token,
+            mark_as_read_token: None,
         }
     }
 }

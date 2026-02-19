@@ -53,10 +53,6 @@ where
 }
 
 pub trait ManageAudienceApi {
-    fn activate_audience_group(
-        &self,
-        audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
     fn add_audience_to_audience_group(
         &self,
         add_audience_to_audience_group_request: crate::models::AddAudienceToAudienceGroupRequest,
@@ -89,15 +85,6 @@ pub trait ManageAudienceApi {
         &self,
         audience_group_id: i64,
     ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetAudienceDataResponse, Error>>>>;
-    fn get_audience_group_authority_level(
-        &self,
-    ) -> Pin<
-        Box<
-            dyn Future<
-                Output = Result<crate::models::GetAudienceGroupAuthorityLevelResponse, Error>,
-            >,
-        >,
-    >;
     fn get_audience_groups(
         &self,
         page: i64,
@@ -107,10 +94,19 @@ pub trait ManageAudienceApi {
         includes_external_public_groups: Option<bool>,
         create_route: Option<crate::models::AudienceGroupCreateRoute>,
     ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetAudienceGroupsResponse, Error>>>>;
-    fn update_audience_group_authority_level(
+    fn get_shared_audience_data(
         &self,
-        update_audience_group_authority_level_request: crate::models::UpdateAudienceGroupAuthorityLevelRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        audience_group_id: i64,
+    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetSharedAudienceDataResponse, Error>>>>;
+    fn get_shared_audience_groups(
+        &self,
+        page: i64,
+        description: Option<&str>,
+        status: Option<crate::models::AudienceGroupStatus>,
+        size: Option<i64>,
+        create_route: Option<crate::models::AudienceGroupCreateRoute>,
+        includes_owned_audience_groups: Option<bool>,
+    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetSharedAudienceGroupsResponse, Error>>>>;
     fn update_audience_group_description(
         &self,
         audience_group_id: i64,
@@ -122,21 +118,6 @@ impl<C: hyper::client::connect::Connect> ManageAudienceApi for ManageAudienceApi
 where
     C: Clone + std::marker::Send + Sync,
 {
-    #[allow(unused_mut)]
-    fn activate_audience_group(
-        &self,
-        audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
-        let mut req = __internal_request::Request::new(
-            hyper::Method::PUT,
-            "/v2/bot/audienceGroup/{audienceGroupId}/activate".to_string(),
-        );
-        req = req.with_path_param("audienceGroupId".to_string(), audience_group_id.to_string());
-        req = req.returns_nothing();
-
-        req.execute(self.configuration.borrow())
-    }
-
     #[allow(unused_mut)]
     fn add_audience_to_audience_group(
         &self,
@@ -233,24 +214,6 @@ where
     }
 
     #[allow(unused_mut)]
-    fn get_audience_group_authority_level(
-        &self,
-    ) -> Pin<
-        Box<
-            dyn Future<
-                Output = Result<crate::models::GetAudienceGroupAuthorityLevelResponse, Error>,
-            >,
-        >,
-    > {
-        let mut req = __internal_request::Request::new(
-            hyper::Method::GET,
-            "/v2/bot/audienceGroup/authorityLevel".to_string(),
-        );
-
-        req.execute(self.configuration.borrow())
-    }
-
-    #[allow(unused_mut)]
     fn get_audience_groups(
         &self,
         page: i64,
@@ -291,16 +254,56 @@ where
     }
 
     #[allow(unused_mut)]
-    fn update_audience_group_authority_level(
+    fn get_shared_audience_data(
         &self,
-        update_audience_group_authority_level_request: crate::models::UpdateAudienceGroupAuthorityLevelRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        audience_group_id: i64,
+    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetSharedAudienceDataResponse, Error>>>>
+    {
         let mut req = __internal_request::Request::new(
-            hyper::Method::PUT,
-            "/v2/bot/audienceGroup/authorityLevel".to_string(),
+            hyper::Method::GET,
+            "/v2/bot/audienceGroup/shared/{audienceGroupId}".to_string(),
         );
-        req = req.with_body_param(update_audience_group_authority_level_request);
-        req = req.returns_nothing();
+        req = req.with_path_param("audienceGroupId".to_string(), audience_group_id.to_string());
+
+        req.execute(self.configuration.borrow())
+    }
+
+    #[allow(unused_mut)]
+    fn get_shared_audience_groups(
+        &self,
+        page: i64,
+        description: Option<&str>,
+        status: Option<crate::models::AudienceGroupStatus>,
+        size: Option<i64>,
+        create_route: Option<crate::models::AudienceGroupCreateRoute>,
+        includes_owned_audience_groups: Option<bool>,
+    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetSharedAudienceGroupsResponse, Error>>>>
+    {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::GET,
+            "/v2/bot/audienceGroup/shared/list".to_string(),
+        );
+        req = req.with_query_param("page".to_string(), page.to_string());
+        if let Some(ref s) = description {
+            let query_value = s.to_string();
+            req = req.with_query_param("description".to_string(), query_value);
+        }
+        if let Some(ref s) = status {
+            let query_value = s.to_string();
+            req = req.with_query_param("status".to_string(), query_value);
+        }
+        if let Some(ref s) = size {
+            let query_value = s.to_string();
+            req = req.with_query_param("size".to_string(), query_value);
+        }
+        if let Some(ref s) = create_route {
+            let query_value = s.to_string();
+            req = req.with_query_param("createRoute".to_string(), query_value);
+        }
+        if let Some(ref s) = includes_owned_audience_groups {
+            let query_value = s.to_string();
+            req = req.with_query_param("includesOwnedAudienceGroups".to_string(), query_value);
+        }
 
         req.execute(self.configuration.borrow())
     }

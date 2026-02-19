@@ -55,9 +55,9 @@ where
 pub trait LineModuleAttachApi {
     fn attach_module(
         &self,
-        grant_type: Option<&str>,
-        code: Option<&str>,
-        redirect_uri: Option<&str>,
+        grant_type: &str,
+        code: &str,
+        redirect_uri: &str,
         code_verifier: Option<&str>,
         client_id: Option<&str>,
         client_secret: Option<&str>,
@@ -75,9 +75,9 @@ where
     #[allow(unused_mut)]
     fn attach_module(
         &self,
-        grant_type: Option<&str>,
-        code: Option<&str>,
-        redirect_uri: Option<&str>,
+        grant_type: &str,
+        code: &str,
+        redirect_uri: &str,
         code_verifier: Option<&str>,
         client_id: Option<&str>,
         client_secret: Option<&str>,
@@ -91,15 +91,9 @@ where
             "/module/auth/v1/token".to_string(),
         )
         .with_auth(__internal_request::Auth::Basic);
-        if let Some(param_value) = grant_type {
-            req = req.with_form_param("grant_type".to_string(), param_value.to_string());
-        }
-        if let Some(param_value) = code {
-            req = req.with_form_param("code".to_string(), param_value.to_string());
-        }
-        if let Some(param_value) = redirect_uri {
-            req = req.with_form_param("redirect_uri".to_string(), param_value.to_string());
-        }
+        req = req.with_form_param("grant_type".to_string(), grant_type.to_string());
+        req = req.with_form_param("code".to_string(), code.to_string());
+        req = req.with_form_param("redirect_uri".to_string(), redirect_uri.to_string());
         if let Some(param_value) = code_verifier {
             req = req.with_form_param("code_verifier".to_string(), param_value.to_string());
         }
