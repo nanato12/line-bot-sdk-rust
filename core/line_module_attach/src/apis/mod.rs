@@ -30,6 +30,7 @@ pub enum Error {
     Hyper(hyper::Error),
     HyperClient(hyper_util::client::legacy::Error),
     Serde(serde_json::Error),
+    Timeout,
     UriError(http::uri::InvalidUri),
 }
 
@@ -65,6 +66,7 @@ impl fmt::Display for Error {
             Error::Hyper(e) => write!(f, "hyper error: {}", e),
             Error::HyperClient(e) => write!(f, "hyper client error: {}", e),
             Error::Serde(e) => write!(f, "serde error: {}", e),
+            Error::Timeout => write!(f, "request timed out"),
             Error::UriError(e) => write!(f, "URI error: {}", e),
         }
     }

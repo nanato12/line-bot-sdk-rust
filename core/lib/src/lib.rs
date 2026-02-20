@@ -35,6 +35,7 @@
 //! |---------|-------------|
 //! | `rocket_support` | Enables [`support::rocket::Signature`] extractor for the Rocket framework |
 //! | `actix_support` | Enables [`support::actix::Signature`] extractor for the actix-web framework |
+//! | `axum_support` | Enables [`support::axum::Signature`] extractor for the axum framework |
 //!
 //! ## Modules
 //!
