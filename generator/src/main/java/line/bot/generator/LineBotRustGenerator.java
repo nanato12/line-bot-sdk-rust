@@ -75,6 +75,10 @@ public class LineBotRustGenerator extends RustClientCodegen {
         apiTemplateFiles.clear();
         apiTemplateFiles.put(GENERATOR_NAME + "/api.pebble", ".rs");
 
+        // Disable doc generation (stock templates use Mustache which we don't provide)
+        modelDocTemplateFiles.clear();
+        apiDocTemplateFiles.clear();
+
         // Read existing version from Cargo.toml
         String outputDir = getOutputDir();
         Path cargoToml = Path.of(outputDir, "Cargo.toml");
