@@ -17,6 +17,7 @@
 use std::collections::HashMap;
 use std::pin::Pin;
 
+use base64::Engine as _;
 use futures;
 use futures::future::*;
 use futures::Future;
@@ -188,7 +189,7 @@ impl Request {
                     if let Some(ref pass) = auth_conf.1 {
                         text.push_str(&pass[..]);
                     }
-                    let encoded = base64::encode(&text);
+                    let encoded = base64::engine::general_purpose::STANDARD.encode(&text);
                     req_builder = req_builder.header(AUTHORIZATION, encoded);
                 }
             }
