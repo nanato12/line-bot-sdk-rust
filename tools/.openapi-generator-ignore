@@ -4,3 +4,4 @@
 git_push.sh
 docs/*
 README.md
+tests/*
