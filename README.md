@@ -32,7 +32,7 @@ Extract `x-line-signature` from the request header.
 
 ```toml
 [dependencies.line-bot-sdk-rust]
-version = "1.0.2"
+version = "2.0.0"
 features = ["rocket_support"]
 ```
 
@@ -50,7 +50,7 @@ async fn world(signature: Signature, body: String) -> (Status, &'static str) {
 
 ```toml
 [dependencies.line-bot-sdk-rust]
-version = "1.0.2"
+version = "2.0.0"
 features = ["actix_support"]
 ```
 
@@ -60,6 +60,25 @@ use line_bot_sdk_rust::support::actix::Signature;
 
 #[post("/callback")]
 async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpResponse, Error> {
+    ...
+}
+```
+
+### Use `axum` framework
+
+```toml
+[dependencies.line-bot-sdk-rust]
+version = "2.0.0"
+features = ["axum_support"]
+```
+
+```rust
+use line_bot_sdk_rust::support::axum::Signature;
+
+async fn callback(
+    signature: Signature,
+    body: String,
+) -> Result<&'static str, (axum::http::StatusCode, String)> {
     ...
 }
 ```
@@ -75,6 +94,19 @@ fn main() {
         &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed to get LINE_CHANNEL_ACCESS_TOKEN");
 
     let line = LINE::new(access_token.to_string());
+}
+```
+
+### With timeout
+
+```rust
+use line_bot_sdk_rust::client::LINE;
+use std::time::Duration;
+
+fn main() {
+    let line = LINE::builder(access_token.to_string())
+        .timeout(Duration::from_secs(30))
+        .build();
 }
 ```
 
@@ -120,6 +152,15 @@ $ cargo run --bin actix_web
 ```
 
 source: [actix_web example](./examples/actix_web_example/src/main.rs)
+
+### with axum framework
+
+```bash
+$ cd examples
+$ cargo run --bin axum
+```
+
+source: [axum example](./examples/axum_example/src/main.rs)
 
 ## Contributing
 
