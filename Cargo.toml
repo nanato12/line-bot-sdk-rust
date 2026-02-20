@@ -29,3 +29,20 @@ base64 = "0.22.1"
 futures = "^0.3"
 hmac = "0.12.1"
 sha2 = "0.10.8"
+
+# Lints for generated code — these patterns come from OpenAPI Generator
+# and will be addressed by improving the generator templates.
+[workspace.lints.rust]
+unreachable_code = "allow"
+
+[workspace.lints.clippy]
+multiple_bound_locations = "allow"
+derivable_impls = "allow"
+empty_default_trait_impl = "allow"
+unused_mut = "allow"
+empty_docs = "allow"
+len_zero = "allow"
+only_used_in_recursion = "allow"
+redundant_closure = "allow"
+diverging_sub_expression = "allow"
+unnecessary_map_or = "allow"

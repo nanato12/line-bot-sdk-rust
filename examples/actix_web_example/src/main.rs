@@ -8,9 +8,9 @@ use line_bot_sdk_rust::{
         apis::MessagingApiApi,
         models::{Message, ReplyMessageRequest, TextMessage},
     },
+    line_webhook::models::{CallbackRequest, Event, MessageContent},
     parser::signature::validate_signature,
     support::actix::Signature,
-    line_webhook::models::{CallbackRequest, Event, MessageContent},
 };
 use std::env;
 
@@ -24,13 +24,13 @@ async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpRespons
 
     let line = LINE::new(access_token.to_string());
 
-    let body: &str = &String::from_utf8(bytes.to_vec()).unwrap();
+    let body: &str = core::str::from_utf8(&bytes).unwrap();
 
     if !validate_signature(channel_secret, &signature.key, body) {
         return Err(ErrorBadRequest("x-line-signature is invalid."));
     }
 
-    let request: Result<CallbackRequest, serde_json::Error> = serde_json::from_str(&body);
+    let request: Result<CallbackRequest, serde_json::Error> = serde_json::from_str(body);
     match request {
         Err(err) => return Err(ErrorBadRequest(err.to_string())),
         Ok(req) => {

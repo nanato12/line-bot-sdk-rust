@@ -5,9 +5,9 @@ use line_bot_sdk_rust::{
         apis::MessagingApiApi,
         models::{Message, ReplyMessageRequest, TextMessage},
     },
+    line_webhook::models::{CallbackRequest, Event, MessageContent},
     parser::signature::validate_signature,
     support::rocket::Signature,
-    line_webhook::models::{CallbackRequest, Event, MessageContent},
 };
 
 use rocket::{http::Status, launch, post, routes};
