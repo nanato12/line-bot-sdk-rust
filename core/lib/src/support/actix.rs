@@ -18,7 +18,7 @@
 
 use actix_web::dev::Payload;
 use actix_web::{error::ErrorBadRequest, Error, FromRequest, HttpRequest};
-use std::{future::Future, pin::Pin};
+use std::future::{self, Ready};
 
 /// Extracts the `x-line-signature` header value from an actix-web request.
 ///
@@ -44,20 +44,20 @@ pub struct Signature {
 
 impl FromRequest for Signature {
     type Error = Error;
-    type Future = Pin<Box<dyn Future<Output = Result<Self, Self::Error>>>>;
+    type Future = Ready<Result<Self, Self::Error>>;
 
     fn from_request(req: &HttpRequest, _payload: &mut Payload) -> Self::Future {
-        let res = if let Some(x_line_signature) = req.headers().get("x-line-signature") {
-            if let Ok(key) = x_line_signature.to_str() {
-                Ok(Signature {
+        let res = match req.headers().get("x-line-signature") {
+            Some(value) => match value.to_str() {
+                Ok(key) => Ok(Signature {
                     key: key.to_string(),
-                })
-            } else {
-                Err(ErrorBadRequest("x-line-signature is missing"))
-            }
-        } else {
-            Err(ErrorBadRequest("x-line-signature is missing"))
+                }),
+                Err(_) => Err(ErrorBadRequest(
+                    "x-line-signature contains invalid characters",
+                )),
+            },
+            None => Err(ErrorBadRequest("x-line-signature is missing")),
         };
-        Box::pin(async move { res })
+        future::ready(res)
     }
 }

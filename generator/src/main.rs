@@ -215,6 +215,26 @@ fn fix_cargo_metadata(pkg_dir: &str) {
     replace_in_file(&cargo_toml_path, replacements);
 }
 
+fn fix_extern_crates(pkg_dir: &str) {
+    let lib_rs_path = Path::new(pkg_dir).join("src/lib.rs");
+    if !lib_rs_path.exists() {
+        return;
+    }
+
+    let replacements: HashMap<&str, &str> = [
+        ("extern crate futures;\n", ""),
+        ("extern crate hyper;\n", ""),
+        ("extern crate serde;\n", ""),
+        ("extern crate serde_json;\n", ""),
+        ("extern crate serde_repr;\n", ""),
+        ("extern crate url;\n", ""),
+    ]
+    .iter()
+    .cloned()
+    .collect();
+    replace_in_file(&lib_rs_path, replacements);
+}
+
 fn fix_workspace_lints(pkg_dir: &str) {
     let cargo_toml_path = Path::new(pkg_dir).join("Cargo.toml");
     let mut contents = read_file(&cargo_toml_path);
@@ -435,6 +455,7 @@ fn main() {
         fix_generated_dependencies(pkg_dir);
         fix_workspace_dependencies(pkg_dir);
         fix_workspace_lints(pkg_dir);
+        fix_extern_crates(pkg_dir);
         fix_error_type(pkg_dir);
         fix_api_client_clone(pkg_dir);
     }
