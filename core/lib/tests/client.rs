@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use line_bot_sdk_rust::client::LINE;
 
 #[test]
@@ -24,4 +26,18 @@ fn line_client_clone() {
     let cloned = line.clone();
     // Cloned client should be independent
     let _ = &cloned.messaging_api_client;
+}
+
+#[test]
+fn line_client_builder_default() {
+    let line = LINE::builder("test_token".to_string()).build();
+    let _ = &line.messaging_api_client;
+}
+
+#[test]
+fn line_client_builder_with_timeout() {
+    let line = LINE::builder("test_token".to_string())
+        .timeout(Duration::from_secs(30))
+        .build();
+    let _ = &line.messaging_api_client;
 }

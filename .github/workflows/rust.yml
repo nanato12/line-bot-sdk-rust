@@ -60,6 +60,9 @@ jobs:
       - name: Clippy with actix_support
         run: cargo clippy --all-targets --features actix_support -- -D warnings
 
+      - name: Clippy with axum_support
+        run: cargo clippy --all-targets --features axum_support -- -D warnings
+
       - name: Clippy for examples
         run: cargo clippy --all-targets -- -D warnings
         working-directory: examples
@@ -92,6 +95,9 @@ jobs:
 
       - name: Build with actix_support
         run: cargo build --verbose --features actix_support
+
+      - name: Build with axum_support
+        run: cargo build --verbose --features axum_support
 
       - name: Build for examples
         run: cargo build --verbose

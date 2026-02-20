@@ -21,9 +21,13 @@
 //!
 //! - `rocket_support` — [`rocket::Signature`]
 //! - `actix_support` — [`actix::Signature`]
+//! - `axum_support` — [`axum::Signature`]
 
 #[cfg(feature = "rocket_support")]
 pub mod rocket;
 
 #[cfg(feature = "actix_support")]
 pub mod actix;
+
+#[cfg(feature = "axum_support")]
+pub mod axum;

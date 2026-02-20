@@ -245,6 +245,71 @@ fn fix_workspace_lints(pkg_dir: &str) {
     }
 }
 
+fn fix_timeout_support(pkg_dir: &str) {
+    // Add timeout field to Configuration
+    let config_path = Path::new(pkg_dir).join("src/apis/configuration.rs");
+    if config_path.exists() {
+        let mut contents = read_file(&config_path);
+        if !contents.contains("pub timeout: Option<Duration>,") {
+            contents = contents.replace("use hyper;", "use std::time::Duration;\nuse hyper;");
+            contents = contents.replace(
+                "pub api_key: Option<ApiKey>,",
+                "pub api_key: Option<ApiKey>,\n    pub timeout: Option<Duration>,",
+            );
+            contents = contents.replace(
+                "api_key: None,\n        }",
+                "api_key: None,\n            timeout: None,\n        }",
+            );
+            write_file(&config_path, &contents);
+        }
+    }
+
+    // Wrap request execution with timeout
+    let request_path = Path::new(pkg_dir).join("src/apis/request.rs");
+    if request_path.exists() {
+        let mut contents = read_file(&request_path);
+        if !contents.contains("timeout") {
+            // Replace Box::pin(conf.client... with let fut = conf.client...
+            contents = contents.replace(
+                "Box::pin(conf.client\n            .request(request)\n            .map_err(|e| Error::from(e))\n            .and_then(",
+                "let timeout_duration = conf.timeout;\n        let fut = conf.client\n            .request(request)\n            .map_err(|e| Error::from(e))\n            .and_then(",
+            );
+            // Replace })) (close and_then + Box::pin) with }); match ...
+            contents = contents.replace(
+                "            }))\n    }\n}\n",
+                "            });\n        match timeout_duration {\n            Some(d) => Box::pin(async move {\n                tokio::time::timeout(d, fut)\n                    .await\n                    .unwrap_or(Err(Error::Timeout))\n            }),\n            None => Box::pin(fut),\n        }\n    }\n}\n",
+            );
+            write_file(&request_path, &contents);
+        }
+    }
+
+    // Add Timeout variant to Error enum
+    let mod_path = Path::new(pkg_dir).join("src/apis/mod.rs");
+    if mod_path.exists() {
+        let mut contents = read_file(&mod_path);
+        if !contents.contains("Timeout") {
+            contents = contents.replace(
+                "UriError(http::uri::InvalidUri),",
+                "Timeout,\n    UriError(http::uri::InvalidUri),",
+            );
+            write_file(&mod_path, &contents);
+        }
+    }
+
+    // Add tokio dependency
+    let cargo_path = Path::new(pkg_dir).join("Cargo.toml");
+    if cargo_path.exists() {
+        let mut contents = read_file(&cargo_path);
+        if !contents.contains("tokio") {
+            contents = contents.replace(
+                "futures.workspace = true",
+                "futures.workspace = true\ntokio = { workspace = true, features = [\"time\"] }",
+            );
+            write_file(&cargo_path, &contents);
+        }
+    }
+}
+
 fn fix_error_type(pkg_dir: &str) {
     let mod_rs_path = Path::new(pkg_dir).join("src/apis/mod.rs");
     if !mod_rs_path.exists() {
@@ -267,6 +332,7 @@ fn fix_error_type(pkg_dir: &str) {
             Error::Hyper(e) => write!(f, "hyper error: {}", e),
             Error::HyperClient(e) => write!(f, "hyper client error: {}", e),
             Error::Serde(e) => write!(f, "serde error: {}", e),
+            Error::Timeout => write!(f, "request timed out"),
             Error::UriError(e) => write!(f, "URI error: {}", e),
         }
     }
@@ -471,6 +537,7 @@ fn main() {
         fix_workspace_dependencies(pkg_dir);
         fix_workspace_lints(pkg_dir);
         fix_extern_crates(pkg_dir);
+        fix_timeout_support(pkg_dir);
         fix_error_type(pkg_dir);
         fix_api_client_clone(pkg_dir);
     }

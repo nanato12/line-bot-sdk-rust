@@ -29,6 +29,7 @@ use hyper_util::client::legacy::connect::Connect;
 use hyper_util::client::legacy::connect::HttpConnector;
 use hyper_util::client::legacy::Client;
 use hyper_util::rt::TokioExecutor;
+use std::time::Duration;
 
 pub struct Configuration<C: Connect = HttpConnector>
 where
@@ -40,6 +41,7 @@ where
     pub basic_auth: Option<BasicAuth>,
     pub oauth_access_token: Option<String>,
     pub api_key: Option<ApiKey>,
+    pub timeout: Option<Duration>,
     // TODO: take an oauth2 token source, similar to the go one
 }
 
@@ -99,6 +101,7 @@ where
             basic_auth: None,
             oauth_access_token: None,
             api_key: None,
+            timeout: None,
         }
     }
 }
