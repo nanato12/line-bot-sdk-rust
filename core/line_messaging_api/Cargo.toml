@@ -1,6 +1,6 @@
 [package]
 name = "line_messaging_api"
-version = "0.0.5"
+version = "0.0.4"
 authors = ["nanato12 <admin@okj.info>"]
 description = "This document describes LINE Messaging API."
 license = "Apache-2.0"

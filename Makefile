@@ -10,7 +10,7 @@ publish:
 	cargo publish --manifest-path core/line_shop/Cargo.toml || true
 	cargo publish --manifest-path core/line_webhook/Cargo.toml || true
 	sleep 30
-	cargo publish --manifest-path core/lib/Cargo.toml
+	cargo publish --manifest-path core/lib/Cargo.toml --no-verify
 
 .PHONY: generate
 generate:
