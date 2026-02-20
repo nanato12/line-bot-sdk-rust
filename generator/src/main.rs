@@ -269,13 +269,15 @@ fn fix_timeout_support(pkg_dir: &str) {
     if request_path.exists() {
         let mut contents = read_file(&request_path);
         if !contents.contains("timeout") {
+            // Replace Box::pin(conf.client... with let fut = conf.client...
             contents = contents.replace(
-                "let no_return_type = self.no_return_type;\n        Box::pin(\n            conf.client\n                .request(request)\n                .map_err(|e| Error::from(e))\n                .and_then(",
-                "let no_return_type = self.no_return_type;\n        let timeout_duration = conf.timeout;\n        let fut = conf.client\n                .request(request)\n                .map_err(|e| Error::from(e))\n                .and_then(",
+                "Box::pin(conf.client\n            .request(request)\n            .map_err(|e| Error::from(e))\n            .and_then(",
+                "let timeout_duration = conf.timeout;\n        let fut = conf.client\n            .request(request)\n            .map_err(|e| Error::from(e))\n            .and_then(",
             );
+            // Replace })) (close and_then + Box::pin) with }); match ...
             contents = contents.replace(
-                "                }),\n        )\n    }\n}",
-                "                });\n        match timeout_duration {\n            Some(d) => Box::pin(async move {\n                tokio::time::timeout(d, fut)\n                    .await\n                    .unwrap_or(Err(Error::Timeout))\n            }),\n            None => Box::pin(fut),\n        }\n    }\n}",
+                "            }))\n    }\n}\n",
+                "            });\n        match timeout_duration {\n            Some(d) => Box::pin(async move {\n                tokio::time::timeout(d, fut)\n                    .await\n                    .unwrap_or(Err(Error::Timeout))\n            }),\n            None => Box::pin(fut),\n        }\n    }\n}\n",
             );
             write_file(&request_path, &contents);
         }
