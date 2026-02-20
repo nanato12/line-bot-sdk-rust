@@ -74,7 +74,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_modules
 
-> crate::models::GetModulesResponse get_modules(start, limit)
+> models::GetModulesResponse get_modules(start, limit)
 
 
 Gets a list of basic information about the bots of multiple LINE Official Accounts that have attached module channels.
@@ -89,7 +89,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetModulesResponse**](GetModulesResponse.md)
+[**models::GetModulesResponse**](GetModulesResponse.md)
 
 ### Authorization
 

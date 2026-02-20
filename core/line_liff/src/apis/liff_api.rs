@@ -28,55 +28,60 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct LiffApiClient<C: hyper::client::connect::Connect>
+pub struct LiffApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> LiffApiClient<C>
+impl<C: Connect> LiffApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-    pub fn new(configuration: Rc<configuration::Configuration<C>>) -> LiffApiClient<C> {
+    pub fn new(configuration: Arc<configuration::Configuration<C>>) -> LiffApiClient<C> {
         LiffApiClient { configuration }
     }
 }
 
-pub trait LiffApi {
+pub trait LiffApi: Send + Sync {
     fn add_liff_app(
         &self,
-        add_liff_app_request: crate::models::AddLiffAppRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::AddLiffAppResponse, Error>>>>;
-    fn delete_liff_app(&self, liff_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        add_liff_app_request: models::AddLiffAppRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<models::AddLiffAppResponse, Error>> + Send>>;
+    fn delete_liff_app(
+        &self,
+        liff_id: &str,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn get_all_liff_apps(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetAllLiffAppsResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetAllLiffAppsResponse, Error>> + Send>>;
     fn update_liff_app(
         &self,
         liff_id: &str,
-        update_liff_app_request: crate::models::UpdateLiffAppRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        update_liff_app_request: models::UpdateLiffAppRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> LiffApi for LiffApiClient<C>
+impl<C: Connect> LiffApi for LiffApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
     fn add_liff_app(
         &self,
-        add_liff_app_request: crate::models::AddLiffAppRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::AddLiffAppResponse, Error>>>> {
+        add_liff_app_request: models::AddLiffAppRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<models::AddLiffAppResponse, Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/liff/v1/apps".to_string());
         req = req.with_body_param(add_liff_app_request);
@@ -85,7 +90,10 @@ where
     }
 
     #[allow(unused_mut)]
-    fn delete_liff_app(&self, liff_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    fn delete_liff_app(
+        &self,
+        liff_id: &str,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/liff/v1/apps/{liffId}".to_string(),
@@ -99,7 +107,7 @@ where
     #[allow(unused_mut)]
     fn get_all_liff_apps(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetAllLiffAppsResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetAllLiffAppsResponse, Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/liff/v1/apps".to_string());
 
@@ -110,8 +118,8 @@ where
     fn update_liff_app(
         &self,
         liff_id: &str,
-        update_liff_app_request: crate::models::UpdateLiffAppRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        update_liff_app_request: models::UpdateLiffAppRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/liff/v1/apps/{liffId}".to_string(),

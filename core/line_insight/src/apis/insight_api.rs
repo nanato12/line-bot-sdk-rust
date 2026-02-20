@@ -28,48 +28,50 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct InsightApiClient<C: hyper::client::connect::Connect>
+pub struct InsightApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> InsightApiClient<C>
+impl<C: Connect> InsightApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-    pub fn new(configuration: Rc<configuration::Configuration<C>>) -> InsightApiClient<C> {
+    pub fn new(configuration: Arc<configuration::Configuration<C>>) -> InsightApiClient<C> {
         InsightApiClient { configuration }
     }
 }
 
-pub trait InsightApi {
+pub trait InsightApi: Send + Sync {
     fn get_friends_demographics(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetFriendsDemographicsResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetFriendsDemographicsResponse, Error>> + Send>>;
     fn get_message_event(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetMessageEventResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetMessageEventResponse, Error>> + Send>>;
     fn get_number_of_followers(
         &self,
         date: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetNumberOfFollowersResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetNumberOfFollowersResponse, Error>> + Send>>;
     fn get_number_of_message_deliveries(
         &self,
         date: &str,
     ) -> Pin<
         Box<
-            dyn Future<Output = Result<crate::models::GetNumberOfMessageDeliveriesResponse, Error>>,
+            dyn Future<Output = Result<models::GetNumberOfMessageDeliveriesResponse, Error>> + Send,
         >,
     >;
     fn get_statistics_per_unit(
@@ -77,17 +79,17 @@ pub trait InsightApi {
         custom_aggregation_unit: &str,
         from: &str,
         to: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetStatisticsPerUnitResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetStatisticsPerUnitResponse, Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> InsightApi for InsightApiClient<C>
+impl<C: Connect> InsightApi for InsightApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
     fn get_friends_demographics(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetFriendsDemographicsResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetFriendsDemographicsResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -101,7 +103,7 @@ where
     fn get_message_event(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetMessageEventResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetMessageEventResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/insight/message/event".to_string(),
@@ -115,7 +117,7 @@ where
     fn get_number_of_followers(
         &self,
         date: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetNumberOfFollowersResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetNumberOfFollowersResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -135,7 +137,7 @@ where
         date: &str,
     ) -> Pin<
         Box<
-            dyn Future<Output = Result<crate::models::GetNumberOfMessageDeliveriesResponse, Error>>,
+            dyn Future<Output = Result<models::GetNumberOfMessageDeliveriesResponse, Error>> + Send,
         >,
     > {
         let mut req = __internal_request::Request::new(
@@ -153,7 +155,7 @@ where
         custom_aggregation_unit: &str,
         from: &str,
         to: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetStatisticsPerUnitResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetStatisticsPerUnitResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,

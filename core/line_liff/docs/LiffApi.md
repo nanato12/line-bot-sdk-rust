@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## add_liff_app
 
-> crate::models::AddLiffAppResponse add_liff_app(add_liff_app_request)
+> models::AddLiffAppResponse add_liff_app(add_liff_app_request)
 Create LIFF app
 
 Adding the LIFF app to a channel
@@ -27,7 +27,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::AddLiffAppResponse**](AddLiffAppResponse.md)
+[**models::AddLiffAppResponse**](AddLiffAppResponse.md)
 
 ### Authorization
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_all_liff_apps
 
-> crate::models::GetAllLiffAppsResponse get_all_liff_apps()
+> models::GetAllLiffAppsResponse get_all_liff_apps()
 Get all LIFF apps
 
 Gets information on all the LIFF apps added to the channel.
@@ -84,7 +84,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::GetAllLiffAppsResponse**](GetAllLiffAppsResponse.md)
+[**models::GetAllLiffAppsResponse**](GetAllLiffAppsResponse.md)
 
 ### Authorization
 

@@ -28,46 +28,48 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct DummyApiClient<C: hyper::client::connect::Connect>
+pub struct DummyApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> DummyApiClient<C>
+impl<C: Connect> DummyApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-    pub fn new(configuration: Rc<configuration::Configuration<C>>) -> DummyApiClient<C> {
+    pub fn new(configuration: Arc<configuration::Configuration<C>>) -> DummyApiClient<C> {
         DummyApiClient { configuration }
     }
 }
 
-pub trait DummyApi {
+pub trait DummyApi: Send + Sync {
     fn callback(
         &self,
-        callback_request: crate::models::CallbackRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<String, Error>>>>;
+        callback_request: models::CallbackRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<String, Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> DummyApi for DummyApiClient<C>
+impl<C: Connect> DummyApi for DummyApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
     fn callback(
         &self,
-        callback_request: crate::models::CallbackRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<String, Error>>>> {
+        callback_request: models::CallbackRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<String, Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/callback".to_string());
         req = req.with_body_param(callback_request);

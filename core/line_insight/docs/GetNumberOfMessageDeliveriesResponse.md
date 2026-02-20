@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**status** | Option<**String**> | Status of the counting process. | [optional]
+**status** | Option<**Status**> | Status of the counting process. (enum: ready, unready, out_of_service) | [optional]
 **broadcast** | Option<**i64**> | Number of messages sent to all of this LINE Official Account's friends (broadcast messages). | [optional]
 **targeting** | Option<**i64**> | Number of messages sent to some of this LINE Official Account's friends, based on specific attributes (targeted messages). | [optional]
 **auto_response** | Option<**i64**> | Number of auto-response messages sent. | [optional]

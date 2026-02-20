@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## attach_module
 
-> crate::models::AttachModuleResponse attach_module(grant_type, code, redirect_uri, code_verifier, client_id, client_secret, region, basic_search_id, scope, brand_type)
+> models::AttachModuleResponse attach_module(grant_type, code, redirect_uri, code_verifier, client_id, client_secret, region, basic_search_id, scope, brand_type)
 
 
 Attach by operation of the module channel provider
@@ -33,7 +33,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::AttachModuleResponse**](AttachModuleResponse.md)
+[**models::AttachModuleResponse**](AttachModuleResponse.md)
 
 ### Authorization
 

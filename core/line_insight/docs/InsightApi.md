@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## get_friends_demographics
 
-> crate::models::GetFriendsDemographicsResponse get_friends_demographics()
+> models::GetFriendsDemographicsResponse get_friends_demographics()
 
 
 Retrieves the demographic attributes for a LINE Official Account's friends.You can only retrieve information about friends for LINE Official Accounts created by users in Japan (JP), Thailand (TH), Taiwan (TW) and Indonesia (ID). 
@@ -25,7 +25,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::GetFriendsDemographicsResponse**](GetFriendsDemographicsResponse.md)
+[**models::GetFriendsDemographicsResponse**](GetFriendsDemographicsResponse.md)
 
 ### Authorization
 
@@ -41,7 +41,7 @@ This endpoint does not need any parameter.
 
 ## get_message_event
 
-> crate::models::GetMessageEventResponse get_message_event(request_id)
+> models::GetMessageEventResponse get_message_event(request_id)
 Get user interaction statistics
 
 Returns statistics about how users interact with narrowcast messages or broadcast messages sent from your LINE Official Account. 
@@ -55,7 +55,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetMessageEventResponse**](GetMessageEventResponse.md)
+[**models::GetMessageEventResponse**](GetMessageEventResponse.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_number_of_followers
 
-> crate::models::GetNumberOfFollowersResponse get_number_of_followers(date)
+> models::GetNumberOfFollowersResponse get_number_of_followers(date)
 Get number of followers
 
 Returns the number of users who have added the LINE Official Account on or before a specified date. 
@@ -85,7 +85,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetNumberOfFollowersResponse**](GetNumberOfFollowersResponse.md)
+[**models::GetNumberOfFollowersResponse**](GetNumberOfFollowersResponse.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_number_of_message_deliveries
 
-> crate::models::GetNumberOfMessageDeliveriesResponse get_number_of_message_deliveries(date)
+> models::GetNumberOfMessageDeliveriesResponse get_number_of_message_deliveries(date)
 Get number of message deliveries
 
 Returns the number of messages sent from LINE Official Account on a specified day. 
@@ -115,7 +115,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetNumberOfMessageDeliveriesResponse**](GetNumberOfMessageDeliveriesResponse.md)
+[**models::GetNumberOfMessageDeliveriesResponse**](GetNumberOfMessageDeliveriesResponse.md)
 
 ### Authorization
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_statistics_per_unit
 
-> crate::models::GetStatisticsPerUnitResponse get_statistics_per_unit(custom_aggregation_unit, from, to)
+> models::GetStatisticsPerUnitResponse get_statistics_per_unit(custom_aggregation_unit, from, to)
 
 
 You can check the per-unit statistics of how users interact with push messages and multicast messages sent from your LINE Official Account. 
@@ -147,7 +147,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetStatisticsPerUnitResponse**](GetStatisticsPerUnitResponse.md)
+[**models::GetStatisticsPerUnitResponse**](GetStatisticsPerUnitResponse.md)
 
 ### Authorization
 

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **size** | Option<**String**> |  | [optional]
 **aspect_ratio** | Option<**String**> |  | [optional]
 **margin** | Option<**String**> |  | [optional]
-**position** | Option<**String**> |  | [optional]
+**position** | Option<**Position**> |  (enum: relative, absolute) | [optional]
 **offset_top** | Option<**String**> |  | [optional]
 **offset_bottom** | Option<**String**> |  | [optional]
 **offset_start** | Option<**String**> |  | [optional]

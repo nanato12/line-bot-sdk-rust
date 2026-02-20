@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | Provider of the image file. | 
+**r#type** | **Type** | Provider of the image file. (enum: line, external) | 
 **original_content_url** | Option<**String**> | URL of the image file. Only included when contentProvider.type is external. | [optional]
 **preview_image_url** | Option<**String**> | URL of the preview image. Only included when contentProvider.type is external. | [optional]
 

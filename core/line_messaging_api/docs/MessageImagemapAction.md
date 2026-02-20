@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** |  | 
-**area** | [**crate::models::ImagemapArea**](ImagemapArea.md) |  | 
+**area** | [**models::ImagemapArea**](ImagemapArea.md) |  | 
 **text** | **String** |  | 
 **label** | Option<**String**> |  | [optional]
 

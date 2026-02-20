@@ -14,6 +14,8 @@
 * limitations under the License.
 */
 
+use serde::{Deserialize, Serialize};
+
 use super::{
     AudioMessageContent, FileMessageContent, ImageMessageContent, LocationMessageContent,
     StickerMessageContent, TextMessageContent, VideoMessageContent,
@@ -36,4 +38,10 @@ pub enum MessageContent {
     StickerMessageContent(StickerMessageContent),
     #[serde(rename = "video")]
     VideoMessageContent(VideoMessageContent),
+}
+
+impl Default for MessageContent {
+    fn default() -> Self {
+        MessageContent::TextMessageContent(TextMessageContent::default())
+    }
 }

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **data** | Option<**String**> |  | [optional]
 **display_text** | Option<**String**> |  | [optional]
 **text** | Option<**String**> |  | [optional]
-**input_option** | Option<**String**> |  | [optional]
+**input_option** | Option<**InputOption**> |  (enum: closeRichMenu, openRichMenu, openKeyboard, openVoice) | [optional]
 **fill_in_text** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **r#type** | Option<**String**> | Type of action | [optional]
 **label** | Option<**String**> | Label for the action. | [optional]
 **data** | Option<**String**> |  | [optional]
-**mode** | Option<**String**> |  | [optional]
+**mode** | Option<**Mode**> |  (enum: date, time, datetime) | [optional]
 **initial** | Option<**String**> |  | [optional]
 **max** | Option<**String**> |  | [optional]
 **min** | Option<**String**> |  | [optional]

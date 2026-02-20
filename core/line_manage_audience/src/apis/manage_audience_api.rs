@@ -28,101 +28,102 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct ManageAudienceApiClient<C: hyper::client::connect::Connect>
+pub struct ManageAudienceApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> ManageAudienceApiClient<C>
+impl<C: Connect> ManageAudienceApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-    pub fn new(configuration: Rc<configuration::Configuration<C>>) -> ManageAudienceApiClient<C> {
+    pub fn new(configuration: Arc<configuration::Configuration<C>>) -> ManageAudienceApiClient<C> {
         ManageAudienceApiClient { configuration }
     }
 }
 
-pub trait ManageAudienceApi {
+pub trait ManageAudienceApi: Send + Sync {
     fn add_audience_to_audience_group(
         &self,
-        add_audience_to_audience_group_request: crate::models::AddAudienceToAudienceGroupRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        add_audience_to_audience_group_request: models::AddAudienceToAudienceGroupRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn create_audience_group(
         &self,
-        create_audience_group_request: crate::models::CreateAudienceGroupRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::CreateAudienceGroupResponse, Error>>>>;
+        create_audience_group_request: models::CreateAudienceGroupRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<models::CreateAudienceGroupResponse, Error>> + Send>>;
     fn create_click_based_audience_group(
         &self,
-        create_click_based_audience_group_request: crate::models::CreateClickBasedAudienceGroupRequest,
+        create_click_based_audience_group_request: models::CreateClickBasedAudienceGroupRequest,
     ) -> Pin<
         Box<
-            dyn Future<
-                Output = Result<crate::models::CreateClickBasedAudienceGroupResponse, Error>,
-            >,
+            dyn Future<Output = Result<models::CreateClickBasedAudienceGroupResponse, Error>>
+                + Send,
         >,
     >;
     fn create_imp_based_audience_group(
         &self,
-        create_imp_based_audience_group_request: crate::models::CreateImpBasedAudienceGroupRequest,
+        create_imp_based_audience_group_request: models::CreateImpBasedAudienceGroupRequest,
     ) -> Pin<
-        Box<dyn Future<Output = Result<crate::models::CreateImpBasedAudienceGroupResponse, Error>>>,
+        Box<dyn Future<Output = Result<models::CreateImpBasedAudienceGroupResponse, Error>> + Send>,
     >;
     fn delete_audience_group(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn get_audience_data(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetAudienceDataResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetAudienceDataResponse, Error>> + Send>>;
     fn get_audience_groups(
         &self,
         page: i64,
         description: Option<&str>,
-        status: Option<crate::models::AudienceGroupStatus>,
+        status: Option<models::AudienceGroupStatus>,
         size: Option<i64>,
         includes_external_public_groups: Option<bool>,
-        create_route: Option<crate::models::AudienceGroupCreateRoute>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetAudienceGroupsResponse, Error>>>>;
+        create_route: Option<models::AudienceGroupCreateRoute>,
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetAudienceGroupsResponse, Error>> + Send>>;
     fn get_shared_audience_data(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetSharedAudienceDataResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetSharedAudienceDataResponse, Error>> + Send>>;
     fn get_shared_audience_groups(
         &self,
         page: i64,
         description: Option<&str>,
-        status: Option<crate::models::AudienceGroupStatus>,
+        status: Option<models::AudienceGroupStatus>,
         size: Option<i64>,
-        create_route: Option<crate::models::AudienceGroupCreateRoute>,
+        create_route: Option<models::AudienceGroupCreateRoute>,
         includes_owned_audience_groups: Option<bool>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetSharedAudienceGroupsResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetSharedAudienceGroupsResponse, Error>> + Send>>;
     fn update_audience_group_description(
         &self,
         audience_group_id: i64,
-        update_audience_group_description_request: crate::models::UpdateAudienceGroupDescriptionRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        update_audience_group_description_request: models::UpdateAudienceGroupDescriptionRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> ManageAudienceApi for ManageAudienceApiClient<C>
+impl<C: Connect> ManageAudienceApi for ManageAudienceApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
     fn add_audience_to_audience_group(
         &self,
-        add_audience_to_audience_group_request: crate::models::AddAudienceToAudienceGroupRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        add_audience_to_audience_group_request: models::AddAudienceToAudienceGroupRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/v2/bot/audienceGroup/upload".to_string(),
@@ -136,8 +137,8 @@ where
     #[allow(unused_mut)]
     fn create_audience_group(
         &self,
-        create_audience_group_request: crate::models::CreateAudienceGroupRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::CreateAudienceGroupResponse, Error>>>>
+        create_audience_group_request: models::CreateAudienceGroupRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<models::CreateAudienceGroupResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
@@ -151,12 +152,11 @@ where
     #[allow(unused_mut)]
     fn create_click_based_audience_group(
         &self,
-        create_click_based_audience_group_request: crate::models::CreateClickBasedAudienceGroupRequest,
+        create_click_based_audience_group_request: models::CreateClickBasedAudienceGroupRequest,
     ) -> Pin<
         Box<
-            dyn Future<
-                Output = Result<crate::models::CreateClickBasedAudienceGroupResponse, Error>,
-            >,
+            dyn Future<Output = Result<models::CreateClickBasedAudienceGroupResponse, Error>>
+                + Send,
         >,
     > {
         let mut req = __internal_request::Request::new(
@@ -171,9 +171,9 @@ where
     #[allow(unused_mut)]
     fn create_imp_based_audience_group(
         &self,
-        create_imp_based_audience_group_request: crate::models::CreateImpBasedAudienceGroupRequest,
+        create_imp_based_audience_group_request: models::CreateImpBasedAudienceGroupRequest,
     ) -> Pin<
-        Box<dyn Future<Output = Result<crate::models::CreateImpBasedAudienceGroupResponse, Error>>>,
+        Box<dyn Future<Output = Result<models::CreateImpBasedAudienceGroupResponse, Error>> + Send>,
     > {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
@@ -188,7 +188,7 @@ where
     fn delete_audience_group(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/v2/bot/audienceGroup/{audienceGroupId}".to_string(),
@@ -203,7 +203,7 @@ where
     fn get_audience_data(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetAudienceDataResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetAudienceDataResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/audienceGroup/{audienceGroupId}".to_string(),
@@ -218,11 +218,11 @@ where
         &self,
         page: i64,
         description: Option<&str>,
-        status: Option<crate::models::AudienceGroupStatus>,
+        status: Option<models::AudienceGroupStatus>,
         size: Option<i64>,
         includes_external_public_groups: Option<bool>,
-        create_route: Option<crate::models::AudienceGroupCreateRoute>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetAudienceGroupsResponse, Error>>>>
+        create_route: Option<models::AudienceGroupCreateRoute>,
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetAudienceGroupsResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -257,7 +257,7 @@ where
     fn get_shared_audience_data(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetSharedAudienceDataResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetSharedAudienceDataResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -273,11 +273,11 @@ where
         &self,
         page: i64,
         description: Option<&str>,
-        status: Option<crate::models::AudienceGroupStatus>,
+        status: Option<models::AudienceGroupStatus>,
         size: Option<i64>,
-        create_route: Option<crate::models::AudienceGroupCreateRoute>,
+        create_route: Option<models::AudienceGroupCreateRoute>,
         includes_owned_audience_groups: Option<bool>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetSharedAudienceGroupsResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetSharedAudienceGroupsResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -312,8 +312,8 @@ where
     fn update_audience_group_description(
         &self,
         audience_group_id: i64,
-        update_audience_group_description_request: crate::models::UpdateAudienceGroupDescriptionRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        update_audience_group_description_request: models::UpdateAudienceGroupDescriptionRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/v2/bot/audienceGroup/{audienceGroupId}/updateDescription".to_string(),

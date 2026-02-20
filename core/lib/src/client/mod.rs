@@ -14,11 +14,13 @@
 * limitations under the License.
 */
 
-use std::rc::Rc;
+use std::sync::Arc;
 
-use hyper::{client::HttpConnector, Client as hyperClient};
 use hyper_rustls::HttpsConnector;
 use hyper_rustls::HttpsConnectorBuilder;
+use hyper_util::client::legacy::connect::HttpConnector;
+use hyper_util::client::legacy::Client;
+use hyper_util::rt::TokioExecutor;
 use line_channel_access_token::apis::{
     configuration::Configuration as ChannelAccessTokenApiConfiguration, ChannelAccessTokenApiClient,
 };
@@ -61,51 +63,51 @@ impl LINE {
 
         // channel_access_token_api
         let mut channel_access_token_api_conf =
-            ChannelAccessTokenApiConfiguration::new(client.clone());
+            ChannelAccessTokenApiConfiguration::with_client(client.clone());
         channel_access_token_api_conf.oauth_access_token = Some(token.to_owned());
         let channel_access_token_api_client =
-            ChannelAccessTokenApiClient::new(Rc::new(channel_access_token_api_conf));
+            ChannelAccessTokenApiClient::new(Arc::new(channel_access_token_api_conf));
 
         // insight
-        let mut insight_conf = InsightConfiguration::new(client.clone());
+        let mut insight_conf = InsightConfiguration::with_client(client.clone());
         insight_conf.oauth_access_token = Some(token.to_owned());
-        let insight_api_client = InsightApiClient::new(Rc::new(insight_conf));
+        let insight_api_client = InsightApiClient::new(Arc::new(insight_conf));
 
         // liff
-        let mut liff_conf = LiffConfiguration::new(client.clone());
+        let mut liff_conf = LiffConfiguration::with_client(client.clone());
         liff_conf.oauth_access_token = Some(token.to_owned());
-        let liff_api_client = LiffApiClient::new(Rc::new(liff_conf));
+        let liff_api_client = LiffApiClient::new(Arc::new(liff_conf));
 
         // manage_audience
-        let mut manage_audience_conf = ManageAudienceConfiguration::new(client.clone());
+        let mut manage_audience_conf = ManageAudienceConfiguration::with_client(client.clone());
         manage_audience_conf.oauth_access_token = Some(token.to_owned());
         let manage_audience_api_client =
-            ManageAudienceApiClient::new(Rc::new(manage_audience_conf));
+            ManageAudienceApiClient::new(Arc::new(manage_audience_conf));
 
         // messaging_api
-        let mut messaging_api_conf = MessagingApiConfiguration::new(client.clone());
+        let mut messaging_api_conf = MessagingApiConfiguration::with_client(client.clone());
         messaging_api_conf.oauth_access_token = Some(token.to_owned());
-        let messaging_api_client = MessagingApiApiClient::new(Rc::new(messaging_api_conf));
+        let messaging_api_client = MessagingApiApiClient::new(Arc::new(messaging_api_conf));
 
         // module
-        let mut module_conf = LineModuleConfiguration::new(client.clone());
+        let mut module_conf = LineModuleConfiguration::with_client(client.clone());
         module_conf.oauth_access_token = Some(token.to_owned());
-        let module_api_client = LineModuleApiClient::new(Rc::new(module_conf));
+        let module_api_client = LineModuleApiClient::new(Arc::new(module_conf));
 
         // module_attach
-        let mut module_attach_conf = LineModuleAttachConfiguration::new(client.clone());
+        let mut module_attach_conf = LineModuleAttachConfiguration::with_client(client.clone());
         module_attach_conf.oauth_access_token = Some(token.to_owned());
-        let module_attach_api_client = LineModuleAttachApiClient::new(Rc::new(module_attach_conf));
+        let module_attach_api_client = LineModuleAttachApiClient::new(Arc::new(module_attach_conf));
 
         // shop
-        let mut shop_conf = ShopConfiguration::new(client.clone());
+        let mut shop_conf = ShopConfiguration::with_client(client.clone());
         shop_conf.oauth_access_token = Some(token.to_owned());
-        let shop_api_client = ShopApiClient::new(Rc::new(shop_conf));
+        let shop_api_client = ShopApiClient::new(Arc::new(shop_conf));
 
         // webhook
-        let mut webhook_conf = WebhookConfiguration::new(client.clone());
+        let mut webhook_conf = WebhookConfiguration::with_client(client.clone());
         webhook_conf.oauth_access_token = Some(token.to_owned());
-        let webhook_dummy_api_client = WebhookDummyApiClient::new(Rc::new(webhook_conf));
+        let webhook_dummy_api_client = WebhookDummyApiClient::new(Arc::new(webhook_conf));
 
         LINE {
             channel_access_token_api_client,
@@ -120,12 +122,13 @@ impl LINE {
         }
     }
 
-    fn create_hyper_client() -> hyperClient<C> {
+    fn create_hyper_client() -> Client<C, String> {
         let https = HttpsConnectorBuilder::new()
             .with_native_roots()
+            .expect("no native root certs found")
             .https_only()
             .enable_http1()
             .build();
-        hyperClient::builder().build::<_, hyper::Body>(https)
+        Client::builder(TokioExecutor::new()).build(https)
     }
 }

@@ -28,46 +28,48 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct ShopApiClient<C: hyper::client::connect::Connect>
+pub struct ShopApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> ShopApiClient<C>
+impl<C: Connect> ShopApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-    pub fn new(configuration: Rc<configuration::Configuration<C>>) -> ShopApiClient<C> {
+    pub fn new(configuration: Arc<configuration::Configuration<C>>) -> ShopApiClient<C> {
         ShopApiClient { configuration }
     }
 }
 
-pub trait ShopApi {
+pub trait ShopApi: Send + Sync {
     fn mission_sticker_v3(
         &self,
-        mission_sticker_request: crate::models::MissionStickerRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        mission_sticker_request: models::MissionStickerRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> ShopApi for ShopApiClient<C>
+impl<C: Connect> ShopApi for ShopApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
     fn mission_sticker_v3(
         &self,
-        mission_sticker_request: crate::models::MissionStickerRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        mission_sticker_request: models::MissionStickerRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/shop/v3/mission".to_string());
         req = req.with_body_param(mission_sticker_request);

@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** | Type of message | 
-**quick_reply** | Option<[**crate::models::QuickReply**](QuickReply.md)> |  | [optional]
-**sender** | Option<[**crate::models::Sender**](Sender.md)> |  | [optional]
+**quick_reply** | Option<[**models::QuickReply**](QuickReply.md)> |  | [optional]
+**sender** | Option<[**models::Sender**](Sender.md)> |  | [optional]
 **coupon_id** | **String** | Unique identifier of the coupon. | 
 **delivery_tag** | Option<**String**> | Delivery route tag information. It can be used for analysis in LINE OA Manager. | [optional]
 

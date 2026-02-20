@@ -14,6 +14,8 @@
 * limitations under the License.
 */
 
+use serde::{Deserialize, Serialize};
+
 use super::{
     AccountLinkEvent, ActivatedEvent, BeaconEvent, BotResumedEvent, BotSuspendedEvent,
     DeactivatedEvent, FollowEvent, JoinEvent, LeaveEvent, MemberJoinedEvent, MemberLeftEvent,

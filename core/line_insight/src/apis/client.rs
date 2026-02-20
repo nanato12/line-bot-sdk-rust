@@ -14,21 +14,22 @@
 * limitations under the License.
 */
 
-use std::rc::Rc;
+use std::sync::Arc;
 
 use super::configuration::Configuration;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 pub struct APIClient {
     insight_api: Box<dyn crate::apis::InsightApi>,
 }
 
 impl APIClient {
-    pub fn new<C: hyper::client::connect::Connect>(configuration: Configuration<C>) -> APIClient
+    pub fn new<C: Connect>(configuration: Configuration<C>) -> APIClient
     where
         C: Clone + std::marker::Send + Sync + 'static,
     {
-        let rc = Rc::new(configuration);
+        let rc = Arc::new(configuration);
 
         APIClient {
             insight_api: Box::new(crate::apis::InsightApiClient::new(rc.clone())),

@@ -28,31 +28,35 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct LineModuleAttachApiClient<C: hyper::client::connect::Connect>
+pub struct LineModuleAttachApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> LineModuleAttachApiClient<C>
+impl<C: Connect> LineModuleAttachApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-    pub fn new(configuration: Rc<configuration::Configuration<C>>) -> LineModuleAttachApiClient<C> {
+    pub fn new(
+        configuration: Arc<configuration::Configuration<C>>,
+    ) -> LineModuleAttachApiClient<C> {
         LineModuleAttachApiClient { configuration }
     }
 }
 
-pub trait LineModuleAttachApi {
+pub trait LineModuleAttachApi: Send + Sync {
     fn attach_module(
         &self,
         grant_type: &str,
@@ -65,10 +69,10 @@ pub trait LineModuleAttachApi {
         basic_search_id: Option<&str>,
         scope: Option<&str>,
         brand_type: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::AttachModuleResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::AttachModuleResponse, Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> LineModuleAttachApi for LineModuleAttachApiClient<C>
+impl<C: Connect> LineModuleAttachApi for LineModuleAttachApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
@@ -85,7 +89,7 @@ where
         basic_search_id: Option<&str>,
         scope: Option<&str>,
         brand_type: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::AttachModuleResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::AttachModuleResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/module/auth/v1/token".to_string(),

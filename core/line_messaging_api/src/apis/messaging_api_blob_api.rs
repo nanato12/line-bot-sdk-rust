@@ -28,59 +28,63 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct MessagingApiBlobApiClient<C: hyper::client::connect::Connect>
+pub struct MessagingApiBlobApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> MessagingApiBlobApiClient<C>
+impl<C: Connect> MessagingApiBlobApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-    pub fn new(configuration: Rc<configuration::Configuration<C>>) -> MessagingApiBlobApiClient<C> {
+    pub fn new(
+        configuration: Arc<configuration::Configuration<C>>,
+    ) -> MessagingApiBlobApiClient<C> {
         MessagingApiBlobApiClient { configuration }
     }
 }
 
-pub trait MessagingApiBlobApi {
+pub trait MessagingApiBlobApi: Send + Sync {
     fn get_message_content(
         &self,
         message_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>>;
     fn get_message_content_preview(
         &self,
         message_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>>;
     fn get_message_content_transcoding_by_message_id(
         &self,
         message_id: &str,
     ) -> Pin<
         Box<
-            dyn Future<Output = Result<crate::models::GetMessageContentTranscodingResponse, Error>>,
+            dyn Future<Output = Result<models::GetMessageContentTranscodingResponse, Error>> + Send,
         >,
     >;
     fn get_rich_menu_image(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>>;
     fn set_rich_menu_image(
         &self,
         rich_menu_id: &str,
         body: Option<std::path::PathBuf>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> MessagingApiBlobApi for MessagingApiBlobApiClient<C>
+impl<C: Connect> MessagingApiBlobApi for MessagingApiBlobApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
@@ -88,7 +92,7 @@ where
     fn get_message_content(
         &self,
         message_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/{messageId}/content".to_string(),
@@ -102,7 +106,7 @@ where
     fn get_message_content_preview(
         &self,
         message_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/{messageId}/content/preview".to_string(),
@@ -118,7 +122,7 @@ where
         message_id: &str,
     ) -> Pin<
         Box<
-            dyn Future<Output = Result<crate::models::GetMessageContentTranscodingResponse, Error>>,
+            dyn Future<Output = Result<models::GetMessageContentTranscodingResponse, Error>> + Send,
         >,
     > {
         let mut req = __internal_request::Request::new(
@@ -134,7 +138,7 @@ where
     fn get_rich_menu_image(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/richmenu/{richMenuId}/content".to_string(),
@@ -149,7 +153,7 @@ where
         &self,
         rich_menu_id: &str,
         body: Option<std::path::PathBuf>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/{richMenuId}/content".to_string(),

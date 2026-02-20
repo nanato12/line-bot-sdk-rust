@@ -28,52 +28,54 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct LineModuleApiClient<C: hyper::client::connect::Connect>
+pub struct LineModuleApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> LineModuleApiClient<C>
+impl<C: Connect> LineModuleApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-    pub fn new(configuration: Rc<configuration::Configuration<C>>) -> LineModuleApiClient<C> {
+    pub fn new(configuration: Arc<configuration::Configuration<C>>) -> LineModuleApiClient<C> {
         LineModuleApiClient { configuration }
     }
 }
 
-pub trait LineModuleApi {
+pub trait LineModuleApi: Send + Sync {
     fn acquire_chat_control(
         &self,
         chat_id: &str,
-        acquire_chat_control_request: Option<crate::models::AcquireChatControlRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        acquire_chat_control_request: Option<models::AcquireChatControlRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn detach_module(
         &self,
-        detach_module_request: Option<crate::models::DetachModuleRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        detach_module_request: Option<models::DetachModuleRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn get_modules(
         &self,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetModulesResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetModulesResponse, Error>> + Send>>;
     fn release_chat_control(
         &self,
         chat_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> LineModuleApi for LineModuleApiClient<C>
+impl<C: Connect> LineModuleApi for LineModuleApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
@@ -81,8 +83,8 @@ where
     fn acquire_chat_control(
         &self,
         chat_id: &str,
-        acquire_chat_control_request: Option<crate::models::AcquireChatControlRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        acquire_chat_control_request: Option<models::AcquireChatControlRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/chat/{chatId}/control/acquire".to_string(),
@@ -97,8 +99,8 @@ where
     #[allow(unused_mut)]
     fn detach_module(
         &self,
-        detach_module_request: Option<crate::models::DetachModuleRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        detach_module_request: Option<models::DetachModuleRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/channel/detach".to_string(),
@@ -114,7 +116,7 @@ where
         &self,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetModulesResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetModulesResponse, Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/v2/bot/list".to_string());
         if let Some(ref s) = start {
@@ -133,7 +135,7 @@ where
     fn release_chat_control(
         &self,
         chat_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/chat/{chatId}/control/release".to_string(),

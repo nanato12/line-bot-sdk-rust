@@ -61,6 +61,19 @@ approach, or project structure, refer to these.
   `gh repo sync nanato12/line-openapi --source line/line-openapi --branch main`
 - Submodule URL MUST use SSH (`git@github.com:`), not HTTPS.
 
+## Code Generation
+
+- Uses `openapi-generator-cli` v7.20.0 (Java) with `--library hyper` (hyper 1.x).
+- `progenitor` (Oxide Computer) was evaluated but rejected:
+  `messaging-api.yml` and `manage-audience.yml` fail
+  due to unsupported `*/*` and `multipart/form-data`
+  content types. Also requires nightly rustfmt.
+- Generated code uses hyper 1.x, `Arc` (not `Rc`), and
+  `Configuration::with_client()` pattern.
+- `core/lib/` must be updated BEFORE running `make generate`
+  when changing the generator version — `cargo fix` inside
+  the generator depends on `core/lib` compiling successfully.
+
 ## Code Rules
 
 - `core/line_*/` crates (except `core/lib/`)
