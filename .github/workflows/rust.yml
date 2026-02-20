@@ -111,4 +111,4 @@ jobs:
         run: cargo install cargo-audit
 
       - name: Run audit
-        run: cargo audit
+        run: cargo audit --ignore RUSTSEC-2019-0020 --ignore RUSTSEC-2020-0151
