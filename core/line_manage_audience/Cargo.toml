@@ -1,6 +1,6 @@
 [package]
 name = "line_manage_audience"
-version = "0.0.3"
+version = "1.0.0"
 authors = ["nanato12 <admin@okj.info>"]
 description = "This document describes LINE Messaging API."
 license = "Apache-2.0"
