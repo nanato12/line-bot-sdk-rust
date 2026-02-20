@@ -16,12 +16,12 @@ rocket_support = ["rocket"]
 actix_support = ["actix-web"]
 
 [dependencies]
-base64 = "0.22.1"
-hmac = "0.12.1"
-sha2 = "0.10.8"
-hyper = { version = "^1.3.1", features = ["full"] }
-hyper-util = { version = "0.1.5", features = ["client", "client-legacy", "http1", "http2"] }
-hyper-rustls = { version = "0.27", features = ["native-tokio", "http1", "http2"] }
+base64.workspace = true
+hmac.workspace = true
+sha2.workspace = true
+hyper = { workspace = true, features = ["full"] }
+hyper-util = { workspace = true, features = ["client", "client-legacy", "http1", "http2"] }
+hyper-rustls = { workspace = true, features = ["native-tokio", "http1", "http2"] }
 
 [dependencies.rocket]
 version = "0.5.1"

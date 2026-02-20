@@ -1,4 +1,4 @@
-use dotenv::dotenv;
+use dotenvy::dotenv;
 use line_bot_sdk_rust::{
     client::LINE,
     line_messaging_api::{
@@ -21,7 +21,7 @@ async fn world(signature: Signature, body: String) -> (Status, &'static str) {
     let access_token: &str =
         &env::var("LINE_CHANNEL_ACCESS_TOKEN").expect("Failed to get LINE_CHANNEL_ACCESS_TOKEN");
 
-    let _line = LINE::new(access_token.to_string());
+    let line = LINE::new(access_token.to_string());
 
     println!("{signature:#?}");
     println!("{body:#?}");
@@ -40,20 +40,19 @@ async fn world(signature: Signature, body: String) -> (Status, &'static str) {
                 if let Event::MessageEvent(message_event) = e {
                     if let MessageContent::TextMessageContent(text_message) = *message_event.message
                     {
-                        let _reply_message_request = ReplyMessageRequest {
+                        let reply_message_request = ReplyMessageRequest {
                             reply_token: message_event.reply_token.unwrap(),
                             messages: vec![Message::Text(TextMessage::new(text_message.text))],
                             notification_disabled: Some(false),
                         };
-                        // TODO: reply_message sample
-                        // let result = line
-                        //     .messaging_api_client
-                        //     .reply_message(reply_message_request)
-                        //     .await;
-                        // match result {
-                        //     Ok(r) => println!("{:#?}", r),
-                        //     Err(e) => println!("{:#?}", e),
-                        // }
+                        let result = line
+                            .messaging_api_client
+                            .reply_message(reply_message_request)
+                            .await;
+                        match result {
+                            Ok(r) => println!("{:#?}", r),
+                            Err(e) => println!("{:#?}", e),
+                        }
                     };
                 };
             }

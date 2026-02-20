@@ -157,6 +157,46 @@ fn fix_generated_dependencies(pkg_dir: &str) {
     }
 }
 
+fn fix_workspace_dependencies(pkg_dir: &str) {
+    let cargo_toml_path = Path::new(pkg_dir).join("Cargo.toml");
+    let replacements: HashMap<&str, &str> = [
+        // Common dependencies -> workspace references
+        (
+            "serde = { version = \"^1.0\", features = [\"derive\"] }",
+            "serde = { workspace = true, features = [\"derive\"] }",
+        ),
+        ("serde_json = \"^1.0\"", "serde_json.workspace = true"),
+        ("serde_repr = \"^0.1\"", "serde_repr.workspace = true"),
+        (
+            "serde_with = { version = \"^3.8\", default-features = false, features = [\"base64\", \"std\", \"macros\"] }",
+            "serde_with = { workspace = true, default-features = false, features = [\"base64\", \"std\", \"macros\"] }",
+        ),
+        ("url = \"^2.5\"", "url.workspace = true"),
+        (
+            "uuid = { version = \"^1.8\", features = [\"serde\", \"v4\"] }",
+            "uuid = { workspace = true, features = [\"serde\", \"v4\"] }",
+        ),
+        (
+            "hyper = { version = \"^1.3.1\", features = [\"full\"] }",
+            "hyper = { workspace = true, features = [\"full\"] }",
+        ),
+        (
+            "hyper-util = { version = \"0.1.5\", features = [\"client\", \"client-legacy\", \"http1\", \"http2\"] }",
+            "hyper-util = { workspace = true, features = [\"client\", \"client-legacy\", \"http1\", \"http2\"] }",
+        ),
+        (
+            "http-body-util = { version = \"0.1.2\" }",
+            "http-body-util.workspace = true",
+        ),
+        ("base64 = \"0.22.1\"", "base64.workspace = true"),
+        ("futures = \"^0.3\"", "futures.workspace = true"),
+    ]
+    .iter()
+    .cloned()
+    .collect();
+    replace_in_file(&cargo_toml_path, replacements);
+}
+
 fn fix_error_type(pkg_dir: &str) {
     let mod_rs_path = Path::new(pkg_dir).join("src/apis/mod.rs");
     if !mod_rs_path.exists() {
@@ -364,6 +404,7 @@ fn main() {
 
         process_directory(&PathBuf::from(pkg_dir), pkg_name);
         fix_generated_dependencies(pkg_dir);
+        fix_workspace_dependencies(pkg_dir);
         fix_error_type(pkg_dir);
         fix_api_client_clone(pkg_dir);
     }

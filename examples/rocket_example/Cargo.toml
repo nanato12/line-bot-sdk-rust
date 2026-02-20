@@ -6,7 +6,7 @@ workspace = "../"
 publish = false
 
 [dependencies]
-dotenv = "0.15.0"
+dotenvy = "0.15.7"
 serde_json = "1.0.149"
 
 [dependencies.rocket]
