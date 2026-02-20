@@ -63,8 +63,7 @@ mod tests {
         type HmacSha256 = Hmac<Sha256>;
         let mut mac = HmacSha256::new_from_slice(channel_secret.as_bytes()).unwrap();
         mac.update(body.as_bytes());
-        let expected =
-            general_purpose::STANDARD.encode(mac.finalize().into_bytes());
+        let expected = general_purpose::STANDARD.encode(mac.finalize().into_bytes());
 
         assert!(validate_signature(channel_secret, &expected, body));
     }
@@ -80,7 +79,11 @@ mod tests {
 
     #[test]
     fn test_malformed_base64_signature() {
-        assert!(!validate_signature("test_secret", "not-valid-base64!!!", "body"));
+        assert!(!validate_signature(
+            "test_secret",
+            "not-valid-base64!!!",
+            "body"
+        ));
     }
 
     #[test]
@@ -91,8 +94,7 @@ mod tests {
         type HmacSha256 = Hmac<Sha256>;
         let mut mac = HmacSha256::new_from_slice(channel_secret.as_bytes()).unwrap();
         mac.update(body.as_bytes());
-        let expected =
-            general_purpose::STANDARD.encode(mac.finalize().into_bytes());
+        let expected = general_purpose::STANDARD.encode(mac.finalize().into_bytes());
 
         assert!(validate_signature(channel_secret, &expected, body));
     }

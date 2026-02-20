@@ -121,6 +121,39 @@ fn fix_openapi_messaging_api(file_path: &Path) {
     replace_in_file(file_path, replacements);
 }
 
+fn fix_generated_dependencies(pkg_dir: &str) {
+    let cargo_toml_path = Path::new(pkg_dir).join("Cargo.toml");
+    let replacements: HashMap<&str, &str> = [
+        // Remove unused http crate (hyper 1.x re-exports http types via hyper::http)
+        ("http = \"~0.2\"\n", ""),
+        // Update base64 from 0.7 to 0.22
+        ("base64 = \"~0.7.0\"", "base64 = \"0.22.1\""),
+    ]
+    .iter()
+    .cloned()
+    .collect();
+    replace_in_file(&cargo_toml_path, replacements);
+
+    // Update base64 API usage in request.rs (0.7 -> 0.22)
+    let request_rs_path = Path::new(pkg_dir).join("src/apis/request.rs");
+    if request_rs_path.exists() {
+        let replacements: HashMap<&str, &str> = [
+            (
+                "use http_body_util::BodyExt;",
+                "use base64::Engine as _;\nuse http_body_util::BodyExt;",
+            ),
+            (
+                "let encoded = base64::encode(&text);",
+                "let encoded = base64::engine::general_purpose::STANDARD.encode(&text);",
+            ),
+        ]
+        .iter()
+        .cloned()
+        .collect();
+        replace_in_file(&request_rs_path, replacements);
+    }
+}
+
 fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
     if let Ok(entries) = fs::read_dir(dir_path) {
         for entry in entries {
@@ -238,7 +271,8 @@ fn main() {
             continue;
         }
 
-        process_directory(&PathBuf::from(pkg_dir), pkg_name)
+        process_directory(&PathBuf::from(pkg_dir), pkg_name);
+        fix_generated_dependencies(pkg_dir);
     }
 
     let sources = vec![
