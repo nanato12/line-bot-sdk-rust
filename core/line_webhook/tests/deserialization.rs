@@ -335,14 +335,12 @@ fn deserialize_callback_request_with_text_message() {
     assert_eq!(req.destination, "U1234567890abcdef1234567890abcdef");
     assert_eq!(req.events.len(), 1);
     match &req.events[0] {
-        Event::MessageEvent(e) => {
-            match e.message.as_ref() {
-                MessageContent::TextMessageContent(t) => {
-                    assert_eq!(t.text, "Hello from LINE!");
-                }
-                _ => panic!("expected TextMessageContent"),
+        Event::MessageEvent(e) => match e.message.as_ref() {
+            MessageContent::TextMessageContent(t) => {
+                assert_eq!(t.text, "Hello from LINE!");
             }
-        }
+            _ => panic!("expected TextMessageContent"),
+        },
         _ => panic!("expected MessageEvent"),
     }
     // roundtrip
@@ -420,8 +418,14 @@ fn event_mode_roundtrip() {
     let standby: EventMode = serde_json::from_str(r#""standby""#).unwrap();
     assert_eq!(standby, EventMode::Standby);
 
-    assert_eq!(serde_json::to_string(&EventMode::Active).unwrap(), r#""active""#);
-    assert_eq!(serde_json::to_string(&EventMode::Standby).unwrap(), r#""standby""#);
+    assert_eq!(
+        serde_json::to_string(&EventMode::Active).unwrap(),
+        r#""active""#
+    );
+    assert_eq!(
+        serde_json::to_string(&EventMode::Standby).unwrap(),
+        r#""standby""#
+    );
 }
 
 #[test]

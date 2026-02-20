@@ -409,12 +409,23 @@ fn main() {
         let pkg_name = &format!("{PKG_NAME_PREFIX}_{}", service.replace("-", "_"));
         let pkg_dir = &format!("{OUTPUT_DIR}/{pkg_name}");
 
-        // Initialize package directory
+        // Initialize package directory (preserve hand-written tests/)
+        let tests_dir = Path::new(pkg_dir).join("tests");
+        let tests_backup = Path::new(pkg_dir).with_file_name(format!("{pkg_name}_tests_backup"));
+        let has_tests = tests_dir.exists();
+        if has_tests {
+            fs::rename(&tests_dir, &tests_backup)
+                .unwrap_or_else(|e| panic!("Failed to backup tests/: {e}"));
+        }
         if Path::new(pkg_dir).exists() {
             fs::remove_dir_all(pkg_dir)
                 .unwrap_or_else(|e| panic!("Failed to remove {pkg_dir}: {e}"));
         }
         fs::create_dir_all(pkg_dir).unwrap_or_else(|e| panic!("Failed to create {pkg_dir}: {e}"));
+        if has_tests {
+            fs::rename(&tests_backup, &tests_dir)
+                .unwrap_or_else(|e| panic!("Failed to restore tests/: {e}"));
+        }
 
         // Place .openapi-generator-ignore in the package directory
         fs::copy(
