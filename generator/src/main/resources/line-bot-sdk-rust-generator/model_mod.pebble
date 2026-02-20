@@ -1,0 +1,6 @@
+{{ licenseHeader }}
+{% for mm in models -%}
+{% set model = mm.model -%}
+pub mod {{ model.classFilename }};
+pub use self::{{ model.classFilename }}::{{ model.classname }};
+{% endfor -%}

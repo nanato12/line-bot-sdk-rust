@@ -42,7 +42,7 @@ async fn world(signature: Signature, body: String) -> (Status, &'static str) {
                     {
                         let reply_message_request = ReplyMessageRequest {
                             reply_token: message_event.reply_token.unwrap(),
-                            messages: vec![Message::Text(TextMessage::new(text_message.text))],
+                            messages: vec![Message::TextMessage(TextMessage::new(text_message.text))],
                             notification_disabled: Some(false),
                         };
                         let result = line

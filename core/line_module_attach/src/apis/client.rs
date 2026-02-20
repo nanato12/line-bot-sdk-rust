@@ -21,7 +21,7 @@ use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
 pub struct APIClient {
-    line_module_attach_api: Box<dyn crate::apis::LineModuleAttachApi>,
+    lineModuleAttach: Box<dyn crate::apis::LineModuleAttachApi>,
 }
 
 impl APIClient {
@@ -32,13 +32,10 @@ impl APIClient {
         let rc = Arc::new(configuration);
 
         APIClient {
-            line_module_attach_api: Box::new(crate::apis::LineModuleAttachApiClient::new(
-                rc.clone(),
-            )),
+            lineModuleAttach: Box::new(crate::apis::LineModuleAttachApiClient::new(rc.clone())),
         }
     }
-
-    pub fn line_module_attach_api(&self) -> &dyn crate::apis::LineModuleAttachApi {
-        self.line_module_attach_api.as_ref()
+    pub fn lineModuleAttach(&self) -> &dyn crate::apis::LineModuleAttachApi {
+        self.lineModuleAttach.as_ref()
     }
 }

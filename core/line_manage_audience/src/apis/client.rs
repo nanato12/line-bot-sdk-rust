@@ -21,8 +21,8 @@ use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
 pub struct APIClient {
-    manage_audience_api: Box<dyn crate::apis::ManageAudienceApi>,
-    manage_audience_blob_api: Box<dyn crate::apis::ManageAudienceBlobApi>,
+    manageAudience: Box<dyn crate::apis::ManageAudienceApi>,
+    manageAudienceBlob: Box<dyn crate::apis::ManageAudienceBlobApi>,
 }
 
 impl APIClient {
@@ -33,18 +33,14 @@ impl APIClient {
         let rc = Arc::new(configuration);
 
         APIClient {
-            manage_audience_api: Box::new(crate::apis::ManageAudienceApiClient::new(rc.clone())),
-            manage_audience_blob_api: Box::new(crate::apis::ManageAudienceBlobApiClient::new(
-                rc.clone(),
-            )),
+            manageAudience: Box::new(crate::apis::ManageAudienceApiClient::new(rc.clone())),
+            manageAudienceBlob: Box::new(crate::apis::ManageAudienceBlobApiClient::new(rc.clone())),
         }
     }
-
-    pub fn manage_audience_api(&self) -> &dyn crate::apis::ManageAudienceApi {
-        self.manage_audience_api.as_ref()
+    pub fn manageAudience(&self) -> &dyn crate::apis::ManageAudienceApi {
+        self.manageAudience.as_ref()
     }
-
-    pub fn manage_audience_blob_api(&self) -> &dyn crate::apis::ManageAudienceBlobApi {
-        self.manage_audience_blob_api.as_ref()
+    pub fn manageAudienceBlob(&self) -> &dyn crate::apis::ManageAudienceBlobApi {
+        self.manageAudienceBlob.as_ref()
     }
 }

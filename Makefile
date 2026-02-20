@@ -14,4 +14,4 @@ publish:
 
 .PHONY: generate
 generate:
-	cargo run generator/src/main.rs
+	python3 generate-code.py

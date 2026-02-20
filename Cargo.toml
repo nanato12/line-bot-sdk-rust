@@ -1,7 +1,6 @@
 [workspace]
 resolver = "2"
 members = [
-    "generator",
     "core/line_channel_access_token",
     "core/line_insight",
     "core/lib/",
