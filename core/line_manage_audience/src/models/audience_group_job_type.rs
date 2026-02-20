@@ -29,6 +29,7 @@ use serde::{Deserialize, Serialize};
 /// AudienceGroupJobType : Job Type
 /// Job Type
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum AudienceGroupJobType {
     #[serde(rename = "DIFF_ADD")]
     DiffAdd,

@@ -56,6 +56,7 @@ impl FlexSpan {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Weight {
     #[serde(rename = "regular")]
     Regular,
@@ -70,6 +71,7 @@ impl Default for Weight {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Style {
     #[serde(rename = "normal")]
     Normal,
@@ -84,6 +86,7 @@ impl Default for Style {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Decoration {
     #[serde(rename = "none")]
     None,

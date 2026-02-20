@@ -50,6 +50,7 @@ impl BeaconContent {
 }
 /// Type of beacon event.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Type {
     #[serde(rename = "enter")]
     Enter,

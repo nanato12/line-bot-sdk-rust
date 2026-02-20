@@ -10,10 +10,13 @@ import re
 import shutil
 import subprocess
 import sys
+import urllib.request
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
-CLI_JAR = os.path.join(ROOT, "tools", "openapi-generator-cli-7.20.0.jar")
+CLI_VERSION = "7.20.0"
+CLI_JAR = os.path.join(ROOT, "tools", f"openapi-generator-cli-{CLI_VERSION}.jar")
+CLI_URL = f"https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/{CLI_VERSION}/openapi-generator-cli-{CLI_VERSION}.jar"
 GENERATOR_JAR = os.path.join(
     ROOT, "generator", "target", "line-bot-sdk-rust-generator-1.0.0.jar"
 )
@@ -138,11 +141,18 @@ def format_code():
     )
 
 
+def download_cli():
+    """Download the OpenAPI Generator CLI JAR if not present."""
+    if os.path.exists(CLI_JAR):
+        return
+    os.makedirs(os.path.dirname(CLI_JAR), exist_ok=True)
+    print(f"Downloading OpenAPI Generator CLI {CLI_VERSION}...")
+    urllib.request.urlretrieve(CLI_URL, CLI_JAR)
+    print(f"  Saved to {CLI_JAR}")
+
+
 def main():
-    if not os.path.exists(CLI_JAR):
-        print(f"ERROR: OpenAPI Generator CLI not found at {CLI_JAR}", file=sys.stderr)
-        print("Download it from https://github.com/OpenAPITools/openapi-generator", file=sys.stderr)
-        sys.exit(1)
+    download_cli()
 
     build_generator()
 

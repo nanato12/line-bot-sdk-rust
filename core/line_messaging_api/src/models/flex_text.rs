@@ -104,6 +104,7 @@ impl FlexText {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Align {
     #[serde(rename = "start")]
     Start,
@@ -120,6 +121,7 @@ impl Default for Align {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Gravity {
     #[serde(rename = "top")]
     Top,
@@ -136,6 +138,7 @@ impl Default for Gravity {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Weight {
     #[serde(rename = "regular")]
     Regular,
@@ -150,6 +153,7 @@ impl Default for Weight {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Style {
     #[serde(rename = "normal")]
     Normal,
@@ -164,6 +168,7 @@ impl Default for Style {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Decoration {
     #[serde(rename = "none")]
     None,
@@ -180,6 +185,7 @@ impl Default for Decoration {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Position {
     #[serde(rename = "relative")]
     Relative,
@@ -194,6 +200,7 @@ impl Default for Position {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum AdjustMode {
     #[serde(rename = "shrink-to-fit")]
     ShrinkToFit,

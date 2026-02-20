@@ -72,6 +72,7 @@ impl BotInfoResponse {
 }
 /// Chat settings set in the LINE Official Account Manager. One of:  `chat`: Chat is set to \"On\". `bot`: Chat is set to \"Off\".
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum ChatMode {
     #[serde(rename = "chat")]
     Chat,
@@ -86,6 +87,7 @@ impl Default for ChatMode {
 }
 /// Automatic read setting for messages. If the chat is set to \"Off\", auto is returned. If the chat is set to \"On\", manual is returned.  `auto`: Auto read setting is enabled. `manual`: Auto read setting is disabled.  
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum MarkAsReadMode {
     #[serde(rename = "auto")]
     Auto,

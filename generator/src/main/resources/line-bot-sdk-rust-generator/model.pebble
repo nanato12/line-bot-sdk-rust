@@ -31,6 +31,7 @@ pub enum {{ model.classname }} {
 /// {{ model.description }}
 {% endif -%}
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum {{ model.classname }} {
 {% for enumVar in model.allowableValues.enumVars -%}
     #[serde(rename = "{{ enumVar.value }}")]
@@ -98,6 +99,7 @@ impl {{ model.classname }} {
 
 /// {{ var.description }}
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum {{ var.enumName }} {
 {% for enumVar in var.allowableValues.enumVars -%}
     #[serde(rename = "{{ enumVar.value }}")]

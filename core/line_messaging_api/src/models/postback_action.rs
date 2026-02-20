@@ -57,6 +57,7 @@ impl PostbackAction {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum InputOption {
     #[serde(rename = "closeRichMenu")]
     CloseRichMenu,

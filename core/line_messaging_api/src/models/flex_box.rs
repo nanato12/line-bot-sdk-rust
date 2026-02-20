@@ -119,6 +119,7 @@ impl FlexBox {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Layout {
     #[serde(rename = "horizontal")]
     Horizontal,
@@ -135,6 +136,7 @@ impl Default for Layout {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Position {
     #[serde(rename = "relative")]
     Relative,
@@ -149,6 +151,7 @@ impl Default for Position {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum JustifyContent {
     #[serde(rename = "center")]
     Center,
@@ -171,6 +174,7 @@ impl Default for JustifyContent {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum AlignItems {
     #[serde(rename = "center")]
     Center,

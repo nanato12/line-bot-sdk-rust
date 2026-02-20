@@ -52,6 +52,7 @@ impl ContentProvider {
 }
 /// Provider of the image file.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Type {
     #[serde(rename = "line")]
     Line,

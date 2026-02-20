@@ -57,6 +57,7 @@ impl DatetimePickerAction {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Mode {
     #[serde(rename = "date")]
     Date,

@@ -29,6 +29,7 @@ use serde::{Deserialize, Serialize};
 /// FlexMargin : You can specify the minimum space before a child component with the `margin` property of the child component, in pixels or with a keyword. FlexMargin just provides only keywords.
 /// You can specify the minimum space before a child component with the `margin` property of the child component, in pixels or with a keyword. FlexMargin just provides only keywords.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum FlexMargin {
     #[serde(rename = "none")]
     None,

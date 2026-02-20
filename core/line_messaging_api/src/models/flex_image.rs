@@ -101,6 +101,7 @@ impl FlexImage {
 }
 /// Reference for offsetTop, offsetBottom, offsetStart, and offsetEnd. Specify one of the following values:  `relative`: Use the previous box as reference. `absolute`: Use the top left of parent element as reference. The default value is relative.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Position {
     #[serde(rename = "relative")]
     Relative,
@@ -115,6 +116,7 @@ impl Default for Position {
 }
 /// Alignment style in horizontal direction.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Align {
     #[serde(rename = "start")]
     Start,
@@ -131,6 +133,7 @@ impl Default for Align {
 }
 /// Alignment style in vertical direction.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Gravity {
     #[serde(rename = "top")]
     Top,
@@ -147,6 +150,7 @@ impl Default for Gravity {
 }
 /// The display style of the image if the aspect ratio of the image and that specified by the aspectRatio property do not match.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum AspectMode {
     #[serde(rename = "fit")]
     Fit,

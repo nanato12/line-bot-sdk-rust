@@ -29,6 +29,7 @@ use serde::{Deserialize, Serialize};
 /// AudienceGroupJobFailedType : Failed type
 /// Failed type
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum AudienceGroupJobFailedType {
     #[serde(rename = "INTERNAL_ERROR")]
     InternalError,

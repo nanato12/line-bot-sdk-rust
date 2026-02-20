@@ -42,6 +42,7 @@ impl GetMessageContentTranscodingResponse {
 }
 /// The preparation status. One of:  `processing`: Preparing to get content. `succeeded`: Ready to get the content. You can get the content sent by users. `failed`: Failed to prepare to get the content.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Status {
     #[serde(rename = "processing")]
     Processing,

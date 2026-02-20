@@ -45,6 +45,7 @@ impl CashBackFixedPriceInfoResponse {
 }
 /// Currency code (e.g., JPY, THB, TWD).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Currency {
     #[serde(rename = "JPY")]
     Jpy,

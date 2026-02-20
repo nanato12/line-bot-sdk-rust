@@ -43,6 +43,7 @@ impl DetachedModuleContent {
 }
 /// Reason for detaching
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Reason {
     #[serde(rename = "bot_deleted")]
     BotDeleted,

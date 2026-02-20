@@ -29,6 +29,7 @@ use serde::{Deserialize, Serialize};
 /// AudienceGroupCreateRoute : How the audience was created. One of:  - `OA_MANAGER`: Audience created with [LINE Official Account Manager](https://manager.line.biz/). - `MESSAGING_API`: Audience created with Messaging API. - `POINT_AD`: Audience created with [LINE Points Ads](https://www.linebiz.com/jp/service/line-point-ad/) (Japanese only). - `AD_MANAGER`: Audience created with [LINE Ads](https://admanager.line.biz/).
 /// How the audience was created. One of:  - `OA_MANAGER`: Audience created with [LINE Official Account Manager](https://manager.line.biz/). - `MESSAGING_API`: Audience created with Messaging API. - `POINT_AD`: Audience created with [LINE Points Ads](https://www.linebiz.com/jp/service/line-point-ad/) (Japanese only). - `AD_MANAGER`: Audience created with [LINE Ads](https://admanager.line.biz/).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum AudienceGroupCreateRoute {
     #[serde(rename = "OA_MANAGER")]
     OaManager,

@@ -80,6 +80,7 @@ impl FlexButton {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Style {
     #[serde(rename = "primary")]
     Primary,
@@ -96,6 +97,7 @@ impl Default for Style {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Gravity {
     #[serde(rename = "top")]
     Top,
@@ -112,6 +114,7 @@ impl Default for Gravity {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Position {
     #[serde(rename = "relative")]
     Relative,
@@ -126,6 +129,7 @@ impl Default for Position {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Height {
     #[serde(rename = "md")]
     Md,
@@ -140,6 +144,7 @@ impl Default for Height {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum AdjustMode {
     #[serde(rename = "shrink-to-fit")]
     ShrinkToFit,

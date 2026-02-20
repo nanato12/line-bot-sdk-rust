@@ -45,6 +45,7 @@ impl LinkContent {
 }
 /// One of the following values to indicate whether linking the account was successful or not
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Result {
     #[serde(rename = "ok")]
     Ok,

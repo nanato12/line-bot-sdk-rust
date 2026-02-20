@@ -29,6 +29,7 @@ use serde::{Deserialize, Serialize};
 /// AudienceGroupFailedType : Failed type
 /// Failed type
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum AudienceGroupFailedType {
     #[serde(rename = "AUDIENCE_GROUP_AUDIENCE_INSUFFICIENT")]
     AudienceGroupAudienceInsufficient,

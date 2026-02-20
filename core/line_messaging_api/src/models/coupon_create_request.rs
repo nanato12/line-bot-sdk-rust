@@ -98,6 +98,7 @@ impl CouponCreateRequest {
 }
 /// Visibility of the coupon. Determines who can see or acquire the coupon.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Visibility {
     #[serde(rename = "UNLISTED")]
     Unlisted,
@@ -112,6 +113,7 @@ impl Default for Visibility {
 }
 /// Timezone for interpreting start and end timestamps.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum Timezone {
     #[serde(rename = "ETC_GMT_MINUS_12")]
     EtcGmtMinus12,

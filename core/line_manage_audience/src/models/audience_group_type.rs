@@ -29,6 +29,7 @@ use serde::{Deserialize, Serialize};
 /// AudienceGroupType : Audience group type
 /// Audience group type
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum AudienceGroupType {
     #[serde(rename = "UPLOAD")]
     Upload,

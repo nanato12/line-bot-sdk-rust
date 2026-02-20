@@ -46,6 +46,7 @@ impl SubscriptionPeriodTile {
 }
 /// Subscription period. Possible values: `within7days`, `within90days`, `unknown` etc.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum SubscriptionPeriod {
     #[serde(rename = "within7days")]
     Within7days,
