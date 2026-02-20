@@ -56,6 +56,34 @@ impl From<(hyper::StatusCode, hyper::body::Incoming)> for Error {
     }
 }
 
+impl fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Error::Api(e) => write!(f, "API error (status {})", e.code),
+            Error::Header(e) => write!(f, "invalid header: {}", e),
+            Error::Http(e) => write!(f, "HTTP error: {}", e),
+            Error::Hyper(e) => write!(f, "hyper error: {}", e),
+            Error::HyperClient(e) => write!(f, "hyper client error: {}", e),
+            Error::Serde(e) => write!(f, "serde error: {}", e),
+            Error::UriError(e) => write!(f, "URI error: {}", e),
+        }
+    }
+}
+
+impl std::error::Error for Error {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Error::Header(e) => Some(e),
+            Error::Http(e) => Some(e),
+            Error::Hyper(e) => Some(e),
+            Error::HyperClient(e) => Some(e),
+            Error::Serde(e) => Some(e),
+            Error::UriError(e) => Some(e),
+            _ => None,
+        }
+    }
+}
+
 impl From<http::Error> for Error {
     fn from(e: http::Error) -> Self {
         Error::Http(e)
