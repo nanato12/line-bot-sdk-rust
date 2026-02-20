@@ -16,8 +16,6 @@
 
 use std::collections::HashMap;
 use std::fs;
-use std::fs::File;
-use std::io::{Read, Write};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -43,23 +41,28 @@ const OPENAPI_GENERATOR_CLI_VERSION: &str = "7.20.0";
 const SPEC_DIR: &str = "line-openapi";
 const OUTPUT_DIR: &str = "core";
 
+fn read_file(path: &Path) -> String {
+    fs::read_to_string(path).unwrap_or_else(|e| panic!("Failed to read {}: {e}", path.display()))
+}
+
+fn write_file(path: &Path, contents: &str) {
+    fs::write(path, contents).unwrap_or_else(|e| panic!("Failed to write {}: {e}", path.display()));
+}
+
 // replace_in_file - Use hashmap to replace the entire contents of a file.
 fn replace_in_file(file_path: &Path, replacements: HashMap<&str, &str>) {
-    let mut file = File::open(file_path).unwrap();
-    let mut contents = String::new();
-    file.read_to_string(&mut contents).unwrap();
+    let mut contents = read_file(file_path);
 
     for (key, value) in replacements.iter() {
         contents = contents.replace(key, value);
     }
 
-    let mut file = File::create(file_path).unwrap();
-    file.write_all(contents.as_bytes()).unwrap();
+    write_file(file_path, &contents);
 }
 
 fn fix_openapi_webhook(file_path: &Path) {
     let mut replacements: HashMap<&str, &str> = HashMap::new();
-    let p = file_path.to_str().unwrap();
+    let p = file_path.to_str().expect("Non-UTF8 path");
 
     // delete type from event, source, message_content
     if p.contains("_event.rs") || p.contains("_source.rs") || p.contains("_message_content.rs") {
@@ -106,7 +109,7 @@ fn fix_openapi_messaging_api(file_path: &Path) {
     .cloned()
     .collect();
 
-    let p = file_path.to_str().unwrap();
+    let p = file_path.to_str().expect("Non-UTF8 path");
 
     // delete type from event, source, message_content
     if p.contains("_message.rs") {
@@ -160,9 +163,7 @@ fn fix_error_type(pkg_dir: &str) {
         return;
     }
 
-    let mut file = File::open(&mod_rs_path).unwrap();
-    let mut contents = String::new();
-    file.read_to_string(&mut contents).unwrap();
+    let mut contents = read_file(&mod_rs_path);
 
     // Skip if already patched
     if contents.contains("impl fmt::Display for Error") {
@@ -204,8 +205,7 @@ impl std::error::Error for Error {
         &format!("{impls}impl From<http::Error> for Error {{"),
     );
 
-    let mut file = File::create(&mod_rs_path).unwrap();
-    file.write_all(contents.as_bytes()).unwrap();
+    write_file(&mod_rs_path, &contents);
 }
 
 fn fix_api_client_clone(pkg_dir: &str) {
@@ -214,80 +214,87 @@ fn fix_api_client_clone(pkg_dir: &str) {
         return;
     }
 
-    if let Ok(entries) = fs::read_dir(&apis_dir) {
-        for entry in entries.flatten() {
-            let path = entry.path();
-            if path.extension().map_or(true, |e| e != "rs") {
-                continue;
-            }
-
-            let mut file = File::open(&path).unwrap();
-            let mut contents = String::new();
-            file.read_to_string(&mut contents).unwrap();
-
-            if !contents.contains("pub struct ") || !contents.contains("ApiClient<C: Connect>") {
-                continue;
-            }
-
-            // Skip if already patched
-            if contents.contains("#[derive(Clone)]") {
-                continue;
-            }
-
-            contents = contents.replace("pub struct ", "#[derive(Clone)]\npub struct ");
-
-            let mut file = File::create(&path).unwrap();
-            file.write_all(contents.as_bytes()).unwrap();
+    for entry in fs::read_dir(&apis_dir)
+        .unwrap_or_else(|e| panic!("Failed to read {}: {e}", apis_dir.display()))
+        .flatten()
+    {
+        let path = entry.path();
+        if path.extension().map_or(true, |e| e != "rs") {
+            continue;
         }
+
+        let contents = read_file(&path);
+
+        if !contents.contains("pub struct ") || !contents.contains("ApiClient<C: Connect>") {
+            continue;
+        }
+
+        // Skip if already patched
+        if contents.contains("#[derive(Clone)]") {
+            continue;
+        }
+
+        let contents = contents.replace("pub struct ", "#[derive(Clone)]\npub struct ");
+        write_file(&path, &contents);
     }
 }
 
 fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
-    if let Ok(entries) = fs::read_dir(dir_path) {
-        for entry in entries {
-            if let Ok(entry) = entry {
-                let path = entry.path();
-                if path.is_dir() {
-                    process_directory(&path, pkg_name);
-                } else if let Some(extension) = path.extension() {
-                    if extension == "rs" {
-                        println!("{}", path.as_path().to_str().unwrap());
+    let manage_audience_marker = format!("{OUTPUT_DIR}/{PKG_NAME_PREFIX}_manage_audience/");
+    let webhook_marker = format!("{OUTPUT_DIR}/{PKG_NAME_PREFIX}_webhook/");
+    let messaging_api_marker = format!("{OUTPUT_DIR}/{PKG_NAME_PREFIX}_messaging_api/");
 
-                        if path
-                            .to_str()
-                            .unwrap()
-                            .contains(&format!("{OUTPUT_DIR}/{PKG_NAME_PREFIX}_manage_audience/"))
-                        {
-                            fix_openapi_manage_audience(path.as_path());
-                        }
-                        if path
-                            .to_str()
-                            .unwrap()
-                            .contains(&format!("{OUTPUT_DIR}/{PKG_NAME_PREFIX}_webhook/"))
-                        {
-                            fix_openapi_webhook(path.as_path());
-                        }
-                        if path
-                            .to_str()
-                            .unwrap()
-                            .contains(&format!("{OUTPUT_DIR}/{PKG_NAME_PREFIX}_messaging_api/"))
-                        {
-                            fix_openapi_messaging_api(path.as_path());
-                        }
-
-                        let mut file = File::open(path.as_path()).unwrap();
-                        let mut contents = String::new();
-                        file.read_to_string(&mut contents).unwrap();
-
-                        contents = format!("{LICENSE}\n{contents}");
-
-                        let mut file = File::create(path.as_path()).unwrap();
-                        file.write_all(contents.as_bytes()).unwrap();
-                    }
-                }
-            }
+    for entry in fs::read_dir(dir_path)
+        .unwrap_or_else(|e| panic!("Failed to read {}: {e}", dir_path.display()))
+        .flatten()
+    {
+        let path = entry.path();
+        if path.is_dir() {
+            process_directory(&path, pkg_name);
+            continue;
         }
+
+        if path.extension().map_or(true, |e| e != "rs") {
+            continue;
+        }
+
+        let path_str = path.to_str().expect("Non-UTF8 path");
+        println!("{path_str}");
+
+        if path_str.contains(&manage_audience_marker) {
+            fix_openapi_manage_audience(path.as_path());
+        }
+        if path_str.contains(&webhook_marker) {
+            fix_openapi_webhook(path.as_path());
+        }
+        if path_str.contains(&messaging_api_marker) {
+            fix_openapi_messaging_api(path.as_path());
+        }
+
+        let contents = read_file(&path);
+        write_file(&path, &format!("{LICENSE}\n{contents}"));
     }
+}
+
+fn download_jar(jar_path: &str) {
+    let url = format!(
+        "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/{OPENAPI_GENERATOR_CLI_VERSION}/openapi-generator-cli-{OPENAPI_GENERATOR_CLI_VERSION}.jar"
+    );
+
+    fs::create_dir_all("./tools").expect("Failed to create tools directory");
+
+    let status = Command::new("curl")
+        .arg("-fSL")
+        .arg("-o")
+        .arg(jar_path)
+        .arg(&url)
+        .status()
+        .expect("Failed to execute curl. Is curl installed?");
+
+    assert!(
+        status.success(),
+        "Failed to download openapi-generator-cli jar"
+    );
 }
 
 fn main() {
@@ -295,14 +302,7 @@ fn main() {
         &format!("./tools/openapi-generator-cli-{OPENAPI_GENERATOR_CLI_VERSION}.jar");
 
     if !Path::new(jar_path).exists() {
-        let url = format!(
-            "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/{OPENAPI_GENERATOR_CLI_VERSION}/openapi-generator-cli-{OPENAPI_GENERATOR_CLI_VERSION}.jar"
-        );
-        let _ = Command::new("wget")
-            .arg(&url)
-            .arg("-P")
-            .arg("./tools")
-            .status();
+        download_jar(jar_path);
     }
 
     let services = vec![
@@ -322,14 +322,18 @@ fn main() {
         let pkg_dir = &format!("{OUTPUT_DIR}/{pkg_name}");
 
         // Initialize package directory
-        let _ = Command::new("rm").arg("-rf").arg(pkg_dir).status();
-        let _ = Command::new("mkdir").arg("-p").arg(pkg_dir).status();
+        if Path::new(pkg_dir).exists() {
+            fs::remove_dir_all(pkg_dir)
+                .unwrap_or_else(|e| panic!("Failed to remove {pkg_dir}: {e}"));
+        }
+        fs::create_dir_all(pkg_dir).unwrap_or_else(|e| panic!("Failed to create {pkg_dir}: {e}"));
 
         // Place .openapi-generator-ignore in the package directory
-        let _ = fs::copy(
+        fs::copy(
             "./tools/.openapi-generator-ignore",
             format!("{pkg_dir}/.openapi-generator-ignore"),
-        );
+        )
+        .expect("Failed to copy .openapi-generator-ignore");
 
         // Run openapi-generator-cli
         let openapi_generate_result = Command::new("java")
@@ -352,11 +356,10 @@ fn main() {
             .arg("--additional-properties")
             .arg("useSingleRequestParameter=true")
             .status()
-            .expect("failed to execute openapi-generator-cli");
+            .expect("Failed to execute openapi-generator-cli. Is java installed?");
 
-        if openapi_generate_result.code() != Some(0) {
-            println!("failed to generate package: {pkg_name}");
-            continue;
+        if !openapi_generate_result.success() {
+            panic!("Failed to generate package: {pkg_name}");
         }
 
         process_directory(&PathBuf::from(pkg_dir), pkg_name);
@@ -373,17 +376,22 @@ fn main() {
     ];
 
     for source in sources {
-        let _ = fs::copy(
+        fs::copy(
             format!("./tools/sources/{source}"),
             format!("core/{PKG_NAME_PREFIX}_{source}"),
-        );
+        )
+        .unwrap_or_else(|e| panic!("Failed to copy source {source}: {e}"));
     }
 
-    let _ = Command::new("cargo")
+    Command::new("cargo")
         .arg("fix")
         .arg("--allow-dirty")
         .arg("--allow-staged")
-        .status();
+        .status()
+        .expect("Failed to execute cargo fix");
 
-    let _ = Command::new("cargo").arg("fmt").status();
+    Command::new("cargo")
+        .arg("fmt")
+        .status()
+        .expect("Failed to execute cargo fmt");
 }
