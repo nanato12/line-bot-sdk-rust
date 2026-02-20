@@ -338,6 +338,10 @@ fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
     {
         let path = entry.path();
         if path.is_dir() {
+            // Skip hand-written tests directory
+            if path.file_name().map_or(false, |n| n == "tests") {
+                continue;
+            }
             process_directory(&path, pkg_name);
             continue;
         }
