@@ -20,24 +20,97 @@ use base64::{engine::general_purpose, Engine as _};
 use hmac::{Hmac, Mac};
 use sha2::Sha256;
 
-/// Signature validator
-/// # Note
-/// The signature in the `x-line-signature` request header must be verified to confirm that the request was sent from the LINE Platform. [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#signature-validation)
+/// Validate the signature of a webhook request using HMAC-SHA256.
+///
+/// The signature in the `x-line-signature` request header must be verified
+/// to confirm that the request was sent from the LINE Platform.
+/// [\[detail\]](https://developers.line.biz/en/reference/messaging-api/#signature-validation)
+///
+/// This function uses constant-time comparison to prevent timing side-channel attacks.
+///
 /// # Example
 /// ```
-/// if validate_signature(channel_secret, signature, body) {
-///     // OK
-/// } else {
-///     // NG
-/// }
+/// use line_bot_sdk_rust::parser::signature::validate_signature;
+///
+/// let is_valid = validate_signature("channel_secret", "signature", "body");
 /// ```
 pub fn validate_signature(channel_secret: &str, signature: &str, body: &str) -> bool {
     type HmacSha256 = Hmac<Sha256>;
 
-    let mut mac = HmacSha256::new_from_slice(channel_secret.as_bytes())
-        .expect("HMAC can take key of any size");
+    let Ok(mut mac) = HmacSha256::new_from_slice(channel_secret.as_bytes()) else {
+        return false;
+    };
     mac.update(body.as_bytes());
-    let mut buf = String::new();
-    general_purpose::STANDARD.encode_string(mac.finalize().into_bytes(), &mut buf);
-    buf == signature
+
+    let Ok(decoded_signature) = general_purpose::STANDARD.decode(signature) else {
+        return false;
+    };
+
+    // verify_slice uses constant-time comparison internally
+    mac.verify_slice(&decoded_signature).is_ok()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_valid_signature() {
+        let channel_secret = "test_secret";
+        let body = r#"{"events":[]}"#;
+
+        // Generate expected signature
+        type HmacSha256 = Hmac<Sha256>;
+        let mut mac = HmacSha256::new_from_slice(channel_secret.as_bytes()).unwrap();
+        mac.update(body.as_bytes());
+        let expected =
+            general_purpose::STANDARD.encode(mac.finalize().into_bytes());
+
+        assert!(validate_signature(channel_secret, &expected, body));
+    }
+
+    #[test]
+    fn test_invalid_signature() {
+        assert!(!validate_signature(
+            "test_secret",
+            "aW52YWxpZA==",
+            r#"{"events":[]}"#
+        ));
+    }
+
+    #[test]
+    fn test_malformed_base64_signature() {
+        assert!(!validate_signature("test_secret", "not-valid-base64!!!", "body"));
+    }
+
+    #[test]
+    fn test_empty_body() {
+        let channel_secret = "secret";
+        let body = "";
+
+        type HmacSha256 = Hmac<Sha256>;
+        let mut mac = HmacSha256::new_from_slice(channel_secret.as_bytes()).unwrap();
+        mac.update(body.as_bytes());
+        let expected =
+            general_purpose::STANDARD.encode(mac.finalize().into_bytes());
+
+        assert!(validate_signature(channel_secret, &expected, body));
+    }
+
+    #[test]
+    fn test_empty_signature() {
+        assert!(!validate_signature("secret", "", "body"));
+    }
+
+    #[test]
+    fn test_different_secret_produces_different_result() {
+        let body = r#"{"events":[]}"#;
+
+        type HmacSha256 = Hmac<Sha256>;
+        let mut mac = HmacSha256::new_from_slice(b"secret_a").unwrap();
+        mac.update(body.as_bytes());
+        let sig_a = general_purpose::STANDARD.encode(mac.finalize().into_bytes());
+
+        assert!(!validate_signature("secret_b", &sig_a, body));
+    }
 }
