@@ -1,7 +1,7 @@
 use actix_web::{
     error::ErrorBadRequest, middleware, post, web, App, Error, HttpResponse, HttpServer,
 };
-use dotenv::dotenv;
+use dotenvy::dotenv;
 use line_bot_sdk_rust::{
     client::LINE,
     line_messaging_api::{
