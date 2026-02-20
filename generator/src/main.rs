@@ -208,6 +208,40 @@ impl std::error::Error for Error {
     file.write_all(contents.as_bytes()).unwrap();
 }
 
+fn fix_api_client_clone(pkg_dir: &str) {
+    let apis_dir = Path::new(pkg_dir).join("src/apis");
+    if !apis_dir.exists() {
+        return;
+    }
+
+    if let Ok(entries) = fs::read_dir(&apis_dir) {
+        for entry in entries.flatten() {
+            let path = entry.path();
+            if path.extension().map_or(true, |e| e != "rs") {
+                continue;
+            }
+
+            let mut file = File::open(&path).unwrap();
+            let mut contents = String::new();
+            file.read_to_string(&mut contents).unwrap();
+
+            if !contents.contains("pub struct ") || !contents.contains("ApiClient<C: Connect>") {
+                continue;
+            }
+
+            // Skip if already patched
+            if contents.contains("#[derive(Clone)]") {
+                continue;
+            }
+
+            contents = contents.replace("pub struct ", "#[derive(Clone)]\npub struct ");
+
+            let mut file = File::create(&path).unwrap();
+            file.write_all(contents.as_bytes()).unwrap();
+        }
+    }
+}
+
 fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
     if let Ok(entries) = fs::read_dir(dir_path) {
         for entry in entries {
@@ -328,6 +362,7 @@ fn main() {
         process_directory(&PathBuf::from(pkg_dir), pkg_name);
         fix_generated_dependencies(pkg_dir);
         fix_error_type(pkg_dir);
+        fix_api_client_clone(pkg_dir);
     }
 
     let sources = vec![

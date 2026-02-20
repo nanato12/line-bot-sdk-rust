@@ -28,9 +28,11 @@ use line_insight::apis::{configuration::Configuration as InsightConfiguration, I
 use line_liff::apis::{configuration::Configuration as LiffConfiguration, LiffApiClient};
 use line_manage_audience::apis::{
     configuration::Configuration as ManageAudienceConfiguration, ManageAudienceApiClient,
+    ManageAudienceBlobApiClient,
 };
 use line_messaging_api::apis::{
     configuration::Configuration as MessagingApiConfiguration, MessagingApiApiClient,
+    MessagingApiBlobApiClient,
 };
 use line_module::apis::{
     configuration::Configuration as LineModuleConfiguration, LineModuleApiClient,
@@ -43,18 +45,21 @@ use line_webhook::apis::{
     configuration::Configuration as WebhookConfiguration, DummyApiClient as WebhookDummyApiClient,
 };
 
-type C = HttpsConnector<HttpConnector>;
+type HttpsClient = HttpsConnector<HttpConnector>;
 
+#[derive(Clone)]
 pub struct LINE {
-    pub channel_access_token_api_client: ChannelAccessTokenApiClient<C>,
-    pub insight_api_client: InsightApiClient<C>,
-    pub liff_api_client: LiffApiClient<C>,
-    pub manage_audience_api_client: ManageAudienceApiClient<C>,
-    pub messaging_api_client: MessagingApiApiClient<C>,
-    pub module_api_client: LineModuleApiClient<C>,
-    pub module_attach_api_client: LineModuleAttachApiClient<C>,
-    pub shop_api_client: ShopApiClient<C>,
-    pub webhook_dummy_api_client: WebhookDummyApiClient<C>,
+    pub channel_access_token_api_client: ChannelAccessTokenApiClient<HttpsClient>,
+    pub insight_api_client: InsightApiClient<HttpsClient>,
+    pub liff_api_client: LiffApiClient<HttpsClient>,
+    pub manage_audience_api_client: ManageAudienceApiClient<HttpsClient>,
+    pub manage_audience_blob_api_client: ManageAudienceBlobApiClient<HttpsClient>,
+    pub messaging_api_client: MessagingApiApiClient<HttpsClient>,
+    pub messaging_api_blob_client: MessagingApiBlobApiClient<HttpsClient>,
+    pub module_api_client: LineModuleApiClient<HttpsClient>,
+    pub module_attach_api_client: LineModuleAttachApiClient<HttpsClient>,
+    pub shop_api_client: ShopApiClient<HttpsClient>,
+    pub webhook_dummy_api_client: WebhookDummyApiClient<HttpsClient>,
 }
 
 impl LINE {
@@ -84,10 +89,23 @@ impl LINE {
         let manage_audience_api_client =
             ManageAudienceApiClient::new(Arc::new(manage_audience_conf));
 
+        // manage_audience_blob
+        let mut manage_audience_blob_conf =
+            ManageAudienceConfiguration::with_client(client.clone());
+        manage_audience_blob_conf.oauth_access_token = Some(token.to_owned());
+        let manage_audience_blob_api_client =
+            ManageAudienceBlobApiClient::new(Arc::new(manage_audience_blob_conf));
+
         // messaging_api
         let mut messaging_api_conf = MessagingApiConfiguration::with_client(client.clone());
         messaging_api_conf.oauth_access_token = Some(token.to_owned());
         let messaging_api_client = MessagingApiApiClient::new(Arc::new(messaging_api_conf));
+
+        // messaging_api_blob
+        let mut messaging_api_blob_conf = MessagingApiConfiguration::with_client(client.clone());
+        messaging_api_blob_conf.oauth_access_token = Some(token.to_owned());
+        let messaging_api_blob_client =
+            MessagingApiBlobApiClient::new(Arc::new(messaging_api_blob_conf));
 
         // module
         let mut module_conf = LineModuleConfiguration::with_client(client.clone());
@@ -114,7 +132,9 @@ impl LINE {
             insight_api_client,
             liff_api_client,
             manage_audience_api_client,
+            manage_audience_blob_api_client,
             messaging_api_client,
+            messaging_api_blob_client,
             module_api_client,
             module_attach_api_client,
             shop_api_client,
@@ -122,7 +142,7 @@ impl LINE {
         }
     }
 
-    fn create_hyper_client() -> Client<C, String> {
+    fn create_hyper_client() -> Client<HttpsClient, String> {
         let https = HttpsConnectorBuilder::new()
             .with_native_roots()
             .expect("no native root certs found")
