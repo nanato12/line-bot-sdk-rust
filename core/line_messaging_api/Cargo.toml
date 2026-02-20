@@ -1,10 +1,10 @@
 [package]
 name = "line_messaging_api"
 version = "0.0.4"
-authors = ["OpenAPI Generator team and contributors"]
+authors = ["nanato12 <admin@okj.info>"]
 description = "This document describes LINE Messaging API."
-# Override this license by providing a License Object in the OpenAPI.
-license = "Unlicense"
+license = "Apache-2.0"
+repository = "https://github.com/nanato12/line-bot-sdk-rust/"
 edition = "2021"
 
 [dependencies]
