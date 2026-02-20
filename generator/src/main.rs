@@ -154,6 +154,60 @@ fn fix_generated_dependencies(pkg_dir: &str) {
     }
 }
 
+fn fix_error_type(pkg_dir: &str) {
+    let mod_rs_path = Path::new(pkg_dir).join("src/apis/mod.rs");
+    if !mod_rs_path.exists() {
+        return;
+    }
+
+    let mut file = File::open(&mod_rs_path).unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).unwrap();
+
+    // Skip if already patched
+    if contents.contains("impl fmt::Display for Error") {
+        return;
+    }
+
+    let impls = r#"impl fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Error::Api(e) => write!(f, "API error (status {})", e.code),
+            Error::Header(e) => write!(f, "invalid header: {}", e),
+            Error::Http(e) => write!(f, "HTTP error: {}", e),
+            Error::Hyper(e) => write!(f, "hyper error: {}", e),
+            Error::HyperClient(e) => write!(f, "hyper client error: {}", e),
+            Error::Serde(e) => write!(f, "serde error: {}", e),
+            Error::UriError(e) => write!(f, "URI error: {}", e),
+        }
+    }
+}
+
+impl std::error::Error for Error {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        match self {
+            Error::Header(e) => Some(e),
+            Error::Http(e) => Some(e),
+            Error::Hyper(e) => Some(e),
+            Error::HyperClient(e) => Some(e),
+            Error::Serde(e) => Some(e),
+            Error::UriError(e) => Some(e),
+            _ => None,
+        }
+    }
+}
+
+"#;
+
+    contents = contents.replace(
+        "impl From<http::Error> for Error {",
+        &format!("{impls}impl From<http::Error> for Error {{"),
+    );
+
+    let mut file = File::create(&mod_rs_path).unwrap();
+    file.write_all(contents.as_bytes()).unwrap();
+}
+
 fn process_directory(dir_path: &PathBuf, pkg_name: &str) {
     if let Ok(entries) = fs::read_dir(dir_path) {
         for entry in entries {
@@ -273,6 +327,7 @@ fn main() {
 
         process_directory(&PathBuf::from(pkg_dir), pkg_name);
         fix_generated_dependencies(pkg_dir);
+        fix_error_type(pkg_dir);
     }
 
     let sources = vec![
