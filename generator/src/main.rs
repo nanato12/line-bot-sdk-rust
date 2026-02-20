@@ -479,6 +479,23 @@ fn main() {
         let pkg_name = &format!("{PKG_NAME_PREFIX}_{}", service.replace("-", "_"));
         let pkg_dir = &format!("{OUTPUT_DIR}/{pkg_name}");
 
+        // Preserve existing version from Cargo.toml before regeneration
+        // (sub-crate versions are managed independently from OpenAPI spec versions)
+        let existing_version = {
+            let cargo_toml_path = Path::new(pkg_dir).join("Cargo.toml");
+            if cargo_toml_path.exists() {
+                let contents = read_file(&cargo_toml_path);
+                contents
+                    .lines()
+                    .find(|l| l.starts_with("version = "))
+                    .and_then(|l| l.strip_prefix("version = \""))
+                    .and_then(|l| l.strip_suffix('"'))
+                    .map(|v| v.to_string())
+            } else {
+                None
+            }
+        };
+
         // Initialize package directory (preserve hand-written tests/)
         let tests_dir = Path::new(pkg_dir).join("tests");
         let tests_backup = Path::new(pkg_dir).with_file_name(format!("{pkg_name}_tests_backup"));
@@ -533,6 +550,25 @@ fn main() {
 
         process_directory(&PathBuf::from(pkg_dir), pkg_name);
         fix_cargo_metadata(pkg_dir);
+
+        // Restore preserved version (openapi-generator resets it to spec version)
+        if let Some(ref version) = existing_version {
+            let cargo_toml_path = Path::new(pkg_dir).join("Cargo.toml");
+            let contents = read_file(&cargo_toml_path);
+            let updated = contents
+                .lines()
+                .map(|line| {
+                    if line.starts_with("version = ") {
+                        format!("version = \"{version}\"")
+                    } else {
+                        line.to_string()
+                    }
+                })
+                .collect::<Vec<_>>()
+                .join("\n");
+            write_file(&cargo_toml_path, &updated);
+        }
+
         fix_generated_dependencies(pkg_dir);
         fix_workspace_dependencies(pkg_dir);
         fix_workspace_lints(pkg_dir);

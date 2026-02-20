@@ -1,6 +1,6 @@
 [package]
 name = "line_liff"
-version = "1.1.0"
+version = "1.2.0"
 authors = ["nanato12 <admin@okj.info>"]
 description = "LIFF Server API."
 license = "Apache-2.0"
