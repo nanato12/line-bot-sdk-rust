@@ -28,38 +28,40 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct ChannelAccessTokenApiClient<C: hyper::client::connect::Connect>
+pub struct ChannelAccessTokenApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> ChannelAccessTokenApiClient<C>
+impl<C: Connect> ChannelAccessTokenApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
     pub fn new(
-        configuration: Rc<configuration::Configuration<C>>,
+        configuration: Arc<configuration::Configuration<C>>,
     ) -> ChannelAccessTokenApiClient<C> {
         ChannelAccessTokenApiClient { configuration }
     }
 }
 
-pub trait ChannelAccessTokenApi {
+pub trait ChannelAccessTokenApi: Send + Sync {
     fn gets_all_valid_channel_access_token_key_ids(
         &self,
         client_assertion_type: &str,
         client_assertion: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::ChannelAccessTokenKeyIdsResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::ChannelAccessTokenKeyIdsResponse, Error>> + Send>>;
     fn issue_channel_token(
         &self,
         grant_type: &str,
@@ -67,9 +69,8 @@ pub trait ChannelAccessTokenApi {
         client_secret: &str,
     ) -> Pin<
         Box<
-            dyn Future<
-                Output = Result<crate::models::IssueShortLivedChannelAccessTokenResponse, Error>,
-            >,
+            dyn Future<Output = Result<models::IssueShortLivedChannelAccessTokenResponse, Error>>
+                + Send,
         >,
     >;
     fn issue_channel_token_by_jwt(
@@ -77,7 +78,7 @@ pub trait ChannelAccessTokenApi {
         grant_type: &str,
         client_assertion_type: &str,
         client_assertion: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::IssueChannelAccessTokenResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::IssueChannelAccessTokenResponse, Error>> + Send>>;
     fn issue_stateless_channel_token(
         &self,
         grant_type: Option<&str>,
@@ -87,32 +88,31 @@ pub trait ChannelAccessTokenApi {
         client_secret: Option<&str>,
     ) -> Pin<
         Box<
-            dyn Future<
-                Output = Result<crate::models::IssueStatelessChannelAccessTokenResponse, Error>,
-            >,
+            dyn Future<Output = Result<models::IssueStatelessChannelAccessTokenResponse, Error>>
+                + Send,
         >,
     >;
     fn revoke_channel_token(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn revoke_channel_token_by_jwt(
         &self,
         client_id: &str,
         client_secret: &str,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn verify_channel_token(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::VerifyChannelAccessTokenResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::VerifyChannelAccessTokenResponse, Error>> + Send>>;
     fn verify_channel_token_by_jwt(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::VerifyChannelAccessTokenResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::VerifyChannelAccessTokenResponse, Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> ChannelAccessTokenApi for ChannelAccessTokenApiClient<C>
+impl<C: Connect> ChannelAccessTokenApi for ChannelAccessTokenApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
@@ -121,7 +121,7 @@ where
         &self,
         client_assertion_type: &str,
         client_assertion: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::ChannelAccessTokenKeyIdsResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::ChannelAccessTokenKeyIdsResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -144,9 +144,8 @@ where
         client_secret: &str,
     ) -> Pin<
         Box<
-            dyn Future<
-                Output = Result<crate::models::IssueShortLivedChannelAccessTokenResponse, Error>,
-            >,
+            dyn Future<Output = Result<models::IssueShortLivedChannelAccessTokenResponse, Error>>
+                + Send,
         >,
     > {
         let mut req = __internal_request::Request::new(
@@ -166,7 +165,7 @@ where
         grant_type: &str,
         client_assertion_type: &str,
         client_assertion: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::IssueChannelAccessTokenResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::IssueChannelAccessTokenResponse, Error>> + Send>>
     {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/oauth2/v2.1/token".to_string());
@@ -190,9 +189,8 @@ where
         client_secret: Option<&str>,
     ) -> Pin<
         Box<
-            dyn Future<
-                Output = Result<crate::models::IssueStatelessChannelAccessTokenResponse, Error>,
-            >,
+            dyn Future<Output = Result<models::IssueStatelessChannelAccessTokenResponse, Error>>
+                + Send,
         >,
     > {
         let mut req =
@@ -220,7 +218,7 @@ where
     fn revoke_channel_token(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/oauth/revoke".to_string());
         req = req.with_form_param("access_token".to_string(), access_token.to_string());
@@ -235,7 +233,7 @@ where
         client_id: &str,
         client_secret: &str,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/oauth2/v2.1/revoke".to_string(),
@@ -252,7 +250,7 @@ where
     fn verify_channel_token(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::VerifyChannelAccessTokenResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::VerifyChannelAccessTokenResponse, Error>> + Send>>
     {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/oauth/verify".to_string());
@@ -265,7 +263,7 @@ where
     fn verify_channel_token_by_jwt(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::VerifyChannelAccessTokenResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::VerifyChannelAccessTokenResponse, Error>> + Send>>
     {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/oauth2/v2.1/verify".to_string());

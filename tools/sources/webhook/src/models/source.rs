@@ -14,6 +14,8 @@
 * limitations under the License.
 */
 
+use serde::{Deserialize, Serialize};
+
 use super::{GroupSource, RoomSource, UserSource};
 
 /// Source : the source of the event.

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**r#type** | **String** | Size of the LIFF app view. Specify one of these values: - compact - tall - full  | 
+**r#type** | **Type** | Size of the LIFF app view. Specify one of these values: - compact - tall - full  (enum: compact, tall, full) | 
 **url** | **String** | Endpoint URL. This is the URL of the web app that implements the LIFF app (e.g. https://example.com). Used when the LIFF app is launched using the LIFF URL. The URL scheme must be https. URL fragments (#URL-fragment) can't be specified.  | 
 **module_mode** | Option<**bool**> | `true` to use the LIFF app in modular mode. When in modular mode, the action button in the header is not displayed.  | [optional]
 

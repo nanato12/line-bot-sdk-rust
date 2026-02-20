@@ -39,7 +39,7 @@ const LICENSE: &str = r#"/*
 */
 "#;
 const PKG_NAME_PREFIX: &str = "line";
-const OPENAPI_GENERATOR_CLI_VERSION: &str = "7.1.0";
+const OPENAPI_GENERATOR_CLI_VERSION: &str = "7.20.0";
 const SPEC_DIR: &str = "line-openapi";
 const OUTPUT_DIR: &str = "core";
 

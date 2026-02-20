@@ -43,7 +43,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_audience_for_uploading_user_ids
 
-> crate::models::CreateAudienceGroupResponse create_audience_for_uploading_user_ids(file, description, is_ifa_audience, upload_description)
+> models::CreateAudienceGroupResponse create_audience_for_uploading_user_ids(file, description, is_ifa_audience, upload_description)
 
 
 Create audience for uploading user IDs (by file).
@@ -60,7 +60,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::CreateAudienceGroupResponse**](CreateAudienceGroupResponse.md)
+[**models::CreateAudienceGroupResponse**](CreateAudienceGroupResponse.md)
 
 ### Authorization
 

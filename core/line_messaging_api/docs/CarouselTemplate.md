@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** |  | 
-**columns** | [**Vec<crate::models::CarouselColumn>**](CarouselColumn.md) |  | 
+**columns** | [**Vec<models::CarouselColumn>**](CarouselColumn.md) |  | 
 **image_aspect_ratio** | Option<**String**> |  | [optional]
 **image_size** | Option<**String**> |  | [optional]
 

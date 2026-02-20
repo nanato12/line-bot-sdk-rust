@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** | Type of message | 
-**quick_reply** | Option<[**crate::models::QuickReply**](QuickReply.md)> |  | [optional]
-**sender** | Option<[**crate::models::Sender**](Sender.md)> |  | [optional]
+**quick_reply** | Option<[**models::QuickReply**](QuickReply.md)> |  | [optional]
+**sender** | Option<[**models::Sender**](Sender.md)> |  | [optional]
 **title** | **String** |  | 
 **address** | **String** |  | 
 **latitude** | **f64** |  | 

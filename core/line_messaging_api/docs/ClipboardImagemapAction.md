@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **r#type** | **String** |  | 
-**area** | [**crate::models::ImagemapArea**](ImagemapArea.md) |  | 
+**area** | [**models::ImagemapArea**](ImagemapArea.md) |  | 
 **clipboard_text** | **String** | Text that is copied to the clipboard. Max character limit: 1000  | 
 **label** | Option<**String**> |  | [optional]
 

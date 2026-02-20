@@ -14,6 +14,8 @@
 * limitations under the License.
 */
 
+use serde::{Deserialize, Serialize};
+
 use crate::models::audio_message::AudioMessage;
 use crate::models::coupon_message::CouponMessage;
 use crate::models::flex_message::FlexMessage;

@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## gets_all_valid_channel_access_token_key_ids
 
-> crate::models::ChannelAccessTokenKeyIdsResponse gets_all_valid_channel_access_token_key_ids(client_assertion_type, client_assertion)
+> models::ChannelAccessTokenKeyIdsResponse gets_all_valid_channel_access_token_key_ids(client_assertion_type, client_assertion)
 
 
 Gets all valid channel access token key IDs.
@@ -32,7 +32,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::ChannelAccessTokenKeyIdsResponse**](ChannelAccessTokenKeyIdsResponse.md)
+[**models::ChannelAccessTokenKeyIdsResponse**](ChannelAccessTokenKeyIdsResponse.md)
 
 ### Authorization
 
@@ -48,7 +48,7 @@ No authorization required
 
 ## issue_channel_token
 
-> crate::models::IssueShortLivedChannelAccessTokenResponse issue_channel_token(grant_type, client_id, client_secret)
+> models::IssueShortLivedChannelAccessTokenResponse issue_channel_token(grant_type, client_id, client_secret)
 
 
 Issue short-lived channel access token
@@ -64,7 +64,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::IssueShortLivedChannelAccessTokenResponse**](IssueShortLivedChannelAccessTokenResponse.md)
+[**models::IssueShortLivedChannelAccessTokenResponse**](IssueShortLivedChannelAccessTokenResponse.md)
 
 ### Authorization
 
@@ -80,7 +80,7 @@ No authorization required
 
 ## issue_channel_token_by_jwt
 
-> crate::models::IssueChannelAccessTokenResponse issue_channel_token_by_jwt(grant_type, client_assertion_type, client_assertion)
+> models::IssueChannelAccessTokenResponse issue_channel_token_by_jwt(grant_type, client_assertion_type, client_assertion)
 
 
 Issues a channel access token that allows you to specify a desired expiration date. This method lets you use JWT assertion for authentication.
@@ -96,7 +96,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::IssueChannelAccessTokenResponse**](IssueChannelAccessTokenResponse.md)
+[**models::IssueChannelAccessTokenResponse**](IssueChannelAccessTokenResponse.md)
 
 ### Authorization
 
@@ -112,7 +112,7 @@ No authorization required
 
 ## issue_stateless_channel_token
 
-> crate::models::IssueStatelessChannelAccessTokenResponse issue_stateless_channel_token(grant_type, client_assertion_type, client_assertion, client_id, client_secret)
+> models::IssueStatelessChannelAccessTokenResponse issue_stateless_channel_token(grant_type, client_assertion_type, client_assertion, client_id, client_secret)
 
 
 Issues a new stateless channel access token, which doesn't have max active token limit unlike the other token types. The newly issued token is only valid for 15 minutes but can not be revoked until it naturally expires. 
@@ -130,7 +130,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::IssueStatelessChannelAccessTokenResponse**](IssueStatelessChannelAccessTokenResponse.md)
+[**models::IssueStatelessChannelAccessTokenResponse**](IssueStatelessChannelAccessTokenResponse.md)
 
 ### Authorization
 
@@ -208,7 +208,7 @@ No authorization required
 
 ## verify_channel_token
 
-> crate::models::VerifyChannelAccessTokenResponse verify_channel_token(access_token)
+> models::VerifyChannelAccessTokenResponse verify_channel_token(access_token)
 
 
 Verify the validity of short-lived and long-lived channel access tokens
@@ -222,7 +222,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::VerifyChannelAccessTokenResponse**](VerifyChannelAccessTokenResponse.md)
+[**models::VerifyChannelAccessTokenResponse**](VerifyChannelAccessTokenResponse.md)
 
 ### Authorization
 
@@ -238,7 +238,7 @@ No authorization required
 
 ## verify_channel_token_by_jwt
 
-> crate::models::VerifyChannelAccessTokenResponse verify_channel_token_by_jwt(access_token)
+> models::VerifyChannelAccessTokenResponse verify_channel_token_by_jwt(access_token)
 
 
 You can verify whether a Channel access token with a user-specified expiration (Channel Access Token v2.1) is valid.
@@ -252,7 +252,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::VerifyChannelAccessTokenResponse**](VerifyChannelAccessTokenResponse.md)
+[**models::VerifyChannelAccessTokenResponse**](VerifyChannelAccessTokenResponse.md)
 
 ### Authorization
 

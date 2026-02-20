@@ -28,49 +28,51 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct ManageAudienceBlobApiClient<C: hyper::client::connect::Connect>
+pub struct ManageAudienceBlobApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> ManageAudienceBlobApiClient<C>
+impl<C: Connect> ManageAudienceBlobApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
     pub fn new(
-        configuration: Rc<configuration::Configuration<C>>,
+        configuration: Arc<configuration::Configuration<C>>,
     ) -> ManageAudienceBlobApiClient<C> {
         ManageAudienceBlobApiClient { configuration }
     }
 }
 
-pub trait ManageAudienceBlobApi {
+pub trait ManageAudienceBlobApi: Send + Sync {
     fn add_user_ids_to_audience(
         &self,
         file: std::path::PathBuf,
         audience_group_id: Option<i64>,
         upload_description: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn create_audience_for_uploading_user_ids(
         &self,
         file: std::path::PathBuf,
         description: Option<&str>,
         is_ifa_audience: Option<bool>,
         upload_description: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::CreateAudienceGroupResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::CreateAudienceGroupResponse, Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> ManageAudienceBlobApi for ManageAudienceBlobApiClient<C>
+impl<C: Connect> ManageAudienceBlobApi for ManageAudienceBlobApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
@@ -80,7 +82,7 @@ where
         _file: std::path::PathBuf,
         audience_group_id: Option<i64>,
         upload_description: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/v2/bot/audienceGroup/upload/byFile".to_string(),
@@ -104,7 +106,7 @@ where
         description: Option<&str>,
         is_ifa_audience: Option<bool>,
         upload_description: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::CreateAudienceGroupResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::CreateAudienceGroupResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,

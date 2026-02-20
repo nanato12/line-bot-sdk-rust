@@ -28,317 +28,325 @@ use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
 use std::pin::Pin;
-use std::rc::Rc;
+use std::sync::Arc;
 
 use futures::Future;
 use hyper;
+use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
+use crate::models;
 
-pub struct MessagingApiApiClient<C: hyper::client::connect::Connect>
+pub struct MessagingApiApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
 {
-    configuration: Rc<configuration::Configuration<C>>,
+    configuration: Arc<configuration::Configuration<C>>,
 }
 
-impl<C: hyper::client::connect::Connect> MessagingApiApiClient<C>
+impl<C: Connect> MessagingApiApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-    pub fn new(configuration: Rc<configuration::Configuration<C>>) -> MessagingApiApiClient<C> {
+    pub fn new(configuration: Arc<configuration::Configuration<C>>) -> MessagingApiApiClient<C> {
         MessagingApiApiClient { configuration }
     }
 }
 
-pub trait MessagingApiApi {
+pub trait MessagingApiApi: Send + Sync {
     fn broadcast(
         &self,
-        broadcast_request: crate::models::BroadcastRequest,
+        broadcast_request: models::BroadcastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>>>>;
-    fn cancel_default_rich_menu(&self) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
-    fn close_coupon(&self, coupon_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>>;
+    fn cancel_default_rich_menu(&self) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    fn close_coupon(
+        &self,
+        coupon_id: &str,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn create_coupon(
         &self,
-        coupon_create_request: Option<crate::models::CouponCreateRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::CouponCreateResponse, Error>>>>;
+        coupon_create_request: Option<models::CouponCreateRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<models::CouponCreateResponse, Error>> + Send>>;
     fn create_rich_menu(
         &self,
-        rich_menu_request: crate::models::RichMenuRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuIdResponse, Error>>>>;
+        rich_menu_request: models::RichMenuRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>>;
     fn create_rich_menu_alias(
         &self,
-        create_rich_menu_alias_request: crate::models::CreateRichMenuAliasRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        create_rich_menu_alias_request: models::CreateRichMenuAliasRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn delete_rich_menu(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn delete_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn get_aggregation_unit_name_list(
         &self,
         limit: Option<&str>,
         start: Option<&str>,
     ) -> Pin<
-        Box<dyn Future<Output = Result<crate::models::GetAggregationUnitNameListResponse, Error>>>,
+        Box<dyn Future<Output = Result<models::GetAggregationUnitNameListResponse, Error>> + Send>,
     >;
     fn get_aggregation_unit_usage(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetAggregationUnitUsageResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetAggregationUnitUsageResponse, Error>> + Send>>;
     fn get_bot_info(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::BotInfoResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::BotInfoResponse, Error>> + Send>>;
     fn get_coupon_detail(
         &self,
         coupon_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::CouponResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::CouponResponse, Error>> + Send>>;
     fn get_default_rich_menu_id(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuIdResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>>;
     fn get_followers(
         &self,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetFollowersResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetFollowersResponse, Error>> + Send>>;
     fn get_group_member_count(
         &self,
         group_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GroupMemberCountResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GroupMemberCountResponse, Error>> + Send>>;
     fn get_group_member_profile(
         &self,
         group_id: &str,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GroupUserProfileResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GroupUserProfileResponse, Error>> + Send>>;
     fn get_group_members_ids(
         &self,
         group_id: &str,
         start: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::MembersIdsResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::MembersIdsResponse, Error>> + Send>>;
     fn get_group_summary(
         &self,
         group_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GroupSummaryResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GroupSummaryResponse, Error>> + Send>>;
     fn get_joined_membership_users(
         &self,
         membership_id: i32,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetJoinedMembershipUsersResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetJoinedMembershipUsersResponse, Error>> + Send>>;
     fn get_membership_list(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::MembershipListResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::MembershipListResponse, Error>> + Send>>;
     fn get_membership_subscription(
         &self,
         user_id: &str,
     ) -> Pin<
-        Box<dyn Future<Output = Result<crate::models::GetMembershipSubscriptionResponse, Error>>>,
+        Box<dyn Future<Output = Result<models::GetMembershipSubscriptionResponse, Error>> + Send>,
     >;
     fn get_message_quota(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::MessageQuotaResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::MessageQuotaResponse, Error>> + Send>>;
     fn get_message_quota_consumption(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::QuotaConsumptionResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::QuotaConsumptionResponse, Error>> + Send>>;
     fn get_narrowcast_progress(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NarrowcastProgressResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::NarrowcastProgressResponse, Error>> + Send>>;
     fn get_number_of_sent_broadcast_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NumberOfMessagesResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>>;
     fn get_number_of_sent_multicast_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NumberOfMessagesResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>>;
     fn get_number_of_sent_push_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NumberOfMessagesResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>>;
     fn get_number_of_sent_reply_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NumberOfMessagesResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>>;
     fn get_pnp_message_statistics(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NumberOfMessagesResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>>;
     fn get_profile(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::UserProfileResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::UserProfileResponse, Error>> + Send>>;
     fn get_rich_menu(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuResponse, Error>> + Send>>;
     fn get_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuAliasResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuAliasResponse, Error>> + Send>>;
     fn get_rich_menu_alias_list(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuAliasListResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuAliasListResponse, Error>> + Send>>;
     fn get_rich_menu_batch_progress(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuBatchProgressResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuBatchProgressResponse, Error>> + Send>>;
     fn get_rich_menu_id_of_user(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuIdResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>>;
     fn get_rich_menu_list(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuListResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuListResponse, Error>> + Send>>;
     fn get_room_member_count(
         &self,
         room_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RoomMemberCountResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::RoomMemberCountResponse, Error>> + Send>>;
     fn get_room_member_profile(
         &self,
         room_id: &str,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RoomUserProfileResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::RoomUserProfileResponse, Error>> + Send>>;
     fn get_room_members_ids(
         &self,
         room_id: &str,
         start: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::MembersIdsResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::MembersIdsResponse, Error>> + Send>>;
     fn get_webhook_endpoint(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetWebhookEndpointResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetWebhookEndpointResponse, Error>> + Send>>;
     fn issue_link_token(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::IssueLinkTokenResponse, Error>>>>;
-    fn leave_group(&self, group_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
-    fn leave_room(&self, room_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::IssueLinkTokenResponse, Error>> + Send>>;
+    fn leave_group(
+        &self,
+        group_id: &str,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    fn leave_room(&self, room_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn link_rich_menu_id_to_user(
         &self,
         user_id: &str,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn link_rich_menu_id_to_users(
         &self,
-        rich_menu_bulk_link_request: crate::models::RichMenuBulkLinkRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        rich_menu_bulk_link_request: models::RichMenuBulkLinkRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn list_coupon(
         &self,
         status: Option<Vec<String>>,
         start: Option<&str>,
         limit: Option<i32>,
     ) -> Pin<
-        Box<dyn Future<Output = Result<crate::models::MessagingApiPagerCouponListResponse, Error>>>,
+        Box<dyn Future<Output = Result<models::MessagingApiPagerCouponListResponse, Error>> + Send>,
     >;
     fn mark_messages_as_read(
         &self,
-        mark_messages_as_read_request: crate::models::MarkMessagesAsReadRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        mark_messages_as_read_request: models::MarkMessagesAsReadRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn mark_messages_as_read_by_token(
         &self,
-        mark_messages_as_read_by_token_request: crate::models::MarkMessagesAsReadByTokenRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        mark_messages_as_read_by_token_request: models::MarkMessagesAsReadByTokenRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn multicast(
         &self,
-        multicast_request: crate::models::MulticastRequest,
+        multicast_request: models::MulticastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>>;
     fn narrowcast(
         &self,
-        narrowcast_request: crate::models::NarrowcastRequest,
+        narrowcast_request: models::NarrowcastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>>;
     fn push_message(
         &self,
-        push_message_request: crate::models::PushMessageRequest,
+        push_message_request: models::PushMessageRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::PushMessageResponse, Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<models::PushMessageResponse, Error>> + Send>>;
     fn push_messages_by_phone(
         &self,
-        pnp_messages_request: crate::models::PnpMessagesRequest,
+        pnp_messages_request: models::PnpMessagesRequest,
         x_line_delivery_tag: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn reply_message(
         &self,
-        reply_message_request: crate::models::ReplyMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::ReplyMessageResponse, Error>>>>;
+        reply_message_request: models::ReplyMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<models::ReplyMessageResponse, Error>> + Send>>;
     fn rich_menu_batch(
         &self,
-        rich_menu_batch_request: crate::models::RichMenuBatchRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        rich_menu_batch_request: models::RichMenuBatchRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn set_default_rich_menu(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn set_webhook_endpoint(
         &self,
-        set_webhook_endpoint_request: crate::models::SetWebhookEndpointRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        set_webhook_endpoint_request: models::SetWebhookEndpointRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn show_loading_animation(
         &self,
-        show_loading_animation_request: crate::models::ShowLoadingAnimationRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>>>>;
+        show_loading_animation_request: models::ShowLoadingAnimationRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>>;
     fn test_webhook_endpoint(
         &self,
-        test_webhook_endpoint_request: Option<crate::models::TestWebhookEndpointRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::TestWebhookEndpointResponse, Error>>>>;
+        test_webhook_endpoint_request: Option<models::TestWebhookEndpointRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<models::TestWebhookEndpointResponse, Error>> + Send>>;
     fn unlink_rich_menu_id_from_user(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn unlink_rich_menu_id_from_users(
         &self,
-        rich_menu_bulk_unlink_request: crate::models::RichMenuBulkUnlinkRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        rich_menu_bulk_unlink_request: models::RichMenuBulkUnlinkRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn update_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
-        update_rich_menu_alias_request: crate::models::UpdateRichMenuAliasRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        update_rich_menu_alias_request: models::UpdateRichMenuAliasRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn validate_broadcast(
         &self,
-        validate_message_request: crate::models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        validate_message_request: models::ValidateMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn validate_multicast(
         &self,
-        validate_message_request: crate::models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        validate_message_request: models::ValidateMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn validate_narrowcast(
         &self,
-        validate_message_request: crate::models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        validate_message_request: models::ValidateMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn validate_push(
         &self,
-        validate_message_request: crate::models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        validate_message_request: models::ValidateMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn validate_reply(
         &self,
-        validate_message_request: crate::models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        validate_message_request: models::ValidateMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn validate_rich_menu_batch_request(
         &self,
-        rich_menu_batch_request: crate::models::RichMenuBatchRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        rich_menu_batch_request: models::RichMenuBatchRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
     fn validate_rich_menu_object(
         &self,
-        rich_menu_request: crate::models::RichMenuRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>>;
+        rich_menu_request: models::RichMenuRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
 }
 
-impl<C: hyper::client::connect::Connect> MessagingApiApi for MessagingApiApiClient<C>
+impl<C: Connect> MessagingApiApi for MessagingApiApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
     fn broadcast(
         &self,
-        broadcast_request: crate::models::BroadcastRequest,
+        broadcast_request: models::BroadcastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/broadcast".to_string(),
@@ -352,7 +360,7 @@ where
     }
 
     #[allow(unused_mut)]
-    fn cancel_default_rich_menu(&self) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    fn cancel_default_rich_menu(&self) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/v2/bot/user/all/richmenu".to_string(),
@@ -363,7 +371,10 @@ where
     }
 
     #[allow(unused_mut)]
-    fn close_coupon(&self, coupon_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    fn close_coupon(
+        &self,
+        coupon_id: &str,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/v2/bot/coupon/{couponId}/close".to_string(),
@@ -377,8 +388,8 @@ where
     #[allow(unused_mut)]
     fn create_coupon(
         &self,
-        coupon_create_request: Option<crate::models::CouponCreateRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::CouponCreateResponse, Error>>>> {
+        coupon_create_request: Option<models::CouponCreateRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<models::CouponCreateResponse, Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/bot/coupon".to_string());
         req = req.with_body_param(coupon_create_request);
@@ -389,8 +400,8 @@ where
     #[allow(unused_mut)]
     fn create_rich_menu(
         &self,
-        rich_menu_request: crate::models::RichMenuRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuIdResponse, Error>>>> {
+        rich_menu_request: models::RichMenuRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/bot/richmenu".to_string());
         req = req.with_body_param(rich_menu_request);
@@ -401,8 +412,8 @@ where
     #[allow(unused_mut)]
     fn create_rich_menu_alias(
         &self,
-        create_rich_menu_alias_request: crate::models::CreateRichMenuAliasRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        create_rich_menu_alias_request: models::CreateRichMenuAliasRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/alias".to_string(),
@@ -417,7 +428,7 @@ where
     fn delete_rich_menu(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/v2/bot/richmenu/{richMenuId}".to_string(),
@@ -432,7 +443,7 @@ where
     fn delete_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/v2/bot/richmenu/alias/{richMenuAliasId}".to_string(),
@@ -452,7 +463,7 @@ where
         limit: Option<&str>,
         start: Option<&str>,
     ) -> Pin<
-        Box<dyn Future<Output = Result<crate::models::GetAggregationUnitNameListResponse, Error>>>,
+        Box<dyn Future<Output = Result<models::GetAggregationUnitNameListResponse, Error>> + Send>,
     > {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -473,7 +484,7 @@ where
     #[allow(unused_mut)]
     fn get_aggregation_unit_usage(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetAggregationUnitUsageResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetAggregationUnitUsageResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -486,7 +497,7 @@ where
     #[allow(unused_mut)]
     fn get_bot_info(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::BotInfoResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::BotInfoResponse, Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/v2/bot/info".to_string());
 
@@ -497,7 +508,7 @@ where
     fn get_coupon_detail(
         &self,
         coupon_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::CouponResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::CouponResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/coupon/{couponId}".to_string(),
@@ -510,7 +521,7 @@ where
     #[allow(unused_mut)]
     fn get_default_rich_menu_id(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuIdResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/user/all/richmenu".to_string(),
@@ -524,7 +535,7 @@ where
         &self,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetFollowersResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetFollowersResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/followers/ids".to_string(),
@@ -545,7 +556,7 @@ where
     fn get_group_member_count(
         &self,
         group_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GroupMemberCountResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::GroupMemberCountResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/group/{groupId}/members/count".to_string(),
@@ -560,7 +571,7 @@ where
         &self,
         group_id: &str,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GroupUserProfileResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::GroupUserProfileResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/group/{groupId}/member/{userId}".to_string(),
@@ -576,7 +587,7 @@ where
         &self,
         group_id: &str,
         start: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::MembersIdsResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::MembersIdsResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/group/{groupId}/members/ids".to_string(),
@@ -594,7 +605,7 @@ where
     fn get_group_summary(
         &self,
         group_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GroupSummaryResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::GroupSummaryResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/group/{groupId}/summary".to_string(),
@@ -610,7 +621,7 @@ where
         membership_id: i32,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetJoinedMembershipUsersResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetJoinedMembershipUsersResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -632,7 +643,7 @@ where
     #[allow(unused_mut)]
     fn get_membership_list(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::MembershipListResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::MembershipListResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/membership/list".to_string(),
@@ -646,7 +657,7 @@ where
         &self,
         user_id: &str,
     ) -> Pin<
-        Box<dyn Future<Output = Result<crate::models::GetMembershipSubscriptionResponse, Error>>>,
+        Box<dyn Future<Output = Result<models::GetMembershipSubscriptionResponse, Error>> + Send>,
     > {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -660,7 +671,7 @@ where
     #[allow(unused_mut)]
     fn get_message_quota(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::MessageQuotaResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::MessageQuotaResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/quota".to_string(),
@@ -672,7 +683,7 @@ where
     #[allow(unused_mut)]
     fn get_message_quota_consumption(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::QuotaConsumptionResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::QuotaConsumptionResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/quota/consumption".to_string(),
@@ -685,7 +696,7 @@ where
     fn get_narrowcast_progress(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NarrowcastProgressResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::NarrowcastProgressResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -700,7 +711,7 @@ where
     fn get_number_of_sent_broadcast_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NumberOfMessagesResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/delivery/broadcast".to_string(),
@@ -714,7 +725,7 @@ where
     fn get_number_of_sent_multicast_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NumberOfMessagesResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/delivery/multicast".to_string(),
@@ -728,7 +739,7 @@ where
     fn get_number_of_sent_push_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NumberOfMessagesResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/delivery/push".to_string(),
@@ -742,7 +753,7 @@ where
     fn get_number_of_sent_reply_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NumberOfMessagesResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/delivery/reply".to_string(),
@@ -756,7 +767,7 @@ where
     fn get_pnp_message_statistics(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::NumberOfMessagesResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/delivery/pnp".to_string(),
@@ -770,7 +781,7 @@ where
     fn get_profile(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::UserProfileResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::UserProfileResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/profile/{userId}".to_string(),
@@ -784,7 +795,7 @@ where
     fn get_rich_menu(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/richmenu/{richMenuId}".to_string(),
@@ -798,7 +809,7 @@ where
     fn get_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuAliasResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuAliasResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/richmenu/alias/{richMenuAliasId}".to_string(),
@@ -814,7 +825,7 @@ where
     #[allow(unused_mut)]
     fn get_rich_menu_alias_list(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuAliasListResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuAliasListResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -828,7 +839,7 @@ where
     fn get_rich_menu_batch_progress(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuBatchProgressResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuBatchProgressResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -843,7 +854,7 @@ where
     fn get_rich_menu_id_of_user(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuIdResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/user/{userId}/richmenu".to_string(),
@@ -856,7 +867,7 @@ where
     #[allow(unused_mut)]
     fn get_rich_menu_list(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RichMenuListResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuListResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/richmenu/list".to_string(),
@@ -869,7 +880,7 @@ where
     fn get_room_member_count(
         &self,
         room_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RoomMemberCountResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::RoomMemberCountResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/room/{roomId}/members/count".to_string(),
@@ -884,7 +895,7 @@ where
         &self,
         room_id: &str,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::RoomUserProfileResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::RoomUserProfileResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/room/{roomId}/member/{userId}".to_string(),
@@ -900,7 +911,7 @@ where
         &self,
         room_id: &str,
         start: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::MembersIdsResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::MembersIdsResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/room/{roomId}/members/ids".to_string(),
@@ -917,7 +928,7 @@ where
     #[allow(unused_mut)]
     fn get_webhook_endpoint(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::GetWebhookEndpointResponse, Error>>>>
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetWebhookEndpointResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -931,7 +942,7 @@ where
     fn issue_link_token(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::IssueLinkTokenResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::IssueLinkTokenResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/user/{userId}/linkToken".to_string(),
@@ -942,7 +953,10 @@ where
     }
 
     #[allow(unused_mut)]
-    fn leave_group(&self, group_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    fn leave_group(
+        &self,
+        group_id: &str,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/group/{groupId}/leave".to_string(),
@@ -954,7 +968,7 @@ where
     }
 
     #[allow(unused_mut)]
-    fn leave_room(&self, room_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    fn leave_room(&self, room_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/room/{roomId}/leave".to_string(),
@@ -970,7 +984,7 @@ where
         &self,
         user_id: &str,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/user/{userId}/richmenu/{richMenuId}".to_string(),
@@ -985,8 +999,8 @@ where
     #[allow(unused_mut)]
     fn link_rich_menu_id_to_users(
         &self,
-        rich_menu_bulk_link_request: crate::models::RichMenuBulkLinkRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        rich_menu_bulk_link_request: models::RichMenuBulkLinkRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/bulk/link".to_string(),
@@ -1004,7 +1018,7 @@ where
         start: Option<&str>,
         limit: Option<i32>,
     ) -> Pin<
-        Box<dyn Future<Output = Result<crate::models::MessagingApiPagerCouponListResponse, Error>>>,
+        Box<dyn Future<Output = Result<models::MessagingApiPagerCouponListResponse, Error>> + Send>,
     > {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/v2/bot/coupon".to_string());
@@ -1031,8 +1045,8 @@ where
     #[allow(unused_mut)]
     fn mark_messages_as_read(
         &self,
-        mark_messages_as_read_request: crate::models::MarkMessagesAsReadRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        mark_messages_as_read_request: models::MarkMessagesAsReadRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/markAsRead".to_string(),
@@ -1046,8 +1060,8 @@ where
     #[allow(unused_mut)]
     fn mark_messages_as_read_by_token(
         &self,
-        mark_messages_as_read_by_token_request: crate::models::MarkMessagesAsReadByTokenRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        mark_messages_as_read_by_token_request: models::MarkMessagesAsReadByTokenRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/chat/markAsRead".to_string(),
@@ -1061,9 +1075,9 @@ where
     #[allow(unused_mut)]
     fn multicast(
         &self,
-        multicast_request: crate::models::MulticastRequest,
+        multicast_request: models::MulticastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/multicast".to_string(),
@@ -1079,9 +1093,9 @@ where
     #[allow(unused_mut)]
     fn narrowcast(
         &self,
-        narrowcast_request: crate::models::NarrowcastRequest,
+        narrowcast_request: models::NarrowcastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/narrowcast".to_string(),
@@ -1097,9 +1111,9 @@ where
     #[allow(unused_mut)]
     fn push_message(
         &self,
-        push_message_request: crate::models::PushMessageRequest,
+        push_message_request: models::PushMessageRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::PushMessageResponse, Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<models::PushMessageResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/push".to_string(),
@@ -1115,9 +1129,9 @@ where
     #[allow(unused_mut)]
     fn push_messages_by_phone(
         &self,
-        pnp_messages_request: crate::models::PnpMessagesRequest,
+        pnp_messages_request: models::PnpMessagesRequest,
         x_line_delivery_tag: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/bot/pnp/push".to_string());
         if let Some(param_value) = x_line_delivery_tag {
@@ -1132,8 +1146,8 @@ where
     #[allow(unused_mut)]
     fn reply_message(
         &self,
-        reply_message_request: crate::models::ReplyMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::ReplyMessageResponse, Error>>>> {
+        reply_message_request: models::ReplyMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<models::ReplyMessageResponse, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/reply".to_string(),
@@ -1146,8 +1160,8 @@ where
     #[allow(unused_mut)]
     fn rich_menu_batch(
         &self,
-        rich_menu_batch_request: crate::models::RichMenuBatchRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        rich_menu_batch_request: models::RichMenuBatchRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/batch".to_string(),
@@ -1162,7 +1176,7 @@ where
     fn set_default_rich_menu(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/user/all/richmenu/{richMenuId}".to_string(),
@@ -1176,8 +1190,8 @@ where
     #[allow(unused_mut)]
     fn set_webhook_endpoint(
         &self,
-        set_webhook_endpoint_request: crate::models::SetWebhookEndpointRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        set_webhook_endpoint_request: models::SetWebhookEndpointRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/v2/bot/channel/webhook/endpoint".to_string(),
@@ -1191,8 +1205,8 @@ where
     #[allow(unused_mut)]
     fn show_loading_animation(
         &self,
-        show_loading_animation_request: crate::models::ShowLoadingAnimationRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>>>> {
+        show_loading_animation_request: models::ShowLoadingAnimationRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/chat/loading/start".to_string(),
@@ -1205,8 +1219,8 @@ where
     #[allow(unused_mut)]
     fn test_webhook_endpoint(
         &self,
-        test_webhook_endpoint_request: Option<crate::models::TestWebhookEndpointRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<crate::models::TestWebhookEndpointResponse, Error>>>>
+        test_webhook_endpoint_request: Option<models::TestWebhookEndpointRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<models::TestWebhookEndpointResponse, Error>> + Send>>
     {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
@@ -1221,7 +1235,7 @@ where
     fn unlink_rich_menu_id_from_user(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/v2/bot/user/{userId}/richmenu".to_string(),
@@ -1235,8 +1249,8 @@ where
     #[allow(unused_mut)]
     fn unlink_rich_menu_id_from_users(
         &self,
-        rich_menu_bulk_unlink_request: crate::models::RichMenuBulkUnlinkRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        rich_menu_bulk_unlink_request: models::RichMenuBulkUnlinkRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/bulk/unlink".to_string(),
@@ -1251,8 +1265,8 @@ where
     fn update_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
-        update_rich_menu_alias_request: crate::models::UpdateRichMenuAliasRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        update_rich_menu_alias_request: models::UpdateRichMenuAliasRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/alias/{richMenuAliasId}".to_string(),
@@ -1270,8 +1284,8 @@ where
     #[allow(unused_mut)]
     fn validate_broadcast(
         &self,
-        validate_message_request: crate::models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        validate_message_request: models::ValidateMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/validate/broadcast".to_string(),
@@ -1285,8 +1299,8 @@ where
     #[allow(unused_mut)]
     fn validate_multicast(
         &self,
-        validate_message_request: crate::models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        validate_message_request: models::ValidateMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/validate/multicast".to_string(),
@@ -1300,8 +1314,8 @@ where
     #[allow(unused_mut)]
     fn validate_narrowcast(
         &self,
-        validate_message_request: crate::models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        validate_message_request: models::ValidateMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/validate/narrowcast".to_string(),
@@ -1315,8 +1329,8 @@ where
     #[allow(unused_mut)]
     fn validate_push(
         &self,
-        validate_message_request: crate::models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        validate_message_request: models::ValidateMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/validate/push".to_string(),
@@ -1330,8 +1344,8 @@ where
     #[allow(unused_mut)]
     fn validate_reply(
         &self,
-        validate_message_request: crate::models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        validate_message_request: models::ValidateMessageRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/validate/reply".to_string(),
@@ -1345,8 +1359,8 @@ where
     #[allow(unused_mut)]
     fn validate_rich_menu_batch_request(
         &self,
-        rich_menu_batch_request: crate::models::RichMenuBatchRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        rich_menu_batch_request: models::RichMenuBatchRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/validate/batch".to_string(),
@@ -1360,8 +1374,8 @@ where
     #[allow(unused_mut)]
     fn validate_rich_menu_object(
         &self,
-        rich_menu_request: crate::models::RichMenuRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>>>> {
+        rich_menu_request: models::RichMenuRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/validate".to_string(),

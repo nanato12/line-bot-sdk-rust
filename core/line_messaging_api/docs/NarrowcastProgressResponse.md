@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**phase** | **String** | The current status. One of:  `waiting`: Messages are not yet ready to be sent. They are currently being filtered or processed in some way. `sending`: Messages are currently being sent. `succeeded`: Messages were sent successfully. This may not mean the messages were successfully received. `failed`: Messages failed to be sent. Use the failedDescription property to find the cause of the failure.  | 
+**phase** | **Phase** | The current status. One of:  `waiting`: Messages are not yet ready to be sent. They are currently being filtered or processed in some way. `sending`: Messages are currently being sent. `succeeded`: Messages were sent successfully. This may not mean the messages were successfully received. `failed`: Messages failed to be sent. Use the failedDescription property to find the cause of the failure.  (enum: waiting, sending, succeeded, failed) | 
 **success_count** | Option<**i64**> | The number of users who successfully received the message. | [optional]
 **failure_count** | Option<**i64**> | The number of users who failed to send the message. | [optional]
 **target_count** | Option<**i64**> | The number of intended recipients of the message. | [optional]

@@ -49,7 +49,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_audience_group
 
-> crate::models::CreateAudienceGroupResponse create_audience_group(create_audience_group_request)
+> models::CreateAudienceGroupResponse create_audience_group(create_audience_group_request)
 
 
 Create audience for uploading user IDs (by JSON)
@@ -63,7 +63,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::CreateAudienceGroupResponse**](CreateAudienceGroupResponse.md)
+[**models::CreateAudienceGroupResponse**](CreateAudienceGroupResponse.md)
 
 ### Authorization
 
@@ -79,7 +79,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_click_based_audience_group
 
-> crate::models::CreateClickBasedAudienceGroupResponse create_click_based_audience_group(create_click_based_audience_group_request)
+> models::CreateClickBasedAudienceGroupResponse create_click_based_audience_group(create_click_based_audience_group_request)
 
 
 Create audience for click-based retargeting
@@ -93,7 +93,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::CreateClickBasedAudienceGroupResponse**](CreateClickBasedAudienceGroupResponse.md)
+[**models::CreateClickBasedAudienceGroupResponse**](CreateClickBasedAudienceGroupResponse.md)
 
 ### Authorization
 
@@ -109,7 +109,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_imp_based_audience_group
 
-> crate::models::CreateImpBasedAudienceGroupResponse create_imp_based_audience_group(create_imp_based_audience_group_request)
+> models::CreateImpBasedAudienceGroupResponse create_imp_based_audience_group(create_imp_based_audience_group_request)
 
 
 Create audience for impression-based retargeting
@@ -123,7 +123,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::CreateImpBasedAudienceGroupResponse**](CreateImpBasedAudienceGroupResponse.md)
+[**models::CreateImpBasedAudienceGroupResponse**](CreateImpBasedAudienceGroupResponse.md)
 
 ### Authorization
 
@@ -169,7 +169,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_audience_data
 
-> crate::models::GetAudienceDataResponse get_audience_data(audience_group_id)
+> models::GetAudienceDataResponse get_audience_data(audience_group_id)
 
 
 Gets audience data.
@@ -183,7 +183,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetAudienceDataResponse**](GetAudienceDataResponse.md)
+[**models::GetAudienceDataResponse**](GetAudienceDataResponse.md)
 
 ### Authorization
 
@@ -199,7 +199,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_audience_groups
 
-> crate::models::GetAudienceGroupsResponse get_audience_groups(page, description, status, size, includes_external_public_groups, create_route)
+> models::GetAudienceGroupsResponse get_audience_groups(page, description, status, size, includes_external_public_groups, create_route)
 
 
 Gets data for more than one audience.
@@ -211,14 +211,14 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **page** | **i64** | The page to return when getting (paginated) results. Must be 1 or higher. | [required] |
 **description** | Option<**String**> | The name of the audience(s) to return. You can search for partial matches. This is case-insensitive, meaning AUDIENCE and audience are considered identical. If omitted, the name of the audience(s) will not be used as a search criterion.  |  |
-**status** | Option<[**AudienceGroupStatus**](.md)> | The status of the audience(s) to return. If omitted, the status of the audience(s) will not be used as a search criterion.  |  |
+**status** | Option<[**AudienceGroupStatus**](AudienceGroupStatus.md)> | The status of the audience(s) to return. If omitted, the status of the audience(s) will not be used as a search criterion.  |  |
 **size** | Option<**i64**> | The number of audiences per page. Default: 20 Max: 40  |  |
 **includes_external_public_groups** | Option<**bool**> | true (default): Get public audiences created in all channels linked to the same bot. false: Get audiences created in the same channel.  |  |
-**create_route** | Option<[**AudienceGroupCreateRoute**](.md)> | How the audience was created. If omitted, all audiences are included.  `OA_MANAGER`: Return only audiences created with LINE Official Account Manager (opens new window). `MESSAGING_API`: Return only audiences created with Messaging API.  |  |
+**create_route** | Option<[**AudienceGroupCreateRoute**](AudienceGroupCreateRoute.md)> | How the audience was created. If omitted, all audiences are included.  `OA_MANAGER`: Return only audiences created with LINE Official Account Manager (opens new window). `MESSAGING_API`: Return only audiences created with Messaging API.  |  |
 
 ### Return type
 
-[**crate::models::GetAudienceGroupsResponse**](GetAudienceGroupsResponse.md)
+[**models::GetAudienceGroupsResponse**](GetAudienceGroupsResponse.md)
 
 ### Authorization
 
@@ -234,7 +234,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_shared_audience_data
 
-> crate::models::GetSharedAudienceDataResponse get_shared_audience_data(audience_group_id)
+> models::GetSharedAudienceDataResponse get_shared_audience_data(audience_group_id)
 
 
 Gets audience data.
@@ -248,7 +248,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetSharedAudienceDataResponse**](GetSharedAudienceDataResponse.md)
+[**models::GetSharedAudienceDataResponse**](GetSharedAudienceDataResponse.md)
 
 ### Authorization
 
@@ -264,7 +264,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_shared_audience_groups
 
-> crate::models::GetSharedAudienceGroupsResponse get_shared_audience_groups(page, description, status, size, create_route, includes_owned_audience_groups)
+> models::GetSharedAudienceGroupsResponse get_shared_audience_groups(page, description, status, size, create_route, includes_owned_audience_groups)
 
 
 Gets data for more than one audience, including those shared by the Business Manager.
@@ -276,14 +276,14 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **page** | **i64** | The page to return when getting (paginated) results. Must be 1 or higher. | [required] |
 **description** | Option<**String**> | The name of the audience(s) to return. You can search for partial matches. This is case-insensitive, meaning AUDIENCE and audience are considered identical. If omitted, the name of the audience(s) will not be used as a search criterion.  |  |
-**status** | Option<[**AudienceGroupStatus**](.md)> | The status of the audience(s) to return. If omitted, the status of the audience(s) will not be used as a search criterion.  |  |
+**status** | Option<[**AudienceGroupStatus**](AudienceGroupStatus.md)> | The status of the audience(s) to return. If omitted, the status of the audience(s) will not be used as a search criterion.  |  |
 **size** | Option<**i64**> | The number of audiences per page. Default: 20 Max: 40  |  |
-**create_route** | Option<[**AudienceGroupCreateRoute**](.md)> | How the audience was created. If omitted, all audiences are included.  `OA_MANAGER`: Return only audiences created with LINE Official Account Manager (opens new window). `MESSAGING_API`: Return only audiences created with Messaging API.  |  |
+**create_route** | Option<[**AudienceGroupCreateRoute**](AudienceGroupCreateRoute.md)> | How the audience was created. If omitted, all audiences are included.  `OA_MANAGER`: Return only audiences created with LINE Official Account Manager (opens new window). `MESSAGING_API`: Return only audiences created with Messaging API.  |  |
 **includes_owned_audience_groups** | Option<**bool**> | true: Include audienceGroups owned by LINE Official Account Manager false: Respond only audienceGroups shared by Business Manager  |  |[default to false]
 
 ### Return type
 
-[**crate::models::GetSharedAudienceGroupsResponse**](GetSharedAudienceGroupsResponse.md)
+[**models::GetSharedAudienceGroupsResponse**](GetSharedAudienceGroupsResponse.md)
 
 ### Authorization
 
