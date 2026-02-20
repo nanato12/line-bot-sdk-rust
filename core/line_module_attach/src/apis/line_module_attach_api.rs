@@ -38,6 +38,7 @@ use super::request as __internal_request;
 use super::{configuration, Error};
 use crate::models;
 
+#[derive(Clone)]
 pub struct LineModuleAttachApiClient<C: Connect>
 where
     C: Clone + std::marker::Send + Sync + 'static,
