@@ -14,4 +14,8 @@
 * limitations under the License.
 */
 
+//! Webhook request parsing and signature validation.
+//!
+//! Use [`signature::validate_signature`] to verify that a webhook request originated from the LINE Platform.
+
 pub mod signature;

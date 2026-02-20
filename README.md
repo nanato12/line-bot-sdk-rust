@@ -1,5 +1,8 @@
 # LINE Messaging API SDK for Rust
 
+[![Crates.io](https://img.shields.io/crates/v/line-bot-sdk-rust.svg)](https://crates.io/crates/line-bot-sdk-rust)
+[![docs.rs](https://docs.rs/line-bot-sdk-rust/badge.svg)](https://docs.rs/line-bot-sdk-rust)
+
 ## Introduction
 
 The LINE Messaging API SDK for Rust makes it easy to develop bots using LINE Messaging API, and you can create a sample bot within minutes.
@@ -29,7 +32,7 @@ Extract `x-line-signature` from the request header.
 
 ```toml
 [dependencies.line-bot-sdk-rust]
-version = "1.0.0"
+version = "1.0.2"
 features = ["rocket_support"]
 ```
 
@@ -47,7 +50,7 @@ async fn world(signature: Signature, body: String) -> (Status, &'static str) {
 
 ```toml
 [dependencies.line-bot-sdk-rust]
-version = "1.0.0"
+version = "1.0.2"
 features = ["actix_support"]
 ```
 
@@ -120,7 +123,7 @@ source: [actix_web example](./examples/actix_web_example/src/main.rs)
 
 ## Contributing
 
-Please make a contribution 😆
+Please make a contribution!
 
 ## License
 

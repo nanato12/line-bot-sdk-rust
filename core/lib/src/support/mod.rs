@@ -14,6 +14,14 @@
 * limitations under the License.
 */
 
+//! Web framework integrations for extracting the `x-line-signature` header.
+//!
+//! Each sub-module provides a [`Signature`](self) extractor for its respective framework.
+//! Enable the corresponding feature flag to use them:
+//!
+//! - `rocket_support` — [`rocket::Signature`]
+//! - `actix_support` — [`actix::Signature`]
+
 #[cfg(feature = "rocket_support")]
 pub mod rocket;
 
