@@ -1,6 +1,6 @@
 [package]
 name = "line_shop"
-version = "0.0.1"
+version = "0.0.2"
 authors = ["nanato12 <admin@okj.info>"]
 description = "This document describes LINE Mission Stickers API."
 license = "Apache-2.0"

@@ -1,6 +1,6 @@
 [package]
 name = "line_insight"
-version = "0.0.2"
+version = "0.0.3"
 authors = ["nanato12 <admin@okj.info>"]
 description = "This document describes LINE Messaging API(Insight)."
 license = "Apache-2.0"

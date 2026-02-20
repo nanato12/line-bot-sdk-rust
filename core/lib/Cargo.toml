@@ -44,39 +44,39 @@ optional = true
 default-features = false
 
 [dependencies.line_channel_access_token]
-version = "0.0.2"
+version = "0.0.3"
 path = "../line_channel_access_token"
 
 [dependencies.line_insight]
-version = "0.0.2"
+version = "0.0.3"
 path = "../line_insight"
 
 [dependencies.line_liff]
-version = "1.1.0"
+version = "1.2.0"
 path = "../line_liff"
 
 [dependencies.line_manage_audience]
-version = "0.0.2"
+version = "0.0.3"
 path = "../line_manage_audience"
 
 [dependencies.line_messaging_api]
-version = "0.0.4"
+version = "0.0.5"
 path = "../line_messaging_api"
 
 [dependencies.line_module]
-version = "0.0.2"
+version = "0.0.3"
 path = "../line_module"
 
 [dependencies.line_module_attach]
-version = "0.0.2"
+version = "0.0.3"
 path = "../line_module_attach"
 
 [dependencies.line_shop]
-version = "0.0.1"
+version = "0.0.2"
 path = "../line_shop"
 
 [dependencies.line_webhook]
-version = "1.0.2"
+version = "1.0.3"
 path = "../line_webhook"
 
 [dev-dependencies]
