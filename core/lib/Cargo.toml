@@ -7,9 +7,12 @@ rust-version = "1.71.0"
 description = "LINE Messaging API SDK for Rust"
 readme = "../../README.md"
 repository = "https://github.com/nanato12/line-bot-sdk-rust/"
+homepage = "https://github.com/nanato12/line-bot-sdk-rust/"
+documentation = "https://docs.rs/line-bot-sdk-rust"
 license = "Apache-2.0"
 keywords = ["line", "linebot", "line-bot-sdk", "line-messaging-api"]
 categories = ["api-bindings"]
+exclude = ["tests/", "examples/"]
 
 [features]
 default = []

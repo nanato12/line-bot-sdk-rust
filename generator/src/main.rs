@@ -197,6 +197,24 @@ fn fix_workspace_dependencies(pkg_dir: &str) {
     replace_in_file(&cargo_toml_path, replacements);
 }
 
+fn fix_cargo_metadata(pkg_dir: &str) {
+    let cargo_toml_path = Path::new(pkg_dir).join("Cargo.toml");
+    let replacements: HashMap<&str, &str> = [
+        (
+            "authors = [\"OpenAPI Generator team and contributors\"]",
+            "authors = [\"nanato12 <admin@okj.info>\"]",
+        ),
+        (
+            "# Override this license by providing a License Object in the OpenAPI.\nlicense = \"Unlicense\"",
+            "license = \"Apache-2.0\"\nrepository = \"https://github.com/nanato12/line-bot-sdk-rust/\"",
+        ),
+    ]
+    .iter()
+    .cloned()
+    .collect();
+    replace_in_file(&cargo_toml_path, replacements);
+}
+
 fn fix_workspace_lints(pkg_dir: &str) {
     let cargo_toml_path = Path::new(pkg_dir).join("Cargo.toml");
     let mut contents = read_file(&cargo_toml_path);
@@ -413,6 +431,7 @@ fn main() {
         }
 
         process_directory(&PathBuf::from(pkg_dir), pkg_name);
+        fix_cargo_metadata(pkg_dir);
         fix_generated_dependencies(pkg_dir);
         fix_workspace_dependencies(pkg_dir);
         fix_workspace_lints(pkg_dir);
