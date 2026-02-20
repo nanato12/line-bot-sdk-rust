@@ -555,18 +555,14 @@ fn main() {
         if let Some(ref version) = existing_version {
             let cargo_toml_path = Path::new(pkg_dir).join("Cargo.toml");
             let contents = read_file(&cargo_toml_path);
-            let updated = contents
+            let generated_version = contents
                 .lines()
-                .map(|line| {
-                    if line.starts_with("version = ") {
-                        format!("version = \"{version}\"")
-                    } else {
-                        line.to_string()
-                    }
-                })
-                .collect::<Vec<_>>()
-                .join("\n");
-            write_file(&cargo_toml_path, &updated);
+                .find(|l| l.starts_with("version = "))
+                .map(|l| l.to_string());
+            if let Some(old) = generated_version {
+                let updated = contents.replace(&old, &format!("version = \"{version}\""));
+                write_file(&cargo_toml_path, &updated);
+            }
         }
 
         fix_generated_dependencies(pkg_dir);
