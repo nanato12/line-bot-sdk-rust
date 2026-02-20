@@ -50,15 +50,10 @@ approach, or project structure, refer to these.
 
 ## line-openapi Submodule
 
-- Uses a fork (`nanato12/line-openapi`), NOT the official
-  `line/line-openapi`.
-- Reason: `info.version` in each YAML spec controls the
-  generated crate version in `Cargo.toml`. The fork allows
-  bumping versions independently for crates.io publishing.
-- Upstream: <https://github.com/line/line-openapi>
-- Fork: <https://github.com/nanato12/line-openapi>
-- Sync fork before generation:
-  `gh repo sync nanato12/line-openapi --source line/line-openapi --branch main`
+- Uses the official `line/line-openapi` repo.
+- Sub-crate versions are managed independently from the
+  OpenAPI spec `info.version`. The generator preserves
+  existing `Cargo.toml` versions across regeneration.
 - Submodule URL MUST use SSH (`git@github.com:`), not HTTPS.
 
 ## Code Generation
