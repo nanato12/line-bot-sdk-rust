@@ -14,6 +14,10 @@
 * limitations under the License.
 */
 
+//! LINE API client module.
+//!
+//! Provides the [`LINE`] struct, which bundles all LINE API clients into a single entry point.
+
 use std::sync::Arc;
 
 use hyper_rustls::HttpsConnector;
@@ -47,6 +51,31 @@ use line_webhook::apis::{
 
 type HttpsClient = HttpsConnector<HttpConnector>;
 
+/// A unified client for all LINE Platform APIs.
+///
+/// `LINE` bundles all API-specific clients, each configured with the same channel access token
+/// and sharing a single HTTPS connection pool via `hyper`.
+///
+/// # Example
+///
+/// ```no_run
+/// use line_bot_sdk_rust::client::LINE;
+/// use line_bot_sdk_rust::line_messaging_api::apis::MessagingApiApi;
+/// use line_bot_sdk_rust::line_messaging_api::models::{
+///     Message, ReplyMessageRequest, TextMessage,
+/// };
+///
+/// # async fn example() {
+/// let line = LINE::new("YOUR_CHANNEL_ACCESS_TOKEN".to_string());
+///
+/// let req = ReplyMessageRequest {
+///     reply_token: "reply_token".to_string(),
+///     messages: vec![Message::Text(TextMessage::new("Hello!".to_string()))],
+///     notification_disabled: Some(false),
+/// };
+/// let _ = line.messaging_api_client.reply_message(req).await;
+/// # }
+/// ```
 #[derive(Clone)]
 pub struct LINE {
     pub channel_access_token_api_client: ChannelAccessTokenApiClient<HttpsClient>,
@@ -63,6 +92,10 @@ pub struct LINE {
 }
 
 impl LINE {
+    /// Creates a new `LINE` client with the given channel access token.
+    ///
+    /// All API-specific clients are initialized with the same token and share a single
+    /// HTTPS connection via `hyper` + `hyper-rustls`.
     pub fn new(token: String) -> LINE {
         let client = LINE::create_hyper_client();
 

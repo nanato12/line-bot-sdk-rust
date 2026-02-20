@@ -14,12 +14,31 @@
 * limitations under the License.
 */
 
+//! actix-web framework integration for LINE webhook signature extraction.
+
 use actix_web::dev::Payload;
 use actix_web::{error::ErrorBadRequest, Error, FromRequest, HttpRequest};
 use std::{future::Future, pin::Pin};
 
+/// Extracts the `x-line-signature` header value from an actix-web request.
+///
+/// Implements [`FromRequest`] so it can be used as an extractor.
+///
+/// # Example
+///
+/// ```ignore
+/// use actix_web::{post, web, Error, HttpResponse};
+/// use line_bot_sdk_rust::support::actix::Signature;
+///
+/// #[post("/callback")]
+/// async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpResponse, Error> {
+///     // Use signature.key for validation
+///     Ok(HttpResponse::Ok().body("ok"))
+/// }
+/// ```
 #[derive(Debug)]
 pub struct Signature {
+    /// The value of the `x-line-signature` header.
     pub key: String,
 }
 
