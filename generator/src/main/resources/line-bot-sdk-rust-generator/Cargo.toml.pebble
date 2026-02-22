@@ -1,0 +1,29 @@
+[package]
+name = "{{ packageName }}"
+version = "{{ packageVersion }}"
+authors = ["nanato12 <admin@okj.info>"]
+description = "{{ appDescription }}"
+license = "Apache-2.0"
+repository = "https://github.com/nanato12/line-bot-sdk-rust/"
+edition = "2021"
+
+[dependencies]
+serde = { workspace = true, features = ["derive"] }
+{% if needsSerdeWith is not null and needsSerdeWith == true -%}
+serde_with = { workspace = true, default-features = false, features = ["base64", "std", "macros"] }
+{% endif -%}
+serde_json.workspace = true
+serde_repr.workspace = true
+url.workspace = true
+{% if needsUuid is not null and needsUuid == true -%}
+uuid = { workspace = true, features = ["serde", "v4"] }
+{% endif -%}
+hyper = { workspace = true, features = ["full"] }
+hyper-util = { workspace = true, features = ["client", "client-legacy", "http1", "http2"] }
+http-body-util.workspace = true
+base64.workspace = true
+futures.workspace = true
+tokio = { workspace = true, features = ["time"] }
+
+[lints]
+workspace = true

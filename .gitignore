@@ -9,3 +9,5 @@ Cargo.lock
 .openapi-generator
 /core/*/.openapi-generator-ignore
 /tools/openapi-generator-cli-*.jar
+/generator/target/
+/generator/dependency-reduced-pom.xml

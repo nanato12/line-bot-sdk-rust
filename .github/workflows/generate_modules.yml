@@ -8,6 +8,7 @@ on:
       - "generator/**"
       - "tools/**"
       - "core/line_*/**"
+      - "generate-code.py"
   workflow_dispatch:
 
 jobs:
@@ -22,6 +23,11 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
+          cache: maven
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
