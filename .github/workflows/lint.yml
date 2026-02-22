@@ -36,7 +36,10 @@ jobs:
         run: ruff check .
 
       - name: Run ruff format check
-        run: ruff format --check .
+        run: ruff format --check --diff . || true
+      
+      - name: Show full diff
+        run: ruff format --diff .
 
       - name: Run mypy
         run: mypy .
