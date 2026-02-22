@@ -1,0 +1,42 @@
+name: Python Lint
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/lint.yml
+      - "**.py"
+      - "pyproject.toml"
+      - "requirements-dev.txt"
+  push:
+    branches:
+      - develop
+      - main
+    paths:
+      - .github/workflows/lint.yml
+      - "**.py"
+      - "pyproject.toml"
+      - "requirements-dev.txt"
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run ruff check
+        run: ruff check .
+
+      - name: Run ruff format check
+        run: ruff format --check .
+
+      - name: Run mypy
+        run: mypy .
