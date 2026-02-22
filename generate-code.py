@@ -183,8 +183,9 @@ def _remove_type_field(file_path: str, type_comment: str):
     # Remove type comment (e.g., "/// Type of the event")
     if type_comment:
         contents = re.sub(
-            rf'\s*/// {re.escape(type_comment)}\n',
-            "\n", contents,
+            rf"\s*/// {re.escape(type_comment)}\n",
+            "\n",
+            contents,
         )
 
     if contents != original:
@@ -204,8 +205,8 @@ def _fix_blank_line_before_execute(api_dir: str):
             contents = f.read()
         # Add blank line before req.execute() if not already present
         modified = re.sub(
-            r'([^\n])\n(\s*req\.execute\()',
-            r'\1\n\n\2',
+            r"([^\n])\n(\s*req\.execute\()",
+            r"\1\n\n\2",
             contents,
         )
         if modified != contents:
