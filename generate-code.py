@@ -17,9 +17,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 CLI_VERSION = "7.20.0"
 CLI_JAR = os.path.join(ROOT, "tools", f"openapi-generator-cli-{CLI_VERSION}.jar")
 CLI_URL = f"https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/{CLI_VERSION}/openapi-generator-cli-{CLI_VERSION}.jar"
-GENERATOR_JAR = os.path.join(
-    ROOT, "generator", "target", "line-bot-sdk-rust-generator-1.0.0.jar"
-)
+GENERATOR_JAR = os.path.join(ROOT, "generator", "target", "line-bot-sdk-rust-generator-1.0.0.jar")
 
 # Mapping: (spec file, output directory, package name)
 SERVICES = [
@@ -118,13 +116,19 @@ def generate_service(spec_file: str, output_dir: str, package_name: str):
     # Run OpenAPI Generator
     classpath = f"{CLI_JAR}:{GENERATOR_JAR}"
     cmd = [
-        "java", "-cp", classpath,
+        "java",
+        "-cp",
+        classpath,
         "org.openapitools.codegen.OpenAPIGenerator",
         "generate",
-        "-g", "line-bot-sdk-rust-generator",
-        "-e", "pebble",
-        "-i", spec_path,
-        "-o", out_path,
+        "-g",
+        "line-bot-sdk-rust-generator",
+        "-e",
+        "pebble",
+        "-i",
+        spec_path,
+        "-o",
+        out_path,
         "--additional-properties",
         f"packageName={package_name},packageVersion={version}",
     ]
