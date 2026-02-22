@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ButtonsTemplate {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "thumbnailImageUrl", skip_serializing_if = "Option::is_none")]
     pub thumbnail_image_url: Option<String>,
     #[serde(rename = "imageAspectRatio", skip_serializing_if = "Option::is_none")]
@@ -50,8 +53,9 @@ pub struct ButtonsTemplate {
 }
 
 impl ButtonsTemplate {
-    pub fn new(text: String, actions: Vec<models::Action>) -> ButtonsTemplate {
+    pub fn new(r#type: String, text: String, actions: Vec<models::Action>) -> ButtonsTemplate {
         ButtonsTemplate {
+            r#type,
             thumbnail_image_url: None,
             image_aspect_ratio: None,
             image_size: None,

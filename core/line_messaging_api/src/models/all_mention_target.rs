@@ -26,11 +26,16 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct AllMentionTarget {}
+pub struct AllMentionTarget {
+    /// Target to be mentioned
+    #[serde(rename = "type")]
+    pub r#type: String,
+}
 
 impl AllMentionTarget {
-    pub fn new() -> AllMentionTarget {
-        AllMentionTarget {}
+    pub fn new(r#type: String) -> AllMentionTarget {
+        AllMentionTarget { r#type }
     }
 }

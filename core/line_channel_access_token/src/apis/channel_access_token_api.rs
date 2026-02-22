@@ -133,6 +133,7 @@ where
             client_assertion_type.to_string(),
         );
         req = req.with_query_param("client_assertion".to_string(), client_assertion.to_string());
+
         req.execute(self.configuration.borrow())
     }
 
@@ -155,6 +156,7 @@ where
         req = req.with_form_param("grant_type".to_string(), grant_type.to_string());
         req = req.with_form_param("client_id".to_string(), client_id.to_string());
         req = req.with_form_param("client_secret".to_string(), client_secret.to_string());
+
         req.execute(self.configuration.borrow())
     }
 
@@ -174,6 +176,7 @@ where
             client_assertion_type.to_string(),
         );
         req = req.with_form_param("client_assertion".to_string(), client_assertion.to_string());
+
         req.execute(self.configuration.borrow())
     }
 
@@ -208,6 +211,7 @@ where
         if let Some(param_value) = client_secret {
             req = req.with_form_param("client_secret".to_string(), param_value.to_string());
         }
+
         req.execute(self.configuration.borrow())
     }
 
@@ -220,6 +224,7 @@ where
             __internal_request::Request::new(hyper::Method::POST, "/v2/oauth/revoke".to_string());
         req = req.with_form_param("access_token".to_string(), access_token.to_string());
         req = req.returns_nothing();
+
         req.execute(self.configuration.borrow())
     }
 
@@ -238,6 +243,7 @@ where
         req = req.with_form_param("client_secret".to_string(), client_secret.to_string());
         req = req.with_form_param("access_token".to_string(), access_token.to_string());
         req = req.returns_nothing();
+
         req.execute(self.configuration.borrow())
     }
 
@@ -250,6 +256,7 @@ where
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/oauth/verify".to_string());
         req = req.with_form_param("access_token".to_string(), access_token.to_string());
+
         req.execute(self.configuration.borrow())
     }
 
@@ -262,6 +269,7 @@ where
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/oauth2/v2.1/verify".to_string());
         req = req.with_query_param("access_token".to_string(), access_token.to_string());
+
         req.execute(self.configuration.borrow())
     }
 }

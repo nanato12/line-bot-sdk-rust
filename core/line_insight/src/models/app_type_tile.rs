@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AppTypeTile {
     /// users' OS
@@ -46,7 +47,6 @@ impl AppTypeTile {
 }
 /// users' OS
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum AppType {
     #[serde(rename = "ios")]
     Ios,

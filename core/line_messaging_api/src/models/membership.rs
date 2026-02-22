@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Membership {
     /// Membership plan ID.
     #[serde(rename = "membershipId")]
@@ -50,7 +51,7 @@ pub struct Membership {
     #[serde(rename = "memberCount")]
     pub member_count: i32,
     /// The upper limit of members who can subscribe. If no upper limit is set, it will be null.
-    #[serde(rename = "memberLimit")]
+    #[serde(rename = "memberLimit", deserialize_with = "Option::deserialize")]
     pub member_limit: Option<i32>,
     /// Payment method for users who subscribe to a membership plan.
     #[serde(rename = "isInAppPurchase")]
@@ -89,7 +90,6 @@ impl Membership {
 }
 /// The currency of membership.price.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Currency {
     #[serde(rename = "JPY")]
     Jpy,

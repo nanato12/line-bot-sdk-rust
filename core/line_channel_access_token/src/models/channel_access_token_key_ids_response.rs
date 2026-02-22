@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// ChannelAccessTokenKeyIdsResponse : Channel access token key IDs
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ChannelAccessTokenKeyIdsResponse {
     /// Array of channel access token key IDs.
     #[serde(rename = "kids")]

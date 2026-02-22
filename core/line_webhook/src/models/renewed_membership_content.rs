@@ -26,15 +26,22 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RenewedMembershipContent {
+    /// Type of membership event.
+    #[serde(rename = "type")]
+    pub r#type: String,
     /// The ID of the membership that the user renewed. This is defined for each membership.
     #[serde(rename = "membershipId")]
     pub membership_id: i32,
 }
 
 impl RenewedMembershipContent {
-    pub fn new(membership_id: i32) -> RenewedMembershipContent {
-        RenewedMembershipContent { membership_id }
+    pub fn new(r#type: String, membership_id: i32) -> RenewedMembershipContent {
+        RenewedMembershipContent {
+            r#type,
+            membership_id,
+        }
     }
 }

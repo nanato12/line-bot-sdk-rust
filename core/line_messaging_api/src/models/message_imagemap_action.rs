@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MessageImagemapAction {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "area")]
     pub area: Box<models::ImagemapArea>,
     #[serde(rename = "text")]
@@ -37,8 +40,9 @@ pub struct MessageImagemapAction {
 }
 
 impl MessageImagemapAction {
-    pub fn new(area: models::ImagemapArea, text: String) -> MessageImagemapAction {
+    pub fn new(r#type: String, area: models::ImagemapArea, text: String) -> MessageImagemapAction {
         MessageImagemapAction {
+            r#type,
             area: Box::new(area),
             text,
             label: None,

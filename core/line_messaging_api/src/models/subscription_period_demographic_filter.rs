@@ -26,8 +26,12 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SubscriptionPeriodDemographicFilter {
+    /// Type of demographic filter
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
     #[serde(rename = "gte", skip_serializing_if = "Option::is_none")]
     pub gte: Option<models::SubscriptionPeriodDemographic>,
     #[serde(rename = "lt", skip_serializing_if = "Option::is_none")]
@@ -37,6 +41,7 @@ pub struct SubscriptionPeriodDemographicFilter {
 impl SubscriptionPeriodDemographicFilter {
     pub fn new() -> SubscriptionPeriodDemographicFilter {
         SubscriptionPeriodDemographicFilter {
+            r#type: None,
             gte: None,
             lt: None,
         }

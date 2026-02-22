@@ -26,14 +26,17 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexCarousel {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "contents")]
     pub contents: Vec<models::FlexBubble>,
 }
 
 impl FlexCarousel {
-    pub fn new(contents: Vec<models::FlexBubble>) -> FlexCarousel {
-        FlexCarousel { contents }
+    pub fn new(r#type: String, contents: Vec<models::FlexBubble>) -> FlexCarousel {
+        FlexCarousel { r#type, contents }
     }
 }

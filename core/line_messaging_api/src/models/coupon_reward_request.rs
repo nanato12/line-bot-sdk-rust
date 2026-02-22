@@ -26,17 +26,24 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum CouponRewardRequest {
     #[serde(rename = "cashBack")]
-    CouponCashBackRewardRequest(models::CouponCashBackRewardRequest),
+    CouponCashBackRewardRequest {},
     #[serde(rename = "discount")]
-    CouponDiscountRewardRequest(models::CouponDiscountRewardRequest),
+    CouponDiscountRewardRequest {},
     #[serde(rename = "free")]
-    CouponFreeRewardRequest(models::CouponFreeRewardRequest),
+    CouponFreeRewardRequest {},
     #[serde(rename = "gift")]
-    CouponGiftRewardRequest(models::CouponGiftRewardRequest),
+    CouponGiftRewardRequest {},
     #[serde(rename = "others")]
-    CouponOthersRewardRequest(models::CouponOthersRewardRequest),
+    CouponOthersRewardRequest {},
+}
+
+impl Default for CouponRewardRequest {
+    fn default() -> Self {
+        Self::CouponCashBackRewardRequest {}
+    }
 }

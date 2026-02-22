@@ -26,11 +26,16 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CouponGiftRewardResponse {}
+pub struct CouponGiftRewardResponse {
+    /// Type of coupon. Determines the benefit provided.
+    #[serde(rename = "type")]
+    pub r#type: String,
+}
 
 impl CouponGiftRewardResponse {
-    pub fn new() -> CouponGiftRewardResponse {
-        CouponGiftRewardResponse {}
+    pub fn new(r#type: String) -> CouponGiftRewardResponse {
+        CouponGiftRewardResponse { r#type }
     }
 }

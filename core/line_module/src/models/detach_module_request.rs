@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// DetachModuleRequest : Unlink (detach) the module channel by the operation of the module channel administrator
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DetachModuleRequest {

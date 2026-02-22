@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexIcon {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "url")]
     pub url: String,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
@@ -51,8 +54,9 @@ pub struct FlexIcon {
 }
 
 impl FlexIcon {
-    pub fn new(url: String) -> FlexIcon {
+    pub fn new(r#type: String, url: String) -> FlexIcon {
         FlexIcon {
+            r#type,
             url,
             size: None,
             aspect_ratio: None,
@@ -68,7 +72,6 @@ impl FlexIcon {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Position {
     #[serde(rename = "relative")]
     Relative,

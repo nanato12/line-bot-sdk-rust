@@ -26,8 +26,12 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DatetimePickerAction {
+    /// Type of action
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
     /// Label for the action.
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
@@ -46,6 +50,7 @@ pub struct DatetimePickerAction {
 impl DatetimePickerAction {
     pub fn new() -> DatetimePickerAction {
         DatetimePickerAction {
+            r#type: None,
             label: None,
             data: None,
             mode: None,
@@ -57,7 +62,6 @@ impl DatetimePickerAction {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Mode {
     #[serde(rename = "date")]
     Date,

@@ -110,10 +110,12 @@ impl From<serde_json::Error> for Error {
     }
 }
 
-mod messaging_api_api;
 mod request;
+
+mod messaging_api_api;
 pub use self::messaging_api_api::{MessagingApiApi, MessagingApiApiClient};
 mod messaging_api_blob_api;
 pub use self::messaging_api_blob_api::{MessagingApiBlobApi, MessagingApiBlobApiClient};
+
 pub mod client;
 pub mod configuration;

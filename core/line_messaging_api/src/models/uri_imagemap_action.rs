@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UriImagemapAction {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "area")]
     pub area: Box<models::ImagemapArea>,
     #[serde(rename = "linkUri")]
@@ -37,8 +40,9 @@ pub struct UriImagemapAction {
 }
 
 impl UriImagemapAction {
-    pub fn new(area: models::ImagemapArea, link_uri: String) -> UriImagemapAction {
+    pub fn new(r#type: String, area: models::ImagemapArea, link_uri: String) -> UriImagemapAction {
         UriImagemapAction {
+            r#type,
             area: Box::new(area),
             link_uri,
             label: None,

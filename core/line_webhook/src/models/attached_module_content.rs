@@ -26,8 +26,12 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AttachedModuleContent {
+    /// Type
+    #[serde(rename = "type")]
+    pub r#type: String,
     /// User ID of the bot on the attached LINE Official Account
     #[serde(rename = "botId")]
     pub bot_id: String,
@@ -37,7 +41,11 @@ pub struct AttachedModuleContent {
 }
 
 impl AttachedModuleContent {
-    pub fn new(bot_id: String, scopes: Vec<String>) -> AttachedModuleContent {
-        AttachedModuleContent { bot_id, scopes }
+    pub fn new(r#type: String, bot_id: String, scopes: Vec<String>) -> AttachedModuleContent {
+        AttachedModuleContent {
+            r#type,
+            bot_id,
+            scopes,
+        }
     }
 }

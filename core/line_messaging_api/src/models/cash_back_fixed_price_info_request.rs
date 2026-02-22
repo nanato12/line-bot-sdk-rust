@@ -26,14 +26,20 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CashBackFixedPriceInfoRequest {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "fixedAmount", skip_serializing_if = "Option::is_none")]
     pub fixed_amount: Option<i64>,
 }
 
 impl CashBackFixedPriceInfoRequest {
-    pub fn new() -> CashBackFixedPriceInfoRequest {
-        CashBackFixedPriceInfoRequest { fixed_amount: None }
+    pub fn new(r#type: String) -> CashBackFixedPriceInfoRequest {
+        CashBackFixedPriceInfoRequest {
+            r#type,
+            fixed_amount: None,
+        }
     }
 }

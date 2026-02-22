@@ -26,11 +26,16 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct NormalAcquisitionConditionRequest {}
+pub struct NormalAcquisitionConditionRequest {
+    /// Determines how the coupon is distributed or used.
+    #[serde(rename = "type")]
+    pub r#type: String,
+}
 
 impl NormalAcquisitionConditionRequest {
-    pub fn new() -> NormalAcquisitionConditionRequest {
-        NormalAcquisitionConditionRequest {}
+    pub fn new(r#type: String) -> NormalAcquisitionConditionRequest {
+        NormalAcquisitionConditionRequest { r#type }
     }
 }

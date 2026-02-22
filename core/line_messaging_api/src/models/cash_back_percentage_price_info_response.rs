@@ -26,14 +26,20 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CashBackPercentagePriceInfoResponse {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<i32>,
 }
 
 impl CashBackPercentagePriceInfoResponse {
-    pub fn new() -> CashBackPercentagePriceInfoResponse {
-        CashBackPercentagePriceInfoResponse { percentage: None }
+    pub fn new(r#type: String) -> CashBackPercentagePriceInfoResponse {
+        CashBackPercentagePriceInfoResponse {
+            r#type,
+            percentage: None,
+        }
     }
 }

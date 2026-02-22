@@ -9,10 +9,10 @@ edition = "2021"
 
 [dependencies]
 serde = { workspace = true, features = ["derive"] }
+serde_with = { workspace = true, default-features = false, features = ["base64", "std", "macros"] }
 serde_json.workspace = true
 serde_repr.workspace = true
 url.workspace = true
-uuid = { workspace = true, features = ["serde", "v4"] }
 hyper = { workspace = true, features = ["full"] }
 hyper-util = { workspace = true, features = ["client", "client-legacy", "http1", "http2"] }
 http-body-util.workspace = true

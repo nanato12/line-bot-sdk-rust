@@ -26,14 +26,21 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// RichMenuBatchOperation : Rich menu operation object represents the batch operation to the rich menu linked to the user.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum RichMenuBatchOperation {
     #[serde(rename = "link")]
-    RichMenuBatchLinkOperation(models::RichMenuBatchLinkOperation),
+    RichMenuBatchLinkOperation {},
     #[serde(rename = "unlink")]
-    RichMenuBatchUnlinkOperation(models::RichMenuBatchUnlinkOperation),
+    RichMenuBatchUnlinkOperation {},
     #[serde(rename = "unlinkAll")]
-    RichMenuBatchUnlinkAllOperation(models::RichMenuBatchUnlinkAllOperation),
+    RichMenuBatchUnlinkAllOperation {},
+}
+
+impl Default for RichMenuBatchOperation {
+    fn default() -> Self {
+        Self::RichMenuBatchLinkOperation {}
+    }
 }

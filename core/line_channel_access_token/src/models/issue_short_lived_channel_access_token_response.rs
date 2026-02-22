@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// IssueShortLivedChannelAccessTokenResponse : Issued short-lived channel access token
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IssueShortLivedChannelAccessTokenResponse {
     /// A short-lived channel access token. Valid for 30 days. Note: Channel access tokens cannot be refreshed.
     #[serde(rename = "access_token")]

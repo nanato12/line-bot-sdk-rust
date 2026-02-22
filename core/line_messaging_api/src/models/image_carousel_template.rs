@@ -26,14 +26,17 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ImageCarouselTemplate {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "columns")]
     pub columns: Vec<models::ImageCarouselColumn>,
 }
 
 impl ImageCarouselTemplate {
-    pub fn new(columns: Vec<models::ImageCarouselColumn>) -> ImageCarouselTemplate {
-        ImageCarouselTemplate { columns }
+    pub fn new(r#type: String, columns: Vec<models::ImageCarouselColumn>) -> ImageCarouselTemplate {
+        ImageCarouselTemplate { r#type, columns }
     }
 }

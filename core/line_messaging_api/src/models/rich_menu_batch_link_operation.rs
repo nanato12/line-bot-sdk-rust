@@ -26,9 +26,13 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// RichMenuBatchLinkOperation : Replace the rich menu with the rich menu specified in the `to` property for all users linked to the rich menu specified in the `from` property.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuBatchLinkOperation {
+    /// The type of operation to the rich menu linked to the user. One of link, unlink, or unlinkAll.
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "from")]
     pub from: String,
     #[serde(rename = "to")]
@@ -37,7 +41,7 @@ pub struct RichMenuBatchLinkOperation {
 
 impl RichMenuBatchLinkOperation {
     /// Replace the rich menu with the rich menu specified in the `to` property for all users linked to the rich menu specified in the `from` property.
-    pub fn new(from: String, to: String) -> RichMenuBatchLinkOperation {
-        RichMenuBatchLinkOperation { from, to }
+    pub fn new(r#type: String, from: String, to: String) -> RichMenuBatchLinkOperation {
+        RichMenuBatchLinkOperation { r#type, from, to }
     }
 }

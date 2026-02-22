@@ -26,10 +26,10 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// FlexSpanSize : Font size in the `size` property of the Flex span component. You can specify the size in pixels or with a keyword. FlexSpanSize just provides only keywords.
 /// Font size in the `size` property of the Flex span component. You can specify the size in pixels or with a keyword. FlexSpanSize just provides only keywords.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum FlexSpanSize {
     #[serde(rename = "xxs")]
     Xxs,

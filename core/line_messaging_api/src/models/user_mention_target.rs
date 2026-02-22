@@ -26,14 +26,18 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UserMentionTarget {
+    /// Target to be mentioned
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "userId")]
     pub user_id: String,
 }
 
 impl UserMentionTarget {
-    pub fn new(user_id: String) -> UserMentionTarget {
-        UserMentionTarget { user_id }
+    pub fn new(r#type: String, user_id: String) -> UserMentionTarget {
+        UserMentionTarget { r#type, user_id }
     }
 }

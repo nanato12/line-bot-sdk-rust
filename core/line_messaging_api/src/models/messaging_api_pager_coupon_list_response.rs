@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// MessagingApiPagerCouponListResponse : Paginated response object containing a list of coupons.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MessagingApiPagerCouponListResponse {
     /// List of coupon summary objects.
     #[serde(rename = "items")]

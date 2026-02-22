@@ -26,14 +26,21 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GenderDemographicFilter {
+    /// Type of demographic filter
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
     #[serde(rename = "oneOf", skip_serializing_if = "Option::is_none")]
     pub one_of: Option<Vec<models::GenderDemographic>>,
 }
 
 impl GenderDemographicFilter {
     pub fn new() -> GenderDemographicFilter {
-        GenderDemographicFilter { one_of: None }
+        GenderDemographicFilter {
+            r#type: None,
+            one_of: None,
+        }
     }
 }

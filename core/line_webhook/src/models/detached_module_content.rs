@@ -26,8 +26,12 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DetachedModuleContent {
+    /// Type
+    #[serde(rename = "type")]
+    pub r#type: String,
     /// Detached LINE Official Account bot user ID
     #[serde(rename = "botId")]
     pub bot_id: String,
@@ -37,13 +41,16 @@ pub struct DetachedModuleContent {
 }
 
 impl DetachedModuleContent {
-    pub fn new(bot_id: String, reason: Reason) -> DetachedModuleContent {
-        DetachedModuleContent { bot_id, reason }
+    pub fn new(r#type: String, bot_id: String, reason: Reason) -> DetachedModuleContent {
+        DetachedModuleContent {
+            r#type,
+            bot_id,
+            reason,
+        }
     }
 }
 /// Reason for detaching
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Reason {
     #[serde(rename = "bot_deleted")]
     BotDeleted,

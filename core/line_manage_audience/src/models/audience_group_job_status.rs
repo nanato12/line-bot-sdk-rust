@@ -26,10 +26,10 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// AudienceGroupJobStatus : Job status
 /// Job status
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum AudienceGroupJobStatus {
     #[serde(rename = "QUEUED")]
     Queued,

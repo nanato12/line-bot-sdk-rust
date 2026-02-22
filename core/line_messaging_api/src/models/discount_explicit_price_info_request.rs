@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DiscountExplicitPriceInfoRequest {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "priceAfterDiscount", skip_serializing_if = "Option::is_none")]
     pub price_after_discount: Option<i64>,
     #[serde(rename = "originalPrice", skip_serializing_if = "Option::is_none")]
@@ -35,8 +38,9 @@ pub struct DiscountExplicitPriceInfoRequest {
 }
 
 impl DiscountExplicitPriceInfoRequest {
-    pub fn new() -> DiscountExplicitPriceInfoRequest {
+    pub fn new(r#type: String) -> DiscountExplicitPriceInfoRequest {
         DiscountExplicitPriceInfoRequest {
+            r#type,
             price_after_discount: None,
             original_price: None,
         }

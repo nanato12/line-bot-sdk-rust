@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ShowLoadingAnimationRequest {
     /// User ID of the target user for whom the loading animation is to be displayed.
     #[serde(rename = "chatId")]

@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// CouponListResponse : Summary information about a coupon, used in coupon lists.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CouponListResponse {
     /// Unique identifier of the coupon.
     #[serde(rename = "couponId")]

@@ -21,8 +21,8 @@ use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
 pub struct APIClient {
-    messaging_api: Box<dyn crate::apis::MessagingApiApi>,
-    messaging_api_blob: Box<dyn crate::apis::MessagingApiBlobApi>,
+    messaging_api_api: Box<dyn crate::apis::MessagingApiApi>,
+    messaging_api_blob_api: Box<dyn crate::apis::MessagingApiBlobApi>,
 }
 
 impl APIClient {
@@ -33,14 +33,18 @@ impl APIClient {
         let rc = Arc::new(configuration);
 
         APIClient {
-            messaging_api: Box::new(crate::apis::MessagingApiApiClient::new(rc.clone())),
-            messaging_api_blob: Box::new(crate::apis::MessagingApiBlobApiClient::new(rc.clone())),
+            messaging_api_api: Box::new(crate::apis::MessagingApiApiClient::new(rc.clone())),
+            messaging_api_blob_api: Box::new(crate::apis::MessagingApiBlobApiClient::new(
+                rc.clone(),
+            )),
         }
     }
-    pub fn messaging_api(&self) -> &dyn crate::apis::MessagingApiApi {
-        self.messaging_api.as_ref()
+
+    pub fn messaging_api_api(&self) -> &dyn crate::apis::MessagingApiApi {
+        self.messaging_api_api.as_ref()
     }
-    pub fn messaging_api_blob(&self) -> &dyn crate::apis::MessagingApiBlobApi {
-        self.messaging_api_blob.as_ref()
+
+    pub fn messaging_api_blob_api(&self) -> &dyn crate::apis::MessagingApiBlobApi {
+        self.messaging_api_blob_api.as_ref()
     }
 }

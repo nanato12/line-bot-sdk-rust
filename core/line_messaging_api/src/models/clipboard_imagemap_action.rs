@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ClipboardImagemapAction {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "area")]
     pub area: Box<models::ImagemapArea>,
     /// Text that is copied to the clipboard. Max character limit: 1000
@@ -38,8 +41,13 @@ pub struct ClipboardImagemapAction {
 }
 
 impl ClipboardImagemapAction {
-    pub fn new(area: models::ImagemapArea, clipboard_text: String) -> ClipboardImagemapAction {
+    pub fn new(
+        r#type: String,
+        area: models::ImagemapArea,
+        clipboard_text: String,
+    ) -> ClipboardImagemapAction {
         ClipboardImagemapAction {
+            r#type,
             area: Box::new(area),
             clipboard_text,
             label: None,

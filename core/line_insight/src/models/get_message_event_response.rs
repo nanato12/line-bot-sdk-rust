@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// GetMessageEventResponse : Statistics about how users interact with narrowcast messages or broadcast messages sent from your LINE Official Account.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetMessageEventResponse {

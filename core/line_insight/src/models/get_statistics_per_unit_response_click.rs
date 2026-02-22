@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetStatisticsPerUnitResponseClick {
     /// The URL's serial number.
     #[serde(rename = "seq")]
@@ -35,17 +36,29 @@ pub struct GetStatisticsPerUnitResponseClick {
     #[serde(rename = "url")]
     pub url: String,
     /// Number of times the URL in the bubble was opened.
-    #[serde(rename = "click", skip_serializing_if = "Option::is_none")]
-    pub click: Option<i64>,
+    #[serde(
+        rename = "click",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub click: Option<Option<i64>>,
     /// Number of users that opened the URL in the bubble.
-    #[serde(rename = "uniqueClick", skip_serializing_if = "Option::is_none")]
-    pub unique_click: Option<i64>,
+    #[serde(
+        rename = "uniqueClick",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub unique_click: Option<Option<i64>>,
     /// Number of users who opened this url through any link in the message. If another message bubble contains the same URL and a user opens both links, it's counted only once.
     #[serde(
         rename = "uniqueClickOfRequest",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub unique_click_of_request: Option<i64>,
+    pub unique_click_of_request: Option<Option<i64>>,
 }
 
 impl GetStatisticsPerUnitResponseClick {

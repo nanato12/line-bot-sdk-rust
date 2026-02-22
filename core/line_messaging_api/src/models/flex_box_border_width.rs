@@ -26,10 +26,10 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// FlexBoxBorderWidth : Width of box border. This is only for `borderWidth` in FlexBox. A value of none means that borders are not rendered; the other values are listed in order of increasing width.
 /// Width of box border. This is only for `borderWidth` in FlexBox. A value of none means that borders are not rendered; the other values are listed in order of increasing width.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum FlexBoxBorderWidth {
     #[serde(rename = "none")]
     None,

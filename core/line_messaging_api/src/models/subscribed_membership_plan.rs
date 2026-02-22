@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// SubscribedMembershipPlan : Object containing information about the membership plan.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SubscribedMembershipPlan {
     /// Membership plan ID.
     #[serde(rename = "membershipId")]
@@ -71,7 +72,6 @@ impl SubscribedMembershipPlan {
 }
 /// The currency of membership.price.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Currency {
     #[serde(rename = "JPY")]
     Jpy,

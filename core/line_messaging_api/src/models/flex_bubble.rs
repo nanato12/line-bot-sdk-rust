@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexBubble {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "direction", skip_serializing_if = "Option::is_none")]
     pub direction: Option<Direction>,
     #[serde(rename = "styles", skip_serializing_if = "Option::is_none")]
@@ -47,8 +50,9 @@ pub struct FlexBubble {
 }
 
 impl FlexBubble {
-    pub fn new() -> FlexBubble {
+    pub fn new(r#type: String) -> FlexBubble {
         FlexBubble {
+            r#type,
             direction: None,
             styles: None,
             header: None,
@@ -62,7 +66,6 @@ impl FlexBubble {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Direction {
     #[serde(rename = "ltr")]
     Ltr,
@@ -77,7 +80,6 @@ impl Default for Direction {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Size {
     #[serde(rename = "nano")]
     Nano,

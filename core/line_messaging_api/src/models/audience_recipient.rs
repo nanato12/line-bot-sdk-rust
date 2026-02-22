@@ -26,8 +26,12 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AudienceRecipient {
+    /// Type of recipient
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
     #[serde(rename = "audienceGroupId", skip_serializing_if = "Option::is_none")]
     pub audience_group_id: Option<i64>,
 }
@@ -35,6 +39,7 @@ pub struct AudienceRecipient {
 impl AudienceRecipient {
     pub fn new() -> AudienceRecipient {
         AudienceRecipient {
+            r#type: None,
             audience_group_id: None,
         }
     }

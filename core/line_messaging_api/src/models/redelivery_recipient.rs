@@ -26,14 +26,21 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RedeliveryRecipient {
+    /// Type of recipient
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
     #[serde(rename = "requestId", skip_serializing_if = "Option::is_none")]
     pub request_id: Option<String>,
 }
 
 impl RedeliveryRecipient {
     pub fn new() -> RedeliveryRecipient {
-        RedeliveryRecipient { request_id: None }
+        RedeliveryRecipient {
+            r#type: None,
+            request_id: None,
+        }
     }
 }

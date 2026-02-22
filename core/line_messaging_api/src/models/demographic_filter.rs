@@ -26,20 +26,27 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// DemographicFilter : Demographic filter
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum DemographicFilter {
     #[serde(rename = "age")]
-    AgeDemographicFilter(models::AgeDemographicFilter),
+    AgeDemographicFilter {},
     #[serde(rename = "appType")]
-    AppTypeDemographicFilter(models::AppTypeDemographicFilter),
+    AppTypeDemographicFilter {},
     #[serde(rename = "area")]
-    AreaDemographicFilter(models::AreaDemographicFilter),
+    AreaDemographicFilter {},
     #[serde(rename = "gender")]
-    GenderDemographicFilter(models::GenderDemographicFilter),
+    GenderDemographicFilter {},
     #[serde(rename = "operator")]
-    OperatorDemographicFilter(models::OperatorDemographicFilter),
+    OperatorDemographicFilter {},
     #[serde(rename = "subscriptionPeriod")]
-    SubscriptionPeriodDemographicFilter(models::SubscriptionPeriodDemographicFilter),
+    SubscriptionPeriodDemographicFilter {},
+}
+
+impl Default for DemographicFilter {
+    fn default() -> Self {
+        Self::AgeDemographicFilter {}
+    }
 }

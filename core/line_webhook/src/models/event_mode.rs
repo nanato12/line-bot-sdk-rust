@@ -26,10 +26,10 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// EventMode : Channel state.
 /// Channel state.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum EventMode {
     #[serde(rename = "active")]
     Active,

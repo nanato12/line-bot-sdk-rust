@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UserSource {
     /// ID of the source user
@@ -34,7 +35,7 @@ pub struct UserSource {
 }
 
 impl UserSource {
-    pub fn new() -> UserSource {
+    pub fn new(_type: String) -> UserSource {
         UserSource { user_id: None }
     }
 }

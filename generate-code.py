@@ -34,6 +34,14 @@ SERVICES = [
     ("webhook.yml", "core/line_webhook", "line_webhook"),
 ]
 
+# Hand-written source files that override generated ones
+HAND_WRITTEN_SOURCES = [
+    "messaging_api/src/models/message.rs",
+    "webhook/src/models/event.rs",
+    "webhook/src/models/message_content.rs",
+    "webhook/src/models/source.rs",
+]
+
 
 def read_version(cargo_toml: str) -> str:
     """Read version from an existing Cargo.toml."""
@@ -131,6 +139,156 @@ def generate_service(spec_file: str, output_dir: str, package_name: str):
         shutil.rmtree(oag_dir)
 
 
+def _remove_type_field(file_path: str, type_comment: str):
+    """Remove the r#type / type discriminator field from a generated model file.
+
+    Matches old post-processor behavior: removes serde rename, field declaration,
+    constructor parameter, and constructor body reference for the 'type' field.
+    Uses regex to handle varying indentation from Pebble template whitespace trimming.
+    """
+    if not os.path.exists(file_path):
+        return
+    contents = open(file_path).read()
+    original = contents
+
+    # Remove serde attribute for type field (with or without indentation)
+    contents = re.sub(r'\s*#\[serde\(rename = "type"\)\]\n', "\n", contents)
+    # Remove serde attribute for optional type field
+    contents = re.sub(
+        r'\s*#\[serde\(rename = "type", skip_serializing_if = "Option::is_none"\)\]\n',
+        "\n", contents,
+    )
+    # Remove type field declaration (required: pub r#type: String,)
+    contents = re.sub(r'\s*pub r#type: String,\n', "\n", contents)
+    # Remove type field declaration (optional: pub r#type: Option<String>,)
+    contents = re.sub(r'\s*pub r#type: Option<String>,\n', "\n", contents)
+    # Remove type field in constructor body (r#type, or r#type: None,)
+    contents = re.sub(r'\s*r#type,\n', "\n", contents)
+    contents = re.sub(r'\s*r#type: None,\n', "\n", contents)
+    # Remove type as first constructor param (when followed by more params)
+    contents = re.sub(r'new\(r#type: String, ', "new(", contents)
+    # NOTE: Do NOT remove r#type when it's the only param.
+    # cargo fix will rename it to _type, matching old behavior.
+    # Remove type comment (e.g., "/// Type of the event")
+    if type_comment:
+        contents = re.sub(
+            rf'\s*/// {re.escape(type_comment)}\n',
+            "\n", contents,
+        )
+
+    if contents != original:
+        with open(file_path, "w") as f:
+            f.write(contents)
+
+
+def _fix_blank_line_before_execute(api_dir: str):
+    """Ensure blank line before req.execute() in API files (matching old output)."""
+    if not os.path.isdir(api_dir):
+        return
+    for fname in os.listdir(api_dir):
+        if not fname.endswith("_api.rs"):
+            continue
+        fpath = os.path.join(api_dir, fname)
+        with open(fpath) as f:
+            contents = f.read()
+        # Add blank line before req.execute() if not already present
+        modified = re.sub(
+            r'([^\n])\n(\s*req\.execute\()',
+            r'\1\n\n\2',
+            contents,
+        )
+        if modified != contents:
+            with open(fpath, "w") as f:
+                f.write(modified)
+
+
+def post_process_webhook():
+    """Remove type field from webhook event/source/message_content models."""
+    models_dir = os.path.join(ROOT, "core", "line_webhook", "src", "models")
+    if not os.path.isdir(models_dir):
+        return
+    for fname in os.listdir(models_dir):
+        fpath = os.path.join(models_dir, fname)
+        if not fname.endswith(".rs"):
+            continue
+        if "_event.rs" in fname:
+            _remove_type_field(fpath, "Type of the event")
+        elif "_source.rs" in fname:
+            _remove_type_field(fpath, "source type")
+        elif "_message_content.rs" in fname:
+            _remove_type_field(fpath, "Type")
+
+
+def post_process_messaging_api():
+    """Apply messaging_api-specific fixes matching old post-processor behavior."""
+    pkg_dir = os.path.join(ROOT, "core", "line_messaging_api")
+    models_dir = os.path.join(pkg_dir, "src", "models")
+
+    # Add #[allow(non_camel_case_types)] to AreaDemographic
+    area_demo = os.path.join(models_dir, "area_demographic.rs")
+    if os.path.exists(area_demo):
+        contents = open(area_demo).read()
+        contents = contents.replace(
+            "pub enum AreaDemographic",
+            "#[allow(non_camel_case_types)]\npub enum AreaDemographic",
+        )
+        with open(area_demo, "w") as f:
+            f.write(contents)
+
+    # Remove type field from *_message.rs files
+    if os.path.isdir(models_dir):
+        for fname in os.listdir(models_dir):
+            if fname.endswith("_message.rs"):
+                fpath = os.path.join(models_dir, fname)
+                _remove_type_field(fpath, "Type of message")
+
+
+def post_process_manage_audience():
+    """Apply manage_audience-specific fixes matching old post-processor behavior."""
+    pkg_dir = os.path.join(ROOT, "core", "line_manage_audience")
+    models_dir = os.path.join(pkg_dir, "src", "models")
+    if not os.path.isdir(models_dir):
+        return
+    for fname in os.listdir(models_dir):
+        fpath = os.path.join(models_dir, fname)
+        if not fname.endswith(".rs"):
+            continue
+        contents = open(fpath).read()
+        modified = contents
+        modified = modified.replace(
+            "status: Option<AudienceGroupStatus>",
+            "status: Option<crate::models::AudienceGroupStatus>",
+        )
+        modified = modified.replace(
+            "create_route: Option<AudienceGroupCreateRoute>",
+            "create_route: Option<crate::models::AudienceGroupCreateRoute>",
+        )
+        if modified != contents:
+            with open(fpath, "w") as f:
+                f.write(modified)
+
+
+def copy_hand_written_sources():
+    """Copy hand-written source files over generated ones."""
+    print("Copying hand-written sources...")
+    for source in HAND_WRITTEN_SOURCES:
+        src = os.path.join(ROOT, "tools", "sources", source)
+        dst = os.path.join(ROOT, "core", f"line_{source}")
+        if os.path.exists(src):
+            shutil.copy2(src, dst)
+            print(f"  {source}")
+
+
+def cargo_fix():
+    """Run cargo fix to auto-rename unused variables."""
+    print("Running cargo fix...")
+    subprocess.run(
+        ["cargo", "fix", "--allow-dirty", "--allow-staged"],
+        cwd=ROOT,
+        check=False,  # Don't fail if some fixes can't be applied
+    )
+
+
 def format_code():
     """Run cargo fmt on the workspace."""
     print("Running cargo fmt...")
@@ -160,6 +318,18 @@ def main():
     for spec_file, output_dir, package_name in SERVICES:
         generate_service(spec_file, output_dir, package_name)
 
+    # Post-processing to match old generator output
+    for _, output_dir, _ in SERVICES:
+        api_dir = os.path.join(ROOT, output_dir, "src", "apis")
+        _fix_blank_line_before_execute(api_dir)
+    post_process_webhook()
+    post_process_messaging_api()
+    post_process_manage_audience()
+
+    # Copy hand-written sources over generated ones
+    copy_hand_written_sources()
+
+    cargo_fix()
     format_code()
     print("Done!")
 

@@ -26,14 +26,21 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// MembershipContent : Content of the membership event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum MembershipContent {
     #[serde(rename = "joined")]
-    JoinedMembershipContent(models::JoinedMembershipContent),
+    JoinedMembershipContent {},
     #[serde(rename = "left")]
-    LeftMembershipContent(models::LeftMembershipContent),
+    LeftMembershipContent {},
     #[serde(rename = "renewed")]
-    RenewedMembershipContent(models::RenewedMembershipContent),
+    RenewedMembershipContent {},
+}
+
+impl Default for MembershipContent {
+    fn default() -> Self {
+        Self::JoinedMembershipContent {}
+    }
 }

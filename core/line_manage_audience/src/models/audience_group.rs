@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// AudienceGroup : Audience group
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AudienceGroup {
@@ -39,8 +40,13 @@ pub struct AudienceGroup {
     pub description: Option<String>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<models::AudienceGroupStatus>,
-    #[serde(rename = "failedType", skip_serializing_if = "Option::is_none")]
-    pub failed_type: Option<models::AudienceGroupFailedType>,
+    #[serde(
+        rename = "failedType",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub failed_type: Option<Option<models::AudienceGroupFailedType>>,
     /// The number of users included in the audience.
     #[serde(rename = "audienceCount", skip_serializing_if = "Option::is_none")]
     pub audience_count: Option<i64>,

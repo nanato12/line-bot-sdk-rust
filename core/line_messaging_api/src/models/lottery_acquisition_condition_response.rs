@@ -26,8 +26,12 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LotteryAcquisitionConditionResponse {
+    /// Determines how the coupon is distributed or used.
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "lotteryProbability", skip_serializing_if = "Option::is_none")]
     pub lottery_probability: Option<i32>,
     #[serde(rename = "maxAcquireCount", skip_serializing_if = "Option::is_none")]
@@ -35,8 +39,9 @@ pub struct LotteryAcquisitionConditionResponse {
 }
 
 impl LotteryAcquisitionConditionResponse {
-    pub fn new() -> LotteryAcquisitionConditionResponse {
+    pub fn new(r#type: String) -> LotteryAcquisitionConditionResponse {
         LotteryAcquisitionConditionResponse {
+            r#type,
             lottery_probability: None,
             max_acquire_count: None,
         }

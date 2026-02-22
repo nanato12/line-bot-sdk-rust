@@ -131,6 +131,7 @@ where
         );
         req = req.with_body_param(add_audience_to_audience_group_request);
         req = req.returns_nothing();
+
         req.execute(self.configuration.borrow())
     }
 
@@ -145,6 +146,7 @@ where
             "/v2/bot/audienceGroup/upload".to_string(),
         );
         req = req.with_body_param(create_audience_group_request);
+
         req.execute(self.configuration.borrow())
     }
 
@@ -163,6 +165,7 @@ where
             "/v2/bot/audienceGroup/click".to_string(),
         );
         req = req.with_body_param(create_click_based_audience_group_request);
+
         req.execute(self.configuration.borrow())
     }
 
@@ -178,6 +181,7 @@ where
             "/v2/bot/audienceGroup/imp".to_string(),
         );
         req = req.with_body_param(create_imp_based_audience_group_request);
+
         req.execute(self.configuration.borrow())
     }
 
@@ -192,6 +196,7 @@ where
         );
         req = req.with_path_param("audienceGroupId".to_string(), audience_group_id.to_string());
         req = req.returns_nothing();
+
         req.execute(self.configuration.borrow())
     }
 
@@ -205,6 +210,7 @@ where
             "/v2/bot/audienceGroup/{audienceGroupId}".to_string(),
         );
         req = req.with_path_param("audienceGroupId".to_string(), audience_group_id.to_string());
+
         req.execute(self.configuration.borrow())
     }
 
@@ -225,20 +231,26 @@ where
         );
         req = req.with_query_param("page".to_string(), page.to_string());
         if let Some(ref s) = description {
-            req = req.with_query_param("description".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("description".to_string(), query_value);
         }
         if let Some(ref s) = status {
-            req = req.with_query_param("status".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("status".to_string(), query_value);
         }
         if let Some(ref s) = size {
-            req = req.with_query_param("size".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("size".to_string(), query_value);
         }
         if let Some(ref s) = includes_external_public_groups {
-            req = req.with_query_param("includesExternalPublicGroups".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("includesExternalPublicGroups".to_string(), query_value);
         }
         if let Some(ref s) = create_route {
-            req = req.with_query_param("createRoute".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("createRoute".to_string(), query_value);
         }
+
         req.execute(self.configuration.borrow())
     }
 
@@ -253,6 +265,7 @@ where
             "/v2/bot/audienceGroup/shared/{audienceGroupId}".to_string(),
         );
         req = req.with_path_param("audienceGroupId".to_string(), audience_group_id.to_string());
+
         req.execute(self.configuration.borrow())
     }
 
@@ -273,20 +286,26 @@ where
         );
         req = req.with_query_param("page".to_string(), page.to_string());
         if let Some(ref s) = description {
-            req = req.with_query_param("description".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("description".to_string(), query_value);
         }
         if let Some(ref s) = status {
-            req = req.with_query_param("status".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("status".to_string(), query_value);
         }
         if let Some(ref s) = size {
-            req = req.with_query_param("size".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("size".to_string(), query_value);
         }
         if let Some(ref s) = create_route {
-            req = req.with_query_param("createRoute".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("createRoute".to_string(), query_value);
         }
         if let Some(ref s) = includes_owned_audience_groups {
-            req = req.with_query_param("includesOwnedAudienceGroups".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("includesOwnedAudienceGroups".to_string(), query_value);
         }
+
         req.execute(self.configuration.borrow())
     }
 
@@ -303,6 +322,7 @@ where
         req = req.with_path_param("audienceGroupId".to_string(), audience_group_id.to_string());
         req = req.with_body_param(update_audience_group_description_request);
         req = req.returns_nothing();
+
         req.execute(self.configuration.borrow())
     }
 }

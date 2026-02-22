@@ -9,7 +9,7 @@ fn deserialize_text_message() {
     let json = r#"{"type":"text","text":"Hello, world!"}"#;
     let msg: Message = serde_json::from_str(json).unwrap();
     match &msg {
-        Message::TextMessage(t) => {
+        Message::Text(t) => {
             assert_eq!(t.text, "Hello, world!");
             assert!(t.quick_reply.is_none());
             assert!(t.sender.is_none());
@@ -25,7 +25,7 @@ fn deserialize_text_message() {
 
 #[test]
 fn serialize_text_message() {
-    let msg = Message::TextMessage(TextMessage::new("Hi!".to_string()));
+    let msg = Message::Text(TextMessage::new("Hi!".to_string()));
     let json = serde_json::to_string(&msg).unwrap();
     // must contain type discriminator
     assert!(json.contains(r#""type":"text""#));
@@ -45,7 +45,7 @@ fn deserialize_sticker_message() {
     }"#;
     let msg: Message = serde_json::from_str(json).unwrap();
     match &msg {
-        Message::StickerMessage(s) => {
+        Message::Sticker(s) => {
             assert_eq!(s.package_id, "446");
             assert_eq!(s.sticker_id, "1988");
         }
@@ -64,7 +64,7 @@ fn deserialize_location_message() {
     }"#;
     let msg: Message = serde_json::from_str(json).unwrap();
     match &msg {
-        Message::LocationMessage(l) => {
+        Message::Location(l) => {
             assert_eq!(l.title, "my location");
             assert_eq!(l.address, "1-6-1 Yotsuya, Shinjuku-ku, Tokyo");
             assert!((l.latitude - 35.687574).abs() < 0.0001);

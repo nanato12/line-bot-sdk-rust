@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexButton {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
     pub flex: Option<i32>,
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
@@ -59,8 +62,9 @@ pub struct FlexButton {
 }
 
 impl FlexButton {
-    pub fn new(action: models::Action) -> FlexButton {
+    pub fn new(r#type: String, action: models::Action) -> FlexButton {
         FlexButton {
+            r#type,
             flex: None,
             color: None,
             style: None,
@@ -80,7 +84,6 @@ impl FlexButton {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Style {
     #[serde(rename = "primary")]
     Primary,
@@ -97,7 +100,6 @@ impl Default for Style {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Gravity {
     #[serde(rename = "top")]
     Top,
@@ -114,7 +116,6 @@ impl Default for Gravity {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Position {
     #[serde(rename = "relative")]
     Relative,
@@ -129,7 +130,6 @@ impl Default for Position {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Height {
     #[serde(rename = "md")]
     Md,
@@ -144,7 +144,6 @@ impl Default for Height {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum AdjustMode {
     #[serde(rename = "shrink-to-fit")]
     ShrinkToFit,

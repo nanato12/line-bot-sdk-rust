@@ -26,11 +26,18 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum ModuleContent {
     #[serde(rename = "attached")]
-    AttachedModuleContent(models::AttachedModuleContent),
+    AttachedModuleContent {},
     #[serde(rename = "detached")]
-    DetachedModuleContent(models::DetachedModuleContent),
+    DetachedModuleContent {},
+}
+
+impl Default for ModuleContent {
+    fn default() -> Self {
+        Self::AttachedModuleContent {}
+    }
 }

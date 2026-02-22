@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// GetMessageEventResponseOverview : Summary of message statistics.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetMessageEventResponseOverview {
@@ -39,20 +40,37 @@ pub struct GetMessageEventResponseOverview {
     #[serde(rename = "delivered", skip_serializing_if = "Option::is_none")]
     pub delivered: Option<i64>,
     /// Number of users who opened the message, meaning they displayed at least 1 bubble.
-    #[serde(rename = "uniqueImpression", skip_serializing_if = "Option::is_none")]
-    pub unique_impression: Option<i64>,
+    #[serde(
+        rename = "uniqueImpression",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub unique_impression: Option<Option<i64>>,
     /// Number of users who opened any URL in the message.
-    #[serde(rename = "uniqueClick", skip_serializing_if = "Option::is_none")]
-    pub unique_click: Option<i64>,
+    #[serde(
+        rename = "uniqueClick",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub unique_click: Option<Option<i64>>,
     /// Number of users who started playing any video or audio in the message.
-    #[serde(rename = "uniqueMediaPlayed", skip_serializing_if = "Option::is_none")]
-    pub unique_media_played: Option<i64>,
+    #[serde(
+        rename = "uniqueMediaPlayed",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub unique_media_played: Option<Option<i64>>,
     /// Number of users who played the entirety of any video or audio in the message.
     #[serde(
         rename = "uniqueMediaPlayed100Percent",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub unique_media_played100_percent: Option<i64>,
+    pub unique_media_played100_percent: Option<Option<i64>>,
 }
 
 impl GetMessageEventResponseOverview {

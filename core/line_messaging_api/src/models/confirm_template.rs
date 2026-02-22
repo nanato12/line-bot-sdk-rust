@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ConfirmTemplate {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "text")]
     pub text: String,
     #[serde(rename = "actions")]
@@ -35,7 +38,11 @@ pub struct ConfirmTemplate {
 }
 
 impl ConfirmTemplate {
-    pub fn new(text: String, actions: Vec<models::Action>) -> ConfirmTemplate {
-        ConfirmTemplate { text, actions }
+    pub fn new(r#type: String, text: String, actions: Vec<models::Action>) -> ConfirmTemplate {
+        ConfirmTemplate {
+            r#type,
+            text,
+            actions,
+        }
     }
 }

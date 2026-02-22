@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// AcquireChatControlRequest : Request entity of the Acquire Control API
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AcquireChatControlRequest {

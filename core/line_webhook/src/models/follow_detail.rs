@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FollowDetail {
     /// Whether a user has added your LINE Official Account as a friend or unblocked.
     #[serde(rename = "isUnblocked")]

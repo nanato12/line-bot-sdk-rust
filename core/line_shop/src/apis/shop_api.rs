@@ -75,6 +75,7 @@ where
             __internal_request::Request::new(hyper::Method::POST, "/shop/v3/mission".to_string());
         req = req.with_body_param(mission_sticker_request);
         req = req.returns_nothing();
+
         req.execute(self.configuration.borrow())
     }
 }

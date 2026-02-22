@@ -26,10 +26,10 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// AudienceGroupStatus : Status
 /// Status
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum AudienceGroupStatus {
     #[serde(rename = "IN_PROGRESS")]
     InProgress,

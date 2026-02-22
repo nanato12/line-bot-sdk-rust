@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexVideo {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "url")]
     pub url: String,
     #[serde(rename = "previewUrl")]
@@ -41,8 +44,14 @@ pub struct FlexVideo {
 }
 
 impl FlexVideo {
-    pub fn new(url: String, preview_url: String, alt_content: models::FlexComponent) -> FlexVideo {
+    pub fn new(
+        r#type: String,
+        url: String,
+        preview_url: String,
+        alt_content: models::FlexComponent,
+    ) -> FlexVideo {
         FlexVideo {
+            r#type,
             url,
             preview_url,
             alt_content: Box::new(alt_content),

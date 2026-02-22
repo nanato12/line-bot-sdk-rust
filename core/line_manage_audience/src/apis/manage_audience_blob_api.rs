@@ -80,7 +80,7 @@ where
     #[allow(unused_mut)]
     fn add_user_ids_to_audience(
         &self,
-        file: std::path::PathBuf,
+        _file: std::path::PathBuf,
         audience_group_id: Option<i64>,
         upload_description: Option<&str>,
     ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
@@ -94,15 +94,16 @@ where
         if let Some(param_value) = upload_description {
             req = req.with_form_param("uploadDescription".to_string(), param_value.to_string());
         }
-        req = req.with_form_param("file".to_string(), file.display().to_string());
+        req = req.with_form_param("file".to_string(), unimplemented!());
         req = req.returns_nothing();
+
         req.execute(self.configuration.borrow())
     }
 
     #[allow(unused_mut)]
     fn create_audience_for_uploading_user_ids(
         &self,
-        file: std::path::PathBuf,
+        _file: std::path::PathBuf,
         description: Option<&str>,
         is_ifa_audience: Option<bool>,
         upload_description: Option<&str>,
@@ -121,7 +122,8 @@ where
         if let Some(param_value) = upload_description {
             req = req.with_form_param("uploadDescription".to_string(), param_value.to_string());
         }
-        req = req.with_form_param("file".to_string(), file.display().to_string());
+        req = req.with_form_param("file".to_string(), unimplemented!());
+
         req.execute(self.configuration.borrow())
     }
 }

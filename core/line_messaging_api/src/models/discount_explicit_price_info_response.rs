@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DiscountExplicitPriceInfoResponse {
+    #[serde(rename = "type")]
+    pub r#type: String,
     /// Currency code (e.g., JPY, THB, TWD).
     #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<Currency>,
@@ -38,8 +41,9 @@ pub struct DiscountExplicitPriceInfoResponse {
 }
 
 impl DiscountExplicitPriceInfoResponse {
-    pub fn new() -> DiscountExplicitPriceInfoResponse {
+    pub fn new(r#type: String) -> DiscountExplicitPriceInfoResponse {
         DiscountExplicitPriceInfoResponse {
+            r#type,
             currency: None,
             price_after_discount: None,
             original_price: None,
@@ -48,7 +52,6 @@ impl DiscountExplicitPriceInfoResponse {
 }
 /// Currency code (e.g., JPY, THB, TWD).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Currency {
     #[serde(rename = "JPY")]
     Jpy,

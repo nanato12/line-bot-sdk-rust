@@ -26,12 +26,19 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// SubstitutionObject : An object that defines the replacement value for a placeholder in the text.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum SubstitutionObject {
-    #[serde(rename = "mention")]
-    MentionSubstitutionObject(models::MentionSubstitutionObject),
     #[serde(rename = "emoji")]
-    EmojiSubstitutionObject(models::EmojiSubstitutionObject),
+    EmojiSubstitutionObject {},
+    #[serde(rename = "mention")]
+    MentionSubstitutionObject {},
+}
+
+impl Default for SubstitutionObject {
+    fn default() -> Self {
+        Self::EmojiSubstitutionObject {}
+    }
 }

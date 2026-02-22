@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// IssueChannelAccessTokenResponse : Issued channel access token
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IssueChannelAccessTokenResponse {
     /// Channel access token.
     #[serde(rename = "access_token")]

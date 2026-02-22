@@ -26,14 +26,21 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CouponDiscountRewardRequest {
+    /// Type of coupon. Determines the benefit provided.
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "priceInfo", skip_serializing_if = "Option::is_none")]
     pub price_info: Option<Box<models::DiscountPriceInfoRequest>>,
 }
 
 impl CouponDiscountRewardRequest {
-    pub fn new() -> CouponDiscountRewardRequest {
-        CouponDiscountRewardRequest { price_info: None }
+    pub fn new(r#type: String) -> CouponDiscountRewardRequest {
+        CouponDiscountRewardRequest {
+            r#type,
+            price_info: None,
+        }
     }
 }

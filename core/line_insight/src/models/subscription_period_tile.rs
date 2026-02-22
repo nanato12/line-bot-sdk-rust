@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SubscriptionPeriodTile {
     /// Subscription period. Possible values: `within7days`, `within90days`, `unknown` etc.
@@ -46,7 +47,6 @@ impl SubscriptionPeriodTile {
 }
 /// Subscription period. Possible values: `within7days`, `within90days`, `unknown` etc.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum SubscriptionPeriod {
     #[serde(rename = "within7days")]
     Within7days,

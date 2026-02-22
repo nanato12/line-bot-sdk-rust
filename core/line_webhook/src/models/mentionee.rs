@@ -26,11 +26,35 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Mentionee {
-    #[serde(rename = "user")]
-    UserMentionee(models::UserMentionee),
     #[serde(rename = "all")]
-    AllMentionee(models::AllMentionee),
+    AllMentionee {
+        /// Index position of the user mention for a character in text, with the first character being at position 0.
+        #[serde(rename = "index")]
+        index: i32,
+        /// The length of the text of the mentioned user. For a mention @example, 8 is the length.
+        #[serde(rename = "length")]
+        length: i32,
+    },
+    #[serde(rename = "user")]
+    UserMentionee {
+        /// Index position of the user mention for a character in text, with the first character being at position 0.
+        #[serde(rename = "index")]
+        index: i32,
+        /// The length of the text of the mentioned user. For a mention @example, 8 is the length.
+        #[serde(rename = "length")]
+        length: i32,
+    },
+}
+
+impl Default for Mentionee {
+    fn default() -> Self {
+        Self::AllMentionee {
+            index: Default::default(),
+            length: Default::default(),
+        }
+    }
 }

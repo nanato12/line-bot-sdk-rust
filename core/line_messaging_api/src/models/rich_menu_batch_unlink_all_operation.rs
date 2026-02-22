@@ -26,13 +26,18 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// RichMenuBatchUnlinkAllOperation : Unlink the rich menu from all users linked to the rich menu.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct RichMenuBatchUnlinkAllOperation {}
+pub struct RichMenuBatchUnlinkAllOperation {
+    /// The type of operation to the rich menu linked to the user. One of link, unlink, or unlinkAll.
+    #[serde(rename = "type")]
+    pub r#type: String,
+}
 
 impl RichMenuBatchUnlinkAllOperation {
     /// Unlink the rich menu from all users linked to the rich menu.
-    pub fn new() -> RichMenuBatchUnlinkAllOperation {
-        RichMenuBatchUnlinkAllOperation {}
+    pub fn new(r#type: String) -> RichMenuBatchUnlinkAllOperation {
+        RichMenuBatchUnlinkAllOperation { r#type }
     }
 }

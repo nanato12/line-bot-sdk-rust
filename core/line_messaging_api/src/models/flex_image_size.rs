@@ -26,10 +26,10 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// FlexImageSize : You can set the width of an Flex image component with the `size` property, in pixels, as a percentage, or with a keyword. FlexImageSize just provides only keywords.
 /// You can set the width of an Flex image component with the `size` property, in pixels, as a percentage, or with a keyword. FlexImageSize just provides only keywords.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum FlexImageSize {
     #[serde(rename = "xxs")]
     Xxs,

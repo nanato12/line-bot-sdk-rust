@@ -26,8 +26,12 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OperatorDemographicFilter {
+    /// Type of demographic filter
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
     #[serde(rename = "and", skip_serializing_if = "Option::is_none")]
     pub and: Option<Vec<models::DemographicFilter>>,
     #[serde(rename = "or", skip_serializing_if = "Option::is_none")]
@@ -39,6 +43,7 @@ pub struct OperatorDemographicFilter {
 impl OperatorDemographicFilter {
     pub fn new() -> OperatorDemographicFilter {
         OperatorDemographicFilter {
+            r#type: None,
             and: None,
             or: None,
             not: None,

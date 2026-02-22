@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// CreateAudienceGroupResponse : Create audience for uploading user IDs (by JSON)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateAudienceGroupResponse {
@@ -71,7 +72,6 @@ impl CreateAudienceGroupResponse {
 }
 /// How the audience was created.  `MESSAGING_API`: An audience created with Messaging API.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum CreateRoute {
     #[serde(rename = "MESSAGING_API")]
     MessagingApi,
@@ -84,7 +84,6 @@ impl Default for CreateRoute {
 }
 /// Audience's update permission. Audiences linked to the same channel will be READ_WRITE.  `READ`: Can use only. `READ_WRITE`: Can use and update.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Permission {
     #[serde(rename = "READ")]
     Read,

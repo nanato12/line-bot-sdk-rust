@@ -26,25 +26,32 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum FlexComponent {
     #[serde(rename = "box")]
-    FlexBox(models::FlexBox),
+    FlexBox {},
     #[serde(rename = "button")]
-    FlexButton(models::FlexButton),
-    #[serde(rename = "image")]
-    FlexImage(models::FlexImage),
-    #[serde(rename = "video")]
-    FlexVideo(models::FlexVideo),
-    #[serde(rename = "icon")]
-    FlexIcon(models::FlexIcon),
-    #[serde(rename = "text")]
-    FlexText(models::FlexText),
-    #[serde(rename = "span")]
-    FlexSpan(models::FlexSpan),
-    #[serde(rename = "separator")]
-    FlexSeparator(models::FlexSeparator),
+    FlexButton {},
     #[serde(rename = "filler")]
-    FlexFiller(models::FlexFiller),
+    FlexFiller {},
+    #[serde(rename = "icon")]
+    FlexIcon {},
+    #[serde(rename = "image")]
+    FlexImage {},
+    #[serde(rename = "separator")]
+    FlexSeparator {},
+    #[serde(rename = "span")]
+    FlexSpan {},
+    #[serde(rename = "text")]
+    FlexText {},
+    #[serde(rename = "video")]
+    FlexVideo {},
+}
+
+impl Default for FlexComponent {
+    fn default() -> Self {
+        Self::FlexBox {}
+    }
 }

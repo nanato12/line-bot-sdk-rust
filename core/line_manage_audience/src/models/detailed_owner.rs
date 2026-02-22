@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// DetailedOwner : Owner of this audience group.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DetailedOwner {

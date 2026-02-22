@@ -96,11 +96,10 @@ impl From<serde_json::Error> for Error {
 }
 
 mod request;
-{% for api in apiInfo.apis -%}
 
+{% for api in apiInfo.apis -%}
 mod {{ api.classFilename }};
 pub use self::{{ api.classFilename }}::{{ "{" }}{{ api.classname }}, {{ api.classname }}Client{{ "}" }};
-{% endfor -%}
-
+{% endfor %}
 pub mod client;
 pub mod configuration;

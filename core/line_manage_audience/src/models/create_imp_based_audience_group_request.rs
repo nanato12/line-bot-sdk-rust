@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// CreateImpBasedAudienceGroupRequest : Create audience for impression-based retargeting
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateImpBasedAudienceGroupRequest {

@@ -95,12 +95,11 @@ where
 {% else -%}
         if let Some(ref s) = {{ param.paramName }} {
 {% if param.isArray -%}
-            let query_params = s.iter().map(|p| ("{{ param.baseName }}".to_owned(), p.to_string())).collect::<Vec<(String, String)>>();
-            for (key, val) in query_params {
-                req = req.with_query_param(key, val);
-            }
+            let query_value = s.iter().map(|s| s.to_string()).collect::<Vec<String>>().join(",");
+            req = req.with_query_param("{{ param.baseName }}".to_string(), query_value);
 {% else -%}
-            req = req.with_query_param("{{ param.baseName }}".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("{{ param.baseName }}".to_string(), query_value);
 {% endif -%}
         }
 {% endif -%}
@@ -120,14 +119,14 @@ where
 {% for param in op.formParams -%}
 {% if param.required -%}
 {% if param.isFile -%}
-        req = req.with_form_param("{{ param.baseName }}".to_string(), {{ param.paramName }}.display().to_string());
+        req = req.with_form_param("{{ param.baseName }}".to_string(), unimplemented!());
 {% else -%}
         req = req.with_form_param("{{ param.baseName }}".to_string(), {{ param.paramName }}.to_string());
 {% endif -%}
 {% else -%}
         if let Some(param_value) = {{ param.paramName }} {
 {% if param.isFile -%}
-            req = req.with_form_param("{{ param.baseName }}".to_string(), param_value.display().to_string());
+            req = req.with_form_param("{{ param.baseName }}".to_string(), unimplemented!());
 {% else -%}
             req = req.with_form_param("{{ param.baseName }}".to_string(), param_value.to_string());
 {% endif -%}

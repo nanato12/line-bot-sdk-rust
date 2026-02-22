@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// UpdateAudienceGroupDescriptionRequest : Rename an audience
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAudienceGroupDescriptionRequest {

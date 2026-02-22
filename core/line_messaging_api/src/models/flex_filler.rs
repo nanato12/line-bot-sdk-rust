@@ -26,14 +26,17 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexFiller {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
     pub flex: Option<i32>,
 }
 
 impl FlexFiller {
-    pub fn new() -> FlexFiller {
-        FlexFiller { flex: None }
+    pub fn new(r#type: String) -> FlexFiller {
+        FlexFiller { r#type, flex: None }
     }
 }

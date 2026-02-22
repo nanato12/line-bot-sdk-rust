@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IssueLinkTokenResponse {
     /// Link token. Link tokens are valid for 10 minutes and can only be used once.  
     #[serde(rename = "linkToken")]

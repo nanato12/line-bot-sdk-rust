@@ -21,7 +21,7 @@ use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
 pub struct APIClient {
-    liff: Box<dyn crate::apis::LiffApi>,
+    liff_api: Box<dyn crate::apis::LiffApi>,
 }
 
 impl APIClient {
@@ -32,10 +32,11 @@ impl APIClient {
         let rc = Arc::new(configuration);
 
         APIClient {
-            liff: Box::new(crate::apis::LiffApiClient::new(rc.clone())),
+            liff_api: Box::new(crate::apis::LiffApiClient::new(rc.clone())),
         }
     }
-    pub fn liff(&self) -> &dyn crate::apis::LiffApi {
-        self.liff.as_ref()
+
+    pub fn liff_api(&self) -> &dyn crate::apis::LiffApi {
+        self.liff_api.as_ref()
     }
 }

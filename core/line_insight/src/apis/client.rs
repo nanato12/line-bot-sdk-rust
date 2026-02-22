@@ -21,7 +21,7 @@ use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
 pub struct APIClient {
-    insight: Box<dyn crate::apis::InsightApi>,
+    insight_api: Box<dyn crate::apis::InsightApi>,
 }
 
 impl APIClient {
@@ -32,10 +32,11 @@ impl APIClient {
         let rc = Arc::new(configuration);
 
         APIClient {
-            insight: Box::new(crate::apis::InsightApiClient::new(rc.clone())),
+            insight_api: Box::new(crate::apis::InsightApiClient::new(rc.clone())),
         }
     }
-    pub fn insight(&self) -> &dyn crate::apis::InsightApi {
-        self.insight.as_ref()
+
+    pub fn insight_api(&self) -> &dyn crate::apis::InsightApi {
+        self.insight_api.as_ref()
     }
 }

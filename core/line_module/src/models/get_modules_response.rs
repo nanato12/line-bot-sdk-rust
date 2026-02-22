@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// GetModulesResponse : List of bots to which the module is attached
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetModulesResponse {
     /// Array of Bot list Item objects representing basic information about the bot.
     #[serde(rename = "bots")]

@@ -26,10 +26,10 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// FlexTextFontSize : Font size in the `size` property of the Flex text component. You can specify the size in pixels or with a keyword. FlexTextFontSize just provides only keywords.
 /// Font size in the `size` property of the Flex text component. You can specify the size in pixels or with a keyword. FlexTextFontSize just provides only keywords.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum FlexTextFontSize {
     #[serde(rename = "xxs")]
     Xxs,

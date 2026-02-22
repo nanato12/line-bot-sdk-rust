@@ -26,26 +26,71 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// Action : Action
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Action {
     #[serde(rename = "camera")]
-    CameraAction(models::CameraAction),
+    CameraAction {
+        /// Label for the action.
+        #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+        label: Option<String>,
+    },
     #[serde(rename = "cameraRoll")]
-    CameraRollAction(models::CameraRollAction),
+    CameraRollAction {
+        /// Label for the action.
+        #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+        label: Option<String>,
+    },
     #[serde(rename = "clipboard")]
-    ClipboardAction(models::ClipboardAction),
+    ClipboardAction {
+        /// Label for the action.
+        #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+        label: Option<String>,
+    },
     #[serde(rename = "datetimepicker")]
-    DatetimePickerAction(models::DatetimePickerAction),
+    DatetimePickerAction {
+        /// Label for the action.
+        #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+        label: Option<String>,
+    },
     #[serde(rename = "location")]
-    LocationAction(models::LocationAction),
+    LocationAction {
+        /// Label for the action.
+        #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+        label: Option<String>,
+    },
     #[serde(rename = "message")]
-    MessageAction(models::MessageAction),
+    MessageAction {
+        /// Label for the action.
+        #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+        label: Option<String>,
+    },
     #[serde(rename = "postback")]
-    PostbackAction(models::PostbackAction),
+    PostbackAction {
+        /// Label for the action.
+        #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+        label: Option<String>,
+    },
     #[serde(rename = "richmenuswitch")]
-    RichMenuSwitchAction(models::RichMenuSwitchAction),
+    RichMenuSwitchAction {
+        /// Label for the action.
+        #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+        label: Option<String>,
+    },
     #[serde(rename = "uri")]
-    UriAction(models::UriAction),
+    UriAction {
+        /// Label for the action.
+        #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+        label: Option<String>,
+    },
+}
+
+impl Default for Action {
+    fn default() -> Self {
+        Self::CameraAction {
+            label: Default::default(),
+        }
+    }
 }

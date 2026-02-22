@@ -71,7 +71,7 @@ type HttpsClient = HttpsConnector<HttpConnector>;
 ///
 /// let req = ReplyMessageRequest {
 ///     reply_token: "reply_token".to_string(),
-///     messages: vec![Message::TextMessage(TextMessage::new("Hello!".to_string()))],
+///     messages: vec![Message::Text(TextMessage::new("Hello!".to_string()))],
 ///     notification_disabled: Some(false),
 /// };
 /// let _ = line.messaging_api_client.reply_message(req).await;

@@ -26,14 +26,21 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// Recipient : Recipient
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Recipient {
-    #[serde(rename = "operator")]
-    OperatorRecipient(models::OperatorRecipient),
     #[serde(rename = "audience")]
-    AudienceRecipient(models::AudienceRecipient),
+    AudienceRecipient {},
+    #[serde(rename = "operator")]
+    OperatorRecipient {},
     #[serde(rename = "redelivery")]
-    RedeliveryRecipient(models::RedeliveryRecipient),
+    RedeliveryRecipient {},
+}
+
+impl Default for Recipient {
+    fn default() -> Self {
+        Self::AudienceRecipient {}
+    }
 }

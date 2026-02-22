@@ -26,8 +26,12 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UriAction {
+    /// Type of action
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
     /// Label for the action.
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
@@ -40,6 +44,7 @@ pub struct UriAction {
 impl UriAction {
     pub fn new() -> UriAction {
         UriAction {
+            r#type: None,
             label: None,
             uri: None,
             alt_uri: None,

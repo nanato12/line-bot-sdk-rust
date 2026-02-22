@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexSeparator {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
     pub margin: Option<String>,
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
@@ -35,8 +38,9 @@ pub struct FlexSeparator {
 }
 
 impl FlexSeparator {
-    pub fn new() -> FlexSeparator {
+    pub fn new(r#type: String) -> FlexSeparator {
         FlexSeparator {
+            r#type,
             margin: None,
             color: None,
         }

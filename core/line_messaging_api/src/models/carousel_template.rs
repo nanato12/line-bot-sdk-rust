@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CarouselTemplate {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "columns")]
     pub columns: Vec<models::CarouselColumn>,
     #[serde(rename = "imageAspectRatio", skip_serializing_if = "Option::is_none")]
@@ -37,8 +40,9 @@ pub struct CarouselTemplate {
 }
 
 impl CarouselTemplate {
-    pub fn new(columns: Vec<models::CarouselColumn>) -> CarouselTemplate {
+    pub fn new(r#type: String, columns: Vec<models::CarouselColumn>) -> CarouselTemplate {
         CarouselTemplate {
+            r#type,
             columns,
             image_aspect_ratio: None,
             image_size: None,

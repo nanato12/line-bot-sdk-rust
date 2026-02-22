@@ -26,11 +26,16 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ReferralAcquisitionConditionResponse {}
+pub struct ReferralAcquisitionConditionResponse {
+    /// Determines how the coupon is distributed or used.
+    #[serde(rename = "type")]
+    pub r#type: String,
+}
 
 impl ReferralAcquisitionConditionResponse {
-    pub fn new() -> ReferralAcquisitionConditionResponse {
-        ReferralAcquisitionConditionResponse {}
+    pub fn new(r#type: String) -> ReferralAcquisitionConditionResponse {
+        ReferralAcquisitionConditionResponse { r#type }
     }
 }

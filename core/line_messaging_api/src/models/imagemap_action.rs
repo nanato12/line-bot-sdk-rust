@@ -26,13 +26,31 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum ImagemapAction {
-    #[serde(rename = "message")]
-    MessageImagemapAction(models::MessageImagemapAction),
-    #[serde(rename = "uri")]
-    UriImagemapAction(models::UriImagemapAction),
     #[serde(rename = "clipboard")]
-    ClipboardImagemapAction(models::ClipboardImagemapAction),
+    ClipboardImagemapAction {
+        #[serde(rename = "area")]
+        area: Box<models::ImagemapArea>,
+    },
+    #[serde(rename = "message")]
+    MessageImagemapAction {
+        #[serde(rename = "area")]
+        area: Box<models::ImagemapArea>,
+    },
+    #[serde(rename = "uri")]
+    UriImagemapAction {
+        #[serde(rename = "area")]
+        area: Box<models::ImagemapArea>,
+    },
+}
+
+impl Default for ImagemapAction {
+    fn default() -> Self {
+        Self::ClipboardImagemapAction {
+            area: Default::default(),
+        }
+    }
 }

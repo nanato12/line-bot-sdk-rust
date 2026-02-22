@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexSpan {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
@@ -43,8 +46,9 @@ pub struct FlexSpan {
 }
 
 impl FlexSpan {
-    pub fn new() -> FlexSpan {
+    pub fn new(r#type: String) -> FlexSpan {
         FlexSpan {
+            r#type,
             text: None,
             size: None,
             color: None,
@@ -56,7 +60,6 @@ impl FlexSpan {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Weight {
     #[serde(rename = "regular")]
     Regular,
@@ -71,7 +74,6 @@ impl Default for Weight {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Style {
     #[serde(rename = "normal")]
     Normal,
@@ -86,7 +88,6 @@ impl Default for Style {
 }
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Decoration {
     #[serde(rename = "none")]
     None,

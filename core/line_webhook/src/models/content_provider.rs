@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// ContentProvider : Provider of the media file.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ContentProvider {
     /// Provider of the image file.
     #[serde(rename = "type")]
@@ -52,7 +53,6 @@ impl ContentProvider {
 }
 /// Provider of the image file.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Type {
     #[serde(rename = "line")]
     Line,

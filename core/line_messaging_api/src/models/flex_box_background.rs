@@ -26,9 +26,16 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum FlexBoxBackground {
     #[serde(rename = "linearGradient")]
-    FlexBoxLinearGradient(models::FlexBoxLinearGradient),
+    FlexBoxLinearGradient {},
+}
+
+impl Default for FlexBoxBackground {
+    fn default() -> Self {
+        Self::FlexBoxLinearGradient {}
+    }
 }

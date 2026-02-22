@@ -26,8 +26,12 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OperatorRecipient {
+    /// Type of recipient
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
     /// Create a new recipient object by taking the logical conjunction (AND) of the specified array of recipient objects.
     #[serde(rename = "and", skip_serializing_if = "Option::is_none")]
     pub and: Option<Vec<models::Recipient>>,
@@ -41,6 +45,7 @@ pub struct OperatorRecipient {
 impl OperatorRecipient {
     pub fn new() -> OperatorRecipient {
         OperatorRecipient {
+            r#type: None,
             and: None,
             or: None,
             not: None,

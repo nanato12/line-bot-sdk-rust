@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// GetNumberOfMessageDeliveriesResponse : Get number of message deliveries
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetNumberOfMessageDeliveriesResponse {
@@ -84,7 +85,6 @@ impl GetNumberOfMessageDeliveriesResponse {
 }
 /// Status of the counting process.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum Status {
     #[serde(rename = "ready")]
     Ready,

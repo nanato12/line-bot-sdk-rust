@@ -26,8 +26,12 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TextMessageV2 {
+    /// Type of message
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<models::QuickReply>>,
     #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
@@ -43,8 +47,9 @@ pub struct TextMessageV2 {
 }
 
 impl TextMessageV2 {
-    pub fn new(text: String) -> TextMessageV2 {
+    pub fn new(r#type: String, text: String) -> TextMessageV2 {
         TextMessageV2 {
+            r#type,
             quick_reply: None,
             sender: None,
             text,

@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// GetStatisticsPerUnitResponse : Response object for `get statistics per unit`
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetStatisticsPerUnitResponse {
     #[serde(rename = "overview")]
     pub overview: Box<models::GetStatisticsPerUnitResponseOverview>,

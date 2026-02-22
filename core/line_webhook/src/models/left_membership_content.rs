@@ -26,15 +26,22 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LeftMembershipContent {
+    /// Type of membership event.
+    #[serde(rename = "type")]
+    pub r#type: String,
     /// The ID of the membership that the user left. This is defined for each membership.
     #[serde(rename = "membershipId")]
     pub membership_id: i32,
 }
 
 impl LeftMembershipContent {
-    pub fn new(membership_id: i32) -> LeftMembershipContent {
-        LeftMembershipContent { membership_id }
+    pub fn new(r#type: String, membership_id: i32) -> LeftMembershipContent {
+        LeftMembershipContent {
+            r#type,
+            membership_id,
+        }
     }
 }

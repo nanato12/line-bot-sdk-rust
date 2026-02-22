@@ -26,10 +26,10 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// FlexBoxCornerRadius : Radius at the time of rounding the corners of the box. This is only for `cornerRadius` in FlexBox. A value of none means that corners are not rounded; the other values are listed in order of increasing radius.
 /// Radius at the time of rounding the corners of the box. This is only for `cornerRadius` in FlexBox. A value of none means that corners are not rounded; the other values are listed in order of increasing radius.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-#[allow(non_camel_case_types)]
 pub enum FlexBoxCornerRadius {
     #[serde(rename = "none")]
     None,

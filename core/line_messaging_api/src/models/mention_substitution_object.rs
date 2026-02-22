@@ -26,17 +26,22 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// MentionSubstitutionObject : An object representing a mention substitution.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MentionSubstitutionObject {
+    /// Type of substitution object
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "mentionee")]
     pub mentionee: Box<models::MentionTarget>,
 }
 
 impl MentionSubstitutionObject {
     /// An object representing a mention substitution.
-    pub fn new(mentionee: models::MentionTarget) -> MentionSubstitutionObject {
+    pub fn new(r#type: String, mentionee: models::MentionTarget) -> MentionSubstitutionObject {
         MentionSubstitutionObject {
+            r#type,
             mentionee: Box::new(mentionee),
         }
     }

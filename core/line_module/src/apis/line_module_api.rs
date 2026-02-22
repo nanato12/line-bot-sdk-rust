@@ -93,6 +93,7 @@ where
         req = req.with_path_param("chatId".to_string(), chat_id.to_string());
         req = req.with_body_param(acquire_chat_control_request);
         req = req.returns_nothing();
+
         req.execute(self.configuration.borrow())
     }
 
@@ -107,6 +108,7 @@ where
         );
         req = req.with_body_param(detach_module_request);
         req = req.returns_nothing();
+
         req.execute(self.configuration.borrow())
     }
 
@@ -119,11 +121,14 @@ where
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/v2/bot/list".to_string());
         if let Some(ref s) = start {
-            req = req.with_query_param("start".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("start".to_string(), query_value);
         }
         if let Some(ref s) = limit {
-            req = req.with_query_param("limit".to_string(), s.to_string());
+            let query_value = s.to_string();
+            req = req.with_query_param("limit".to_string(), query_value);
         }
+
         req.execute(self.configuration.borrow())
     }
 
@@ -138,6 +143,7 @@ where
         );
         req = req.with_path_param("chatId".to_string(), chat_id.to_string());
         req = req.returns_nothing();
+
         req.execute(self.configuration.borrow())
     }
 }

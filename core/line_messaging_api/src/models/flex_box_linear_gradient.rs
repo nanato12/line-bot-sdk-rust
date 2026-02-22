@@ -26,8 +26,11 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexBoxLinearGradient {
+    #[serde(rename = "type")]
+    pub r#type: String,
     #[serde(rename = "angle", skip_serializing_if = "Option::is_none")]
     pub angle: Option<String>,
     #[serde(rename = "startColor", skip_serializing_if = "Option::is_none")]
@@ -41,8 +44,9 @@ pub struct FlexBoxLinearGradient {
 }
 
 impl FlexBoxLinearGradient {
-    pub fn new() -> FlexBoxLinearGradient {
+    pub fn new(r#type: String) -> FlexBoxLinearGradient {
         FlexBoxLinearGradient {
+            r#type,
             angle: None,
             start_color: None,
             end_color: None,

@@ -26,11 +26,18 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum MentionTarget {
-    #[serde(rename = "user")]
-    UserMentionTarget(models::UserMentionTarget),
     #[serde(rename = "all")]
-    AllMentionTarget(models::AllMentionTarget),
+    AllMentionTarget {},
+    #[serde(rename = "user")]
+    UserMentionTarget {},
+}
+
+impl Default for MentionTarget {
+    fn default() -> Self {
+        Self::AllMentionTarget {}
+    }
 }

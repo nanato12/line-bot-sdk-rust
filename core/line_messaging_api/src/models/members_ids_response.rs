@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MembersIdsResponse {
     /// List of user IDs of members in the group chat. Only users of LINE for iOS and LINE for Android are included in `memberIds`.
     #[serde(rename = "memberIds")]

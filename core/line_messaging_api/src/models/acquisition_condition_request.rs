@@ -26,11 +26,18 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum AcquisitionConditionRequest {
-    #[serde(rename = "normal")]
-    NormalAcquisitionConditionRequest(models::NormalAcquisitionConditionRequest),
     #[serde(rename = "lottery")]
-    LotteryAcquisitionConditionRequest(models::LotteryAcquisitionConditionRequest),
+    LotteryAcquisitionConditionRequest {},
+    #[serde(rename = "normal")]
+    NormalAcquisitionConditionRequest {},
+}
+
+impl Default for AcquisitionConditionRequest {
+    fn default() -> Self {
+        Self::LotteryAcquisitionConditionRequest {}
+    }
 }

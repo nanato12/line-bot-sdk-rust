@@ -26,13 +26,20 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum DiscountPriceInfoRequest {
-    #[serde(rename = "fixed")]
-    DiscountFixedPriceInfoRequest(models::DiscountFixedPriceInfoRequest),
-    #[serde(rename = "percentage")]
-    DiscountPercentagePriceInfoRequest(models::DiscountPercentagePriceInfoRequest),
     #[serde(rename = "explicit")]
-    DiscountExplicitPriceInfoRequest(models::DiscountExplicitPriceInfoRequest),
+    DiscountExplicitPriceInfoRequest {},
+    #[serde(rename = "fixed")]
+    DiscountFixedPriceInfoRequest {},
+    #[serde(rename = "percentage")]
+    DiscountPercentagePriceInfoRequest {},
+}
+
+impl Default for DiscountPriceInfoRequest {
+    fn default() -> Self {
+        Self::DiscountExplicitPriceInfoRequest {}
+    }
 }

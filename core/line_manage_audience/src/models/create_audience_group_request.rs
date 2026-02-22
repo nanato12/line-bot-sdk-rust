@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// CreateAudienceGroupRequest : Create audience for uploading user IDs (by JSON)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateAudienceGroupRequest {

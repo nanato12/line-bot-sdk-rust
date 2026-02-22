@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LiffFeatures {
     /// `true` if the LIFF app supports Bluetooth® Low Energy for LINE Things. `false` otherwise.
