@@ -163,21 +163,22 @@ def _remove_type_field(file_path: str, type_comment: str):
     original = contents
 
     # Remove serde attribute for type field (with or without indentation)
-    contents = re.sub(r'\s*#\[serde\(rename = "type"\)\]\n', "\n", contents)
+    contents = re.sub(r"\s*#\[serde\(rename = \"type\"\)\]\n", "\n", contents)
     # Remove serde attribute for optional type field
     contents = re.sub(
-        r'\s*#\[serde\(rename = "type", skip_serializing_if = "Option::is_none"\)\]\n',
-        "\n", contents,
+        r"\s*#\[serde\(rename = \"type\", skip_serializing_if = \"Option::is_none\"\)\]\n",
+        "\n",
+        contents,
     )
     # Remove type field declaration (required: pub r#type: String,)
-    contents = re.sub(r'\s*pub r#type: String,\n', "\n", contents)
+    contents = re.sub(r"\s*pub r#type: String,\n", "\n", contents)
     # Remove type field declaration (optional: pub r#type: Option<String>,)
-    contents = re.sub(r'\s*pub r#type: Option<String>,\n', "\n", contents)
+    contents = re.sub(r"\s*pub r#type: Option<String>,\n", "\n", contents)
     # Remove type field in constructor body (r#type, or r#type: None,)
-    contents = re.sub(r'\s*r#type,\n', "\n", contents)
-    contents = re.sub(r'\s*r#type: None,\n', "\n", contents)
+    contents = re.sub(r"\s*r#type,\n", "\n", contents)
+    contents = re.sub(r"\s*r#type: None,\n", "\n", contents)
     # Remove type as first constructor param (when followed by more params)
-    contents = re.sub(r'new\(r#type: String, ', "new(", contents)
+    contents = re.sub(r"new\(r#type: String, ", "new(", contents)
     # NOTE: Do NOT remove r#type when it's the only param.
     # cargo fix will rename it to _type, matching old behavior.
     # Remove type comment (e.g., "/// Type of the event")
