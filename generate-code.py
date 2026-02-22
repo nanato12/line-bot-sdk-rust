@@ -23,7 +23,11 @@ GENERATOR_JAR = os.path.join(
 
 # Mapping: (spec file, output directory, package name)
 SERVICES = [
-    ("channel-access-token.yml", "core/line_channel_access_token", "line_channel_access_token"),
+    (
+        "channel-access-token.yml",
+        "core/line_channel_access_token",
+        "line_channel_access_token",
+    ),
     ("insight.yml", "core/line_insight", "line_insight"),
     ("liff.yml", "core/line_liff", "line_liff"),
     ("manage-audience.yml", "core/line_manage_audience", "line_manage_audience"),
@@ -59,8 +63,14 @@ def build_generator():
     """Build the Maven generator plugin."""
     print("Building generator plugin...")
     subprocess.run(
-        ["mvn", "-f", os.path.join(ROOT, "generator", "pom.xml"),
-         "package", "-q", "-DskipTests"],
+        [
+            "mvn",
+            "-f",
+            os.path.join(ROOT, "generator", "pom.xml"),
+            "package",
+            "-q",
+            "-DskipTests",
+        ],
         check=True,
     )
     if not os.path.exists(GENERATOR_JAR):
@@ -148,7 +158,8 @@ def _remove_type_field(file_path: str, type_comment: str):
     """
     if not os.path.exists(file_path):
         return
-    contents = open(file_path).read()
+    with open(file_path) as f:
+        contents = f.read()
     original = contents
 
     # Remove serde attribute for type field (with or without indentation)
@@ -227,7 +238,8 @@ def post_process_messaging_api():
     # Add #[allow(non_camel_case_types)] to AreaDemographic
     area_demo = os.path.join(models_dir, "area_demographic.rs")
     if os.path.exists(area_demo):
-        contents = open(area_demo).read()
+        with open(area_demo) as f:
+            contents = f.read()
         contents = contents.replace(
             "pub enum AreaDemographic",
             "#[allow(non_camel_case_types)]\npub enum AreaDemographic",
@@ -253,7 +265,8 @@ def post_process_manage_audience():
         fpath = os.path.join(models_dir, fname)
         if not fname.endswith(".rs"):
             continue
-        contents = open(fpath).read()
+        with open(fpath) as f:
+            contents = f.read()
         modified = contents
         modified = modified.replace(
             "status: Option<AudienceGroupStatus>",
