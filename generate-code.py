@@ -17,13 +17,15 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 CLI_VERSION = "7.20.0"
 CLI_JAR = os.path.join(ROOT, "tools", f"openapi-generator-cli-{CLI_VERSION}.jar")
 CLI_URL = f"https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/{CLI_VERSION}/openapi-generator-cli-{CLI_VERSION}.jar"
-GENERATOR_JAR = os.path.join(
-    ROOT, "generator", "target", "line-bot-sdk-rust-generator-1.0.0.jar"
-)
+GENERATOR_JAR = os.path.join(ROOT, "generator", "target", "line-bot-sdk-rust-generator-1.0.0.jar")
 
 # Mapping: (spec file, output directory, package name)
 SERVICES = [
-    ("channel-access-token.yml", "core/line_channel_access_token", "line_channel_access_token"),
+    (
+        "channel-access-token.yml",
+        "core/line_channel_access_token",
+        "line_channel_access_token",
+    ),
     ("insight.yml", "core/line_insight", "line_insight"),
     ("liff.yml", "core/line_liff", "line_liff"),
     ("manage-audience.yml", "core/line_manage_audience", "line_manage_audience"),
@@ -55,12 +57,18 @@ def read_version(cargo_toml: str) -> str:
     return "0.0.1"
 
 
-def build_generator():
+def build_generator() -> None:
     """Build the Maven generator plugin."""
     print("Building generator plugin...")
     subprocess.run(
-        ["mvn", "-f", os.path.join(ROOT, "generator", "pom.xml"),
-         "package", "-q", "-DskipTests"],
+        [
+            "mvn",
+            "-f",
+            os.path.join(ROOT, "generator", "pom.xml"),
+            "package",
+            "-q",
+            "-DskipTests",
+        ],
         check=True,
     )
     if not os.path.exists(GENERATOR_JAR):
@@ -68,7 +76,7 @@ def build_generator():
         sys.exit(1)
 
 
-def generate_service(spec_file: str, output_dir: str, package_name: str):
+def generate_service(spec_file: str, output_dir: str, package_name: str) -> None:
     """Generate code for a single service."""
     spec_path = os.path.join(ROOT, "line-openapi", spec_file)
     out_path = os.path.join(ROOT, output_dir)
@@ -108,13 +116,19 @@ def generate_service(spec_file: str, output_dir: str, package_name: str):
     # Run OpenAPI Generator
     classpath = f"{CLI_JAR}:{GENERATOR_JAR}"
     cmd = [
-        "java", "-cp", classpath,
+        "java",
+        "-cp",
+        classpath,
         "org.openapitools.codegen.OpenAPIGenerator",
         "generate",
-        "-g", "line-bot-sdk-rust-generator",
-        "-e", "pebble",
-        "-i", spec_path,
-        "-o", out_path,
+        "-g",
+        "line-bot-sdk-rust-generator",
+        "-e",
+        "pebble",
+        "-i",
+        spec_path,
+        "-o",
+        out_path,
         "--additional-properties",
         f"packageName={package_name},packageVersion={version}",
     ]
@@ -139,7 +153,7 @@ def generate_service(spec_file: str, output_dir: str, package_name: str):
         shutil.rmtree(oag_dir)
 
 
-def _remove_type_field(file_path: str, type_comment: str):
+def _remove_type_field(file_path: str, type_comment: str) -> None:
     """Remove the r#type / type discriminator field from a generated model file.
 
     Matches old post-processor behavior: removes serde rename, field declaration,
@@ -148,32 +162,35 @@ def _remove_type_field(file_path: str, type_comment: str):
     """
     if not os.path.exists(file_path):
         return
-    contents = open(file_path).read()
+    with open(file_path) as f:
+        contents = f.read()
     original = contents
 
     # Remove serde attribute for type field (with or without indentation)
-    contents = re.sub(r'\s*#\[serde\(rename = "type"\)\]\n', "\n", contents)
+    contents = re.sub(r"\s*#\[serde\(rename = \"type\"\)\]\n", "\n", contents)
     # Remove serde attribute for optional type field
     contents = re.sub(
-        r'\s*#\[serde\(rename = "type", skip_serializing_if = "Option::is_none"\)\]\n',
-        "\n", contents,
+        r"\s*#\[serde\(rename = \"type\", skip_serializing_if = \"Option::is_none\"\)\]\n",
+        "\n",
+        contents,
     )
     # Remove type field declaration (required: pub r#type: String,)
-    contents = re.sub(r'\s*pub r#type: String,\n', "\n", contents)
+    contents = re.sub(r"\s*pub r#type: String,\n", "\n", contents)
     # Remove type field declaration (optional: pub r#type: Option<String>,)
-    contents = re.sub(r'\s*pub r#type: Option<String>,\n', "\n", contents)
+    contents = re.sub(r"\s*pub r#type: Option<String>,\n", "\n", contents)
     # Remove type field in constructor body (r#type, or r#type: None,)
-    contents = re.sub(r'\s*r#type,\n', "\n", contents)
-    contents = re.sub(r'\s*r#type: None,\n', "\n", contents)
+    contents = re.sub(r"\s*r#type,\n", "\n", contents)
+    contents = re.sub(r"\s*r#type: None,\n", "\n", contents)
     # Remove type as first constructor param (when followed by more params)
-    contents = re.sub(r'new\(r#type: String, ', "new(", contents)
+    contents = re.sub(r"new\(r#type: String, ", "new(", contents)
     # NOTE: Do NOT remove r#type when it's the only param.
     # cargo fix will rename it to _type, matching old behavior.
     # Remove type comment (e.g., "/// Type of the event")
     if type_comment:
         contents = re.sub(
-            rf'\s*/// {re.escape(type_comment)}\n',
-            "\n", contents,
+            rf"\s*/// {re.escape(type_comment)}\n",
+            "\n",
+            contents,
         )
 
     if contents != original:
@@ -181,7 +198,7 @@ def _remove_type_field(file_path: str, type_comment: str):
             f.write(contents)
 
 
-def _fix_blank_line_before_execute(api_dir: str):
+def _fix_blank_line_before_execute(api_dir: str) -> None:
     """Ensure blank line before req.execute() in API files (matching old output)."""
     if not os.path.isdir(api_dir):
         return
@@ -193,8 +210,8 @@ def _fix_blank_line_before_execute(api_dir: str):
             contents = f.read()
         # Add blank line before req.execute() if not already present
         modified = re.sub(
-            r'([^\n])\n(\s*req\.execute\()',
-            r'\1\n\n\2',
+            r"([^\n])\n(\s*req\.execute\()",
+            r"\1\n\n\2",
             contents,
         )
         if modified != contents:
@@ -202,7 +219,7 @@ def _fix_blank_line_before_execute(api_dir: str):
                 f.write(modified)
 
 
-def post_process_webhook():
+def post_process_webhook() -> None:
     """Remove type field from webhook event/source/message_content models."""
     models_dir = os.path.join(ROOT, "core", "line_webhook", "src", "models")
     if not os.path.isdir(models_dir):
@@ -219,7 +236,7 @@ def post_process_webhook():
             _remove_type_field(fpath, "Type")
 
 
-def post_process_messaging_api():
+def post_process_messaging_api() -> None:
     """Apply messaging_api-specific fixes matching old post-processor behavior."""
     pkg_dir = os.path.join(ROOT, "core", "line_messaging_api")
     models_dir = os.path.join(pkg_dir, "src", "models")
@@ -227,7 +244,8 @@ def post_process_messaging_api():
     # Add #[allow(non_camel_case_types)] to AreaDemographic
     area_demo = os.path.join(models_dir, "area_demographic.rs")
     if os.path.exists(area_demo):
-        contents = open(area_demo).read()
+        with open(area_demo) as f:
+            contents = f.read()
         contents = contents.replace(
             "pub enum AreaDemographic",
             "#[allow(non_camel_case_types)]\npub enum AreaDemographic",
@@ -243,7 +261,7 @@ def post_process_messaging_api():
                 _remove_type_field(fpath, "Type of message")
 
 
-def post_process_manage_audience():
+def post_process_manage_audience() -> None:
     """Apply manage_audience-specific fixes matching old post-processor behavior."""
     pkg_dir = os.path.join(ROOT, "core", "line_manage_audience")
     models_dir = os.path.join(pkg_dir, "src", "models")
@@ -253,7 +271,8 @@ def post_process_manage_audience():
         fpath = os.path.join(models_dir, fname)
         if not fname.endswith(".rs"):
             continue
-        contents = open(fpath).read()
+        with open(fpath) as f:
+            contents = f.read()
         modified = contents
         modified = modified.replace(
             "status: Option<AudienceGroupStatus>",
@@ -268,7 +287,7 @@ def post_process_manage_audience():
                 f.write(modified)
 
 
-def copy_hand_written_sources():
+def copy_hand_written_sources() -> None:
     """Copy hand-written source files over generated ones."""
     print("Copying hand-written sources...")
     for source in HAND_WRITTEN_SOURCES:
@@ -279,7 +298,7 @@ def copy_hand_written_sources():
             print(f"  {source}")
 
 
-def cargo_fix():
+def cargo_fix() -> None:
     """Run cargo fix to auto-rename unused variables."""
     print("Running cargo fix...")
     subprocess.run(
@@ -289,7 +308,7 @@ def cargo_fix():
     )
 
 
-def format_code():
+def format_code() -> None:
     """Run cargo fmt on the workspace."""
     print("Running cargo fmt...")
     subprocess.run(
@@ -299,7 +318,7 @@ def format_code():
     )
 
 
-def download_cli():
+def download_cli() -> None:
     """Download the OpenAPI Generator CLI JAR if not present."""
     if os.path.exists(CLI_JAR):
         return
@@ -309,7 +328,7 @@ def download_cli():
     print(f"  Saved to {CLI_JAR}")
 
 
-def main():
+def main() -> None:
     download_cli()
 
     build_generator()

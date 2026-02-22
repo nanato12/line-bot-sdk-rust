@@ -11,3 +11,11 @@ Cargo.lock
 /tools/openapi-generator-cli-*.jar
 /generator/target/
 /generator/dependency-reduced-pom.xml
+
+# python
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.mypy_cache/
+.ruff_cache/
