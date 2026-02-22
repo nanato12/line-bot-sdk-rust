@@ -57,7 +57,7 @@ def read_version(cargo_toml: str) -> str:
     return "0.0.1"
 
 
-def build_generator():
+def build_generator() -> None:
     """Build the Maven generator plugin."""
     print("Building generator plugin...")
     subprocess.run(
@@ -76,7 +76,7 @@ def build_generator():
         sys.exit(1)
 
 
-def generate_service(spec_file: str, output_dir: str, package_name: str):
+def generate_service(spec_file: str, output_dir: str, package_name: str) -> None:
     """Generate code for a single service."""
     spec_path = os.path.join(ROOT, "line-openapi", spec_file)
     out_path = os.path.join(ROOT, output_dir)
@@ -153,7 +153,7 @@ def generate_service(spec_file: str, output_dir: str, package_name: str):
         shutil.rmtree(oag_dir)
 
 
-def _remove_type_field(file_path: str, type_comment: str):
+def _remove_type_field(file_path: str, type_comment: str) -> None:
     """Remove the r#type / type discriminator field from a generated model file.
 
     Matches old post-processor behavior: removes serde rename, field declaration,
@@ -198,7 +198,7 @@ def _remove_type_field(file_path: str, type_comment: str):
             f.write(contents)
 
 
-def _fix_blank_line_before_execute(api_dir: str):
+def _fix_blank_line_before_execute(api_dir: str) -> None:
     """Ensure blank line before req.execute() in API files (matching old output)."""
     if not os.path.isdir(api_dir):
         return
@@ -219,7 +219,7 @@ def _fix_blank_line_before_execute(api_dir: str):
                 f.write(modified)
 
 
-def post_process_webhook():
+def post_process_webhook() -> None:
     """Remove type field from webhook event/source/message_content models."""
     models_dir = os.path.join(ROOT, "core", "line_webhook", "src", "models")
     if not os.path.isdir(models_dir):
@@ -236,7 +236,7 @@ def post_process_webhook():
             _remove_type_field(fpath, "Type")
 
 
-def post_process_messaging_api():
+def post_process_messaging_api() -> None:
     """Apply messaging_api-specific fixes matching old post-processor behavior."""
     pkg_dir = os.path.join(ROOT, "core", "line_messaging_api")
     models_dir = os.path.join(pkg_dir, "src", "models")
@@ -261,7 +261,7 @@ def post_process_messaging_api():
                 _remove_type_field(fpath, "Type of message")
 
 
-def post_process_manage_audience():
+def post_process_manage_audience() -> None:
     """Apply manage_audience-specific fixes matching old post-processor behavior."""
     pkg_dir = os.path.join(ROOT, "core", "line_manage_audience")
     models_dir = os.path.join(pkg_dir, "src", "models")
@@ -287,7 +287,7 @@ def post_process_manage_audience():
                 f.write(modified)
 
 
-def copy_hand_written_sources():
+def copy_hand_written_sources() -> None:
     """Copy hand-written source files over generated ones."""
     print("Copying hand-written sources...")
     for source in HAND_WRITTEN_SOURCES:
@@ -298,7 +298,7 @@ def copy_hand_written_sources():
             print(f"  {source}")
 
 
-def cargo_fix():
+def cargo_fix() -> None:
     """Run cargo fix to auto-rename unused variables."""
     print("Running cargo fix...")
     subprocess.run(
@@ -308,7 +308,7 @@ def cargo_fix():
     )
 
 
-def format_code():
+def format_code() -> None:
     """Run cargo fmt on the workspace."""
     print("Running cargo fmt...")
     subprocess.run(
@@ -318,7 +318,7 @@ def format_code():
     )
 
 
-def download_cli():
+def download_cli() -> None:
     """Download the OpenAPI Generator CLI JAR if not present."""
     if os.path.exists(CLI_JAR):
         return
@@ -328,7 +328,7 @@ def download_cli():
     print(f"  Saved to {CLI_JAR}")
 
 
-def main():
+def main() -> None:
     download_cli()
 
     build_generator()
