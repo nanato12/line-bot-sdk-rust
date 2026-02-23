@@ -111,9 +111,9 @@ impl From<serde_json::Error> for Error {
 }
 
 mod manage_audience_api;
+mod manage_audience_blob_api;
 mod request;
 pub use self::manage_audience_api::{ManageAudienceApi, ManageAudienceApiClient};
-mod manage_audience_blob_api;
 pub use self::manage_audience_blob_api::{ManageAudienceBlobApi, ManageAudienceBlobApiClient};
 pub mod client;
 pub mod configuration;
