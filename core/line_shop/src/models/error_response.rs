@@ -29,13 +29,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ErrorResponse {
-    /// Message containing information about the error.
-    #[serde(rename = "message")]
+/// Message containing information about the error.
+#[serde(rename = "message")]
     pub message: String,
 }
 
 impl ErrorResponse {
-    pub fn new(message: String) -> ErrorResponse {
-        ErrorResponse { message }
+pub fn new(message: String) -> ErrorResponse {
+        ErrorResponse {
+message,
+}
     }
 }

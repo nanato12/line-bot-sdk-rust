@@ -1,6 +1,6 @@
 [package]
 name = "line_channel_access_token"
-version = "2.0.0"
+version = "0.0.1"
 authors = ["nanato12 <admin@okj.info>"]
 description = "This document describes Channel Access Token API."
 license = "Apache-2.0"

@@ -110,8 +110,8 @@ impl From<serde_json::Error> for Error {
     }
 }
 
-mod request;
 mod shop_api;
+mod request;
 pub use self::shop_api::{ShopApi, ShopApiClient};
 pub mod client;
 pub mod configuration;

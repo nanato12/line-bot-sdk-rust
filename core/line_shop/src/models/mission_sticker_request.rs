@@ -30,33 +30,28 @@ use serde::{Deserialize, Serialize};
 /// MissionStickerRequest : Send mission stickers (v3)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MissionStickerRequest {
-    /// Destination user ID
-    #[serde(rename = "to")]
+/// Destination user ID
+#[serde(rename = "to")]
     pub to: String,
-    /// Package ID for a set of stickers
-    #[serde(rename = "productId")]
+/// Package ID for a set of stickers
+#[serde(rename = "productId")]
     pub product_id: String,
-    /// `STICKER`
-    #[serde(rename = "productType")]
+/// `STICKER`
+#[serde(rename = "productType")]
     pub product_type: String,
-    /// `false`
-    #[serde(rename = "sendPresentMessage")]
+/// `false`
+#[serde(rename = "sendPresentMessage")]
     pub send_present_message: bool,
 }
 
 impl MissionStickerRequest {
-    /// Send mission stickers (v3)
-    pub fn new(
-        to: String,
-        product_id: String,
-        product_type: String,
-        send_present_message: bool,
-    ) -> MissionStickerRequest {
+/// Send mission stickers (v3)
+pub fn new(to: String, product_id: String, product_type: String, send_present_message: bool) -> MissionStickerRequest {
         MissionStickerRequest {
-            to,
-            product_id,
-            product_type,
-            send_present_message,
-        }
+to,
+product_id,
+product_type,
+send_present_message,
+}
     }
 }
