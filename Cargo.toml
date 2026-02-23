@@ -30,19 +30,11 @@ hmac = "0.12.1"
 sha2 = "0.10.8"
 tokio = "^1"
 
-# Lints for generated code — these patterns come from OpenAPI Generator
-# and will be addressed by improving the generator templates.
-[workspace.lints.rust]
-unreachable_code = "allow"
-unused_mut = "allow"
-
+# Lints for generated code
 [workspace.lints.clippy]
-multiple_bound_locations = "allow"
 derivable_impls = "allow"
 empty_docs = "allow"
-len_zero = "allow"
-only_used_in_recursion = "allow"
-redundant_closure = "allow"
-diverging_sub_expression = "allow"
-unnecessary_map_or = "allow"
 large_enum_variant = "allow"
+len_zero = "allow"
+multiple_bound_locations = "allow"
+redundant_closure = "allow"
