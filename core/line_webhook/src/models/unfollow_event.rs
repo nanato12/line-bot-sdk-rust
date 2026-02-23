@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// UnfollowEvent : Event object for when your LINE Official Account is blocked.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UnfollowEvent {
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<models::Source>>,

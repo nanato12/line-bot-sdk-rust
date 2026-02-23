@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// Source : the source of the event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
@@ -36,4 +37,10 @@ pub enum Source {
     GroupSource(models::GroupSource),
     #[serde(rename = "room")]
     RoomSource(models::RoomSource),
+}
+
+impl Default for Source {
+    fn default() -> Source {
+        Source::UserSource(Default::default())
+    }
 }

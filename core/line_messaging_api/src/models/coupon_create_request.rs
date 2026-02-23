@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// CouponCreateRequest : Request object for creating a coupon. Contains all configurable coupon properties.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CouponCreateRequest {
     #[serde(rename = "acquisitionCondition")]
     pub acquisition_condition: Box<models::AcquisitionConditionRequest>,

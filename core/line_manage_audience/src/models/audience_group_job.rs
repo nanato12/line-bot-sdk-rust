@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// AudienceGroupJob : Audience group job
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AudienceGroupJob {

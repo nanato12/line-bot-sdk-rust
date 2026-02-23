@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// CouponCreateResponse : Response object returned after creating a coupon. Contains the coupon ID.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CouponCreateResponse {
     /// Unique identifier of the coupon.
     #[serde(rename = "couponId")]

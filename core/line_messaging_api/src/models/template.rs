@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Template {
@@ -37,4 +38,10 @@ pub enum Template {
     CarouselTemplate(models::CarouselTemplate),
     #[serde(rename = "image_carousel")]
     ImageCarouselTemplate(models::ImageCarouselTemplate),
+}
+
+impl Default for Template {
+    fn default() -> Template {
+        Template::ButtonsTemplate(Default::default())
+    }
 }

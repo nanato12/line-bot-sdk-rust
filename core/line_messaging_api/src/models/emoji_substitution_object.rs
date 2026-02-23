@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// EmojiSubstitutionObject : An object representing a emoji substitution.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct EmojiSubstitutionObject {
     #[serde(rename = "productId")]
     pub product_id: String,

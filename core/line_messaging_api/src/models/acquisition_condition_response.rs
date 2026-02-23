@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum AcquisitionConditionResponse {
@@ -35,4 +36,10 @@ pub enum AcquisitionConditionResponse {
     LotteryAcquisitionConditionResponse(models::LotteryAcquisitionConditionResponse),
     #[serde(rename = "referral")]
     ReferralAcquisitionConditionResponse(models::ReferralAcquisitionConditionResponse),
+}
+
+impl Default for AcquisitionConditionResponse {
+    fn default() -> AcquisitionConditionResponse {
+        AcquisitionConditionResponse::NormalAcquisitionConditionResponse(Default::default())
+    }
 }

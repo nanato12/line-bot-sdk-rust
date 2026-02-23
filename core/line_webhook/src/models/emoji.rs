@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Emoji {
     /// Index position for a character in text, with the first character being at position 0.
     #[serde(rename = "index")]

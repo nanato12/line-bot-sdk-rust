@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// FlexIconSize : You can set the width of an Flex icon component with the `size` property, in pixels, as a percentage, or with a keyword. FlexIconSize just provides only keywords.
 /// You can set the width of an Flex icon component with the `size` property, in pixels, as a percentage, or with a keyword. FlexIconSize just provides only keywords.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]

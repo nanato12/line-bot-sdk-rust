@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// DemographicFilter : Demographic filter
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
@@ -42,4 +43,10 @@ pub enum DemographicFilter {
     OperatorDemographicFilter(models::OperatorDemographicFilter),
     #[serde(rename = "subscriptionPeriod")]
     SubscriptionPeriodDemographicFilter(models::SubscriptionPeriodDemographicFilter),
+}
+
+impl Default for DemographicFilter {
+    fn default() -> DemographicFilter {
+        DemographicFilter::AgeDemographicFilter(Default::default())
+    }
 }

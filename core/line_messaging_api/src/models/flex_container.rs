@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum FlexContainer {
@@ -33,4 +34,10 @@ pub enum FlexContainer {
     FlexBubble(models::FlexBubble),
     #[serde(rename = "carousel")]
     FlexCarousel(models::FlexCarousel),
+}
+
+impl Default for FlexContainer {
+    fn default() -> FlexContainer {
+        FlexContainer::FlexBubble(Default::default())
+    }
 }

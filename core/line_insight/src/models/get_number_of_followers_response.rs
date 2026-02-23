@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// GetNumberOfFollowersResponse : Get number of followers
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetNumberOfFollowersResponse {

@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// GetSharedAudienceGroupsResponse : Gets data for more than one audience.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetSharedAudienceGroupsResponse {

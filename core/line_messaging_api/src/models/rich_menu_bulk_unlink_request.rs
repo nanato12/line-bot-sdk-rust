@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuBulkUnlinkRequest {
     /// Array of user IDs. Found in the `source` object of webhook event objects. Do not use the LINE ID used in LINE.
     #[serde(rename = "userIds")]

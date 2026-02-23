@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// BotSuspendedEvent : This event indicates that the LINE Official Account has been suspended (Suspend). Sent to the webhook URL server of the module channel.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct BotSuspendedEvent {
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<models::Source>>,

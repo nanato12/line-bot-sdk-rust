@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// Limit : Limit of the Narrowcast
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Limit {

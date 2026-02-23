@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DetachedModuleContent {
     /// Detached LINE Official Account bot user ID
     #[serde(rename = "botId")]

@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// Filter : Filter for narrowcast
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Filter {

@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DiscountPercentagePriceInfoRequest {
     /// Specifies the discount rate as a percentage. Must be an integer between 1 and 99.

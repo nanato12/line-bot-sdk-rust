@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// Action : Action
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
@@ -48,4 +49,10 @@ pub enum Action {
     RichMenuSwitchAction(models::RichMenuSwitchAction),
     #[serde(rename = "uri")]
     UriAction(models::UriAction),
+}
+
+impl Default for Action {
+    fn default() -> Action {
+        Action::CameraAction(Default::default())
+    }
 }

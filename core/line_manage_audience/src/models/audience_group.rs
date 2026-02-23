@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// AudienceGroup : Audience group
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AudienceGroup {

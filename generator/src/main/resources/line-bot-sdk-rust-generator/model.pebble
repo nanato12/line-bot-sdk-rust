@@ -11,6 +11,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 {% for mm in models -%}
 {% set model = mm.model -%}
 {% if model.vendorExtensions['x-is-tagged-enum'] is not null and model.vendorExtensions['x-is-tagged-enum'] == true -%}
@@ -24,6 +25,12 @@ pub enum {{ model.classname }} {
     #[serde(rename = "{{ variant.tagValue }}")]
     {{ variant.variantName }}(models::{{ variant.typeName }}),
 {% endfor -%}
+}
+
+impl Default for {{ model.classname }} {
+    fn default() -> {{ model.classname }} {
+        {{ model.classname }}::{{ model.vendorExtensions['x-enum-variants'][0].variantName }}(Default::default())
+    }
 }
 {% elseif model.isEnum -%}
 {% if model.description is not empty -%}
@@ -58,11 +65,7 @@ impl Default for {{ model.classname }} {
 {% if model.description is not empty -%}
 /// {{ model.classname }} : {{ model.description }}
 {% endif -%}
-{% if model.requiredVars is empty -%}
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-{% else -%}
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-{% endif -%}
 pub struct {{ model.classname }} {
 {% for var in model.vars -%}
 {% if var.description is not empty -%}

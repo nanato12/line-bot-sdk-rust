@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RenewedMembershipContent {
     /// The ID of the membership that the user renewed. This is defined for each membership.
     #[serde(rename = "membershipId")]

@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// CarouselColumn : Column object for carousel template.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CarouselColumn {
     #[serde(rename = "thumbnailImageUrl", skip_serializing_if = "Option::is_none")]
     pub thumbnail_image_url: Option<String>,

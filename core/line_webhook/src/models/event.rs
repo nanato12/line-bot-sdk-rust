@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// Event : Webhook event
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
@@ -68,4 +69,10 @@ pub enum Event {
     BotResumedEvent(models::BotResumedEvent),
     #[serde(rename = "delivery")]
     PnpDeliveryCompletionEvent(models::PnpDeliveryCompletionEvent),
+}
+
+impl Default for Event {
+    fn default() -> Event {
+        Event::MessageEvent(Default::default())
+    }
 }

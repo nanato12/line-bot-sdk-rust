@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// Sender : Change icon and display name
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Sender {

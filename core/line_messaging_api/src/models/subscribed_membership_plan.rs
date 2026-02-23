@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// SubscribedMembershipPlan : Object containing information about the membership plan.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SubscribedMembershipPlan {
     /// Membership plan ID.
     #[serde(rename = "membershipId")]

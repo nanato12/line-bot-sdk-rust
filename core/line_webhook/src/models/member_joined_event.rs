@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// MemberJoinedEvent : Event object for when a user joins a group chat or multi-person chat that the LINE Official Account is in.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MemberJoinedEvent {
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<models::Source>>,

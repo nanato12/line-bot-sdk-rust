@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// LinkContent : Content of the account link event.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LinkContent {
     /// One of the following values to indicate whether linking the account was successful or not
     #[serde(rename = "result")]

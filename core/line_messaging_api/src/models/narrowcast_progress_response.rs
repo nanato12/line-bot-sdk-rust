@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct NarrowcastProgressResponse {
     /// The current status. One of:  `waiting`: Messages are not yet ready to be sent. They are currently being filtered or processed in some way. `sending`: Messages are currently being sent. `succeeded`: Messages were sent successfully. This may not mean the messages were successfully received. `failed`: Messages failed to be sent. Use the failedDescription property to find the cause of the failure.
     #[serde(rename = "phase")]

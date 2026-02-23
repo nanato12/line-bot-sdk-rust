@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// GetNumberOfMessageDeliveriesResponse : Get number of message deliveries
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetNumberOfMessageDeliveriesResponse {

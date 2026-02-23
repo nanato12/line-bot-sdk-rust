@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// PnpDelivery : A delivery object containing a hashed phone number string or a string specified by `X-Line-Delivery-Tag` header
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PnpDelivery {
     /// A hashed phone number string or a string specified by `X-Line-Delivery-Tag` header
     #[serde(rename = "data")]

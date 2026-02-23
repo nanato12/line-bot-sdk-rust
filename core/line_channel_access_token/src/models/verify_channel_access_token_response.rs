@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// VerifyChannelAccessTokenResponse : Verification result
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct VerifyChannelAccessTokenResponse {
     /// The channel ID for which the channel access token was issued.
     #[serde(rename = "client_id")]

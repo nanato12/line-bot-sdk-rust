@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// MentionSubstitutionObject : An object representing a mention substitution.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MentionSubstitutionObject {
     #[serde(rename = "mentionee")]
     pub mentionee: Box<models::MentionTarget>,

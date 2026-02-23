@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// GetStatisticsPerUnitResponseOverview : Statistics related to messages.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetStatisticsPerUnitResponseOverview {

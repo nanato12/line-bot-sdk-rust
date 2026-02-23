@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// AttachModuleResponse : Attach by operation of the module channel provider
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AttachModuleResponse {
     /// User ID of the bot on the LINE Official Account.
     #[serde(rename = "bot_id")]

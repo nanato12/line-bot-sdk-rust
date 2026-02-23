@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct VideoPlayComplete {
     /// ID used to identify a video. Returns the same value as the trackingId assigned to the video message.
     #[serde(rename = "trackingId")]

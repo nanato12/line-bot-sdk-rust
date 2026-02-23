@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// QuotaType : One of the following values to indicate whether a target limit is set or not.
 /// One of the following values to indicate whether a target limit is set or not.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]

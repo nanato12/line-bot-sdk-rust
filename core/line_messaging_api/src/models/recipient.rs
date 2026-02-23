@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// Recipient : Recipient
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
@@ -36,4 +37,10 @@ pub enum Recipient {
     AudienceRecipient(models::AudienceRecipient),
     #[serde(rename = "redelivery")]
     RedeliveryRecipient(models::RedeliveryRecipient),
+}
+
+impl Default for Recipient {
+    fn default() -> Recipient {
+        Recipient::OperatorRecipient(Default::default())
+    }
 }

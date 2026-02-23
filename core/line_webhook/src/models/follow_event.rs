@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// FollowEvent : Event object for when your LINE Official Account is added as a friend (or unblocked). You can reply to follow events.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FollowEvent {
     #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<models::Source>>,

@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// FlexBoxSpacing : You can specify the minimum space between two components with the `spacing` property of the parent box component, in pixels or with a keyword. FlexBoxSpacing just provides only keywords.
 /// You can specify the minimum space between two components with the `spacing` property of the parent box component, in pixels or with a keyword. FlexBoxSpacing just provides only keywords.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]

@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// FlexBoxPadding : Padding can be specified in pixels, percentage (to the parent box width) or with a keyword. FlexBoxPadding just provides only keywords.
 /// Padding can be specified in pixels, percentage (to the parent box width) or with a keyword. FlexBoxPadding just provides only keywords.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]

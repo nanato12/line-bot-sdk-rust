@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// MissionStickerRequest : Send mission stickers (v3)
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MissionStickerRequest {
     /// Destination user ID
     #[serde(rename = "to")]

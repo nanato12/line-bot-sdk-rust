@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Message {
@@ -51,4 +52,10 @@ pub enum Message {
     FlexMessage(models::FlexMessage),
     #[serde(rename = "coupon")]
     CouponMessage(models::CouponMessage),
+}
+
+impl Default for Message {
+    fn default() -> Message {
+        Message::TextMessage(Default::default())
+    }
 }

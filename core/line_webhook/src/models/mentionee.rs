@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum Mentionee {
@@ -33,4 +34,10 @@ pub enum Mentionee {
     UserMentionee(models::UserMentionee),
     #[serde(rename = "all")]
     AllMentionee(models::AllMentionee),
+}
+
+impl Default for Mentionee {
+    fn default() -> Mentionee {
+        Mentionee::UserMentionee(Default::default())
+    }
 }

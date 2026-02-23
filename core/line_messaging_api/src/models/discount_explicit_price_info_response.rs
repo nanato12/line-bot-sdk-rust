@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DiscountExplicitPriceInfoResponse {
     /// Currency code (e.g., JPY, THB, TWD).

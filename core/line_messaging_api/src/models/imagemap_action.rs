@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum ImagemapAction {
@@ -35,4 +36,10 @@ pub enum ImagemapAction {
     UriImagemapAction(models::UriImagemapAction),
     #[serde(rename = "clipboard")]
     ClipboardImagemapAction(models::ClipboardImagemapAction),
+}
+
+impl Default for ImagemapAction {
+    fn default() -> ImagemapAction {
+        ImagemapAction::MessageImagemapAction(Default::default())
+    }
 }

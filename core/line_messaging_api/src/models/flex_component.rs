@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum FlexComponent {
@@ -47,4 +48,10 @@ pub enum FlexComponent {
     FlexSeparator(models::FlexSeparator),
     #[serde(rename = "filler")]
     FlexFiller(models::FlexFiller),
+}
+
+impl Default for FlexComponent {
+    fn default() -> FlexComponent {
+        FlexComponent::FlexBox(Default::default())
+    }
 }

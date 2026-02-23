@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// LiffScope : Array of scopes required for some LIFF SDK methods to function. The default value is `[\"profile\", \"chat_message.write\"]`.  
 /// Array of scopes required for some LIFF SDK methods to function. The default value is `[\"profile\", \"chat_message.write\"]`.  
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]

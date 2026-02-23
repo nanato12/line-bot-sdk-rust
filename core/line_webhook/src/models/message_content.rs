@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum MessageContent {
@@ -43,4 +44,10 @@ pub enum MessageContent {
     LocationMessageContent(models::LocationMessageContent),
     #[serde(rename = "sticker")]
     StickerMessageContent(models::StickerMessageContent),
+}
+
+impl Default for MessageContent {
+    fn default() -> MessageContent {
+        MessageContent::TextMessageContent(Default::default())
+    }
 }

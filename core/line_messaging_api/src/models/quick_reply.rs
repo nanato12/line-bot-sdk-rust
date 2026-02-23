@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// QuickReply : Quick reply
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct QuickReply {

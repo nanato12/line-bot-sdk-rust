@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// DeliveryContext : webhook's delivery context information
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DeliveryContext {
     /// Whether the webhook event is a redelivered one or not.
     #[serde(rename = "isRedelivery")]

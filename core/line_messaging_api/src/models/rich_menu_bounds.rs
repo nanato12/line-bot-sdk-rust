@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// RichMenuBounds : Rich menu bounds
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuBounds {

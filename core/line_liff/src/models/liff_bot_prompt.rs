@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// LiffBotPrompt : Specify the setting for bot link feature with one of the following values:  `normal`: Display the option to add the LINE Official Account as a friend in the channel consent screen. `aggressive`: Display a screen with the option to add the LINE Official Account as a friend after the channel consent screen. `none`: Don't display the option to add the LINE Official Account as a friend.   The default value is none.
 /// Specify the setting for bot link feature with one of the following values:  `normal`: Display the option to add the LINE Official Account as a friend in the channel consent screen. `aggressive`: Display a screen with the option to add the LINE Official Account as a friend after the channel consent screen. `none`: Don't display the option to add the LINE Official Account as a friend.   The default value is none.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]

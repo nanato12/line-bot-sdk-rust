@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OperatorRecipient {
     /// Create a new recipient object by taking the logical conjunction (AND) of the specified array of recipient objects.

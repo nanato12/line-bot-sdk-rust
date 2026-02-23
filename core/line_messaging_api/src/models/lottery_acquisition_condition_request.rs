@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LotteryAcquisitionConditionRequest {
     /// Probability (1-99) of winning the coupon in lottery-type campaigns.
     #[serde(rename = "lotteryProbability")]

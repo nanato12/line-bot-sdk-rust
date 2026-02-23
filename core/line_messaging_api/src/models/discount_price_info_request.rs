@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum DiscountPriceInfoRequest {
@@ -35,4 +36,10 @@ pub enum DiscountPriceInfoRequest {
     DiscountPercentagePriceInfoRequest(models::DiscountPercentagePriceInfoRequest),
     #[serde(rename = "explicit")]
     DiscountExplicitPriceInfoRequest(models::DiscountExplicitPriceInfoRequest),
+}
+
+impl Default for DiscountPriceInfoRequest {
+    fn default() -> DiscountPriceInfoRequest {
+        DiscountPriceInfoRequest::DiscountFixedPriceInfoRequest(Default::default())
+    }
 }

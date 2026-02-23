@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// CouponResponse : Detailed information about a coupon, including all properties and current status.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CouponResponse {

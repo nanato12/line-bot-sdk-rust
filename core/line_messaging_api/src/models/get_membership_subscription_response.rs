@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// GetMembershipSubscriptionResponse : A user's membership subscription status
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetMembershipSubscriptionResponse {
     /// List of subscription information
     #[serde(rename = "subscriptions")]

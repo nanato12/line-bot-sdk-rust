@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// UserMentionee : Mentioned target is user
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UserMentionee {
     /// Index position of the user mention for a character in text, with the first character being at position 0.
     #[serde(rename = "index")]

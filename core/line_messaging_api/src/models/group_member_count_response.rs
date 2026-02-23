@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GroupMemberCountResponse {
     /// The count of members in the group chat. The number returned excludes the LINE Official Account.
     #[serde(rename = "count")]

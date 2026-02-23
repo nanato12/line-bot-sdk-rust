@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ButtonsTemplate {
     #[serde(rename = "thumbnailImageUrl", skip_serializing_if = "Option::is_none")]
     pub thumbnail_image_url: Option<String>,

@@ -26,7 +26,8 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct JoinedMembershipContent {
     /// The ID of the membership that the user joined. This is defined for each membership.
     #[serde(rename = "membershipId")]

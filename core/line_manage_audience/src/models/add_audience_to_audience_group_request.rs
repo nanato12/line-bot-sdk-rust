@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// AddAudienceToAudienceGroupRequest : Add user IDs or Identifiers for Advertisers (IFAs) to an audience for uploading user IDs (by JSON)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AddAudienceToAudienceGroupRequest {

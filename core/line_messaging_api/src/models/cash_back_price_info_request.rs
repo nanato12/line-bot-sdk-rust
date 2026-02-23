@@ -26,6 +26,7 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum CashBackPriceInfoRequest {
@@ -33,4 +34,10 @@ pub enum CashBackPriceInfoRequest {
     CashBackFixedPriceInfoRequest(models::CashBackFixedPriceInfoRequest),
     #[serde(rename = "percentage")]
     CashBackPercentagePriceInfoRequest(models::CashBackPercentagePriceInfoRequest),
+}
+
+impl Default for CashBackPriceInfoRequest {
+    fn default() -> CashBackPriceInfoRequest {
+        CashBackPriceInfoRequest::CashBackFixedPriceInfoRequest(Default::default())
+    }
 }

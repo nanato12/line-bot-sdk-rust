@@ -26,8 +26,9 @@
 
 use crate::models;
 use serde::{Deserialize, Serialize};
+
 /// Subscription : An array of memberships.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Subscription {
     #[serde(rename = "membership")]
     pub membership: Box<models::SubscribedMembershipPlan>,
