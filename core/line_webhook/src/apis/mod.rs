@@ -110,8 +110,8 @@ impl From<serde_json::Error> for Error {
     }
 }
 
-mod dummy_api;
 mod request;
+mod dummy_api;
 pub use self::dummy_api::{DummyApi, DummyApiClient};
 pub mod client;
 pub mod configuration;
