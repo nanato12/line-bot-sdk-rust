@@ -96,6 +96,8 @@ where
             hyper::Method::GET,
             "/v2/bot/insight/demographic".to_string(),
         );
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -109,6 +111,8 @@ where
             "/v2/bot/insight/message/event".to_string(),
         );
         req = req.with_query_param("requestId".to_string(), request_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -125,6 +129,8 @@ where
         if let Some(ref s) = date {
             req = req.with_query_param("date".to_string(), s.to_string());
         }
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -142,6 +148,8 @@ where
             "/v2/bot/insight/message/delivery".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -163,6 +171,8 @@ where
         );
         req = req.with_query_param("from".to_string(), from.to_string());
         req = req.with_query_param("to".to_string(), to.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 }

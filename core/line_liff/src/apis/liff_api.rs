@@ -86,6 +86,8 @@ where
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/liff/v1/apps".to_string());
         req = req.with_body_param(add_liff_app_request);
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -100,6 +102,8 @@ where
         );
         req = req.with_path_param("liffId".to_string(), liff_id.to_string());
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -109,6 +113,8 @@ where
     ) -> Pin<Box<dyn Future<Output = Result<models::GetAllLiffAppsResponse, Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/liff/v1/apps".to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -125,6 +131,8 @@ where
         req = req.with_path_param("liffId".to_string(), liff_id.to_string());
         req = req.with_body_param(update_liff_app_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 }

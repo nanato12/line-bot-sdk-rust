@@ -120,6 +120,8 @@ where
         if let Some(param_value) = brand_type {
             req = req.with_form_param("brand_type".to_string(), param_value.to_string());
         }
+
+
         req.execute(self.configuration.borrow())
     }
 }

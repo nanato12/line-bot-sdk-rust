@@ -74,6 +74,8 @@ where
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/callback".to_string());
         req = req.with_body_param(callback_request);
+
+
         req.execute(self.configuration.borrow())
     }
 }

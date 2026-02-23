@@ -356,6 +356,8 @@ where
             req = req.with_header_param("X-Line-Retry-Key".to_string(), param_value.to_string());
         }
         req = req.with_body_param(broadcast_request);
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -366,6 +368,8 @@ where
             "/v2/bot/user/all/richmenu".to_string(),
         );
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -380,6 +384,8 @@ where
         );
         req = req.with_path_param("couponId".to_string(), coupon_id.to_string());
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -391,6 +397,8 @@ where
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/bot/coupon".to_string());
         req = req.with_body_param(coupon_create_request);
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -402,6 +410,8 @@ where
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/bot/richmenu".to_string());
         req = req.with_body_param(rich_menu_request);
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -416,6 +426,8 @@ where
         );
         req = req.with_body_param(create_rich_menu_alias_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -430,6 +442,8 @@ where
         );
         req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -447,6 +461,8 @@ where
             rich_menu_alias_id.to_string(),
         );
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -468,6 +484,8 @@ where
         if let Some(ref s) = start {
             req = req.with_query_param("start".to_string(), s.to_string());
         }
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -480,6 +498,8 @@ where
             hyper::Method::GET,
             "/v2/bot/message/aggregation/info".to_string(),
         );
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -489,6 +509,8 @@ where
     ) -> Pin<Box<dyn Future<Output = Result<models::BotInfoResponse, Error>> + Send>> {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/v2/bot/info".to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -502,6 +524,8 @@ where
             "/v2/bot/coupon/{couponId}".to_string(),
         );
         req = req.with_path_param("couponId".to_string(), coupon_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -513,6 +537,8 @@ where
             hyper::Method::GET,
             "/v2/bot/user/all/richmenu".to_string(),
         );
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -532,6 +558,8 @@ where
         if let Some(ref s) = limit {
             req = req.with_query_param("limit".to_string(), s.to_string());
         }
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -545,6 +573,8 @@ where
             "/v2/bot/group/{groupId}/members/count".to_string(),
         );
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -560,6 +590,8 @@ where
         );
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
         req = req.with_path_param("userId".to_string(), user_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -577,6 +609,8 @@ where
             req = req.with_query_param("start".to_string(), s.to_string());
         }
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -590,6 +624,8 @@ where
             "/v2/bot/group/{groupId}/summary".to_string(),
         );
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -612,6 +648,8 @@ where
             req = req.with_query_param("limit".to_string(), s.to_string());
         }
         req = req.with_path_param("membershipId".to_string(), membership_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -623,6 +661,8 @@ where
             hyper::Method::GET,
             "/v2/bot/membership/list".to_string(),
         );
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -638,6 +678,8 @@ where
             "/v2/bot/membership/subscription/{userId}".to_string(),
         );
         req = req.with_path_param("userId".to_string(), user_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -649,6 +691,8 @@ where
             hyper::Method::GET,
             "/v2/bot/message/quota".to_string(),
         );
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -660,6 +704,8 @@ where
             hyper::Method::GET,
             "/v2/bot/message/quota/consumption".to_string(),
         );
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -674,6 +720,8 @@ where
             "/v2/bot/message/progress/narrowcast".to_string(),
         );
         req = req.with_query_param("requestId".to_string(), request_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -687,6 +735,8 @@ where
             "/v2/bot/message/delivery/broadcast".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -700,6 +750,8 @@ where
             "/v2/bot/message/delivery/multicast".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -713,6 +765,8 @@ where
             "/v2/bot/message/delivery/push".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -726,6 +780,8 @@ where
             "/v2/bot/message/delivery/reply".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -739,6 +795,8 @@ where
             "/v2/bot/message/delivery/pnp".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -752,6 +810,8 @@ where
             "/v2/bot/profile/{userId}".to_string(),
         );
         req = req.with_path_param("userId".to_string(), user_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -765,6 +825,8 @@ where
             "/v2/bot/richmenu/{richMenuId}".to_string(),
         );
         req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -781,6 +843,8 @@ where
             "richMenuAliasId".to_string(),
             rich_menu_alias_id.to_string(),
         );
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -793,6 +857,8 @@ where
             hyper::Method::GET,
             "/v2/bot/richmenu/alias/list".to_string(),
         );
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -807,6 +873,8 @@ where
             "/v2/bot/richmenu/progress/batch".to_string(),
         );
         req = req.with_query_param("requestId".to_string(), request_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -820,6 +888,8 @@ where
             "/v2/bot/user/{userId}/richmenu".to_string(),
         );
         req = req.with_path_param("userId".to_string(), user_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -831,6 +901,8 @@ where
             hyper::Method::GET,
             "/v2/bot/richmenu/list".to_string(),
         );
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -844,6 +916,8 @@ where
             "/v2/bot/room/{roomId}/members/count".to_string(),
         );
         req = req.with_path_param("roomId".to_string(), room_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -859,6 +933,8 @@ where
         );
         req = req.with_path_param("roomId".to_string(), room_id.to_string());
         req = req.with_path_param("userId".to_string(), user_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -876,6 +952,8 @@ where
             req = req.with_query_param("start".to_string(), s.to_string());
         }
         req = req.with_path_param("roomId".to_string(), room_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -888,6 +966,8 @@ where
             hyper::Method::GET,
             "/v2/bot/channel/webhook/endpoint".to_string(),
         );
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -901,6 +981,8 @@ where
             "/v2/bot/user/{userId}/linkToken".to_string(),
         );
         req = req.with_path_param("userId".to_string(), user_id.to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -915,6 +997,8 @@ where
         );
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -926,6 +1010,8 @@ where
         );
         req = req.with_path_param("roomId".to_string(), room_id.to_string());
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -942,6 +1028,8 @@ where
         req = req.with_path_param("userId".to_string(), user_id.to_string());
         req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -956,6 +1044,8 @@ where
         );
         req = req.with_body_param(rich_menu_bulk_link_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -985,6 +1075,8 @@ where
         if let Some(ref s) = limit {
             req = req.with_query_param("limit".to_string(), s.to_string());
         }
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -999,6 +1091,8 @@ where
         );
         req = req.with_body_param(mark_messages_as_read_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1013,6 +1107,8 @@ where
         );
         req = req.with_body_param(mark_messages_as_read_by_token_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1030,6 +1126,8 @@ where
             req = req.with_header_param("X-Line-Retry-Key".to_string(), param_value.to_string());
         }
         req = req.with_body_param(multicast_request);
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1047,6 +1145,8 @@ where
             req = req.with_header_param("X-Line-Retry-Key".to_string(), param_value.to_string());
         }
         req = req.with_body_param(narrowcast_request);
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1064,6 +1164,8 @@ where
             req = req.with_header_param("X-Line-Retry-Key".to_string(), param_value.to_string());
         }
         req = req.with_body_param(push_message_request);
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1080,6 +1182,8 @@ where
         }
         req = req.with_body_param(pnp_messages_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1093,6 +1197,8 @@ where
             "/v2/bot/message/reply".to_string(),
         );
         req = req.with_body_param(reply_message_request);
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1107,6 +1213,8 @@ where
         );
         req = req.with_body_param(rich_menu_batch_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1121,6 +1229,8 @@ where
         );
         req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1135,6 +1245,8 @@ where
         );
         req = req.with_body_param(set_webhook_endpoint_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1148,6 +1260,8 @@ where
             "/v2/bot/chat/loading/start".to_string(),
         );
         req = req.with_body_param(show_loading_animation_request);
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1162,6 +1276,8 @@ where
             "/v2/bot/channel/webhook/test".to_string(),
         );
         req = req.with_body_param(test_webhook_endpoint_request);
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1176,6 +1292,8 @@ where
         );
         req = req.with_path_param("userId".to_string(), user_id.to_string());
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1190,6 +1308,8 @@ where
         );
         req = req.with_body_param(rich_menu_bulk_unlink_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1209,6 +1329,8 @@ where
         );
         req = req.with_body_param(update_rich_menu_alias_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1223,6 +1345,8 @@ where
         );
         req = req.with_body_param(validate_message_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1237,6 +1361,8 @@ where
         );
         req = req.with_body_param(validate_message_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1251,6 +1377,8 @@ where
         );
         req = req.with_body_param(validate_message_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1265,6 +1393,8 @@ where
         );
         req = req.with_body_param(validate_message_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1279,6 +1409,8 @@ where
         );
         req = req.with_body_param(validate_message_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1293,6 +1425,8 @@ where
         );
         req = req.with_body_param(rich_menu_batch_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -1307,6 +1441,8 @@ where
         );
         req = req.with_body_param(rich_menu_request);
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 }

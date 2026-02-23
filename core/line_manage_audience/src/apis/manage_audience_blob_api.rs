@@ -96,6 +96,8 @@ where
         }
         req = req.with_form_param("file".to_string(), file.display().to_string());
         req = req.returns_nothing();
+
+
         req.execute(self.configuration.borrow())
     }
 
@@ -122,6 +124,8 @@ where
             req = req.with_form_param("uploadDescription".to_string(), param_value.to_string());
         }
         req = req.with_form_param("file".to_string(), file.display().to_string());
+
+
         req.execute(self.configuration.borrow())
     }
 }
