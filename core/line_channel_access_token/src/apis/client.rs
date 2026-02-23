@@ -21,7 +21,7 @@ use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
 pub struct APIClient {
-    channel_access_token_api: Box<dyn crate::apis::ChannelAccessTokenApi>,
+    channel_access_token: Box<dyn crate::apis::ChannelAccessTokenApi>,
 }
 
 impl APIClient {
@@ -32,13 +32,12 @@ impl APIClient {
         let rc = Arc::new(configuration);
 
         APIClient {
-            channel_access_token_api: Box::new(crate::apis::ChannelAccessTokenApiClient::new(
+            channel_access_token: Box::new(crate::apis::ChannelAccessTokenApiClient::new(
                 rc.clone(),
             )),
         }
     }
-
-    pub fn channel_access_token_api(&self) -> &dyn crate::apis::ChannelAccessTokenApi {
-        self.channel_access_token_api.as_ref()
+    pub fn channel_access_token(&self) -> &dyn crate::apis::ChannelAccessTokenApi {
+        self.channel_access_token.as_ref()
     }
 }
