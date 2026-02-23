@@ -4,9 +4,8 @@ import org.openapitools.codegen.*;
 import org.openapitools.codegen.languages.RustClientCodegen;
 import org.openapitools.codegen.model.ModelMap;
 import org.openapitools.codegen.model.ModelsMap;
-import org.openapitools.codegen.model.OperationMap;
-import org.openapitools.codegen.model.OperationsMap;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -32,6 +31,9 @@ public class LineBotRustGenerator extends RustClientCodegen {
             * limitations under the License.
             */
             """;
+
+    private final Set<String> discriminatorChildren = new HashSet<>();
+    private final Map<String, String> childDiscriminatorProp = new HashMap<>();
 
     public LineBotRustGenerator() {
         super();
@@ -116,43 +118,87 @@ public class LineBotRustGenerator extends RustClientCodegen {
     }
 
     @Override
-    public Map<String, ModelsMap> postProcessAllModels(
-            Map<String, ModelsMap> objs) {
-        // Detect feature flags needed for Cargo.toml
-        boolean needsSerdeWith = false;
-        boolean needsUuid = false;
-        for (Map.Entry<String, ModelsMap> entry : objs.entrySet()) {
-            for (ModelMap mm : entry.getValue().getModels()) {
-                CodegenModel model = mm.getModel();
-                for (CodegenProperty var : model.vars) {
-                    if (var.isNullable && !var.required) {
-                        needsSerdeWith = true;
-                    }
-                    if ("uuid::Uuid".equals(var.dataType)) {
-                        needsUuid = true;
-                    }
-                }
-            }
-        }
-        additionalProperties.put("needsSerdeWith", needsSerdeWith);
-        additionalProperties.put("needsUuid", needsUuid);
+    public CodegenModel fromModel(String name,
+            io.swagger.v3.oas.models.media.Schema schema) {
+        CodegenModel model = super.fromModel(name, schema);
 
-        return super.postProcessAllModels(objs);
+        if (schema.getDiscriminator() != null
+                && schema.getDiscriminator().getPropertyName() != null
+                && schema.getDiscriminator().getMapping() != null) {
+
+            String discProp = schema.getDiscriminator().getPropertyName();
+            Map<String, String> mapping = schema.getDiscriminator().getMapping();
+
+            model.vendorExtensions.put("x-is-tagged-enum", true);
+            model.vendorExtensions.put("x-discriminator-property", discProp);
+
+            List<Map<String, String>> variants = new ArrayList<>();
+            for (Map.Entry<String, String> entry : mapping.entrySet()) {
+                String tagValue = entry.getKey();
+                String ref = entry.getValue();
+                String typeName = ref.contains("/")
+                        ? ref.substring(ref.lastIndexOf('/') + 1)
+                        : ref;
+
+                String rustTypeName = toModelName(typeName);
+                Map<String, String> variant = new HashMap<>();
+                variant.put("tagValue", tagValue);
+                variant.put("typeName", rustTypeName);
+                variant.put("moduleName", toModelFilename(typeName));
+                variant.put("variantName", rustTypeName);
+                variants.add(variant);
+            }
+            model.vendorExtensions.put("x-enum-variants", variants);
+        }
+
+        return model;
     }
 
     @Override
-    public OperationsMap postProcessOperationsWithModels(
-            OperationsMap objs, List<ModelMap> allModels) {
-        OperationMap ops = objs.getOperations();
-        if (ops != null) {
-            for (CodegenOperation op : ops.getOperation()) {
-                for (CodegenParameter param : op.allParams) {
-                    if (param.isUuid) {
-                        additionalProperties.put("needsUuid", true);
+    public Map<String, ModelsMap> postProcessAllModels(
+            Map<String, ModelsMap> objs) {
+        // First pass: collect all discriminator children
+        for (Map.Entry<String, ModelsMap> entry : objs.entrySet()) {
+            for (ModelMap mm : entry.getValue().getModels()) {
+                CodegenModel model = mm.getModel();
+                Object isTagged = model.vendorExtensions.get("x-is-tagged-enum");
+                if (Boolean.TRUE.equals(isTagged)) {
+                    String discProp = (String) model.vendorExtensions
+                            .get("x-discriminator-property");
+                    @SuppressWarnings("unchecked")
+                    List<Map<String, String>> variants = (List<Map<String, String>>) model.vendorExtensions
+                            .get("x-enum-variants");
+                    if (variants != null) {
+                        for (Map<String, String> v : variants) {
+                            discriminatorChildren.add(v.get("typeName"));
+                            childDiscriminatorProp.put(
+                                    v.get("typeName"), discProp);
+                        }
                     }
                 }
             }
         }
-        return super.postProcessOperationsWithModels(objs, allModels);
+
+        // Second pass: remove discriminator property from child structs
+        for (Map.Entry<String, ModelsMap> entry : objs.entrySet()) {
+            for (ModelMap mm : entry.getValue().getModels()) {
+                CodegenModel model = mm.getModel();
+                if (discriminatorChildren.contains(model.classname)) {
+                    String prop = childDiscriminatorProp.get(model.classname);
+                    if (prop != null) {
+                        model.vars.removeIf(v -> v.baseName.equals(prop));
+                        model.allVars.removeIf(v -> v.baseName.equals(prop));
+                        model.requiredVars.removeIf(
+                                v -> v.baseName.equals(prop));
+                        model.optionalVars.removeIf(
+                                v -> v.baseName.equals(prop));
+                    }
+                    model.vendorExtensions.put(
+                            "x-is-discriminator-child", true);
+                }
+            }
+        }
+
+        return super.postProcessAllModels(objs);
     }
 }

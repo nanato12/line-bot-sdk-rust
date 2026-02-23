@@ -14,52 +14,31 @@ use serde::{Deserialize, Serialize};
 
 {% for mm in models -%}
 {% set model = mm.model -%}
-{% if model.discriminator is not null and model.discriminator.mappedModels is not empty -%}
+{% if model.vendorExtensions['x-is-tagged-enum'] is not null and model.vendorExtensions['x-is-tagged-enum'] == true -%}
 {% if model.description is not empty -%}
 /// {{ model.classname }} : {{ model.description }}
 {% endif -%}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "{{ model.discriminator.propertyBaseName }}")]
+#[serde(tag = "{{ model.vendorExtensions['x-discriminator-property'] }}")]
 pub enum {{ model.classname }} {
-{% for mapped in model.discriminator.mappedModels -%}
-    #[serde(rename = "{{ mapped.mappingName }}")]
-    {{ mapped.modelName }} {
-{% for var in model.vars -%}
-{% if not var.isDiscriminator -%}
-{% if var.description is not empty -%}
-        /// {{ var.description }}
-{% endif -%}
-        #[serde(rename = "{{ var.baseName }}"{% if not var.required %}, skip_serializing_if = "Option::is_none"{% endif %})]
-        {{ var.name }}: {% if var.isNullable or not var.required %}Option<{% endif %}{% if var.isEnum %}{% if var.isArray %}Vec<{{ var.enumName }}>{% else %}{{ var.enumName }}{% endif %}{% elseif var.isModel %}Box<{{ var.dataType }}>{% else %}{{ var.dataType }}{% endif %}{% if var.isNullable or not var.required %}>{% endif %},
-{% endif -%}
-{% endfor -%}
-    },
+{% for variant in model.vendorExtensions['x-enum-variants'] -%}
+    #[serde(rename = "{{ variant.tagValue }}")]
+    {{ variant.variantName }}(models::{{ variant.typeName }}),
 {% endfor -%}
 }
 
 impl Default for {{ model.classname }} {
-    fn default() -> Self {
-{% for mapped in model.discriminator.mappedModels -%}
-{% if loop.first -%}
-        Self::{{ mapped.modelName }} {
-{% for var in model.vars -%}
-{% if not var.isDiscriminator -%}
-            {{ var.name }}: Default::default(),
-{% endif -%}
-{% endfor -%}
-        }
-{% endif -%}
-{% endfor -%}
+    fn default() -> {{ model.classname }} {
+        {{ model.classname }}::{{ model.vendorExtensions['x-enum-variants'][0].variantName }}(Default::default())
     }
 }
 {% elseif model.isEnum -%}
 {% if model.description is not empty -%}
 /// {{ model.classname }} : {{ model.description }}
 /// {{ model.description }}
-{% else -%}
-///
 {% endif -%}
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum {{ model.classname }} {
 {% for enumVar in model.allowableValues.enumVars -%}
     #[serde(rename = "{{ enumVar.value }}")]
@@ -92,13 +71,8 @@ pub struct {{ model.classname }} {
 {% if var.description is not empty -%}
     /// {{ var.description }}
 {% endif -%}
-{% if var.isNullable and not var.required -%}
-    #[serde(rename = "{{ var.baseName }}", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub {{ var.name }}: Option<Option<{% if var.isEnum %}{% if var.isArray %}Vec<{{ var.enumName }}>{% else %}{{ var.enumName }}{% endif %}{% elseif var.isModel %}Box<{{ var.dataType }}>{% else %}{{ var.dataType }}{% endif %}>>,
-{% else -%}
-    #[serde(rename = "{{ var.baseName }}"{% if var.isNullable and var.required %}, deserialize_with = "Option::deserialize"{% endif %}{% if not var.required %}, skip_serializing_if = "Option::is_none"{% endif %})]
+    #[serde(rename = "{{ var.baseName }}"{% if not var.required %}, skip_serializing_if = "Option::is_none"{% endif %})]
     pub {{ var.name }}: {% if var.isNullable or not var.required %}Option<{% endif %}{% if var.isEnum %}{% if var.isArray %}Vec<{{ var.enumName }}>{% else %}{{ var.enumName }}{% endif %}{% elseif var.isModel %}Box<{{ var.dataType }}>{% else %}{{ var.dataType }}{% endif %}{% if var.isNullable or not var.required %}>{% endif %},
-{% endif -%}
 {% endfor -%}
 }
 
@@ -128,6 +102,7 @@ impl {{ model.classname }} {
 
 /// {{ var.description }}
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+#[allow(non_camel_case_types)]
 pub enum {{ var.enumName }} {
 {% for enumVar in var.allowableValues.enumVars -%}
     #[serde(rename = "{{ enumVar.value }}")]

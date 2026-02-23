@@ -9,15 +9,10 @@ edition = "2021"
 
 [dependencies]
 serde = { workspace = true, features = ["derive"] }
-{% if needsSerdeWith is not null and needsSerdeWith == true -%}
-serde_with = { workspace = true, default-features = false, features = ["base64", "std", "macros"] }
-{% endif -%}
 serde_json.workspace = true
 serde_repr.workspace = true
 url.workspace = true
-{% if needsUuid is not null and needsUuid == true -%}
 uuid = { workspace = true, features = ["serde", "v4"] }
-{% endif -%}
 hyper = { workspace = true, features = ["full"] }
 hyper-util = { workspace = true, features = ["client", "client-legacy", "http1", "http2"] }
 http-body-util.workspace = true

@@ -209,8 +209,10 @@ def _fix_blank_line_before_execute(api_dir: str) -> None:
         with open(fpath) as f:
             contents = f.read()
         # Add blank line before req.execute() if not already present
+        # Use [^\S\n]* (non-newline whitespace) instead of \s* to avoid
+        # matching across existing blank lines (which would create doubles)
         modified = re.sub(
-            r"([^\n])\n(\s*req\.execute\()",
+            r"([^\n])\n([^\S\n]*req\.execute\()",
             r"\1\n\n\2",
             contents,
         )
@@ -240,18 +242,6 @@ def post_process_messaging_api() -> None:
     """Apply messaging_api-specific fixes matching old post-processor behavior."""
     pkg_dir = os.path.join(ROOT, "core", "line_messaging_api")
     models_dir = os.path.join(pkg_dir, "src", "models")
-
-    # Add #[allow(non_camel_case_types)] to AreaDemographic
-    area_demo = os.path.join(models_dir, "area_demographic.rs")
-    if os.path.exists(area_demo):
-        with open(area_demo) as f:
-            contents = f.read()
-        contents = contents.replace(
-            "pub enum AreaDemographic",
-            "#[allow(non_camel_case_types)]\npub enum AreaDemographic",
-        )
-        with open(area_demo, "w") as f:
-            f.write(contents)
 
     # Remove type field from *_message.rs files
     if os.path.isdir(models_dir):

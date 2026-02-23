@@ -110,10 +110,8 @@ impl From<serde_json::Error> for Error {
     }
 }
 
-mod request;
-
 mod insight_api;
+mod request;
 pub use self::insight_api::{InsightApi, InsightApiClient};
-
 pub mod client;
 pub mod configuration;

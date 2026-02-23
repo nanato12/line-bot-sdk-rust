@@ -21,22 +21,21 @@ use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
 pub struct APIClient {
-    shop_api: Box<dyn crate::apis::ShopApi>,
+    shop: Box<dyn crate::apis::ShopApi>,
 }
 
 impl APIClient {
-    pub fn new<C: Connect>(configuration: Configuration<C>) -> APIClient
+    pub fn new<C>(configuration: Configuration<C>) -> APIClient
     where
-        C: Clone + std::marker::Send + Sync + 'static,
+        C: Connect + Clone + std::marker::Send + Sync + 'static,
     {
         let rc = Arc::new(configuration);
 
         APIClient {
-            shop_api: Box::new(crate::apis::ShopApiClient::new(rc.clone())),
+            shop: Box::new(crate::apis::ShopApiClient::new(rc.clone())),
         }
     }
-
-    pub fn shop_api(&self) -> &dyn crate::apis::ShopApi {
-        self.shop_api.as_ref()
+    pub fn shop(&self) -> &dyn crate::apis::ShopApi {
+        self.shop.as_ref()
     }
 }

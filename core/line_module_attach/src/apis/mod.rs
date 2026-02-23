@@ -110,10 +110,8 @@ impl From<serde_json::Error> for Error {
     }
 }
 
-mod request;
-
 mod line_module_attach_api;
+mod request;
 pub use self::line_module_attach_api::{LineModuleAttachApi, LineModuleAttachApiClient};
-
 pub mod client;
 pub mod configuration;

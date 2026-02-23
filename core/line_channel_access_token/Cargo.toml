@@ -1,6 +1,6 @@
 [package]
 name = "line_channel_access_token"
-version = "1.0.0"
+version = "2.0.0"
 authors = ["nanato12 <admin@okj.info>"]
 description = "This document describes Channel Access Token API."
 license = "Apache-2.0"
@@ -12,6 +12,7 @@ serde = { workspace = true, features = ["derive"] }
 serde_json.workspace = true
 serde_repr.workspace = true
 url.workspace = true
+uuid = { workspace = true, features = ["serde", "v4"] }
 hyper = { workspace = true, features = ["full"] }
 hyper-util = { workspace = true, features = ["client", "client-legacy", "http1", "http2"] }
 http-body-util.workspace = true

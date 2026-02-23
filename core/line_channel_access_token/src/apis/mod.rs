@@ -110,10 +110,8 @@ impl From<serde_json::Error> for Error {
     }
 }
 
-mod request;
-
 mod channel_access_token_api;
+mod request;
 pub use self::channel_access_token_api::{ChannelAccessTokenApi, ChannelAccessTokenApiClient};
-
 pub mod client;
 pub mod configuration;

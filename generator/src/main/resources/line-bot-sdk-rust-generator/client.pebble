@@ -7,26 +7,29 @@ use hyper_util::client::legacy::connect::Connect;
 
 pub struct APIClient {
 {% for api in apiInfo.apis -%}
-    {{ api.classFilename }}: Box<dyn crate::apis::{{ api.classname }}>,
+    {{ api.classVarName | snakeCase }}: Box<dyn crate::apis::{{ api.classname }}>,
 {% endfor -%}
 }
 
 impl APIClient {
-    pub fn new<C: Connect>(configuration: Configuration<C>) -> APIClient
+    pub fn new<C>(configuration: Configuration<C>) -> APIClient
     where
-        C: Clone + std::marker::Send + Sync + 'static,
+        C: Connect + Clone + std::marker::Send + Sync + 'static,
     {
         let rc = Arc::new(configuration);
 
         APIClient {
 {% for api in apiInfo.apis -%}
-            {{ api.classFilename }}: Box::new(crate::apis::{{ api.classname }}Client::new(rc.clone())),
+            {{ api.classVarName | snakeCase }}: Box::new(crate::apis::{{ api.classname }}Client::new(
+                rc.clone(),
+            )),
 {% endfor -%}
         }
     }
-{% for api in apiInfo.apis %}
-    pub fn {{ api.classFilename }}(&self) -> &dyn crate::apis::{{ api.classname }} {
-        self.{{ api.classFilename }}.as_ref()
+{% for api in apiInfo.apis -%}
+
+    pub fn {{ api.classVarName | snakeCase }}(&self) -> &dyn crate::apis::{{ api.classname }} {
+        self.{{ api.classVarName | snakeCase }}.as_ref()
     }
 {% endfor -%}
 }
