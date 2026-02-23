@@ -227,7 +227,7 @@ impl Request {
         }
 
         let req_headers = req_builder.headers_mut().unwrap();
-        let request_result = if self.form_params.len() > 0 {
+        let request_result = if !self.form_params.is_empty() {
             req_headers.insert(
                 CONTENT_TYPE,
                 HeaderValue::from_static("application/x-www-form-urlencoded"),
