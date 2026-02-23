@@ -110,8 +110,8 @@ impl From<serde_json::Error> for Error {
     }
 }
 
-mod request;
 mod liff_api;
+mod request;
 pub use self::liff_api::{LiffApi, LiffApiClient};
 pub mod client;
 pub mod configuration;
