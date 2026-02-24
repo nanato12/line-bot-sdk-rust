@@ -40,6 +40,8 @@ pub enum CouponRewardResponse {
     CouponGiftRewardResponse(models::CouponGiftRewardResponse),
     #[serde(rename = "others")]
     CouponOthersRewardResponse(models::CouponOthersRewardResponse),
+    #[serde(other)]
+    UnknownCouponRewardResponse,
 }
 
 impl Default for CouponRewardResponse {

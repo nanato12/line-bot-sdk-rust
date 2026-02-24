@@ -34,6 +34,8 @@ pub enum FlexContainer {
     FlexBubble(models::FlexBubble),
     #[serde(rename = "carousel")]
     FlexCarousel(models::FlexCarousel),
+    #[serde(other)]
+    UnknownFlexContainer,
 }
 
 impl Default for FlexContainer {

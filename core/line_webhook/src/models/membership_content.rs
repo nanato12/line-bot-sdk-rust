@@ -37,6 +37,8 @@ pub enum MembershipContent {
     LeftMembershipContent(models::LeftMembershipContent),
     #[serde(rename = "renewed")]
     RenewedMembershipContent(models::RenewedMembershipContent),
+    #[serde(other)]
+    UnknownMembershipContent,
 }
 
 impl Default for MembershipContent {

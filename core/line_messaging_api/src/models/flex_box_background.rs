@@ -32,6 +32,8 @@ use serde::{Deserialize, Serialize};
 pub enum FlexBoxBackground {
     #[serde(rename = "linearGradient")]
     FlexBoxLinearGradient(models::FlexBoxLinearGradient),
+    #[serde(other)]
+    UnknownFlexBoxBackground,
 }
 
 impl Default for FlexBoxBackground {

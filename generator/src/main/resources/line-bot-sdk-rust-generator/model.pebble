@@ -25,6 +25,8 @@ pub enum {{ model.classname }} {
     #[serde(rename = "{{ variant.tagValue }}")]
     {{ variant.variantName }}(models::{{ variant.typeName }}),
 {% endfor -%}
+    #[serde(other)]
+    Unknown{{ model.classname }},
 }
 
 impl Default for {{ model.classname }} {

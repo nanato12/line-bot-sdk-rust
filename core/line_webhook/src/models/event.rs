@@ -69,6 +69,8 @@ pub enum Event {
     BotResumedEvent(models::BotResumedEvent),
     #[serde(rename = "delivery")]
     PnpDeliveryCompletionEvent(models::PnpDeliveryCompletionEvent),
+    #[serde(other)]
+    UnknownEvent,
 }
 
 impl Default for Event {

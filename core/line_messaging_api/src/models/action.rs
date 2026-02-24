@@ -49,6 +49,8 @@ pub enum Action {
     RichMenuSwitchAction(models::RichMenuSwitchAction),
     #[serde(rename = "uri")]
     UriAction(models::UriAction),
+    #[serde(other)]
+    UnknownAction,
 }
 
 impl Default for Action {

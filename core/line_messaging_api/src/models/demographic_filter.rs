@@ -43,6 +43,8 @@ pub enum DemographicFilter {
     OperatorDemographicFilter(models::OperatorDemographicFilter),
     #[serde(rename = "subscriptionPeriod")]
     SubscriptionPeriodDemographicFilter(models::SubscriptionPeriodDemographicFilter),
+    #[serde(other)]
+    UnknownDemographicFilter,
 }
 
 impl Default for DemographicFilter {

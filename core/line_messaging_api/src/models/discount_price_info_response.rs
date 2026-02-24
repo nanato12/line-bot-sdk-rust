@@ -36,6 +36,8 @@ pub enum DiscountPriceInfoResponse {
     DiscountPercentagePriceInfoResponse(models::DiscountPercentagePriceInfoResponse),
     #[serde(rename = "explicit")]
     DiscountExplicitPriceInfoResponse(models::DiscountExplicitPriceInfoResponse),
+    #[serde(other)]
+    UnknownDiscountPriceInfoResponse,
 }
 
 impl Default for DiscountPriceInfoResponse {

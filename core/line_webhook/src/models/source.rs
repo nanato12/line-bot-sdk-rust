@@ -37,6 +37,8 @@ pub enum Source {
     GroupSource(models::GroupSource),
     #[serde(rename = "room")]
     RoomSource(models::RoomSource),
+    #[serde(other)]
+    UnknownSource,
 }
 
 impl Default for Source {

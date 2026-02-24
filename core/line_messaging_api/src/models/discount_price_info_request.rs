@@ -36,6 +36,8 @@ pub enum DiscountPriceInfoRequest {
     DiscountPercentagePriceInfoRequest(models::DiscountPercentagePriceInfoRequest),
     #[serde(rename = "explicit")]
     DiscountExplicitPriceInfoRequest(models::DiscountExplicitPriceInfoRequest),
+    #[serde(other)]
+    UnknownDiscountPriceInfoRequest,
 }
 
 impl Default for DiscountPriceInfoRequest {

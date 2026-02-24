@@ -36,6 +36,8 @@ pub enum AcquisitionConditionResponse {
     LotteryAcquisitionConditionResponse(models::LotteryAcquisitionConditionResponse),
     #[serde(rename = "referral")]
     ReferralAcquisitionConditionResponse(models::ReferralAcquisitionConditionResponse),
+    #[serde(other)]
+    UnknownAcquisitionConditionResponse,
 }
 
 impl Default for AcquisitionConditionResponse {

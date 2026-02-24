@@ -34,6 +34,8 @@ pub enum AcquisitionConditionRequest {
     NormalAcquisitionConditionRequest(models::NormalAcquisitionConditionRequest),
     #[serde(rename = "lottery")]
     LotteryAcquisitionConditionRequest(models::LotteryAcquisitionConditionRequest),
+    #[serde(other)]
+    UnknownAcquisitionConditionRequest,
 }
 
 impl Default for AcquisitionConditionRequest {

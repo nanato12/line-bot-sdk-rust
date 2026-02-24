@@ -52,6 +52,8 @@ pub enum Message {
     FlexMessage(models::FlexMessage),
     #[serde(rename = "coupon")]
     CouponMessage(models::CouponMessage),
+    #[serde(other)]
+    UnknownMessage,
 }
 
 impl Default for Message {

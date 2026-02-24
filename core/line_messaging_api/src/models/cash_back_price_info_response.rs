@@ -34,6 +34,8 @@ pub enum CashBackPriceInfoResponse {
     CashBackFixedPriceInfoResponse(models::CashBackFixedPriceInfoResponse),
     #[serde(rename = "percentage")]
     CashBackPercentagePriceInfoResponse(models::CashBackPercentagePriceInfoResponse),
+    #[serde(other)]
+    UnknownCashBackPriceInfoResponse,
 }
 
 impl Default for CashBackPriceInfoResponse {

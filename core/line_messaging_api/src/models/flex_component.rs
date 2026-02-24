@@ -48,6 +48,8 @@ pub enum FlexComponent {
     FlexSeparator(models::FlexSeparator),
     #[serde(rename = "filler")]
     FlexFiller(models::FlexFiller),
+    #[serde(other)]
+    UnknownFlexComponent,
 }
 
 impl Default for FlexComponent {

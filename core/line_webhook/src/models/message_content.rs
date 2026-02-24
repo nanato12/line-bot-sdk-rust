@@ -44,6 +44,8 @@ pub enum MessageContent {
     LocationMessageContent(models::LocationMessageContent),
     #[serde(rename = "sticker")]
     StickerMessageContent(models::StickerMessageContent),
+    #[serde(other)]
+    UnknownMessageContent,
 }
 
 impl Default for MessageContent {

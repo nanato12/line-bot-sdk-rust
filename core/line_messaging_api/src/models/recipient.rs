@@ -37,6 +37,8 @@ pub enum Recipient {
     AudienceRecipient(models::AudienceRecipient),
     #[serde(rename = "redelivery")]
     RedeliveryRecipient(models::RedeliveryRecipient),
+    #[serde(other)]
+    UnknownRecipient,
 }
 
 impl Default for Recipient {

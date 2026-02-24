@@ -34,6 +34,8 @@ pub enum MentionTarget {
     UserMentionTarget(models::UserMentionTarget),
     #[serde(rename = "all")]
     AllMentionTarget(models::AllMentionTarget),
+    #[serde(other)]
+    UnknownMentionTarget,
 }
 
 impl Default for MentionTarget {
