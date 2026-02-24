@@ -5,31 +5,34 @@ use super::configuration::Configuration;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
-pub struct APIClient {
+pub struct APIClient<C: Connect>
+where
+    C: Clone + std::marker::Send + Sync + 'static,
+{
 {% for api in apiInfo.apis -%}
-    {{ api.classVarName | snakeCase }}: Box<dyn crate::apis::{{ api.classname }}>,
+    {{ api.classVarName | snakeCase }}: crate::apis::{{ api.classname }}Client<C>,
 {% endfor -%}
 }
 
-impl APIClient {
-    pub fn new<C>(configuration: Configuration<C>) -> APIClient
-    where
-        C: Connect + Clone + std::marker::Send + Sync + 'static,
-    {
+impl<C: Connect> APIClient<C>
+where
+    C: Clone + std::marker::Send + Sync + 'static,
+{
+    pub fn new(configuration: Configuration<C>) -> APIClient<C> {
         let rc = Arc::new(configuration);
 
         APIClient {
 {% for api in apiInfo.apis -%}
-            {{ api.classVarName | snakeCase }}: Box::new(crate::apis::{{ api.classname }}Client::new(
+            {{ api.classVarName | snakeCase }}: crate::apis::{{ api.classname }}Client::new(
                 rc.clone(),
-            )),
+            ),
 {% endfor -%}
         }
     }
 {% for api in apiInfo.apis -%}
 
-    pub fn {{ api.classVarName | snakeCase }}(&self) -> &dyn crate::apis::{{ api.classname }} {
-        self.{{ api.classVarName | snakeCase }}.as_ref()
+    pub fn {{ api.classVarName | snakeCase }}(&self) -> &crate::apis::{{ api.classname }}Client<C> {
+        &self.{{ api.classVarName | snakeCase }}
     }
 {% endfor -%}
 }

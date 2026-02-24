@@ -27,10 +27,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -60,20 +58,20 @@ pub trait LineModuleApi: Send + Sync {
         &self,
         chat_id: &str,
         acquire_chat_control_request: Option<models::AcquireChatControlRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn detach_module(
         &self,
         detach_module_request: Option<models::DetachModuleRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn get_modules(
         &self,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetModulesResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetModulesResponse, Error>> + Send;
     fn release_chat_control(
         &self,
         chat_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
 }
 
 impl<C: Connect> LineModuleApi for LineModuleApiClient<C>
@@ -81,11 +79,11 @@ where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
-    fn acquire_chat_control(
+    async fn acquire_chat_control(
         &self,
         chat_id: &str,
         acquire_chat_control_request: Option<models::AcquireChatControlRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/chat/{chatId}/control/acquire".to_string(),
@@ -94,14 +92,14 @@ where
         req = req.with_body_param(acquire_chat_control_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn detach_module(
+    async fn detach_module(
         &self,
         detach_module_request: Option<models::DetachModuleRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/channel/detach".to_string(),
@@ -109,15 +107,15 @@ where
         req = req.with_body_param(detach_module_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_modules(
+    async fn get_modules(
         &self,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetModulesResponse, Error>> + Send>> {
+    ) -> Result<models::GetModulesResponse, Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/v2/bot/list".to_string());
         if let Some(ref s) = start {
@@ -127,14 +125,11 @@ where
             req = req.with_query_param("limit".to_string(), s.to_string());
         }
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn release_chat_control(
-        &self,
-        chat_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn release_chat_control(&self, chat_id: &str) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/chat/{chatId}/control/release".to_string(),
@@ -142,6 +137,6 @@ where
         req = req.with_path_param("chatId".to_string(), chat_id.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 }

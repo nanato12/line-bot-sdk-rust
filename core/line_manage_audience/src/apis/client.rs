@@ -20,29 +20,30 @@ use super::configuration::Configuration;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
-pub struct APIClient {
-    manage_audience: Box<dyn crate::apis::ManageAudienceApi>,
-    manage_audience_blob: Box<dyn crate::apis::ManageAudienceBlobApi>,
+pub struct APIClient<C: Connect>
+where
+    C: Clone + std::marker::Send + Sync + 'static,
+{
+    manage_audience: crate::apis::ManageAudienceApiClient<C>,
+    manage_audience_blob: crate::apis::ManageAudienceBlobApiClient<C>,
 }
 
-impl APIClient {
-    pub fn new<C>(configuration: Configuration<C>) -> APIClient
-    where
-        C: Connect + Clone + std::marker::Send + Sync + 'static,
-    {
+impl<C: Connect> APIClient<C>
+where
+    C: Clone + std::marker::Send + Sync + 'static,
+{
+    pub fn new(configuration: Configuration<C>) -> APIClient<C> {
         let rc = Arc::new(configuration);
 
         APIClient {
-            manage_audience: Box::new(crate::apis::ManageAudienceApiClient::new(rc.clone())),
-            manage_audience_blob: Box::new(crate::apis::ManageAudienceBlobApiClient::new(
-                rc.clone(),
-            )),
+            manage_audience: crate::apis::ManageAudienceApiClient::new(rc.clone()),
+            manage_audience_blob: crate::apis::ManageAudienceBlobApiClient::new(rc.clone()),
         }
     }
-    pub fn manage_audience(&self) -> &dyn crate::apis::ManageAudienceApi {
-        self.manage_audience.as_ref()
+    pub fn manage_audience(&self) -> &crate::apis::ManageAudienceApiClient<C> {
+        &self.manage_audience
     }
-    pub fn manage_audience_blob(&self) -> &dyn crate::apis::ManageAudienceBlobApi {
-        self.manage_audience_blob.as_ref()
+    pub fn manage_audience_blob(&self) -> &crate::apis::ManageAudienceBlobApiClient<C> {
+        &self.manage_audience_blob
     }
 }

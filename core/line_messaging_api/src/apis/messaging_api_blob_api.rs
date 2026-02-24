@@ -27,10 +27,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -61,28 +59,25 @@ pub trait MessagingApiBlobApi: Send + Sync {
     fn get_message_content(
         &self,
         message_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<std::path::PathBuf, Error>> + Send;
     fn get_message_content_preview(
         &self,
         message_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<std::path::PathBuf, Error>> + Send;
     fn get_message_content_transcoding_by_message_id(
         &self,
         message_id: &str,
-    ) -> Pin<
-        Box<
-            dyn Future<Output = Result<models::GetMessageContentTranscodingResponse, Error>> + Send,
-        >,
-    >;
+    ) -> impl std::future::Future<Output = Result<models::GetMessageContentTranscodingResponse, Error>>
+           + Send;
     fn get_rich_menu_image(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<std::path::PathBuf, Error>> + Send;
     fn set_rich_menu_image(
         &self,
         rich_menu_id: &str,
         body: Option<std::path::PathBuf>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
 }
 
 impl<C: Connect> MessagingApiBlobApi for MessagingApiBlobApiClient<C>
@@ -90,71 +85,61 @@ where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
-    fn get_message_content(
-        &self,
-        message_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>> {
+    async fn get_message_content(&self, message_id: &str) -> Result<std::path::PathBuf, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/{messageId}/content".to_string(),
         );
         req = req.with_path_param("messageId".to_string(), message_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_message_content_preview(
+    async fn get_message_content_preview(
         &self,
         message_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>> {
+    ) -> Result<std::path::PathBuf, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/{messageId}/content/preview".to_string(),
         );
         req = req.with_path_param("messageId".to_string(), message_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_message_content_transcoding_by_message_id(
+    async fn get_message_content_transcoding_by_message_id(
         &self,
         message_id: &str,
-    ) -> Pin<
-        Box<
-            dyn Future<Output = Result<models::GetMessageContentTranscodingResponse, Error>> + Send,
-        >,
-    > {
+    ) -> Result<models::GetMessageContentTranscodingResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/{messageId}/content/transcoding".to_string(),
         );
         req = req.with_path_param("messageId".to_string(), message_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_rich_menu_image(
-        &self,
-        rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<std::path::PathBuf, Error>> + Send>> {
+    async fn get_rich_menu_image(&self, rich_menu_id: &str) -> Result<std::path::PathBuf, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/richmenu/{richMenuId}/content".to_string(),
         );
         req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn set_rich_menu_image(
+    async fn set_rich_menu_image(
         &self,
         rich_menu_id: &str,
         body: Option<std::path::PathBuf>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/{richMenuId}/content".to_string(),
@@ -163,6 +148,6 @@ where
         req = req.with_body_param(body);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 }

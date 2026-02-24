@@ -12,10 +12,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -47,7 +45,7 @@ pub trait {{ classname }}: Send + Sync {
 {% for param in op.allParams -%}
         {{ param.paramName }}: {% if not param.required %}Option<{% endif %}{% if param.required and param.isNullable %}Option<{% endif %}{% if param.isString and not param.isUuid %}&str{% elseif param.isUuid %}&str{% else %}{% if not param.isPrimitiveType and not param.isContainer %}models::{% endif %}{{ param.dataType }}{% endif %}{% if not param.required %}>{% endif %}{% if param.required and param.isNullable %}>{% endif %},
 {% endfor -%}
-    ) -> Pin<Box<dyn Future<Output = Result<{% if op.returnType is not empty %}{{ op.returnType }}{% else %}(){% endif %}, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<{% if op.returnType is not empty %}{{ op.returnType }}{% else %}(){% endif %}, Error>> + Send;
 {% endfor -%}
 }
 
@@ -57,12 +55,12 @@ where
 {
 {% for op in operations.operation -%}
     #[allow(unused_mut)]
-    fn {{ op.operationId }}(
+    async fn {{ op.operationId }}(
         &self,
 {% for param in op.allParams -%}
         {{ param.paramName }}: {% if not param.required %}Option<{% endif %}{% if param.required and param.isNullable %}Option<{% endif %}{% if param.isString and not param.isUuid %}&str{% elseif param.isUuid %}&str{% else %}{% if not param.isPrimitiveType and not param.isContainer %}models::{% endif %}{{ param.dataType }}{% endif %}{% if not param.required %}>{% endif %}{% if param.required and param.isNullable %}>{% endif %},
 {% endfor -%}
-    ) -> Pin<Box<dyn Future<Output = Result<{% if op.returnType is not empty %}{{ op.returnType }}{% else %}(){% endif %}, Error>> + Send>> {
+    ) -> Result<{% if op.returnType is not empty %}{{ op.returnType }}{% else %}(){% endif %}, Error> {
         let mut req = __internal_request::Request::new(hyper::Method::{{ op.httpMethod | upper }}, "{{ op.path }}".to_string())
 {% if op.hasAuthMethods -%}
 {% for auth in op.authMethods -%}
@@ -143,7 +141,7 @@ where
         req = req.returns_nothing();
 {% endif -%}
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
 {% endfor -%}

@@ -27,10 +27,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -60,282 +58,283 @@ pub trait MessagingApiApi: Send + Sync {
         &self,
         broadcast_request: models::BroadcastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>>;
-    fn cancel_default_rich_menu(&self) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<serde_json::Value, Error>> + Send;
+    fn cancel_default_rich_menu(
+        &self,
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn close_coupon(
         &self,
         coupon_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn create_coupon(
         &self,
         coupon_create_request: Option<models::CouponCreateRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::CouponCreateResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::CouponCreateResponse, Error>> + Send;
     fn create_rich_menu(
         &self,
         rich_menu_request: models::RichMenuRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::RichMenuIdResponse, Error>> + Send;
     fn create_rich_menu_alias(
         &self,
         create_rich_menu_alias_request: models::CreateRichMenuAliasRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn delete_rich_menu(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn delete_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn get_aggregation_unit_name_list(
         &self,
         limit: Option<&str>,
         start: Option<&str>,
-    ) -> Pin<
-        Box<dyn Future<Output = Result<models::GetAggregationUnitNameListResponse, Error>> + Send>,
-    >;
+    ) -> impl std::future::Future<Output = Result<models::GetAggregationUnitNameListResponse, Error>>
+           + Send;
     fn get_aggregation_unit_usage(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetAggregationUnitUsageResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetAggregationUnitUsageResponse, Error>> + Send;
     fn get_bot_info(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::BotInfoResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::BotInfoResponse, Error>> + Send;
     fn get_coupon_detail(
         &self,
         coupon_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::CouponResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::CouponResponse, Error>> + Send;
     fn get_default_rich_menu_id(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::RichMenuIdResponse, Error>> + Send;
     fn get_followers(
         &self,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetFollowersResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetFollowersResponse, Error>> + Send;
     fn get_group_member_count(
         &self,
         group_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GroupMemberCountResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GroupMemberCountResponse, Error>> + Send;
     fn get_group_member_profile(
         &self,
         group_id: &str,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GroupUserProfileResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GroupUserProfileResponse, Error>> + Send;
     fn get_group_members_ids(
         &self,
         group_id: &str,
         start: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::MembersIdsResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::MembersIdsResponse, Error>> + Send;
     fn get_group_summary(
         &self,
         group_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GroupSummaryResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GroupSummaryResponse, Error>> + Send;
     fn get_joined_membership_users(
         &self,
         membership_id: i32,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetJoinedMembershipUsersResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetJoinedMembershipUsersResponse, Error>> + Send;
     fn get_membership_list(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::MembershipListResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::MembershipListResponse, Error>> + Send;
     fn get_membership_subscription(
         &self,
         user_id: &str,
-    ) -> Pin<
-        Box<dyn Future<Output = Result<models::GetMembershipSubscriptionResponse, Error>> + Send>,
-    >;
+    ) -> impl std::future::Future<Output = Result<models::GetMembershipSubscriptionResponse, Error>> + Send;
     fn get_message_quota(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::MessageQuotaResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::MessageQuotaResponse, Error>> + Send;
     fn get_message_quota_consumption(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::QuotaConsumptionResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::QuotaConsumptionResponse, Error>> + Send;
     fn get_narrowcast_progress(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NarrowcastProgressResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::NarrowcastProgressResponse, Error>> + Send;
     fn get_number_of_sent_broadcast_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send;
     fn get_number_of_sent_multicast_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send;
     fn get_number_of_sent_push_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send;
     fn get_number_of_sent_reply_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send;
     fn get_pnp_message_statistics(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send;
     fn get_profile(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::UserProfileResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::UserProfileResponse, Error>> + Send;
     fn get_rich_menu(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::RichMenuResponse, Error>> + Send;
     fn get_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuAliasResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::RichMenuAliasResponse, Error>> + Send;
     fn get_rich_menu_alias_list(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuAliasListResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::RichMenuAliasListResponse, Error>> + Send;
     fn get_rich_menu_batch_progress(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuBatchProgressResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::RichMenuBatchProgressResponse, Error>> + Send;
     fn get_rich_menu_id_of_user(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::RichMenuIdResponse, Error>> + Send;
     fn get_rich_menu_list(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuListResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::RichMenuListResponse, Error>> + Send;
     fn get_room_member_count(
         &self,
         room_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RoomMemberCountResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::RoomMemberCountResponse, Error>> + Send;
     fn get_room_member_profile(
         &self,
         room_id: &str,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RoomUserProfileResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::RoomUserProfileResponse, Error>> + Send;
     fn get_room_members_ids(
         &self,
         room_id: &str,
         start: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::MembersIdsResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::MembersIdsResponse, Error>> + Send;
     fn get_webhook_endpoint(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetWebhookEndpointResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetWebhookEndpointResponse, Error>> + Send;
     fn issue_link_token(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::IssueLinkTokenResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::IssueLinkTokenResponse, Error>> + Send;
     fn leave_group(
         &self,
         group_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
-    fn leave_room(&self, room_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
+    fn leave_room(
+        &self,
+        room_id: &str,
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn link_rich_menu_id_to_user(
         &self,
         user_id: &str,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn link_rich_menu_id_to_users(
         &self,
         rich_menu_bulk_link_request: models::RichMenuBulkLinkRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn list_coupon(
         &self,
         status: Option<Vec<String>>,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<
-        Box<dyn Future<Output = Result<models::MessagingApiPagerCouponListResponse, Error>> + Send>,
-    >;
+    ) -> impl std::future::Future<Output = Result<models::MessagingApiPagerCouponListResponse, Error>>
+           + Send;
     fn mark_messages_as_read(
         &self,
         mark_messages_as_read_request: models::MarkMessagesAsReadRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn mark_messages_as_read_by_token(
         &self,
         mark_messages_as_read_by_token_request: models::MarkMessagesAsReadByTokenRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn multicast(
         &self,
         multicast_request: models::MulticastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<serde_json::Value, Error>> + Send;
     fn narrowcast(
         &self,
         narrowcast_request: models::NarrowcastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<serde_json::Value, Error>> + Send;
     fn push_message(
         &self,
         push_message_request: models::PushMessageRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::PushMessageResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::PushMessageResponse, Error>> + Send;
     fn push_messages_by_phone(
         &self,
         pnp_messages_request: models::PnpMessagesRequest,
         x_line_delivery_tag: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn reply_message(
         &self,
         reply_message_request: models::ReplyMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<models::ReplyMessageResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::ReplyMessageResponse, Error>> + Send;
     fn rich_menu_batch(
         &self,
         rich_menu_batch_request: models::RichMenuBatchRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn set_default_rich_menu(
         &self,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn set_webhook_endpoint(
         &self,
         set_webhook_endpoint_request: models::SetWebhookEndpointRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn show_loading_animation(
         &self,
         show_loading_animation_request: models::ShowLoadingAnimationRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<serde_json::Value, Error>> + Send;
     fn test_webhook_endpoint(
         &self,
         test_webhook_endpoint_request: Option<models::TestWebhookEndpointRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::TestWebhookEndpointResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::TestWebhookEndpointResponse, Error>> + Send;
     fn unlink_rich_menu_id_from_user(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn unlink_rich_menu_id_from_users(
         &self,
         rich_menu_bulk_unlink_request: models::RichMenuBulkUnlinkRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn update_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
         update_rich_menu_alias_request: models::UpdateRichMenuAliasRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn validate_broadcast(
         &self,
         validate_message_request: models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn validate_multicast(
         &self,
         validate_message_request: models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn validate_narrowcast(
         &self,
         validate_message_request: models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn validate_push(
         &self,
         validate_message_request: models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn validate_reply(
         &self,
         validate_message_request: models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn validate_rich_menu_batch_request(
         &self,
         rich_menu_batch_request: models::RichMenuBatchRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn validate_rich_menu_object(
         &self,
         rich_menu_request: models::RichMenuRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
 }
 
 impl<C: Connect> MessagingApiApi for MessagingApiApiClient<C>
@@ -343,11 +342,11 @@ where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
-    fn broadcast(
+    async fn broadcast(
         &self,
         broadcast_request: models::BroadcastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>> {
+    ) -> Result<serde_json::Value, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/broadcast".to_string(),
@@ -357,25 +356,22 @@ where
         }
         req = req.with_body_param(broadcast_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn cancel_default_rich_menu(&self) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn cancel_default_rich_menu(&self) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/v2/bot/user/all/richmenu".to_string(),
         );
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn close_coupon(
-        &self,
-        coupon_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn close_coupon(&self, coupon_id: &str) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/v2/bot/coupon/{couponId}/close".to_string(),
@@ -383,38 +379,38 @@ where
         req = req.with_path_param("couponId".to_string(), coupon_id.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn create_coupon(
+    async fn create_coupon(
         &self,
         coupon_create_request: Option<models::CouponCreateRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::CouponCreateResponse, Error>> + Send>> {
+    ) -> Result<models::CouponCreateResponse, Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/bot/coupon".to_string());
         req = req.with_body_param(coupon_create_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn create_rich_menu(
+    async fn create_rich_menu(
         &self,
         rich_menu_request: models::RichMenuRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>> {
+    ) -> Result<models::RichMenuIdResponse, Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/bot/richmenu".to_string());
         req = req.with_body_param(rich_menu_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn create_rich_menu_alias(
+    async fn create_rich_menu_alias(
         &self,
         create_rich_menu_alias_request: models::CreateRichMenuAliasRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/alias".to_string(),
@@ -422,14 +418,11 @@ where
         req = req.with_body_param(create_rich_menu_alias_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn delete_rich_menu(
-        &self,
-        rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn delete_rich_menu(&self, rich_menu_id: &str) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/v2/bot/richmenu/{richMenuId}".to_string(),
@@ -437,14 +430,11 @@ where
         req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn delete_rich_menu_alias(
-        &self,
-        rich_menu_alias_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn delete_rich_menu_alias(&self, rich_menu_alias_id: &str) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/v2/bot/richmenu/alias/{richMenuAliasId}".to_string(),
@@ -455,17 +445,15 @@ where
         );
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_aggregation_unit_name_list(
+    async fn get_aggregation_unit_name_list(
         &self,
         limit: Option<&str>,
         start: Option<&str>,
-    ) -> Pin<
-        Box<dyn Future<Output = Result<models::GetAggregationUnitNameListResponse, Error>> + Send>,
-    > {
+    ) -> Result<models::GetAggregationUnitNameListResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/aggregation/list".to_string(),
@@ -477,64 +465,56 @@ where
             req = req.with_query_param("start".to_string(), s.to_string());
         }
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_aggregation_unit_usage(
+    async fn get_aggregation_unit_usage(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetAggregationUnitUsageResponse, Error>> + Send>>
-    {
+    ) -> Result<models::GetAggregationUnitUsageResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/aggregation/info".to_string(),
         );
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_bot_info(
-        &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::BotInfoResponse, Error>> + Send>> {
+    async fn get_bot_info(&self) -> Result<models::BotInfoResponse, Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/v2/bot/info".to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_coupon_detail(
-        &self,
-        coupon_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::CouponResponse, Error>> + Send>> {
+    async fn get_coupon_detail(&self, coupon_id: &str) -> Result<models::CouponResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/coupon/{couponId}".to_string(),
         );
         req = req.with_path_param("couponId".to_string(), coupon_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_default_rich_menu_id(
-        &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>> {
+    async fn get_default_rich_menu_id(&self) -> Result<models::RichMenuIdResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/user/all/richmenu".to_string(),
         );
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_followers(
+    async fn get_followers(
         &self,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetFollowersResponse, Error>> + Send>> {
+    ) -> Result<models::GetFollowersResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/followers/ids".to_string(),
@@ -546,29 +526,29 @@ where
             req = req.with_query_param("limit".to_string(), s.to_string());
         }
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_group_member_count(
+    async fn get_group_member_count(
         &self,
         group_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GroupMemberCountResponse, Error>> + Send>> {
+    ) -> Result<models::GroupMemberCountResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/group/{groupId}/members/count".to_string(),
         );
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_group_member_profile(
+    async fn get_group_member_profile(
         &self,
         group_id: &str,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GroupUserProfileResponse, Error>> + Send>> {
+    ) -> Result<models::GroupUserProfileResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/group/{groupId}/member/{userId}".to_string(),
@@ -576,15 +556,15 @@ where
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
         req = req.with_path_param("userId".to_string(), user_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_group_members_ids(
+    async fn get_group_members_ids(
         &self,
         group_id: &str,
         start: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::MembersIdsResponse, Error>> + Send>> {
+    ) -> Result<models::MembersIdsResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/group/{groupId}/members/ids".to_string(),
@@ -594,31 +574,30 @@ where
         }
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_group_summary(
+    async fn get_group_summary(
         &self,
         group_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GroupSummaryResponse, Error>> + Send>> {
+    ) -> Result<models::GroupSummaryResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/group/{groupId}/summary".to_string(),
         );
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_joined_membership_users(
+    async fn get_joined_membership_users(
         &self,
         membership_id: i32,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetJoinedMembershipUsersResponse, Error>> + Send>>
-    {
+    ) -> Result<models::GetJoinedMembershipUsersResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/membership/{membershipId}/users/ids".to_string(),
@@ -631,179 +610,166 @@ where
         }
         req = req.with_path_param("membershipId".to_string(), membership_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_membership_list(
-        &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::MembershipListResponse, Error>> + Send>> {
+    async fn get_membership_list(&self) -> Result<models::MembershipListResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/membership/list".to_string(),
         );
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_membership_subscription(
+    async fn get_membership_subscription(
         &self,
         user_id: &str,
-    ) -> Pin<
-        Box<dyn Future<Output = Result<models::GetMembershipSubscriptionResponse, Error>> + Send>,
-    > {
+    ) -> Result<models::GetMembershipSubscriptionResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/membership/subscription/{userId}".to_string(),
         );
         req = req.with_path_param("userId".to_string(), user_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_message_quota(
-        &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::MessageQuotaResponse, Error>> + Send>> {
+    async fn get_message_quota(&self) -> Result<models::MessageQuotaResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/quota".to_string(),
         );
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_message_quota_consumption(
+    async fn get_message_quota_consumption(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::QuotaConsumptionResponse, Error>> + Send>> {
+    ) -> Result<models::QuotaConsumptionResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/quota/consumption".to_string(),
         );
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_narrowcast_progress(
+    async fn get_narrowcast_progress(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NarrowcastProgressResponse, Error>> + Send>>
-    {
+    ) -> Result<models::NarrowcastProgressResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/progress/narrowcast".to_string(),
         );
         req = req.with_query_param("requestId".to_string(), request_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_number_of_sent_broadcast_messages(
+    async fn get_number_of_sent_broadcast_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>> {
+    ) -> Result<models::NumberOfMessagesResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/delivery/broadcast".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_number_of_sent_multicast_messages(
+    async fn get_number_of_sent_multicast_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>> {
+    ) -> Result<models::NumberOfMessagesResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/delivery/multicast".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_number_of_sent_push_messages(
+    async fn get_number_of_sent_push_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>> {
+    ) -> Result<models::NumberOfMessagesResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/delivery/push".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_number_of_sent_reply_messages(
+    async fn get_number_of_sent_reply_messages(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>> {
+    ) -> Result<models::NumberOfMessagesResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/delivery/reply".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_pnp_message_statistics(
+    async fn get_pnp_message_statistics(
         &self,
         date: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send>> {
+    ) -> Result<models::NumberOfMessagesResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/message/delivery/pnp".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_profile(
-        &self,
-        user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::UserProfileResponse, Error>> + Send>> {
+    async fn get_profile(&self, user_id: &str) -> Result<models::UserProfileResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/profile/{userId}".to_string(),
         );
         req = req.with_path_param("userId".to_string(), user_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_rich_menu(
-        &self,
-        rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuResponse, Error>> + Send>> {
+    async fn get_rich_menu(&self, rich_menu_id: &str) -> Result<models::RichMenuResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/richmenu/{richMenuId}".to_string(),
         );
         req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_rich_menu_alias(
+    async fn get_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuAliasResponse, Error>> + Send>> {
+    ) -> Result<models::RichMenuAliasResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/richmenu/alias/{richMenuAliasId}".to_string(),
@@ -813,83 +779,77 @@ where
             rich_menu_alias_id.to_string(),
         );
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_rich_menu_alias_list(
-        &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuAliasListResponse, Error>> + Send>>
-    {
+    async fn get_rich_menu_alias_list(&self) -> Result<models::RichMenuAliasListResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/richmenu/alias/list".to_string(),
         );
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_rich_menu_batch_progress(
+    async fn get_rich_menu_batch_progress(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuBatchProgressResponse, Error>> + Send>>
-    {
+    ) -> Result<models::RichMenuBatchProgressResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/richmenu/progress/batch".to_string(),
         );
         req = req.with_query_param("requestId".to_string(), request_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_rich_menu_id_of_user(
+    async fn get_rich_menu_id_of_user(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuIdResponse, Error>> + Send>> {
+    ) -> Result<models::RichMenuIdResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/user/{userId}/richmenu".to_string(),
         );
         req = req.with_path_param("userId".to_string(), user_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_rich_menu_list(
-        &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RichMenuListResponse, Error>> + Send>> {
+    async fn get_rich_menu_list(&self) -> Result<models::RichMenuListResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/richmenu/list".to_string(),
         );
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_room_member_count(
+    async fn get_room_member_count(
         &self,
         room_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RoomMemberCountResponse, Error>> + Send>> {
+    ) -> Result<models::RoomMemberCountResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/room/{roomId}/members/count".to_string(),
         );
         req = req.with_path_param("roomId".to_string(), room_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_room_member_profile(
+    async fn get_room_member_profile(
         &self,
         room_id: &str,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::RoomUserProfileResponse, Error>> + Send>> {
+    ) -> Result<models::RoomUserProfileResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/room/{roomId}/member/{userId}".to_string(),
@@ -897,15 +857,15 @@ where
         req = req.with_path_param("roomId".to_string(), room_id.to_string());
         req = req.with_path_param("userId".to_string(), user_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_room_members_ids(
+    async fn get_room_members_ids(
         &self,
         room_id: &str,
         start: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::MembersIdsResponse, Error>> + Send>> {
+    ) -> Result<models::MembersIdsResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/room/{roomId}/members/ids".to_string(),
@@ -915,41 +875,35 @@ where
         }
         req = req.with_path_param("roomId".to_string(), room_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_webhook_endpoint(
-        &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetWebhookEndpointResponse, Error>> + Send>>
-    {
+    async fn get_webhook_endpoint(&self) -> Result<models::GetWebhookEndpointResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/channel/webhook/endpoint".to_string(),
         );
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn issue_link_token(
+    async fn issue_link_token(
         &self,
         user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::IssueLinkTokenResponse, Error>> + Send>> {
+    ) -> Result<models::IssueLinkTokenResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/user/{userId}/linkToken".to_string(),
         );
         req = req.with_path_param("userId".to_string(), user_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn leave_group(
-        &self,
-        group_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn leave_group(&self, group_id: &str) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/group/{groupId}/leave".to_string(),
@@ -957,11 +911,11 @@ where
         req = req.with_path_param("groupId".to_string(), group_id.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn leave_room(&self, room_id: &str) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn leave_room(&self, room_id: &str) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/room/{roomId}/leave".to_string(),
@@ -969,15 +923,15 @@ where
         req = req.with_path_param("roomId".to_string(), room_id.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn link_rich_menu_id_to_user(
+    async fn link_rich_menu_id_to_user(
         &self,
         user_id: &str,
         rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/user/{userId}/richmenu/{richMenuId}".to_string(),
@@ -986,14 +940,14 @@ where
         req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn link_rich_menu_id_to_users(
+    async fn link_rich_menu_id_to_users(
         &self,
         rich_menu_bulk_link_request: models::RichMenuBulkLinkRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/bulk/link".to_string(),
@@ -1001,18 +955,16 @@ where
         req = req.with_body_param(rich_menu_bulk_link_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn list_coupon(
+    async fn list_coupon(
         &self,
         status: Option<Vec<String>>,
         start: Option<&str>,
         limit: Option<i32>,
-    ) -> Pin<
-        Box<dyn Future<Output = Result<models::MessagingApiPagerCouponListResponse, Error>> + Send>,
-    > {
+    ) -> Result<models::MessagingApiPagerCouponListResponse, Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/v2/bot/coupon".to_string());
         if let Some(ref s) = status {
@@ -1031,14 +983,14 @@ where
             req = req.with_query_param("limit".to_string(), s.to_string());
         }
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn mark_messages_as_read(
+    async fn mark_messages_as_read(
         &self,
         mark_messages_as_read_request: models::MarkMessagesAsReadRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/markAsRead".to_string(),
@@ -1046,14 +998,14 @@ where
         req = req.with_body_param(mark_messages_as_read_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn mark_messages_as_read_by_token(
+    async fn mark_messages_as_read_by_token(
         &self,
         mark_messages_as_read_by_token_request: models::MarkMessagesAsReadByTokenRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/chat/markAsRead".to_string(),
@@ -1061,15 +1013,15 @@ where
         req = req.with_body_param(mark_messages_as_read_by_token_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn multicast(
+    async fn multicast(
         &self,
         multicast_request: models::MulticastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>> {
+    ) -> Result<serde_json::Value, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/multicast".to_string(),
@@ -1079,15 +1031,15 @@ where
         }
         req = req.with_body_param(multicast_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn narrowcast(
+    async fn narrowcast(
         &self,
         narrowcast_request: models::NarrowcastRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>> {
+    ) -> Result<serde_json::Value, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/narrowcast".to_string(),
@@ -1097,15 +1049,15 @@ where
         }
         req = req.with_body_param(narrowcast_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn push_message(
+    async fn push_message(
         &self,
         push_message_request: models::PushMessageRequest,
         x_line_retry_key: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::PushMessageResponse, Error>> + Send>> {
+    ) -> Result<models::PushMessageResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/push".to_string(),
@@ -1115,15 +1067,15 @@ where
         }
         req = req.with_body_param(push_message_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn push_messages_by_phone(
+    async fn push_messages_by_phone(
         &self,
         pnp_messages_request: models::PnpMessagesRequest,
         x_line_delivery_tag: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/bot/pnp/push".to_string());
         if let Some(param_value) = x_line_delivery_tag {
@@ -1132,28 +1084,28 @@ where
         req = req.with_body_param(pnp_messages_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn reply_message(
+    async fn reply_message(
         &self,
         reply_message_request: models::ReplyMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<models::ReplyMessageResponse, Error>> + Send>> {
+    ) -> Result<models::ReplyMessageResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/reply".to_string(),
         );
         req = req.with_body_param(reply_message_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn rich_menu_batch(
+    async fn rich_menu_batch(
         &self,
         rich_menu_batch_request: models::RichMenuBatchRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/batch".to_string(),
@@ -1161,14 +1113,11 @@ where
         req = req.with_body_param(rich_menu_batch_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn set_default_rich_menu(
-        &self,
-        rich_menu_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn set_default_rich_menu(&self, rich_menu_id: &str) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/user/all/richmenu/{richMenuId}".to_string(),
@@ -1176,14 +1125,14 @@ where
         req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn set_webhook_endpoint(
+    async fn set_webhook_endpoint(
         &self,
         set_webhook_endpoint_request: models::SetWebhookEndpointRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/v2/bot/channel/webhook/endpoint".to_string(),
@@ -1191,43 +1140,39 @@ where
         req = req.with_body_param(set_webhook_endpoint_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn show_loading_animation(
+    async fn show_loading_animation(
         &self,
         show_loading_animation_request: models::ShowLoadingAnimationRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<serde_json::Value, Error>> + Send>> {
+    ) -> Result<serde_json::Value, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/chat/loading/start".to_string(),
         );
         req = req.with_body_param(show_loading_animation_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn test_webhook_endpoint(
+    async fn test_webhook_endpoint(
         &self,
         test_webhook_endpoint_request: Option<models::TestWebhookEndpointRequest>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::TestWebhookEndpointResponse, Error>> + Send>>
-    {
+    ) -> Result<models::TestWebhookEndpointResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/channel/webhook/test".to_string(),
         );
         req = req.with_body_param(test_webhook_endpoint_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn unlink_rich_menu_id_from_user(
-        &self,
-        user_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn unlink_rich_menu_id_from_user(&self, user_id: &str) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/v2/bot/user/{userId}/richmenu".to_string(),
@@ -1235,14 +1180,14 @@ where
         req = req.with_path_param("userId".to_string(), user_id.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn unlink_rich_menu_id_from_users(
+    async fn unlink_rich_menu_id_from_users(
         &self,
         rich_menu_bulk_unlink_request: models::RichMenuBulkUnlinkRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/bulk/unlink".to_string(),
@@ -1250,15 +1195,15 @@ where
         req = req.with_body_param(rich_menu_bulk_unlink_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn update_rich_menu_alias(
+    async fn update_rich_menu_alias(
         &self,
         rich_menu_alias_id: &str,
         update_rich_menu_alias_request: models::UpdateRichMenuAliasRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/alias/{richMenuAliasId}".to_string(),
@@ -1270,14 +1215,14 @@ where
         req = req.with_body_param(update_rich_menu_alias_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn validate_broadcast(
+    async fn validate_broadcast(
         &self,
         validate_message_request: models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/validate/broadcast".to_string(),
@@ -1285,14 +1230,14 @@ where
         req = req.with_body_param(validate_message_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn validate_multicast(
+    async fn validate_multicast(
         &self,
         validate_message_request: models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/validate/multicast".to_string(),
@@ -1300,14 +1245,14 @@ where
         req = req.with_body_param(validate_message_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn validate_narrowcast(
+    async fn validate_narrowcast(
         &self,
         validate_message_request: models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/validate/narrowcast".to_string(),
@@ -1315,14 +1260,14 @@ where
         req = req.with_body_param(validate_message_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn validate_push(
+    async fn validate_push(
         &self,
         validate_message_request: models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/validate/push".to_string(),
@@ -1330,14 +1275,14 @@ where
         req = req.with_body_param(validate_message_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn validate_reply(
+    async fn validate_reply(
         &self,
         validate_message_request: models::ValidateMessageRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/message/validate/reply".to_string(),
@@ -1345,14 +1290,14 @@ where
         req = req.with_body_param(validate_message_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn validate_rich_menu_batch_request(
+    async fn validate_rich_menu_batch_request(
         &self,
         rich_menu_batch_request: models::RichMenuBatchRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/validate/batch".to_string(),
@@ -1360,14 +1305,14 @@ where
         req = req.with_body_param(rich_menu_batch_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn validate_rich_menu_object(
+    async fn validate_rich_menu_object(
         &self,
         rich_menu_request: models::RichMenuRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/richmenu/validate".to_string(),
@@ -1375,6 +1320,6 @@ where
         req = req.with_body_param(rich_menu_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 }

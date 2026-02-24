@@ -27,10 +27,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -58,29 +56,26 @@ where
 pub trait InsightApi: Send + Sync {
     fn get_friends_demographics(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetFriendsDemographicsResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetFriendsDemographicsResponse, Error>> + Send;
     fn get_message_event(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetMessageEventResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetMessageEventResponse, Error>> + Send;
     fn get_number_of_followers(
         &self,
         date: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetNumberOfFollowersResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetNumberOfFollowersResponse, Error>> + Send;
     fn get_number_of_message_deliveries(
         &self,
         date: &str,
-    ) -> Pin<
-        Box<
-            dyn Future<Output = Result<models::GetNumberOfMessageDeliveriesResponse, Error>> + Send,
-        >,
-    >;
+    ) -> impl std::future::Future<Output = Result<models::GetNumberOfMessageDeliveriesResponse, Error>>
+           + Send;
     fn get_statistics_per_unit(
         &self,
         custom_aggregation_unit: &str,
         from: &str,
         to: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetStatisticsPerUnitResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetStatisticsPerUnitResponse, Error>> + Send;
 }
 
 impl<C: Connect> InsightApi for InsightApiClient<C>
@@ -88,38 +83,36 @@ where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
-    fn get_friends_demographics(
+    async fn get_friends_demographics(
         &self,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetFriendsDemographicsResponse, Error>> + Send>>
-    {
+    ) -> Result<models::GetFriendsDemographicsResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/insight/demographic".to_string(),
         );
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_message_event(
+    async fn get_message_event(
         &self,
         request_id: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetMessageEventResponse, Error>> + Send>> {
+    ) -> Result<models::GetMessageEventResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/insight/message/event".to_string(),
         );
         req = req.with_query_param("requestId".to_string(), request_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_number_of_followers(
+    async fn get_number_of_followers(
         &self,
         date: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetNumberOfFollowersResponse, Error>> + Send>>
-    {
+    ) -> Result<models::GetNumberOfFollowersResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/insight/followers".to_string(),
@@ -128,35 +121,30 @@ where
             req = req.with_query_param("date".to_string(), s.to_string());
         }
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_number_of_message_deliveries(
+    async fn get_number_of_message_deliveries(
         &self,
         date: &str,
-    ) -> Pin<
-        Box<
-            dyn Future<Output = Result<models::GetNumberOfMessageDeliveriesResponse, Error>> + Send,
-        >,
-    > {
+    ) -> Result<models::GetNumberOfMessageDeliveriesResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/insight/message/delivery".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_statistics_per_unit(
+    async fn get_statistics_per_unit(
         &self,
         custom_aggregation_unit: &str,
         from: &str,
         to: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetStatisticsPerUnitResponse, Error>> + Send>>
-    {
+    ) -> Result<models::GetStatisticsPerUnitResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/insight/message/event/aggregation".to_string(),
@@ -168,6 +156,6 @@ where
         req = req.with_query_param("from".to_string(), from.to_string());
         req = req.with_query_param("to".to_string(), to.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 }

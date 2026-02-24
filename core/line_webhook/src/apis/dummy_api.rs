@@ -27,10 +27,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -59,7 +57,7 @@ pub trait DummyApi: Send + Sync {
     fn callback(
         &self,
         callback_request: models::CallbackRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<String, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<String, Error>> + Send;
 }
 
 impl<C: Connect> DummyApi for DummyApiClient<C>
@@ -67,14 +65,11 @@ where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
-    fn callback(
-        &self,
-        callback_request: models::CallbackRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<String, Error>> + Send>> {
+    async fn callback(&self, callback_request: models::CallbackRequest) -> Result<String, Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/callback".to_string());
         req = req.with_body_param(callback_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 }

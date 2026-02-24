@@ -20,22 +20,25 @@ use super::configuration::Configuration;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
-pub struct APIClient {
-    shop: Box<dyn crate::apis::ShopApi>,
+pub struct APIClient<C: Connect>
+where
+    C: Clone + std::marker::Send + Sync + 'static,
+{
+    shop: crate::apis::ShopApiClient<C>,
 }
 
-impl APIClient {
-    pub fn new<C>(configuration: Configuration<C>) -> APIClient
-    where
-        C: Connect + Clone + std::marker::Send + Sync + 'static,
-    {
+impl<C: Connect> APIClient<C>
+where
+    C: Clone + std::marker::Send + Sync + 'static,
+{
+    pub fn new(configuration: Configuration<C>) -> APIClient<C> {
         let rc = Arc::new(configuration);
 
         APIClient {
-            shop: Box::new(crate::apis::ShopApiClient::new(rc.clone())),
+            shop: crate::apis::ShopApiClient::new(rc.clone()),
         }
     }
-    pub fn shop(&self) -> &dyn crate::apis::ShopApi {
-        self.shop.as_ref()
+    pub fn shop(&self) -> &crate::apis::ShopApiClient<C> {
+        &self.shop
     }
 }
