@@ -40,7 +40,7 @@ pub enum Template {
     #[serde(rename = "image_carousel")]
     ImageCarouselTemplate(models::ImageCarouselTemplate),
     #[serde(other)]
-    Unknown,
+    UnknownTemplate,
 }
 
 impl Default for Template {

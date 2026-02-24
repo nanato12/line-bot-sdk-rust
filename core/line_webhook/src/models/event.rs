@@ -71,7 +71,7 @@ pub enum Event {
     #[serde(rename = "delivery")]
     PnpDeliveryCompletionEvent(models::PnpDeliveryCompletionEvent),
     #[serde(other)]
-    Unknown,
+    UnknownEvent,
 }
 
 impl Default for Event {

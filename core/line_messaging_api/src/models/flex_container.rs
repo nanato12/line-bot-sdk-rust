@@ -36,7 +36,7 @@ pub enum FlexContainer {
     #[serde(rename = "carousel")]
     FlexCarousel(models::FlexCarousel),
     #[serde(other)]
-    Unknown,
+    UnknownFlexContainer,
 }
 
 impl Default for FlexContainer {

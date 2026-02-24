@@ -37,7 +37,7 @@ pub enum SubstitutionObject {
     #[serde(rename = "emoji")]
     EmojiSubstitutionObject(models::EmojiSubstitutionObject),
     #[serde(other)]
-    Unknown,
+    UnknownSubstitutionObject,
 }
 
 impl Default for SubstitutionObject {

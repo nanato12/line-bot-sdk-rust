@@ -42,7 +42,7 @@ pub enum CouponRewardRequest {
     #[serde(rename = "others")]
     CouponOthersRewardRequest(models::CouponOthersRewardRequest),
     #[serde(other)]
-    Unknown,
+    UnknownCouponRewardRequest,
 }
 
 impl Default for CouponRewardRequest {

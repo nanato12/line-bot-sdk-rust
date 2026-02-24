@@ -51,7 +51,7 @@ pub enum Action {
     #[serde(rename = "uri")]
     UriAction(models::UriAction),
     #[serde(other)]
-    Unknown,
+    UnknownAction,
 }
 
 impl Default for Action {

@@ -38,7 +38,7 @@ pub enum ImagemapAction {
     #[serde(rename = "clipboard")]
     ClipboardImagemapAction(models::ClipboardImagemapAction),
     #[serde(other)]
-    Unknown,
+    UnknownImagemapAction,
 }
 
 impl Default for ImagemapAction {

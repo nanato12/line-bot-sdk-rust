@@ -39,7 +39,7 @@ pub enum RichMenuBatchOperation {
     #[serde(rename = "unlinkAll")]
     RichMenuBatchUnlinkAllOperation(models::RichMenuBatchUnlinkAllOperation),
     #[serde(other)]
-    Unknown,
+    UnknownRichMenuBatchOperation,
 }
 
 impl Default for RichMenuBatchOperation {

@@ -46,7 +46,7 @@ pub enum MessageContent {
     #[serde(rename = "sticker")]
     StickerMessageContent(models::StickerMessageContent),
     #[serde(other)]
-    Unknown,
+    UnknownMessageContent,
 }
 
 impl Default for MessageContent {

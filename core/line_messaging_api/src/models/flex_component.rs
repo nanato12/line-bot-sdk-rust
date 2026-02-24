@@ -50,7 +50,7 @@ pub enum FlexComponent {
     #[serde(rename = "filler")]
     FlexFiller(models::FlexFiller),
     #[serde(other)]
-    Unknown,
+    UnknownFlexComponent,
 }
 
 impl Default for FlexComponent {

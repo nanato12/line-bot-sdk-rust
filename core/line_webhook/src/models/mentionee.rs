@@ -36,7 +36,7 @@ pub enum Mentionee {
     #[serde(rename = "all")]
     AllMentionee(models::AllMentionee),
     #[serde(other)]
-    Unknown,
+    UnknownMentionee,
 }
 
 impl Default for Mentionee {

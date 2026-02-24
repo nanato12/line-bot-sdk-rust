@@ -54,7 +54,7 @@ pub enum Message {
     #[serde(rename = "coupon")]
     CouponMessage(models::CouponMessage),
     #[serde(other)]
-    Unknown,
+    UnknownMessage,
 }
 
 impl Default for Message {

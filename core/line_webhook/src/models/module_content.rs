@@ -36,7 +36,7 @@ pub enum ModuleContent {
     #[serde(rename = "detached")]
     DetachedModuleContent(models::DetachedModuleContent),
     #[serde(other)]
-    Unknown,
+    UnknownModuleContent,
 }
 
 impl Default for ModuleContent {

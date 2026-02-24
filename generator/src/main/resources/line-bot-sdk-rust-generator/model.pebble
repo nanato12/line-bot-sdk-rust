@@ -27,7 +27,7 @@ pub enum {{ model.classname }} {
     {{ variant.variantName }}(models::{{ variant.typeName }}),
 {% endfor -%}
     #[serde(other)]
-    Unknown,
+    Unknown{{ model.classname }},
 }
 
 impl Default for {{ model.classname }} {

@@ -38,7 +38,7 @@ pub enum AcquisitionConditionResponse {
     #[serde(rename = "referral")]
     ReferralAcquisitionConditionResponse(models::ReferralAcquisitionConditionResponse),
     #[serde(other)]
-    Unknown,
+    UnknownAcquisitionConditionResponse,
 }
 
 impl Default for AcquisitionConditionResponse {
