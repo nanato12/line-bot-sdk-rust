@@ -29,7 +29,6 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-#[non_exhaustive]
 pub enum ModuleContent {
     #[serde(rename = "attached")]
     AttachedModuleContent(models::AttachedModuleContent),

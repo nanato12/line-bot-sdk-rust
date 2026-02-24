@@ -30,7 +30,6 @@ use serde::{Deserialize, Serialize};
 /// Recipient : Recipient
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-#[non_exhaustive]
 pub enum Recipient {
     #[serde(rename = "operator")]
     OperatorRecipient(models::OperatorRecipient),

@@ -30,7 +30,6 @@ use serde::{Deserialize, Serialize};
 /// Event : Webhook event
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-#[non_exhaustive]
 pub enum Event {
     #[serde(rename = "message")]
     MessageEvent(models::MessageEvent),

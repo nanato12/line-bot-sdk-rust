@@ -30,7 +30,6 @@ use serde::{Deserialize, Serialize};
 /// Action : Action
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-#[non_exhaustive]
 pub enum Action {
     #[serde(rename = "camera")]
     CameraAction(models::CameraAction),

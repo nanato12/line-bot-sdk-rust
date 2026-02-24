@@ -20,7 +20,6 @@ use serde::{Deserialize, Serialize};
 {% endif -%}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "{{ model.vendorExtensions['x-discriminator-property'] }}")]
-#[non_exhaustive]
 pub enum {{ model.classname }} {
 {% for variant in model.vendorExtensions['x-enum-variants'] -%}
     #[serde(rename = "{{ variant.tagValue }}")]

@@ -30,7 +30,6 @@ use serde::{Deserialize, Serialize};
 /// DemographicFilter : Demographic filter
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-#[non_exhaustive]
 pub enum DemographicFilter {
     #[serde(rename = "age")]
     AgeDemographicFilter(models::AgeDemographicFilter),

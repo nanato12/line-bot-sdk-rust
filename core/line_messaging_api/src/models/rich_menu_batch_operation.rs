@@ -30,7 +30,6 @@ use serde::{Deserialize, Serialize};
 /// RichMenuBatchOperation : Rich menu operation object represents the batch operation to the rich menu linked to the user.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-#[non_exhaustive]
 pub enum RichMenuBatchOperation {
     #[serde(rename = "link")]
     RichMenuBatchLinkOperation(models::RichMenuBatchLinkOperation),

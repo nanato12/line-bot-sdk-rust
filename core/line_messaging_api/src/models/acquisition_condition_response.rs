@@ -29,7 +29,6 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-#[non_exhaustive]
 pub enum AcquisitionConditionResponse {
     #[serde(rename = "normal")]
     NormalAcquisitionConditionResponse(models::NormalAcquisitionConditionResponse),

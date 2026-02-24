@@ -30,7 +30,6 @@ use serde::{Deserialize, Serialize};
 /// Source : the source of the event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
-#[non_exhaustive]
 pub enum Source {
     #[serde(rename = "user")]
     UserSource(models::UserSource),
