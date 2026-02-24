@@ -32,13 +32,13 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum Recipient {
-#[serde(rename = "operator")]
+    #[serde(rename = "operator")]
     OperatorRecipient(models::OperatorRecipient),
-#[serde(rename = "audience")]
+    #[serde(rename = "audience")]
     AudienceRecipient(models::AudienceRecipient),
-#[serde(rename = "redelivery")]
+    #[serde(rename = "redelivery")]
     RedeliveryRecipient(models::RedeliveryRecipient),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

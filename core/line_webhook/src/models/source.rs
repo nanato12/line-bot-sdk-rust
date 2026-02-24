@@ -32,13 +32,13 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum Source {
-#[serde(rename = "user")]
+    #[serde(rename = "user")]
     UserSource(models::UserSource),
-#[serde(rename = "group")]
+    #[serde(rename = "group")]
     GroupSource(models::GroupSource),
-#[serde(rename = "room")]
+    #[serde(rename = "room")]
     RoomSource(models::RoomSource),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

@@ -32,24 +32,24 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum LiffScope {
-#[serde(rename = "openid")]
+    #[serde(rename = "openid")]
     Openid,
-#[serde(rename = "email")]
+    #[serde(rename = "email")]
     Email,
-#[serde(rename = "profile")]
+    #[serde(rename = "profile")]
     Profile,
-#[serde(rename = "chat_message.write")]
+    #[serde(rename = "chat_message.write")]
     ChatMessageWrite,
 }
 
 impl std::fmt::Display for LiffScope {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-Self::Openid => write!(f, "openid"),
-Self::Email => write!(f, "email"),
-Self::Profile => write!(f, "profile"),
-Self::ChatMessageWrite => write!(f, "chat_message.write"),
-}
+            Self::Openid => write!(f, "openid"),
+            Self::Email => write!(f, "email"),
+            Self::Profile => write!(f, "profile"),
+            Self::ChatMessageWrite => write!(f, "chat_message.write"),
+        }
     }
 }
 

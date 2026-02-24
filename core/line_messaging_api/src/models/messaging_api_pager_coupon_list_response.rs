@@ -30,20 +30,17 @@ use serde::{Deserialize, Serialize};
 /// MessagingApiPagerCouponListResponse : Paginated response object containing a list of coupons.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MessagingApiPagerCouponListResponse {
-/// List of coupon summary objects.
-#[serde(rename = "items")]
+    /// List of coupon summary objects.
+    #[serde(rename = "items")]
     pub items: Vec<models::CouponListResponse>,
-/// Token for fetching the next page of results.
-#[serde(rename = "next", skip_serializing_if = "Option::is_none")]
+    /// Token for fetching the next page of results.
+    #[serde(rename = "next", skip_serializing_if = "Option::is_none")]
     pub next: Option<String>,
 }
 
 impl MessagingApiPagerCouponListResponse {
-/// Paginated response object containing a list of coupons.
-pub fn new(items: Vec<models::CouponListResponse>) -> MessagingApiPagerCouponListResponse {
-        MessagingApiPagerCouponListResponse {
-items,
-next: None,
-}
+    /// Paginated response object containing a list of coupons.
+    pub fn new(items: Vec<models::CouponListResponse>) -> MessagingApiPagerCouponListResponse {
+        MessagingApiPagerCouponListResponse { items, next: None }
     }
 }

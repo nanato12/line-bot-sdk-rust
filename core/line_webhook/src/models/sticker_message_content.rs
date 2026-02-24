@@ -29,72 +29,78 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StickerMessageContent {
-/// Message ID
-#[serde(rename = "id")]
+    /// Message ID
+    #[serde(rename = "id")]
     pub id: String,
-/// Package ID
-#[serde(rename = "packageId")]
+    /// Package ID
+    #[serde(rename = "packageId")]
     pub package_id: String,
-/// Sticker ID
-#[serde(rename = "stickerId")]
+    /// Sticker ID
+    #[serde(rename = "stickerId")]
     pub sticker_id: String,
-#[serde(rename = "stickerResourceType")]
+    #[serde(rename = "stickerResourceType")]
     pub sticker_resource_type: StickerResourceType,
-/// Array of up to 15 keywords describing the sticker. If a sticker has 16 or more keywords, a random selection of 15 keywords will be returned. The keyword selection is random for each event, so different keywords may be returned for the same sticker. 
-#[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
+    /// Array of up to 15 keywords describing the sticker. If a sticker has 16 or more keywords, a random selection of 15 keywords will be returned. The keyword selection is random for each event, so different keywords may be returned for the same sticker.
+    #[serde(rename = "keywords", skip_serializing_if = "Option::is_none")]
     pub keywords: Option<Vec<String>>,
-/// Any text entered by the user. This property is only included for message stickers. Max character limit: 100 
-#[serde(rename = "text", skip_serializing_if = "Option::is_none")]
+    /// Any text entered by the user. This property is only included for message stickers. Max character limit: 100
+    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
-/// Quote token to quote this message. 
-#[serde(rename = "quoteToken")]
+    /// Quote token to quote this message.
+    #[serde(rename = "quoteToken")]
     pub quote_token: String,
-/// Message ID of a quoted message. Only included when the received message quotes a past message. 
-#[serde(rename = "quotedMessageId", skip_serializing_if = "Option::is_none")]
+    /// Message ID of a quoted message. Only included when the received message quotes a past message.
+    #[serde(rename = "quotedMessageId", skip_serializing_if = "Option::is_none")]
     pub quoted_message_id: Option<String>,
-/// Token used to mark the message as read.  
-#[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    /// Token used to mark the message as read.  
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
     pub mark_as_read_token: Option<String>,
 }
 
 impl StickerMessageContent {
-pub fn new(id: String, package_id: String, sticker_id: String, sticker_resource_type: StickerResourceType, quote_token: String) -> StickerMessageContent {
+    pub fn new(
+        id: String,
+        package_id: String,
+        sticker_id: String,
+        sticker_resource_type: StickerResourceType,
+        quote_token: String,
+    ) -> StickerMessageContent {
         StickerMessageContent {
-id,
-package_id,
-sticker_id,
-sticker_resource_type,
-keywords: None,
-text: None,
-quote_token,
-quoted_message_id: None,
-mark_as_read_token: None,
-}
+            id,
+            package_id,
+            sticker_id,
+            sticker_resource_type,
+            keywords: None,
+            text: None,
+            quote_token,
+            quoted_message_id: None,
+            mark_as_read_token: None,
+        }
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum StickerResourceType {
-#[serde(rename = "STATIC")]
+    #[serde(rename = "STATIC")]
     Static,
-#[serde(rename = "ANIMATION")]
+    #[serde(rename = "ANIMATION")]
     Animation,
-#[serde(rename = "SOUND")]
+    #[serde(rename = "SOUND")]
     Sound,
-#[serde(rename = "ANIMATION_SOUND")]
+    #[serde(rename = "ANIMATION_SOUND")]
     AnimationSound,
-#[serde(rename = "POPUP")]
+    #[serde(rename = "POPUP")]
     Popup,
-#[serde(rename = "POPUP_SOUND")]
+    #[serde(rename = "POPUP_SOUND")]
     PopupSound,
-#[serde(rename = "CUSTOM")]
+    #[serde(rename = "CUSTOM")]
     Custom,
-#[serde(rename = "MESSAGE")]
+    #[serde(rename = "MESSAGE")]
     Message,
-#[serde(rename = "NAME_TEXT")]
+    #[serde(rename = "NAME_TEXT")]
     NameText,
-#[serde(rename = "PER_STICKER_TEXT")]
+    #[serde(rename = "PER_STICKER_TEXT")]
     PerStickerText,
 }
 

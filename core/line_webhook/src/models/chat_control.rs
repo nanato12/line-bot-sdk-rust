@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ChatControl {
-#[serde(rename = "expireAt")]
+    #[serde(rename = "expireAt")]
     pub expire_at: i64,
 }
 
 impl ChatControl {
-pub fn new(expire_at: i64) -> ChatControl {
-        ChatControl {
-expire_at,
-}
+    pub fn new(expire_at: i64) -> ChatControl {
+        ChatControl { expire_at }
     }
 }

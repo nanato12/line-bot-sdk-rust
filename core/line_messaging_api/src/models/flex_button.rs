@@ -29,65 +29,65 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexButton {
-#[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
     pub flex: Option<i32>,
-#[serde(rename = "color", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
-#[serde(rename = "style", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "style", skip_serializing_if = "Option::is_none")]
     pub style: Option<Style>,
-#[serde(rename = "action")]
+    #[serde(rename = "action")]
     pub action: Box<models::Action>,
-#[serde(rename = "gravity", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "gravity", skip_serializing_if = "Option::is_none")]
     pub gravity: Option<Gravity>,
-#[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
     pub margin: Option<String>,
-#[serde(rename = "position", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "position", skip_serializing_if = "Option::is_none")]
     pub position: Option<Position>,
-#[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
     pub offset_top: Option<String>,
-#[serde(rename = "offsetBottom", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetBottom", skip_serializing_if = "Option::is_none")]
     pub offset_bottom: Option<String>,
-#[serde(rename = "offsetStart", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetStart", skip_serializing_if = "Option::is_none")]
     pub offset_start: Option<String>,
-#[serde(rename = "offsetEnd", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetEnd", skip_serializing_if = "Option::is_none")]
     pub offset_end: Option<String>,
-#[serde(rename = "height", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "height", skip_serializing_if = "Option::is_none")]
     pub height: Option<Height>,
-#[serde(rename = "adjustMode", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "adjustMode", skip_serializing_if = "Option::is_none")]
     pub adjust_mode: Option<AdjustMode>,
-#[serde(rename = "scaling", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "scaling", skip_serializing_if = "Option::is_none")]
     pub scaling: Option<bool>,
 }
 
 impl FlexButton {
-pub fn new(action: models::Action) -> FlexButton {
+    pub fn new(action: models::Action) -> FlexButton {
         FlexButton {
-flex: None,
-color: None,
-style: None,
-action: Box::new(action),
-gravity: None,
-margin: None,
-position: None,
-offset_top: None,
-offset_bottom: None,
-offset_start: None,
-offset_end: None,
-height: None,
-adjust_mode: None,
-scaling: None,
-}
+            flex: None,
+            color: None,
+            style: None,
+            action: Box::new(action),
+            gravity: None,
+            margin: None,
+            position: None,
+            offset_top: None,
+            offset_bottom: None,
+            offset_start: None,
+            offset_end: None,
+            height: None,
+            adjust_mode: None,
+            scaling: None,
+        }
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Style {
-#[serde(rename = "primary")]
+    #[serde(rename = "primary")]
     Primary,
-#[serde(rename = "secondary")]
+    #[serde(rename = "secondary")]
     Secondary,
-#[serde(rename = "link")]
+    #[serde(rename = "link")]
     Link,
 }
 
@@ -96,15 +96,15 @@ impl Default for Style {
         Self::Primary
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Gravity {
-#[serde(rename = "top")]
+    #[serde(rename = "top")]
     Top,
-#[serde(rename = "bottom")]
+    #[serde(rename = "bottom")]
     Bottom,
-#[serde(rename = "center")]
+    #[serde(rename = "center")]
     Center,
 }
 
@@ -113,13 +113,13 @@ impl Default for Gravity {
         Self::Top
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Position {
-#[serde(rename = "relative")]
+    #[serde(rename = "relative")]
     Relative,
-#[serde(rename = "absolute")]
+    #[serde(rename = "absolute")]
     Absolute,
 }
 
@@ -128,13 +128,13 @@ impl Default for Position {
         Self::Relative
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Height {
-#[serde(rename = "md")]
+    #[serde(rename = "md")]
     Md,
-#[serde(rename = "sm")]
+    #[serde(rename = "sm")]
     Sm,
 }
 
@@ -143,11 +143,11 @@ impl Default for Height {
         Self::Md
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum AdjustMode {
-#[serde(rename = "shrink-to-fit")]
+    #[serde(rename = "shrink-to-fit")]
     ShrinkToFit,
 }
 

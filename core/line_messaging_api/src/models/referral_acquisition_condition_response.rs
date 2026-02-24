@@ -28,12 +28,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ReferralAcquisitionConditionResponse {
-}
+pub struct ReferralAcquisitionConditionResponse {}
 
 impl ReferralAcquisitionConditionResponse {
-pub fn new() -> ReferralAcquisitionConditionResponse {
-        ReferralAcquisitionConditionResponse {
-}
+    pub fn new() -> ReferralAcquisitionConditionResponse {
+        ReferralAcquisitionConditionResponse {}
     }
 }

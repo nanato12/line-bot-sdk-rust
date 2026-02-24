@@ -29,19 +29,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AttachedModuleContent {
-/// User ID of the bot on the attached LINE Official Account
-#[serde(rename = "botId")]
+    /// User ID of the bot on the attached LINE Official Account
+    #[serde(rename = "botId")]
     pub bot_id: String,
-/// An array of strings indicating the scope permitted by the admin of the LINE Official Account.
-#[serde(rename = "scopes")]
+    /// An array of strings indicating the scope permitted by the admin of the LINE Official Account.
+    #[serde(rename = "scopes")]
     pub scopes: Vec<String>,
 }
 
 impl AttachedModuleContent {
-pub fn new(bot_id: String, scopes: Vec<String>) -> AttachedModuleContent {
-        AttachedModuleContent {
-bot_id,
-scopes,
-}
+    pub fn new(bot_id: String, scopes: Vec<String>) -> AttachedModuleContent {
+        AttachedModuleContent { bot_id, scopes }
     }
 }

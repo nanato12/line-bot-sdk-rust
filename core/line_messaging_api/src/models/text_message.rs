@@ -29,27 +29,27 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TextMessage {
-#[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<models::QuickReply>>,
-#[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
     pub sender: Option<Box<models::Sender>>,
-#[serde(rename = "text")]
+    #[serde(rename = "text")]
     pub text: String,
-#[serde(rename = "emojis", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "emojis", skip_serializing_if = "Option::is_none")]
     pub emojis: Option<Vec<models::Emoji>>,
-/// Quote token of the message you want to quote.
-#[serde(rename = "quoteToken", skip_serializing_if = "Option::is_none")]
+    /// Quote token of the message you want to quote.
+    #[serde(rename = "quoteToken", skip_serializing_if = "Option::is_none")]
     pub quote_token: Option<String>,
 }
 
 impl TextMessage {
-pub fn new(text: String) -> TextMessage {
+    pub fn new(text: String) -> TextMessage {
         TextMessage {
-quick_reply: None,
-sender: None,
-text,
-emojis: None,
-quote_token: None,
-}
+            quick_reply: None,
+            sender: None,
+            text,
+            emojis: None,
+            quote_token: None,
+        }
     }
 }

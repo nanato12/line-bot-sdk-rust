@@ -30,16 +30,14 @@ use serde::{Deserialize, Serialize};
 /// Audience : Audience
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Audience {
-/// A user ID or IFA. You can specify an empty array.
-#[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    /// A user ID or IFA. You can specify an empty array.
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
 }
 
 impl Audience {
-/// Audience
-pub fn new() -> Audience {
-        Audience {
-id: None,
-}
+    /// Audience
+    pub fn new() -> Audience {
+        Audience { id: None }
     }
 }

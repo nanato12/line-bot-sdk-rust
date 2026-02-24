@@ -30,20 +30,17 @@ use serde::{Deserialize, Serialize};
 /// AttachModuleResponse : Attach by operation of the module channel provider
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AttachModuleResponse {
-/// User ID of the bot on the LINE Official Account.
-#[serde(rename = "bot_id")]
+    /// User ID of the bot on the LINE Official Account.
+    #[serde(rename = "bot_id")]
     pub bot_id: String,
-/// Permissions (scope) granted by the LINE Official Account admin.
-#[serde(rename = "scopes")]
+    /// Permissions (scope) granted by the LINE Official Account admin.
+    #[serde(rename = "scopes")]
     pub scopes: Vec<String>,
 }
 
 impl AttachModuleResponse {
-/// Attach by operation of the module channel provider
-pub fn new(bot_id: String, scopes: Vec<String>) -> AttachModuleResponse {
-        AttachModuleResponse {
-bot_id,
-scopes,
-}
+    /// Attach by operation of the module channel provider
+    pub fn new(bot_id: String, scopes: Vec<String>) -> AttachModuleResponse {
+        AttachModuleResponse { bot_id, scopes }
     }
 }

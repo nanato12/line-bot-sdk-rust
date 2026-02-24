@@ -30,16 +30,14 @@ use serde::{Deserialize, Serialize};
 /// QuickReply : Quick reply
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct QuickReply {
-/// Quick reply button objects.
-#[serde(rename = "items", skip_serializing_if = "Option::is_none")]
+    /// Quick reply button objects.
+    #[serde(rename = "items", skip_serializing_if = "Option::is_none")]
     pub items: Option<Vec<models::QuickReplyItem>>,
 }
 
 impl QuickReply {
-/// Quick reply
-pub fn new() -> QuickReply {
-        QuickReply {
-items: None,
-}
+    /// Quick reply
+    pub fn new() -> QuickReply {
+        QuickReply { items: None }
     }
 }

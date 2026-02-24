@@ -31,9 +31,9 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum FlexBoxBackground {
-#[serde(rename = "linearGradient")]
+    #[serde(rename = "linearGradient")]
     FlexBoxLinearGradient(models::FlexBoxLinearGradient),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

@@ -27,47 +27,47 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FlexTextFontSize : Font size in the `size` property of the Flex text component. You can specify the size in pixels or with a keyword. FlexTextFontSize just provides only keywords. 
-/// Font size in the `size` property of the Flex text component. You can specify the size in pixels or with a keyword. FlexTextFontSize just provides only keywords. 
+/// FlexTextFontSize : Font size in the `size` property of the Flex text component. You can specify the size in pixels or with a keyword. FlexTextFontSize just provides only keywords.
+/// Font size in the `size` property of the Flex text component. You can specify the size in pixels or with a keyword. FlexTextFontSize just provides only keywords.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum FlexTextFontSize {
-#[serde(rename = "xxs")]
+    #[serde(rename = "xxs")]
     Xxs,
-#[serde(rename = "xs")]
+    #[serde(rename = "xs")]
     Xs,
-#[serde(rename = "sm")]
+    #[serde(rename = "sm")]
     Sm,
-#[serde(rename = "md")]
+    #[serde(rename = "md")]
     Md,
-#[serde(rename = "lg")]
+    #[serde(rename = "lg")]
     Lg,
-#[serde(rename = "xl")]
+    #[serde(rename = "xl")]
     Xl,
-#[serde(rename = "xxl")]
+    #[serde(rename = "xxl")]
     Xxl,
-#[serde(rename = "3xl")]
+    #[serde(rename = "3xl")]
     Variant3xl,
-#[serde(rename = "4xl")]
+    #[serde(rename = "4xl")]
     Variant4xl,
-#[serde(rename = "5xl")]
+    #[serde(rename = "5xl")]
     Variant5xl,
 }
 
 impl std::fmt::Display for FlexTextFontSize {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-Self::Xxs => write!(f, "xxs"),
-Self::Xs => write!(f, "xs"),
-Self::Sm => write!(f, "sm"),
-Self::Md => write!(f, "md"),
-Self::Lg => write!(f, "lg"),
-Self::Xl => write!(f, "xl"),
-Self::Xxl => write!(f, "xxl"),
-Self::Variant3xl => write!(f, "3xl"),
-Self::Variant4xl => write!(f, "4xl"),
-Self::Variant5xl => write!(f, "5xl"),
-}
+            Self::Xxs => write!(f, "xxs"),
+            Self::Xs => write!(f, "xs"),
+            Self::Sm => write!(f, "sm"),
+            Self::Md => write!(f, "md"),
+            Self::Lg => write!(f, "lg"),
+            Self::Xl => write!(f, "xl"),
+            Self::Xxl => write!(f, "xxl"),
+            Self::Variant3xl => write!(f, "3xl"),
+            Self::Variant4xl => write!(f, "4xl"),
+            Self::Variant5xl => write!(f, "5xl"),
+        }
     }
 }
 

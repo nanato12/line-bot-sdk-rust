@@ -29,19 +29,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateRichMenuAliasRequest {
-/// Rich menu alias ID, which can be any ID, unique for each channel.
-#[serde(rename = "richMenuAliasId")]
+    /// Rich menu alias ID, which can be any ID, unique for each channel.
+    #[serde(rename = "richMenuAliasId")]
     pub rich_menu_alias_id: String,
-/// The rich menu ID to be associated with the rich menu alias.
-#[serde(rename = "richMenuId")]
+    /// The rich menu ID to be associated with the rich menu alias.
+    #[serde(rename = "richMenuId")]
     pub rich_menu_id: String,
 }
 
 impl CreateRichMenuAliasRequest {
-pub fn new(rich_menu_alias_id: String, rich_menu_id: String) -> CreateRichMenuAliasRequest {
+    pub fn new(rich_menu_alias_id: String, rich_menu_id: String) -> CreateRichMenuAliasRequest {
         CreateRichMenuAliasRequest {
-rich_menu_alias_id,
-rich_menu_id,
-}
+            rich_menu_alias_id,
+            rich_menu_id,
+        }
     }
 }

@@ -30,20 +30,17 @@ use serde::{Deserialize, Serialize};
 /// CouponListResponse : Summary information about a coupon, used in coupon lists.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CouponListResponse {
-/// Unique identifier of the coupon.
-#[serde(rename = "couponId")]
+    /// Unique identifier of the coupon.
+    #[serde(rename = "couponId")]
     pub coupon_id: String,
-/// Title of the coupon. Displayed in the coupon list.
-#[serde(rename = "title")]
+    /// Title of the coupon. Displayed in the coupon list.
+    #[serde(rename = "title")]
     pub title: String,
 }
 
 impl CouponListResponse {
-/// Summary information about a coupon, used in coupon lists.
-pub fn new(coupon_id: String, title: String) -> CouponListResponse {
-        CouponListResponse {
-coupon_id,
-title,
-}
+    /// Summary information about a coupon, used in coupon lists.
+    pub fn new(coupon_id: String, title: String) -> CouponListResponse {
+        CouponListResponse { coupon_id, title }
     }
 }

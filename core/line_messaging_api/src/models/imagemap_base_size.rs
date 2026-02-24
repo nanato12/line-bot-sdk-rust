@@ -29,17 +29,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ImagemapBaseSize {
-#[serde(rename = "height")]
+    #[serde(rename = "height")]
     pub height: i32,
-#[serde(rename = "width")]
+    #[serde(rename = "width")]
     pub width: i32,
 }
 
 impl ImagemapBaseSize {
-pub fn new(height: i32, width: i32) -> ImagemapBaseSize {
-        ImagemapBaseSize {
-height,
-width,
-}
+    pub fn new(height: i32, width: i32) -> ImagemapBaseSize {
+        ImagemapBaseSize { height, width }
     }
 }

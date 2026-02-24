@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CouponCashBackRewardResponse {
-#[serde(rename = "priceInfo", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "priceInfo", skip_serializing_if = "Option::is_none")]
     pub price_info: Option<Box<models::CashBackPriceInfoResponse>>,
 }
 
 impl CouponCashBackRewardResponse {
-pub fn new() -> CouponCashBackRewardResponse {
-        CouponCashBackRewardResponse {
-price_info: None,
-}
+    pub fn new() -> CouponCashBackRewardResponse {
+        CouponCashBackRewardResponse { price_info: None }
     }
 }

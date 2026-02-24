@@ -29,19 +29,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LiffFeatures {
-/// `true` if the LIFF app supports Bluetooth® Low Energy for LINE Things. `false` otherwise. 
-#[serde(rename = "ble", skip_serializing_if = "Option::is_none")]
+    /// `true` if the LIFF app supports Bluetooth® Low Energy for LINE Things. `false` otherwise.
+    #[serde(rename = "ble", skip_serializing_if = "Option::is_none")]
     pub ble: Option<bool>,
-/// `true` to use the 2D code reader in the LIFF app. false otherwise. The default value is `false`. 
-#[serde(rename = "qrCode", skip_serializing_if = "Option::is_none")]
+    /// `true` to use the 2D code reader in the LIFF app. false otherwise. The default value is `false`.
+    #[serde(rename = "qrCode", skip_serializing_if = "Option::is_none")]
     pub qr_code: Option<bool>,
 }
 
 impl LiffFeatures {
-pub fn new() -> LiffFeatures {
+    pub fn new() -> LiffFeatures {
         LiffFeatures {
-ble: None,
-qr_code: None,
-}
+            ble: None,
+            qr_code: None,
+        }
     }
 }

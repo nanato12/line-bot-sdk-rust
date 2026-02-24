@@ -29,27 +29,33 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PushMessageRequest {
-/// ID of the receiver.
-#[serde(rename = "to")]
+    /// ID of the receiver.
+    #[serde(rename = "to")]
     pub to: String,
-/// List of Message objects.
-#[serde(rename = "messages")]
+    /// List of Message objects.
+    #[serde(rename = "messages")]
     pub messages: Vec<models::Message>,
-/// `true`: The user doesn’t receive a push notification when a message is sent. `false`: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false. 
-#[serde(rename = "notificationDisabled", skip_serializing_if = "Option::is_none")]
+    /// `true`: The user doesn’t receive a push notification when a message is sent. `false`: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false.
+    #[serde(
+        rename = "notificationDisabled",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub notification_disabled: Option<bool>,
-/// List of aggregation unit name. Case-sensitive. This functions can only be used by corporate users who have submitted the required applications. 
-#[serde(rename = "customAggregationUnits", skip_serializing_if = "Option::is_none")]
+    /// List of aggregation unit name. Case-sensitive. This functions can only be used by corporate users who have submitted the required applications.
+    #[serde(
+        rename = "customAggregationUnits",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub custom_aggregation_units: Option<Vec<String>>,
 }
 
 impl PushMessageRequest {
-pub fn new(to: String, messages: Vec<models::Message>) -> PushMessageRequest {
+    pub fn new(to: String, messages: Vec<models::Message>) -> PushMessageRequest {
         PushMessageRequest {
-to,
-messages,
-notification_disabled: None,
-custom_aggregation_units: None,
-}
+            to,
+            messages,
+            notification_disabled: None,
+            custom_aggregation_units: None,
+        }
     }
 }

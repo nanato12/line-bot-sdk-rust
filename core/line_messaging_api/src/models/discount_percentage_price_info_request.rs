@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DiscountPercentagePriceInfoRequest {
-/// Specifies the discount rate as a percentage. Must be an integer between 1 and 99.
-#[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
+    /// Specifies the discount rate as a percentage. Must be an integer between 1 and 99.
+    #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<i32>,
 }
 
 impl DiscountPercentagePriceInfoRequest {
-pub fn new() -> DiscountPercentagePriceInfoRequest {
-        DiscountPercentagePriceInfoRequest {
-percentage: None,
-}
+    pub fn new() -> DiscountPercentagePriceInfoRequest {
+        DiscountPercentagePriceInfoRequest { percentage: None }
     }
 }

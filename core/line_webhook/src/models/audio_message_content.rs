@@ -29,26 +29,26 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AudioMessageContent {
-/// Message ID
-#[serde(rename = "id")]
+    /// Message ID
+    #[serde(rename = "id")]
     pub id: String,
-#[serde(rename = "contentProvider")]
+    #[serde(rename = "contentProvider")]
     pub content_provider: Box<models::ContentProvider>,
-/// Length of audio file (milliseconds)
-#[serde(rename = "duration", skip_serializing_if = "Option::is_none")]
+    /// Length of audio file (milliseconds)
+    #[serde(rename = "duration", skip_serializing_if = "Option::is_none")]
     pub duration: Option<i64>,
-/// Token used to mark the message as read. 
-#[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    /// Token used to mark the message as read.
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
     pub mark_as_read_token: Option<String>,
 }
 
 impl AudioMessageContent {
-pub fn new(id: String, content_provider: models::ContentProvider) -> AudioMessageContent {
+    pub fn new(id: String, content_provider: models::ContentProvider) -> AudioMessageContent {
         AudioMessageContent {
-id,
-content_provider: Box::new(content_provider),
-duration: None,
-mark_as_read_token: None,
-}
+            id,
+            content_provider: Box::new(content_provider),
+            duration: None,
+            mark_as_read_token: None,
+        }
     }
 }

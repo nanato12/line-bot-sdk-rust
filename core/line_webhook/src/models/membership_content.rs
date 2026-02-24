@@ -32,13 +32,13 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum MembershipContent {
-#[serde(rename = "joined")]
+    #[serde(rename = "joined")]
     JoinedMembershipContent(models::JoinedMembershipContent),
-#[serde(rename = "left")]
+    #[serde(rename = "left")]
     LeftMembershipContent(models::LeftMembershipContent),
-#[serde(rename = "renewed")]
+    #[serde(rename = "renewed")]
     RenewedMembershipContent(models::RenewedMembershipContent),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

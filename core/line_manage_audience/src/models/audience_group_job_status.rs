@@ -32,24 +32,24 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum AudienceGroupJobStatus {
-#[serde(rename = "QUEUED")]
+    #[serde(rename = "QUEUED")]
     Queued,
-#[serde(rename = "WORKING")]
+    #[serde(rename = "WORKING")]
     Working,
-#[serde(rename = "FINISHED")]
+    #[serde(rename = "FINISHED")]
     Finished,
-#[serde(rename = "FAILED")]
+    #[serde(rename = "FAILED")]
     Failed,
 }
 
 impl std::fmt::Display for AudienceGroupJobStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-Self::Queued => write!(f, "QUEUED"),
-Self::Working => write!(f, "WORKING"),
-Self::Finished => write!(f, "FINISHED"),
-Self::Failed => write!(f, "FAILED"),
-}
+            Self::Queued => write!(f, "QUEUED"),
+            Self::Working => write!(f, "WORKING"),
+            Self::Finished => write!(f, "FINISHED"),
+            Self::Failed => write!(f, "FAILED"),
+        }
     }
 }
 

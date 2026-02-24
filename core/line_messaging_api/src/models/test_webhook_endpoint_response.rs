@@ -29,31 +29,36 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TestWebhookEndpointResponse {
-/// Result of the communication from the LINE platform to the webhook URL.
-#[serde(rename = "success", skip_serializing_if = "Option::is_none")]
+    /// Result of the communication from the LINE platform to the webhook URL.
+    #[serde(rename = "success", skip_serializing_if = "Option::is_none")]
     pub success: Option<bool>,
-/// Time of the event in milliseconds. Even in the case of a redelivered webhook, it represents the time the event occurred, not the time it was redelivered. 
-#[serde(rename = "timestamp")]
+    /// Time of the event in milliseconds. Even in the case of a redelivered webhook, it represents the time the event occurred, not the time it was redelivered.
+    #[serde(rename = "timestamp")]
     pub timestamp: String,
-/// The HTTP status code. If the webhook response isn't received, the status code is set to zero or a negative number.
-#[serde(rename = "statusCode")]
+    /// The HTTP status code. If the webhook response isn't received, the status code is set to zero or a negative number.
+    #[serde(rename = "statusCode")]
     pub status_code: i32,
-/// Reason for the response.
-#[serde(rename = "reason")]
+    /// Reason for the response.
+    #[serde(rename = "reason")]
     pub reason: String,
-/// Details of the response.
-#[serde(rename = "detail")]
+    /// Details of the response.
+    #[serde(rename = "detail")]
     pub detail: String,
 }
 
 impl TestWebhookEndpointResponse {
-pub fn new(timestamp: String, status_code: i32, reason: String, detail: String) -> TestWebhookEndpointResponse {
+    pub fn new(
+        timestamp: String,
+        status_code: i32,
+        reason: String,
+        detail: String,
+    ) -> TestWebhookEndpointResponse {
         TestWebhookEndpointResponse {
-success: None,
-timestamp,
-status_code,
-reason,
-detail,
-}
+            success: None,
+            timestamp,
+            status_code,
+            reason,
+            detail,
+        }
     }
 }

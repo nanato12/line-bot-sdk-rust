@@ -30,36 +30,43 @@ use serde::{Deserialize, Serialize};
 /// MemberJoinedEvent : Event object for when a user joins a group chat or multi-person chat that the LINE Official Account is in.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MemberJoinedEvent {
-#[serde(rename = "source", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<models::Source>>,
-/// Time of the event in milliseconds.
-#[serde(rename = "timestamp")]
+    /// Time of the event in milliseconds.
+    #[serde(rename = "timestamp")]
     pub timestamp: i64,
-#[serde(rename = "mode")]
+    #[serde(rename = "mode")]
     pub mode: models::EventMode,
-/// Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
-#[serde(rename = "webhookEventId")]
+    /// Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+    #[serde(rename = "webhookEventId")]
     pub webhook_event_id: String,
-#[serde(rename = "deliveryContext")]
+    #[serde(rename = "deliveryContext")]
     pub delivery_context: Box<models::DeliveryContext>,
-/// Reply token used to send reply message to this event
-#[serde(rename = "replyToken")]
+    /// Reply token used to send reply message to this event
+    #[serde(rename = "replyToken")]
     pub reply_token: String,
-#[serde(rename = "joined")]
+    #[serde(rename = "joined")]
     pub joined: Box<models::JoinedMembers>,
 }
 
 impl MemberJoinedEvent {
-/// Event object for when a user joins a group chat or multi-person chat that the LINE Official Account is in.
-pub fn new(timestamp: i64, mode: models::EventMode, webhook_event_id: String, delivery_context: models::DeliveryContext, reply_token: String, joined: models::JoinedMembers) -> MemberJoinedEvent {
+    /// Event object for when a user joins a group chat or multi-person chat that the LINE Official Account is in.
+    pub fn new(
+        timestamp: i64,
+        mode: models::EventMode,
+        webhook_event_id: String,
+        delivery_context: models::DeliveryContext,
+        reply_token: String,
+        joined: models::JoinedMembers,
+    ) -> MemberJoinedEvent {
         MemberJoinedEvent {
-source: None,
-timestamp,
-mode,
-webhook_event_id,
-delivery_context: Box::new(delivery_context),
-reply_token,
-joined: Box::new(joined),
-}
+            source: None,
+            timestamp,
+            mode,
+            webhook_event_id,
+            delivery_context: Box::new(delivery_context),
+            reply_token,
+            joined: Box::new(joined),
+        }
     }
 }

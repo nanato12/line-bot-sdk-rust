@@ -28,12 +28,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CouponOthersRewardResponse {
-}
+pub struct CouponOthersRewardResponse {}
 
 impl CouponOthersRewardResponse {
-pub fn new() -> CouponOthersRewardResponse {
-        CouponOthersRewardResponse {
-}
+    pub fn new() -> CouponOthersRewardResponse {
+        CouponOthersRewardResponse {}
     }
 }

@@ -29,17 +29,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ImagemapExternalLink {
-#[serde(rename = "linkUri", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "linkUri", skip_serializing_if = "Option::is_none")]
     pub link_uri: Option<String>,
-#[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
 
 impl ImagemapExternalLink {
-pub fn new() -> ImagemapExternalLink {
+    pub fn new() -> ImagemapExternalLink {
         ImagemapExternalLink {
-link_uri: None,
-label: None,
-}
+            link_uri: None,
+            label: None,
+        }
     }
 }

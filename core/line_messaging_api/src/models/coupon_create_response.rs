@@ -30,16 +30,14 @@ use serde::{Deserialize, Serialize};
 /// CouponCreateResponse : Response object returned after creating a coupon. Contains the coupon ID.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CouponCreateResponse {
-/// Unique identifier of the coupon.
-#[serde(rename = "couponId")]
+    /// Unique identifier of the coupon.
+    #[serde(rename = "couponId")]
     pub coupon_id: String,
 }
 
 impl CouponCreateResponse {
-/// Response object returned after creating a coupon. Contains the coupon ID.
-pub fn new(coupon_id: String) -> CouponCreateResponse {
-        CouponCreateResponse {
-coupon_id,
-}
+    /// Response object returned after creating a coupon. Contains the coupon ID.
+    pub fn new(coupon_id: String) -> CouponCreateResponse {
+        CouponCreateResponse { coupon_id }
     }
 }

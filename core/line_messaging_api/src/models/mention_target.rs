@@ -31,11 +31,11 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum MentionTarget {
-#[serde(rename = "user")]
+    #[serde(rename = "user")]
     UserMentionTarget(models::UserMentionTarget),
-#[serde(rename = "all")]
+    #[serde(rename = "all")]
     AllMentionTarget(models::AllMentionTarget),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

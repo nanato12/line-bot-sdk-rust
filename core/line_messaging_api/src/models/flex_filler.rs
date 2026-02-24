@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexFiller {
-#[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
     pub flex: Option<i32>,
 }
 
 impl FlexFiller {
-pub fn new() -> FlexFiller {
-        FlexFiller {
-flex: None,
-}
+    pub fn new() -> FlexFiller {
+        FlexFiller { flex: None }
     }
 }

@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuAliasListResponse {
-/// Rich menu aliases.
-#[serde(rename = "aliases")]
+    /// Rich menu aliases.
+    #[serde(rename = "aliases")]
     pub aliases: Vec<models::RichMenuAliasResponse>,
 }
 
 impl RichMenuAliasListResponse {
-pub fn new(aliases: Vec<models::RichMenuAliasResponse>) -> RichMenuAliasListResponse {
-        RichMenuAliasListResponse {
-aliases,
-}
+    pub fn new(aliases: Vec<models::RichMenuAliasResponse>) -> RichMenuAliasListResponse {
+        RichMenuAliasListResponse { aliases }
     }
 }

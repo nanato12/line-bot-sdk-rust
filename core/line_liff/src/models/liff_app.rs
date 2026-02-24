@@ -29,35 +29,38 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LiffApp {
-/// LIFF app ID
-#[serde(rename = "liffId", skip_serializing_if = "Option::is_none")]
+    /// LIFF app ID
+    #[serde(rename = "liffId", skip_serializing_if = "Option::is_none")]
     pub liff_id: Option<String>,
-#[serde(rename = "view", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "view", skip_serializing_if = "Option::is_none")]
     pub view: Option<Box<models::LiffView>>,
-/// Name of the LIFF app
-#[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    /// Name of the LIFF app
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-#[serde(rename = "features", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "features", skip_serializing_if = "Option::is_none")]
     pub features: Option<Box<models::LiffFeatures>>,
-/// How additional information in LIFF URLs is handled. concat is returned. 
-#[serde(rename = "permanentLinkPattern", skip_serializing_if = "Option::is_none")]
+    /// How additional information in LIFF URLs is handled. concat is returned.
+    #[serde(
+        rename = "permanentLinkPattern",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub permanent_link_pattern: Option<String>,
-#[serde(rename = "scope", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "scope", skip_serializing_if = "Option::is_none")]
     pub scope: Option<Vec<models::LiffScope>>,
-#[serde(rename = "botPrompt", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "botPrompt", skip_serializing_if = "Option::is_none")]
     pub bot_prompt: Option<models::LiffBotPrompt>,
 }
 
 impl LiffApp {
-pub fn new() -> LiffApp {
+    pub fn new() -> LiffApp {
         LiffApp {
-liff_id: None,
-view: None,
-description: None,
-features: None,
-permanent_link_pattern: None,
-scope: None,
-bot_prompt: None,
-}
+            liff_id: None,
+            view: None,
+            description: None,
+            features: None,
+            permanent_link_pattern: None,
+            scope: None,
+            bot_prompt: None,
+        }
     }
 }

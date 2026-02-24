@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AddLiffAppResponse {
-#[serde(rename = "liffId")]
+    #[serde(rename = "liffId")]
     pub liff_id: String,
 }
 
 impl AddLiffAppResponse {
-pub fn new(liff_id: String) -> AddLiffAppResponse {
-        AddLiffAppResponse {
-liff_id,
-}
+    pub fn new(liff_id: String) -> AddLiffAppResponse {
+        AddLiffAppResponse { liff_id }
     }
 }

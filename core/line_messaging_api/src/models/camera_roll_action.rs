@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CameraRollAction {
-/// Label for the action.
-#[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+    /// Label for the action.
+    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
 
 impl CameraRollAction {
-pub fn new() -> CameraRollAction {
-        CameraRollAction {
-label: None,
-}
+    pub fn new() -> CameraRollAction {
+        CameraRollAction { label: None }
     }
 }

@@ -29,31 +29,34 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetMessageEventResponseClick {
-/// The URL's serial number.
-#[serde(rename = "seq", skip_serializing_if = "Option::is_none")]
+    /// The URL's serial number.
+    #[serde(rename = "seq", skip_serializing_if = "Option::is_none")]
     pub seq: Option<i32>,
-/// URL.
-#[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    /// URL.
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
-/// Number of times the URL was opened.
-#[serde(rename = "click", skip_serializing_if = "Option::is_none")]
+    /// Number of times the URL was opened.
+    #[serde(rename = "click", skip_serializing_if = "Option::is_none")]
     pub click: Option<i64>,
-/// Number of users that opened the URL.
-#[serde(rename = "uniqueClick", skip_serializing_if = "Option::is_none")]
+    /// Number of users that opened the URL.
+    #[serde(rename = "uniqueClick", skip_serializing_if = "Option::is_none")]
     pub unique_click: Option<i64>,
-/// Number of users who opened this url through any link in the message. If a message contains two links to the same URL and a user opens both links, they're counted only once.
-#[serde(rename = "uniqueClickOfRequest", skip_serializing_if = "Option::is_none")]
+    /// Number of users who opened this url through any link in the message. If a message contains two links to the same URL and a user opens both links, they're counted only once.
+    #[serde(
+        rename = "uniqueClickOfRequest",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub unique_click_of_request: Option<i64>,
 }
 
 impl GetMessageEventResponseClick {
-pub fn new() -> GetMessageEventResponseClick {
+    pub fn new() -> GetMessageEventResponseClick {
         GetMessageEventResponseClick {
-seq: None,
-url: None,
-click: None,
-unique_click: None,
-unique_click_of_request: None,
-}
+            seq: None,
+            url: None,
+            click: None,
+            unique_click: None,
+            unique_click_of_request: None,
+        }
     }
 }

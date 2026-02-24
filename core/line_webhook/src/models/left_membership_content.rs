@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LeftMembershipContent {
-/// The ID of the membership that the user left. This is defined for each membership.
-#[serde(rename = "membershipId")]
+    /// The ID of the membership that the user left. This is defined for each membership.
+    #[serde(rename = "membershipId")]
     pub membership_id: i32,
 }
 
 impl LeftMembershipContent {
-pub fn new(membership_id: i32) -> LeftMembershipContent {
-        LeftMembershipContent {
-membership_id,
-}
+    pub fn new(membership_id: i32) -> LeftMembershipContent {
+        LeftMembershipContent { membership_id }
     }
 }

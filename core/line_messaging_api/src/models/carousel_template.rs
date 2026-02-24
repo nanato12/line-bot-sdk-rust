@@ -29,20 +29,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CarouselTemplate {
-#[serde(rename = "columns")]
+    #[serde(rename = "columns")]
     pub columns: Vec<models::CarouselColumn>,
-#[serde(rename = "imageAspectRatio", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "imageAspectRatio", skip_serializing_if = "Option::is_none")]
     pub image_aspect_ratio: Option<String>,
-#[serde(rename = "imageSize", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "imageSize", skip_serializing_if = "Option::is_none")]
     pub image_size: Option<String>,
 }
 
 impl CarouselTemplate {
-pub fn new(columns: Vec<models::CarouselColumn>) -> CarouselTemplate {
+    pub fn new(columns: Vec<models::CarouselColumn>) -> CarouselTemplate {
         CarouselTemplate {
-columns,
-image_aspect_ratio: None,
-image_size: None,
-}
+            columns,
+            image_aspect_ratio: None,
+            image_size: None,
+        }
     }
 }

@@ -29,30 +29,34 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct VideoMessageContent {
-/// Message ID
-#[serde(rename = "id")]
+    /// Message ID
+    #[serde(rename = "id")]
     pub id: String,
-/// Length of video file (milliseconds)
-#[serde(rename = "duration", skip_serializing_if = "Option::is_none")]
+    /// Length of video file (milliseconds)
+    #[serde(rename = "duration", skip_serializing_if = "Option::is_none")]
     pub duration: Option<i64>,
-#[serde(rename = "contentProvider")]
+    #[serde(rename = "contentProvider")]
     pub content_provider: Box<models::ContentProvider>,
-/// Quote token to quote this message. 
-#[serde(rename = "quoteToken")]
+    /// Quote token to quote this message.
+    #[serde(rename = "quoteToken")]
     pub quote_token: String,
-/// Token used to mark the message as read. 
-#[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    /// Token used to mark the message as read.
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
     pub mark_as_read_token: Option<String>,
 }
 
 impl VideoMessageContent {
-pub fn new(id: String, content_provider: models::ContentProvider, quote_token: String) -> VideoMessageContent {
+    pub fn new(
+        id: String,
+        content_provider: models::ContentProvider,
+        quote_token: String,
+    ) -> VideoMessageContent {
         VideoMessageContent {
-id,
-duration: None,
-content_provider: Box::new(content_provider),
-quote_token,
-mark_as_read_token: None,
-}
+            id,
+            duration: None,
+            content_provider: Box::new(content_provider),
+            quote_token,
+            mark_as_read_token: None,
+        }
     }
 }

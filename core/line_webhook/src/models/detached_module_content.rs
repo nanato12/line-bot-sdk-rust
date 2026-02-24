@@ -29,27 +29,24 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DetachedModuleContent {
-/// Detached LINE Official Account bot user ID
-#[serde(rename = "botId")]
+    /// Detached LINE Official Account bot user ID
+    #[serde(rename = "botId")]
     pub bot_id: String,
-/// Reason for detaching
-#[serde(rename = "reason")]
+    /// Reason for detaching
+    #[serde(rename = "reason")]
     pub reason: Reason,
 }
 
 impl DetachedModuleContent {
-pub fn new(bot_id: String, reason: Reason) -> DetachedModuleContent {
-        DetachedModuleContent {
-bot_id,
-reason,
-}
+    pub fn new(bot_id: String, reason: Reason) -> DetachedModuleContent {
+        DetachedModuleContent { bot_id, reason }
     }
 }
 /// Reason for detaching
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Reason {
-#[serde(rename = "bot_deleted")]
+    #[serde(rename = "bot_deleted")]
     BotDeleted,
 }
 

@@ -31,25 +31,25 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum FlexComponent {
-#[serde(rename = "box")]
+    #[serde(rename = "box")]
     FlexBox(models::FlexBox),
-#[serde(rename = "button")]
+    #[serde(rename = "button")]
     FlexButton(models::FlexButton),
-#[serde(rename = "image")]
+    #[serde(rename = "image")]
     FlexImage(models::FlexImage),
-#[serde(rename = "video")]
+    #[serde(rename = "video")]
     FlexVideo(models::FlexVideo),
-#[serde(rename = "icon")]
+    #[serde(rename = "icon")]
     FlexIcon(models::FlexIcon),
-#[serde(rename = "text")]
+    #[serde(rename = "text")]
     FlexText(models::FlexText),
-#[serde(rename = "span")]
+    #[serde(rename = "span")]
     FlexSpan(models::FlexSpan),
-#[serde(rename = "separator")]
+    #[serde(rename = "separator")]
     FlexSeparator(models::FlexSeparator),
-#[serde(rename = "filler")]
+    #[serde(rename = "filler")]
     FlexFiller(models::FlexFiller),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

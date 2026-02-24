@@ -29,39 +29,39 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexSpan {
-#[serde(rename = "text", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
-#[serde(rename = "size", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<String>,
-#[serde(rename = "color", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
-#[serde(rename = "weight", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "weight", skip_serializing_if = "Option::is_none")]
     pub weight: Option<Weight>,
-#[serde(rename = "style", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "style", skip_serializing_if = "Option::is_none")]
     pub style: Option<Style>,
-#[serde(rename = "decoration", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "decoration", skip_serializing_if = "Option::is_none")]
     pub decoration: Option<Decoration>,
 }
 
 impl FlexSpan {
-pub fn new() -> FlexSpan {
+    pub fn new() -> FlexSpan {
         FlexSpan {
-text: None,
-size: None,
-color: None,
-weight: None,
-style: None,
-decoration: None,
-}
+            text: None,
+            size: None,
+            color: None,
+            weight: None,
+            style: None,
+            decoration: None,
+        }
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Weight {
-#[serde(rename = "regular")]
+    #[serde(rename = "regular")]
     Regular,
-#[serde(rename = "bold")]
+    #[serde(rename = "bold")]
     Bold,
 }
 
@@ -70,13 +70,13 @@ impl Default for Weight {
         Self::Regular
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Style {
-#[serde(rename = "normal")]
+    #[serde(rename = "normal")]
     Normal,
-#[serde(rename = "italic")]
+    #[serde(rename = "italic")]
     Italic,
 }
 
@@ -85,15 +85,15 @@ impl Default for Style {
         Self::Normal
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Decoration {
-#[serde(rename = "none")]
+    #[serde(rename = "none")]
     None,
-#[serde(rename = "underline")]
+    #[serde(rename = "underline")]
     Underline,
-#[serde(rename = "line-through")]
+    #[serde(rename = "line-through")]
     LineThrough,
 }
 

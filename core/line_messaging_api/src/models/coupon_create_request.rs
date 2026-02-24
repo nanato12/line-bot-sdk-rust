@@ -30,72 +30,80 @@ use serde::{Deserialize, Serialize};
 /// CouponCreateRequest : Request object for creating a coupon. Contains all configurable coupon properties.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CouponCreateRequest {
-#[serde(rename = "acquisitionCondition")]
+    #[serde(rename = "acquisitionCondition")]
     pub acquisition_condition: Box<models::AcquisitionConditionRequest>,
-/// URL of the barcode image associated with the coupon. Used for in-store redemption.
-#[serde(rename = "barcodeImageUrl", skip_serializing_if = "Option::is_none")]
+    /// URL of the barcode image associated with the coupon. Used for in-store redemption.
+    #[serde(rename = "barcodeImageUrl", skip_serializing_if = "Option::is_none")]
     pub barcode_image_url: Option<String>,
-/// Unique code to be presented by the user to redeem the coupon. Optional.
-#[serde(rename = "couponCode", skip_serializing_if = "Option::is_none")]
+    /// Unique code to be presented by the user to redeem the coupon. Optional.
+    #[serde(rename = "couponCode", skip_serializing_if = "Option::is_none")]
     pub coupon_code: Option<String>,
-/// Detailed description of the coupon. Displayed to users.
-#[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    /// Detailed description of the coupon. Displayed to users.
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-/// Coupon expiration time (epoch seconds). Coupon cannot be used after this time.
-#[serde(rename = "endTimestamp")]
+    /// Coupon expiration time (epoch seconds). Coupon cannot be used after this time.
+    #[serde(rename = "endTimestamp")]
     pub end_timestamp: i64,
-/// URL of the main image representing the coupon. Displayed in the coupon list.
-#[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
+    /// URL of the main image representing the coupon. Displayed in the coupon list.
+    #[serde(rename = "imageUrl", skip_serializing_if = "Option::is_none")]
     pub image_url: Option<String>,
-/// Maximum number of times a single coupon ticket can be used. Use -1 to indicate no limit.
-#[serde(rename = "maxUseCountPerTicket")]
+    /// Maximum number of times a single coupon ticket can be used. Use -1 to indicate no limit.
+    #[serde(rename = "maxUseCountPerTicket")]
     pub max_use_count_per_ticket: i32,
-/// Coupon start time (epoch seconds). Coupon can be used from this time.
-#[serde(rename = "startTimestamp")]
+    /// Coupon start time (epoch seconds). Coupon can be used from this time.
+    #[serde(rename = "startTimestamp")]
     pub start_timestamp: i64,
-/// Title of the coupon. Displayed in the coupon list.
-#[serde(rename = "title")]
+    /// Title of the coupon. Displayed in the coupon list.
+    #[serde(rename = "title")]
     pub title: String,
-/// Conditions for using the coupon. Shown to users.
-#[serde(rename = "usageCondition", skip_serializing_if = "Option::is_none")]
+    /// Conditions for using the coupon. Shown to users.
+    #[serde(rename = "usageCondition", skip_serializing_if = "Option::is_none")]
     pub usage_condition: Option<String>,
-#[serde(rename = "reward", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "reward", skip_serializing_if = "Option::is_none")]
     pub reward: Option<Box<models::CouponRewardRequest>>,
-/// Visibility of the coupon. Determines who can see or acquire the coupon.
-#[serde(rename = "visibility")]
+    /// Visibility of the coupon. Determines who can see or acquire the coupon.
+    #[serde(rename = "visibility")]
     pub visibility: Visibility,
-/// Timezone for interpreting start and end timestamps.
-#[serde(rename = "timezone")]
+    /// Timezone for interpreting start and end timestamps.
+    #[serde(rename = "timezone")]
     pub timezone: Timezone,
 }
 
 impl CouponCreateRequest {
-/// Request object for creating a coupon. Contains all configurable coupon properties.
-pub fn new(acquisition_condition: models::AcquisitionConditionRequest, end_timestamp: i64, max_use_count_per_ticket: i32, start_timestamp: i64, title: String, visibility: Visibility, timezone: Timezone) -> CouponCreateRequest {
+    /// Request object for creating a coupon. Contains all configurable coupon properties.
+    pub fn new(
+        acquisition_condition: models::AcquisitionConditionRequest,
+        end_timestamp: i64,
+        max_use_count_per_ticket: i32,
+        start_timestamp: i64,
+        title: String,
+        visibility: Visibility,
+        timezone: Timezone,
+    ) -> CouponCreateRequest {
         CouponCreateRequest {
-acquisition_condition: Box::new(acquisition_condition),
-barcode_image_url: None,
-coupon_code: None,
-description: None,
-end_timestamp,
-image_url: None,
-max_use_count_per_ticket,
-start_timestamp,
-title,
-usage_condition: None,
-reward: None,
-visibility,
-timezone,
-}
+            acquisition_condition: Box::new(acquisition_condition),
+            barcode_image_url: None,
+            coupon_code: None,
+            description: None,
+            end_timestamp,
+            image_url: None,
+            max_use_count_per_ticket,
+            start_timestamp,
+            title,
+            usage_condition: None,
+            reward: None,
+            visibility,
+            timezone,
+        }
     }
 }
 /// Visibility of the coupon. Determines who can see or acquire the coupon.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Visibility {
-#[serde(rename = "UNLISTED")]
+    #[serde(rename = "UNLISTED")]
     Unlisted,
-#[serde(rename = "PUBLIC")]
+    #[serde(rename = "PUBLIC")]
     Public,
 }
 
@@ -108,73 +116,73 @@ impl Default for Visibility {
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Timezone {
-#[serde(rename = "ETC_GMT_MINUS_12")]
+    #[serde(rename = "ETC_GMT_MINUS_12")]
     EtcGmtMinus12,
-#[serde(rename = "ETC_GMT_MINUS_11")]
+    #[serde(rename = "ETC_GMT_MINUS_11")]
     EtcGmtMinus11,
-#[serde(rename = "PACIFIC_HONOLULU")]
+    #[serde(rename = "PACIFIC_HONOLULU")]
     PacificHonolulu,
-#[serde(rename = "AMERICA_ANCHORAGE")]
+    #[serde(rename = "AMERICA_ANCHORAGE")]
     AmericaAnchorage,
-#[serde(rename = "AMERICA_LOS_ANGELES")]
+    #[serde(rename = "AMERICA_LOS_ANGELES")]
     AmericaLosAngeles,
-#[serde(rename = "AMERICA_PHOENIX")]
+    #[serde(rename = "AMERICA_PHOENIX")]
     AmericaPhoenix,
-#[serde(rename = "AMERICA_CHICAGO")]
+    #[serde(rename = "AMERICA_CHICAGO")]
     AmericaChicago,
-#[serde(rename = "AMERICA_NEW_YORK")]
+    #[serde(rename = "AMERICA_NEW_YORK")]
     AmericaNewYork,
-#[serde(rename = "AMERICA_CARACAS")]
+    #[serde(rename = "AMERICA_CARACAS")]
     AmericaCaracas,
-#[serde(rename = "AMERICA_SANTIAGO")]
+    #[serde(rename = "AMERICA_SANTIAGO")]
     AmericaSantiago,
-#[serde(rename = "AMERICA_ST_JOHNS")]
+    #[serde(rename = "AMERICA_ST_JOHNS")]
     AmericaStJohns,
-#[serde(rename = "AMERICA_SAO_PAULO")]
+    #[serde(rename = "AMERICA_SAO_PAULO")]
     AmericaSaoPaulo,
-#[serde(rename = "ETC_GMT_MINUS_2")]
+    #[serde(rename = "ETC_GMT_MINUS_2")]
     EtcGmtMinus2,
-#[serde(rename = "ATLANTIC_CAPE_VERDE")]
+    #[serde(rename = "ATLANTIC_CAPE_VERDE")]
     AtlanticCapeVerde,
-#[serde(rename = "EUROPE_LONDON")]
+    #[serde(rename = "EUROPE_LONDON")]
     EuropeLondon,
-#[serde(rename = "EUROPE_PARIS")]
+    #[serde(rename = "EUROPE_PARIS")]
     EuropeParis,
-#[serde(rename = "EUROPE_ISTANBUL")]
+    #[serde(rename = "EUROPE_ISTANBUL")]
     EuropeIstanbul,
-#[serde(rename = "EUROPE_MOSCOW")]
+    #[serde(rename = "EUROPE_MOSCOW")]
     EuropeMoscow,
-#[serde(rename = "ASIA_TEHRAN")]
+    #[serde(rename = "ASIA_TEHRAN")]
     AsiaTehran,
-#[serde(rename = "ASIA_TBILISI")]
+    #[serde(rename = "ASIA_TBILISI")]
     AsiaTbilisi,
-#[serde(rename = "ASIA_KABUL")]
+    #[serde(rename = "ASIA_KABUL")]
     AsiaKabul,
-#[serde(rename = "ASIA_TASHKENT")]
+    #[serde(rename = "ASIA_TASHKENT")]
     AsiaTashkent,
-#[serde(rename = "ASIA_COLOMBO")]
+    #[serde(rename = "ASIA_COLOMBO")]
     AsiaColombo,
-#[serde(rename = "ASIA_KATHMANDU")]
+    #[serde(rename = "ASIA_KATHMANDU")]
     AsiaKathmandu,
-#[serde(rename = "ASIA_ALMATY")]
+    #[serde(rename = "ASIA_ALMATY")]
     AsiaAlmaty,
-#[serde(rename = "ASIA_RANGOON")]
+    #[serde(rename = "ASIA_RANGOON")]
     AsiaRangoon,
-#[serde(rename = "ASIA_BANGKOK")]
+    #[serde(rename = "ASIA_BANGKOK")]
     AsiaBangkok,
-#[serde(rename = "ASIA_TAIPEI")]
+    #[serde(rename = "ASIA_TAIPEI")]
     AsiaTaipei,
-#[serde(rename = "ASIA_TOKYO")]
+    #[serde(rename = "ASIA_TOKYO")]
     AsiaTokyo,
-#[serde(rename = "AUSTRALIA_DARWIN")]
+    #[serde(rename = "AUSTRALIA_DARWIN")]
     AustraliaDarwin,
-#[serde(rename = "AUSTRALIA_SYDNEY")]
+    #[serde(rename = "AUSTRALIA_SYDNEY")]
     AustraliaSydney,
-#[serde(rename = "ASIA_VLADIVOSTOK")]
+    #[serde(rename = "ASIA_VLADIVOSTOK")]
     AsiaVladivostok,
-#[serde(rename = "ETC_GMT_PLUS_12")]
+    #[serde(rename = "ETC_GMT_PLUS_12")]
     EtcGmtPlus12,
-#[serde(rename = "PACIFIC_TONGATAPU")]
+    #[serde(rename = "PACIFIC_TONGATAPU")]
     PacificTongatapu,
 }
 

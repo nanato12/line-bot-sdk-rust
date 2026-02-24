@@ -29,26 +29,26 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct VideoMessage {
-#[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<models::QuickReply>>,
-#[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
     pub sender: Option<Box<models::Sender>>,
-#[serde(rename = "originalContentUrl")]
+    #[serde(rename = "originalContentUrl")]
     pub original_content_url: String,
-#[serde(rename = "previewImageUrl")]
+    #[serde(rename = "previewImageUrl")]
     pub preview_image_url: String,
-#[serde(rename = "trackingId", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "trackingId", skip_serializing_if = "Option::is_none")]
     pub tracking_id: Option<String>,
 }
 
 impl VideoMessage {
-pub fn new(original_content_url: String, preview_image_url: String) -> VideoMessage {
+    pub fn new(original_content_url: String, preview_image_url: String) -> VideoMessage {
         VideoMessage {
-quick_reply: None,
-sender: None,
-original_content_url,
-preview_image_url,
-tracking_id: None,
-}
+            quick_reply: None,
+            sender: None,
+            original_content_url,
+            preview_image_url,
+            tracking_id: None,
+        }
     }
 }

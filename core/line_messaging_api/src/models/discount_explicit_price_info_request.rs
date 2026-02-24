@@ -29,17 +29,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DiscountExplicitPriceInfoRequest {
-#[serde(rename = "priceAfterDiscount", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "priceAfterDiscount", skip_serializing_if = "Option::is_none")]
     pub price_after_discount: Option<i64>,
-#[serde(rename = "originalPrice", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "originalPrice", skip_serializing_if = "Option::is_none")]
     pub original_price: Option<i64>,
 }
 
 impl DiscountExplicitPriceInfoRequest {
-pub fn new() -> DiscountExplicitPriceInfoRequest {
+    pub fn new() -> DiscountExplicitPriceInfoRequest {
         DiscountExplicitPriceInfoRequest {
-price_after_discount: None,
-original_price: None,
-}
+            price_after_discount: None,
+            original_price: None,
+        }
     }
 }

@@ -29,19 +29,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuBulkLinkRequest {
-/// ID of a rich menu
-#[serde(rename = "richMenuId")]
+    /// ID of a rich menu
+    #[serde(rename = "richMenuId")]
     pub rich_menu_id: String,
-/// Array of user IDs. Found in the `source` object of webhook event objects. Do not use the LINE ID used in LINE.
-#[serde(rename = "userIds")]
+    /// Array of user IDs. Found in the `source` object of webhook event objects. Do not use the LINE ID used in LINE.
+    #[serde(rename = "userIds")]
     pub user_ids: Vec<String>,
 }
 
 impl RichMenuBulkLinkRequest {
-pub fn new(rich_menu_id: String, user_ids: Vec<String>) -> RichMenuBulkLinkRequest {
+    pub fn new(rich_menu_id: String, user_ids: Vec<String>) -> RichMenuBulkLinkRequest {
         RichMenuBulkLinkRequest {
-rich_menu_id,
-user_ids,
-}
+            rich_menu_id,
+            user_ids,
+        }
     }
 }

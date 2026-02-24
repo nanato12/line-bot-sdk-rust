@@ -31,11 +31,11 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum AcquisitionConditionRequest {
-#[serde(rename = "normal")]
+    #[serde(rename = "normal")]
     NormalAcquisitionConditionRequest(models::NormalAcquisitionConditionRequest),
-#[serde(rename = "lottery")]
+    #[serde(rename = "lottery")]
     LotteryAcquisitionConditionRequest(models::LotteryAcquisitionConditionRequest),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

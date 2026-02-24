@@ -30,16 +30,14 @@ use serde::{Deserialize, Serialize};
 /// UpdateAudienceGroupDescriptionRequest : Rename an audience
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAudienceGroupDescriptionRequest {
-/// The audience's name. This is case-insensitive, meaning AUDIENCE and audience are considered identical. Max character limit: 120 
-#[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    /// The audience's name. This is case-insensitive, meaning AUDIENCE and audience are considered identical. Max character limit: 120
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
 impl UpdateAudienceGroupDescriptionRequest {
-/// Rename an audience
-pub fn new() -> UpdateAudienceGroupDescriptionRequest {
-        UpdateAudienceGroupDescriptionRequest {
-description: None,
-}
+    /// Rename an audience
+    pub fn new() -> UpdateAudienceGroupDescriptionRequest {
+        UpdateAudienceGroupDescriptionRequest { description: None }
     }
 }

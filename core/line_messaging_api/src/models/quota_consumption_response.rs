@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct QuotaConsumptionResponse {
-/// The number of sent messages in the current month
-#[serde(rename = "totalUsage")]
+    /// The number of sent messages in the current month
+    #[serde(rename = "totalUsage")]
     pub total_usage: i64,
 }
 
 impl QuotaConsumptionResponse {
-pub fn new(total_usage: i64) -> QuotaConsumptionResponse {
-        QuotaConsumptionResponse {
-total_usage,
-}
+    pub fn new(total_usage: i64) -> QuotaConsumptionResponse {
+        QuotaConsumptionResponse { total_usage }
     }
 }

@@ -29,35 +29,35 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LocationMessageContent {
-/// Message ID
-#[serde(rename = "id")]
+    /// Message ID
+    #[serde(rename = "id")]
     pub id: String,
-/// Title
-#[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    /// Title
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-/// Address
-#[serde(rename = "address", skip_serializing_if = "Option::is_none")]
+    /// Address
+    #[serde(rename = "address", skip_serializing_if = "Option::is_none")]
     pub address: Option<String>,
-/// Latitude
-#[serde(rename = "latitude")]
+    /// Latitude
+    #[serde(rename = "latitude")]
     pub latitude: f64,
-/// Longitude
-#[serde(rename = "longitude")]
+    /// Longitude
+    #[serde(rename = "longitude")]
     pub longitude: f64,
-/// Token used to mark the message as read. 
-#[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    /// Token used to mark the message as read.
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
     pub mark_as_read_token: Option<String>,
 }
 
 impl LocationMessageContent {
-pub fn new(id: String, latitude: f64, longitude: f64) -> LocationMessageContent {
+    pub fn new(id: String, latitude: f64, longitude: f64) -> LocationMessageContent {
         LocationMessageContent {
-id,
-title: None,
-address: None,
-latitude,
-longitude,
-mark_as_read_token: None,
-}
+            id,
+            title: None,
+            address: None,
+            latitude,
+            longitude,
+            mark_as_read_token: None,
+        }
     }
 }

@@ -29,104 +29,104 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexBox {
-#[serde(rename = "layout")]
+    #[serde(rename = "layout")]
     pub layout: Layout,
-#[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
     pub flex: Option<i32>,
-#[serde(rename = "contents")]
+    #[serde(rename = "contents")]
     pub contents: Vec<models::FlexComponent>,
-#[serde(rename = "spacing", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "spacing", skip_serializing_if = "Option::is_none")]
     pub spacing: Option<String>,
-#[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
     pub margin: Option<String>,
-#[serde(rename = "position", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "position", skip_serializing_if = "Option::is_none")]
     pub position: Option<Position>,
-#[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
     pub offset_top: Option<String>,
-#[serde(rename = "offsetBottom", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetBottom", skip_serializing_if = "Option::is_none")]
     pub offset_bottom: Option<String>,
-#[serde(rename = "offsetStart", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetStart", skip_serializing_if = "Option::is_none")]
     pub offset_start: Option<String>,
-#[serde(rename = "offsetEnd", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetEnd", skip_serializing_if = "Option::is_none")]
     pub offset_end: Option<String>,
-#[serde(rename = "backgroundColor", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "backgroundColor", skip_serializing_if = "Option::is_none")]
     pub background_color: Option<String>,
-#[serde(rename = "borderColor", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "borderColor", skip_serializing_if = "Option::is_none")]
     pub border_color: Option<String>,
-#[serde(rename = "borderWidth", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "borderWidth", skip_serializing_if = "Option::is_none")]
     pub border_width: Option<String>,
-#[serde(rename = "cornerRadius", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "cornerRadius", skip_serializing_if = "Option::is_none")]
     pub corner_radius: Option<String>,
-#[serde(rename = "width", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "width", skip_serializing_if = "Option::is_none")]
     pub width: Option<String>,
-#[serde(rename = "maxWidth", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "maxWidth", skip_serializing_if = "Option::is_none")]
     pub max_width: Option<String>,
-#[serde(rename = "height", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "height", skip_serializing_if = "Option::is_none")]
     pub height: Option<String>,
-#[serde(rename = "maxHeight", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "maxHeight", skip_serializing_if = "Option::is_none")]
     pub max_height: Option<String>,
-#[serde(rename = "paddingAll", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "paddingAll", skip_serializing_if = "Option::is_none")]
     pub padding_all: Option<String>,
-#[serde(rename = "paddingTop", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "paddingTop", skip_serializing_if = "Option::is_none")]
     pub padding_top: Option<String>,
-#[serde(rename = "paddingBottom", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "paddingBottom", skip_serializing_if = "Option::is_none")]
     pub padding_bottom: Option<String>,
-#[serde(rename = "paddingStart", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "paddingStart", skip_serializing_if = "Option::is_none")]
     pub padding_start: Option<String>,
-#[serde(rename = "paddingEnd", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "paddingEnd", skip_serializing_if = "Option::is_none")]
     pub padding_end: Option<String>,
-#[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
     pub action: Option<Box<models::Action>>,
-#[serde(rename = "justifyContent", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "justifyContent", skip_serializing_if = "Option::is_none")]
     pub justify_content: Option<JustifyContent>,
-#[serde(rename = "alignItems", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "alignItems", skip_serializing_if = "Option::is_none")]
     pub align_items: Option<AlignItems>,
-#[serde(rename = "background", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "background", skip_serializing_if = "Option::is_none")]
     pub background: Option<Box<models::FlexBoxBackground>>,
 }
 
 impl FlexBox {
-pub fn new(layout: Layout, contents: Vec<models::FlexComponent>) -> FlexBox {
+    pub fn new(layout: Layout, contents: Vec<models::FlexComponent>) -> FlexBox {
         FlexBox {
-layout,
-flex: None,
-contents,
-spacing: None,
-margin: None,
-position: None,
-offset_top: None,
-offset_bottom: None,
-offset_start: None,
-offset_end: None,
-background_color: None,
-border_color: None,
-border_width: None,
-corner_radius: None,
-width: None,
-max_width: None,
-height: None,
-max_height: None,
-padding_all: None,
-padding_top: None,
-padding_bottom: None,
-padding_start: None,
-padding_end: None,
-action: None,
-justify_content: None,
-align_items: None,
-background: None,
-}
+            layout,
+            flex: None,
+            contents,
+            spacing: None,
+            margin: None,
+            position: None,
+            offset_top: None,
+            offset_bottom: None,
+            offset_start: None,
+            offset_end: None,
+            background_color: None,
+            border_color: None,
+            border_width: None,
+            corner_radius: None,
+            width: None,
+            max_width: None,
+            height: None,
+            max_height: None,
+            padding_all: None,
+            padding_top: None,
+            padding_bottom: None,
+            padding_start: None,
+            padding_end: None,
+            action: None,
+            justify_content: None,
+            align_items: None,
+            background: None,
+        }
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Layout {
-#[serde(rename = "horizontal")]
+    #[serde(rename = "horizontal")]
     Horizontal,
-#[serde(rename = "vertical")]
+    #[serde(rename = "vertical")]
     Vertical,
-#[serde(rename = "baseline")]
+    #[serde(rename = "baseline")]
     Baseline,
 }
 
@@ -135,13 +135,13 @@ impl Default for Layout {
         Self::Horizontal
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Position {
-#[serde(rename = "relative")]
+    #[serde(rename = "relative")]
     Relative,
-#[serde(rename = "absolute")]
+    #[serde(rename = "absolute")]
     Absolute,
 }
 
@@ -150,21 +150,21 @@ impl Default for Position {
         Self::Relative
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum JustifyContent {
-#[serde(rename = "center")]
+    #[serde(rename = "center")]
     Center,
-#[serde(rename = "flex-start")]
+    #[serde(rename = "flex-start")]
     FlexStart,
-#[serde(rename = "flex-end")]
+    #[serde(rename = "flex-end")]
     FlexEnd,
-#[serde(rename = "space-between")]
+    #[serde(rename = "space-between")]
     SpaceBetween,
-#[serde(rename = "space-around")]
+    #[serde(rename = "space-around")]
     SpaceAround,
-#[serde(rename = "space-evenly")]
+    #[serde(rename = "space-evenly")]
     SpaceEvenly,
 }
 
@@ -173,15 +173,15 @@ impl Default for JustifyContent {
         Self::Center
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum AlignItems {
-#[serde(rename = "center")]
+    #[serde(rename = "center")]
     Center,
-#[serde(rename = "flex-start")]
+    #[serde(rename = "flex-start")]
     FlexStart,
-#[serde(rename = "flex-end")]
+    #[serde(rename = "flex-end")]
     FlexEnd,
 }
 

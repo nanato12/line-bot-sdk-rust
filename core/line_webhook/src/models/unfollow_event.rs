@@ -30,29 +30,34 @@ use serde::{Deserialize, Serialize};
 /// UnfollowEvent : Event object for when your LINE Official Account is blocked.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UnfollowEvent {
-#[serde(rename = "source", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
     pub source: Option<Box<models::Source>>,
-/// Time of the event in milliseconds.
-#[serde(rename = "timestamp")]
+    /// Time of the event in milliseconds.
+    #[serde(rename = "timestamp")]
     pub timestamp: i64,
-#[serde(rename = "mode")]
+    #[serde(rename = "mode")]
     pub mode: models::EventMode,
-/// Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
-#[serde(rename = "webhookEventId")]
+    /// Webhook Event ID. An ID that uniquely identifies a webhook event. This is a string in ULID format.
+    #[serde(rename = "webhookEventId")]
     pub webhook_event_id: String,
-#[serde(rename = "deliveryContext")]
+    #[serde(rename = "deliveryContext")]
     pub delivery_context: Box<models::DeliveryContext>,
 }
 
 impl UnfollowEvent {
-/// Event object for when your LINE Official Account is blocked.
-pub fn new(timestamp: i64, mode: models::EventMode, webhook_event_id: String, delivery_context: models::DeliveryContext) -> UnfollowEvent {
+    /// Event object for when your LINE Official Account is blocked.
+    pub fn new(
+        timestamp: i64,
+        mode: models::EventMode,
+        webhook_event_id: String,
+        delivery_context: models::DeliveryContext,
+    ) -> UnfollowEvent {
         UnfollowEvent {
-source: None,
-timestamp,
-mode,
-webhook_event_id,
-delivery_context: Box::new(delivery_context),
-}
+            source: None,
+            timestamp,
+            mode,
+            webhook_event_id,
+            delivery_context: Box::new(delivery_context),
+        }
     }
 }

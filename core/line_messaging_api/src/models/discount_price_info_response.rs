@@ -31,13 +31,13 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum DiscountPriceInfoResponse {
-#[serde(rename = "fixed")]
+    #[serde(rename = "fixed")]
     DiscountFixedPriceInfoResponse(models::DiscountFixedPriceInfoResponse),
-#[serde(rename = "percentage")]
+    #[serde(rename = "percentage")]
     DiscountPercentagePriceInfoResponse(models::DiscountPercentagePriceInfoResponse),
-#[serde(rename = "explicit")]
+    #[serde(rename = "explicit")]
     DiscountExplicitPriceInfoResponse(models::DiscountExplicitPriceInfoResponse),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

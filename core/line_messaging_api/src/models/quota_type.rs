@@ -32,18 +32,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum QuotaType {
-#[serde(rename = "none")]
+    #[serde(rename = "none")]
     None,
-#[serde(rename = "limited")]
+    #[serde(rename = "limited")]
     Limited,
 }
 
 impl std::fmt::Display for QuotaType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-Self::None => write!(f, "none"),
-Self::Limited => write!(f, "limited"),
-}
+            Self::None => write!(f, "none"),
+            Self::Limited => write!(f, "limited"),
+        }
     }
 }
 

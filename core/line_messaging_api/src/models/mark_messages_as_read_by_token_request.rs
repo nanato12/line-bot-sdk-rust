@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MarkMessagesAsReadByTokenRequest {
-/// Token used to mark messages as read.
-#[serde(rename = "markAsReadToken")]
+    /// Token used to mark messages as read.
+    #[serde(rename = "markAsReadToken")]
     pub mark_as_read_token: String,
 }
 
 impl MarkMessagesAsReadByTokenRequest {
-pub fn new(mark_as_read_token: String) -> MarkMessagesAsReadByTokenRequest {
-        MarkMessagesAsReadByTokenRequest {
-mark_as_read_token,
-}
+    pub fn new(mark_as_read_token: String) -> MarkMessagesAsReadByTokenRequest {
+        MarkMessagesAsReadByTokenRequest { mark_as_read_token }
     }
 }

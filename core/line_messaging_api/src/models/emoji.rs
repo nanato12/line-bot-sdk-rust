@@ -29,20 +29,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Emoji {
-#[serde(rename = "index", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "index", skip_serializing_if = "Option::is_none")]
     pub index: Option<i32>,
-#[serde(rename = "productId", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "productId", skip_serializing_if = "Option::is_none")]
     pub product_id: Option<String>,
-#[serde(rename = "emojiId", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "emojiId", skip_serializing_if = "Option::is_none")]
     pub emoji_id: Option<String>,
 }
 
 impl Emoji {
-pub fn new() -> Emoji {
+    pub fn new() -> Emoji {
         Emoji {
-index: None,
-product_id: None,
-emoji_id: None,
-}
+            index: None,
+            product_id: None,
+            emoji_id: None,
+        }
     }
 }

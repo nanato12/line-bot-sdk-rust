@@ -29,57 +29,57 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct NarrowcastProgressResponse {
-/// The current status. One of:  `waiting`: Messages are not yet ready to be sent. They are currently being filtered or processed in some way. `sending`: Messages are currently being sent. `succeeded`: Messages were sent successfully. This may not mean the messages were successfully received. `failed`: Messages failed to be sent. Use the failedDescription property to find the cause of the failure. 
-#[serde(rename = "phase")]
+    /// The current status. One of:  `waiting`: Messages are not yet ready to be sent. They are currently being filtered or processed in some way. `sending`: Messages are currently being sent. `succeeded`: Messages were sent successfully. This may not mean the messages were successfully received. `failed`: Messages failed to be sent. Use the failedDescription property to find the cause of the failure.
+    #[serde(rename = "phase")]
     pub phase: Phase,
-/// The number of users who successfully received the message.
-#[serde(rename = "successCount", skip_serializing_if = "Option::is_none")]
+    /// The number of users who successfully received the message.
+    #[serde(rename = "successCount", skip_serializing_if = "Option::is_none")]
     pub success_count: Option<i64>,
-/// The number of users who failed to send the message.
-#[serde(rename = "failureCount", skip_serializing_if = "Option::is_none")]
+    /// The number of users who failed to send the message.
+    #[serde(rename = "failureCount", skip_serializing_if = "Option::is_none")]
     pub failure_count: Option<i64>,
-/// The number of intended recipients of the message.
-#[serde(rename = "targetCount", skip_serializing_if = "Option::is_none")]
+    /// The number of intended recipients of the message.
+    #[serde(rename = "targetCount", skip_serializing_if = "Option::is_none")]
     pub target_count: Option<i64>,
-/// The reason the message failed to be sent. This is only included with a `phase` property value of `failed`.
-#[serde(rename = "failedDescription", skip_serializing_if = "Option::is_none")]
+    /// The reason the message failed to be sent. This is only included with a `phase` property value of `failed`.
+    #[serde(rename = "failedDescription", skip_serializing_if = "Option::is_none")]
     pub failed_description: Option<String>,
-/// Error summary. This is only included with a phase property value of failed. One of:  `1`: An internal error occurred. `2`: An error occurred because there weren't enough recipients. `3`: A conflict error of requests occurs because a request that has already been accepted is retried. `4`: An audience of less than 50 recipients is included as a condition of sending. `5`: Message delivery has been canceled to prevent messages from being delivered only to a subset of the target audience. 
-#[serde(rename = "errorCode", skip_serializing_if = "Option::is_none")]
+    /// Error summary. This is only included with a phase property value of failed. One of:  `1`: An internal error occurred. `2`: An error occurred because there weren't enough recipients. `3`: A conflict error of requests occurs because a request that has already been accepted is retried. `4`: An audience of less than 50 recipients is included as a condition of sending. `5`: Message delivery has been canceled to prevent messages from being delivered only to a subset of the target audience.
+    #[serde(rename = "errorCode", skip_serializing_if = "Option::is_none")]
     pub error_code: Option<i64>,
-/// Narrowcast message request accepted time in milliseconds.  Format: ISO 8601 (e.g. 2020-12-03T10:15:30.121Z) Timezone: UTC 
-#[serde(rename = "acceptedTime")]
+    /// Narrowcast message request accepted time in milliseconds.  Format: ISO 8601 (e.g. 2020-12-03T10:15:30.121Z) Timezone: UTC
+    #[serde(rename = "acceptedTime")]
     pub accepted_time: String,
-/// Processing of narrowcast message request completion time in milliseconds. Returned when the phase property is succeeded or failed.  Format: ISO 8601 (e.g. 2020-12-03T10:15:30.121Z) Timezone: UTC 
-#[serde(rename = "completedTime", skip_serializing_if = "Option::is_none")]
+    /// Processing of narrowcast message request completion time in milliseconds. Returned when the phase property is succeeded or failed.  Format: ISO 8601 (e.g. 2020-12-03T10:15:30.121Z) Timezone: UTC
+    #[serde(rename = "completedTime", skip_serializing_if = "Option::is_none")]
     pub completed_time: Option<String>,
 }
 
 impl NarrowcastProgressResponse {
-pub fn new(phase: Phase, accepted_time: String) -> NarrowcastProgressResponse {
+    pub fn new(phase: Phase, accepted_time: String) -> NarrowcastProgressResponse {
         NarrowcastProgressResponse {
-phase,
-success_count: None,
-failure_count: None,
-target_count: None,
-failed_description: None,
-error_code: None,
-accepted_time,
-completed_time: None,
-}
+            phase,
+            success_count: None,
+            failure_count: None,
+            target_count: None,
+            failed_description: None,
+            error_code: None,
+            accepted_time,
+            completed_time: None,
+        }
     }
 }
-/// The current status. One of:  `waiting`: Messages are not yet ready to be sent. They are currently being filtered or processed in some way. `sending`: Messages are currently being sent. `succeeded`: Messages were sent successfully. This may not mean the messages were successfully received. `failed`: Messages failed to be sent. Use the failedDescription property to find the cause of the failure. 
+/// The current status. One of:  `waiting`: Messages are not yet ready to be sent. They are currently being filtered or processed in some way. `sending`: Messages are currently being sent. `succeeded`: Messages were sent successfully. This may not mean the messages were successfully received. `failed`: Messages failed to be sent. Use the failedDescription property to find the cause of the failure.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Phase {
-#[serde(rename = "waiting")]
+    #[serde(rename = "waiting")]
     Waiting,
-#[serde(rename = "sending")]
+    #[serde(rename = "sending")]
     Sending,
-#[serde(rename = "succeeded")]
+    #[serde(rename = "succeeded")]
     Succeeded,
-#[serde(rename = "failed")]
+    #[serde(rename = "failed")]
     Failed,
 }
 

@@ -30,30 +30,27 @@ use serde::{Deserialize, Serialize};
 /// LinkContent : Content of the account link event.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LinkContent {
-/// One of the following values to indicate whether linking the account was successful or not
-#[serde(rename = "result")]
+    /// One of the following values to indicate whether linking the account was successful or not
+    #[serde(rename = "result")]
     pub result: Result,
-/// Specified nonce (number used once) when verifying the user ID.
-#[serde(rename = "nonce")]
+    /// Specified nonce (number used once) when verifying the user ID.
+    #[serde(rename = "nonce")]
     pub nonce: String,
 }
 
 impl LinkContent {
-/// Content of the account link event.
-pub fn new(result: Result, nonce: String) -> LinkContent {
-        LinkContent {
-result,
-nonce,
-}
+    /// Content of the account link event.
+    pub fn new(result: Result, nonce: String) -> LinkContent {
+        LinkContent { result, nonce }
     }
 }
 /// One of the following values to indicate whether linking the account was successful or not
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Result {
-#[serde(rename = "ok")]
+    #[serde(rename = "ok")]
     Ok,
-#[serde(rename = "failed")]
+    #[serde(rename = "failed")]
     Failed,
 }
 

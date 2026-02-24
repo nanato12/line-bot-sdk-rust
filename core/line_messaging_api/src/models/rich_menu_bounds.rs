@@ -30,28 +30,28 @@ use serde::{Deserialize, Serialize};
 /// RichMenuBounds : Rich menu bounds
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuBounds {
-/// Horizontal position relative to the top-left corner of the area.
-#[serde(rename = "x", skip_serializing_if = "Option::is_none")]
+    /// Horizontal position relative to the top-left corner of the area.
+    #[serde(rename = "x", skip_serializing_if = "Option::is_none")]
     pub x: Option<i64>,
-/// Vertical position relative to the top-left corner of the area.
-#[serde(rename = "y", skip_serializing_if = "Option::is_none")]
+    /// Vertical position relative to the top-left corner of the area.
+    #[serde(rename = "y", skip_serializing_if = "Option::is_none")]
     pub y: Option<i64>,
-/// Width of the area.
-#[serde(rename = "width", skip_serializing_if = "Option::is_none")]
+    /// Width of the area.
+    #[serde(rename = "width", skip_serializing_if = "Option::is_none")]
     pub width: Option<i64>,
-/// Height of the area.
-#[serde(rename = "height", skip_serializing_if = "Option::is_none")]
+    /// Height of the area.
+    #[serde(rename = "height", skip_serializing_if = "Option::is_none")]
     pub height: Option<i64>,
 }
 
 impl RichMenuBounds {
-/// Rich menu bounds
-pub fn new() -> RichMenuBounds {
+    /// Rich menu bounds
+    pub fn new() -> RichMenuBounds {
         RichMenuBounds {
-x: None,
-y: None,
-width: None,
-height: None,
-}
+            x: None,
+            y: None,
+            width: None,
+            height: None,
+        }
     }
 }

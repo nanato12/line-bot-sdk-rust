@@ -29,23 +29,23 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GroupUserProfileResponse {
-/// User's display name
-#[serde(rename = "displayName")]
+    /// User's display name
+    #[serde(rename = "displayName")]
     pub display_name: String,
-/// User ID
-#[serde(rename = "userId")]
+    /// User ID
+    #[serde(rename = "userId")]
     pub user_id: String,
-/// Profile image URL. `https` image URL. Not included in the response if the user doesn't have a profile image.
-#[serde(rename = "pictureUrl", skip_serializing_if = "Option::is_none")]
+    /// Profile image URL. `https` image URL. Not included in the response if the user doesn't have a profile image.
+    #[serde(rename = "pictureUrl", skip_serializing_if = "Option::is_none")]
     pub picture_url: Option<String>,
 }
 
 impl GroupUserProfileResponse {
-pub fn new(display_name: String, user_id: String) -> GroupUserProfileResponse {
+    pub fn new(display_name: String, user_id: String) -> GroupUserProfileResponse {
         GroupUserProfileResponse {
-display_name,
-user_id,
-picture_url: None,
-}
+            display_name,
+            user_id,
+            picture_url: None,
+        }
     }
 }

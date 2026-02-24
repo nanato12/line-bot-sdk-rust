@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ValidateMessageRequest {
-/// Array of message objects to validate
-#[serde(rename = "messages")]
+    /// Array of message objects to validate
+    #[serde(rename = "messages")]
     pub messages: Vec<models::Message>,
 }
 
 impl ValidateMessageRequest {
-pub fn new(messages: Vec<models::Message>) -> ValidateMessageRequest {
-        ValidateMessageRequest {
-messages,
-}
+    pub fn new(messages: Vec<models::Message>) -> ValidateMessageRequest {
+        ValidateMessageRequest { messages }
     }
 }

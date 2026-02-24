@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct IssueLinkTokenResponse {
-/// Link token. Link tokens are valid for 10 minutes and can only be used once.  
-#[serde(rename = "linkToken")]
+    /// Link token. Link tokens are valid for 10 minutes and can only be used once.  
+    #[serde(rename = "linkToken")]
     pub link_token: String,
 }
 
 impl IssueLinkTokenResponse {
-pub fn new(link_token: String) -> IssueLinkTokenResponse {
-        IssueLinkTokenResponse {
-link_token,
-}
+    pub fn new(link_token: String) -> IssueLinkTokenResponse {
+        IssueLinkTokenResponse { link_token }
     }
 }

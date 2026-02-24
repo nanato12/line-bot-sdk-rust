@@ -29,17 +29,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ImageCarouselColumn {
-#[serde(rename = "imageUrl")]
+    #[serde(rename = "imageUrl")]
     pub image_url: String,
-#[serde(rename = "action")]
+    #[serde(rename = "action")]
     pub action: Box<models::Action>,
 }
 
 impl ImageCarouselColumn {
-pub fn new(image_url: String, action: models::Action) -> ImageCarouselColumn {
+    pub fn new(image_url: String, action: models::Action) -> ImageCarouselColumn {
         ImageCarouselColumn {
-image_url,
-action: Box::new(action),
-}
+            image_url,
+            action: Box::new(action),
+        }
     }
 }

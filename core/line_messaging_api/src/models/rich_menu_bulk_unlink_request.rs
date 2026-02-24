@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuBulkUnlinkRequest {
-/// Array of user IDs. Found in the `source` object of webhook event objects. Do not use the LINE ID used in LINE.
-#[serde(rename = "userIds")]
+    /// Array of user IDs. Found in the `source` object of webhook event objects. Do not use the LINE ID used in LINE.
+    #[serde(rename = "userIds")]
     pub user_ids: Vec<String>,
 }
 
 impl RichMenuBulkUnlinkRequest {
-pub fn new(user_ids: Vec<String>) -> RichMenuBulkUnlinkRequest {
-        RichMenuBulkUnlinkRequest {
-user_ids,
-}
+    pub fn new(user_ids: Vec<String>) -> RichMenuBulkUnlinkRequest {
+        RichMenuBulkUnlinkRequest { user_ids }
     }
 }

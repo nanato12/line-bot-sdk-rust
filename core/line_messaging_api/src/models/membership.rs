@@ -29,63 +29,74 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Membership {
-/// Membership plan ID.
-#[serde(rename = "membershipId")]
+    /// Membership plan ID.
+    #[serde(rename = "membershipId")]
     pub membership_id: i32,
-/// Membership plan name.
-#[serde(rename = "title")]
+    /// Membership plan name.
+    #[serde(rename = "title")]
     pub title: String,
-/// Membership plan description.
-#[serde(rename = "description")]
+    /// Membership plan description.
+    #[serde(rename = "description")]
     pub description: String,
-/// List of membership plan perks.
-#[serde(rename = "benefits")]
+    /// List of membership plan perks.
+    #[serde(rename = "benefits")]
     pub benefits: Vec<String>,
-/// Monthly fee for membership plan. (e.g. 1500.00)
-#[serde(rename = "price")]
+    /// Monthly fee for membership plan. (e.g. 1500.00)
+    #[serde(rename = "price")]
     pub price: f64,
-/// The currency of membership.price.
-#[serde(rename = "currency")]
+    /// The currency of membership.price.
+    #[serde(rename = "currency")]
     pub currency: Currency,
-/// Number of members subscribed to the membership plan.
-#[serde(rename = "memberCount")]
+    /// Number of members subscribed to the membership plan.
+    #[serde(rename = "memberCount")]
     pub member_count: i32,
-/// The upper limit of members who can subscribe. If no upper limit is set, it will be null.
-#[serde(rename = "memberLimit")]
+    /// The upper limit of members who can subscribe. If no upper limit is set, it will be null.
+    #[serde(rename = "memberLimit")]
     pub member_limit: Option<i32>,
-/// Payment method for users who subscribe to a membership plan.
-#[serde(rename = "isInAppPurchase")]
+    /// Payment method for users who subscribe to a membership plan.
+    #[serde(rename = "isInAppPurchase")]
     pub is_in_app_purchase: bool,
-/// Membership plan status.
-#[serde(rename = "isPublished")]
+    /// Membership plan status.
+    #[serde(rename = "isPublished")]
     pub is_published: bool,
 }
 
 impl Membership {
-pub fn new(membership_id: i32, title: String, description: String, benefits: Vec<String>, price: f64, currency: Currency, member_count: i32, member_limit: Option<i32>, is_in_app_purchase: bool, is_published: bool) -> Membership {
+    pub fn new(
+        membership_id: i32,
+        title: String,
+        description: String,
+        benefits: Vec<String>,
+        price: f64,
+        currency: Currency,
+        member_count: i32,
+        member_limit: Option<i32>,
+        is_in_app_purchase: bool,
+        is_published: bool,
+    ) -> Membership {
         Membership {
-membership_id,
-title,
-description,
-benefits,
-price,
-currency,
-member_count,
-member_limit,
-is_in_app_purchase,
-is_published,
-}
+            membership_id,
+            title,
+            description,
+            benefits,
+            price,
+            currency,
+            member_count,
+            member_limit,
+            is_in_app_purchase,
+            is_published,
+        }
     }
 }
 /// The currency of membership.price.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Currency {
-#[serde(rename = "JPY")]
+    #[serde(rename = "JPY")]
     Jpy,
-#[serde(rename = "TWD")]
+    #[serde(rename = "TWD")]
     Twd,
-#[serde(rename = "THB")]
+    #[serde(rename = "THB")]
     Thb,
 }
 

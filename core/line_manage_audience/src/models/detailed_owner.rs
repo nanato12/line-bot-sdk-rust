@@ -30,24 +30,24 @@ use serde::{Deserialize, Serialize};
 /// DetailedOwner : Owner of this audience group.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DetailedOwner {
-/// Service name where the audience group has been created.
-#[serde(rename = "serviceType", skip_serializing_if = "Option::is_none")]
+    /// Service name where the audience group has been created.
+    #[serde(rename = "serviceType", skip_serializing_if = "Option::is_none")]
     pub service_type: Option<String>,
-/// Owner ID in the service.
-#[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    /// Owner ID in the service.
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-/// Owner account name.
-#[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    /// Owner account name.
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
 
 impl DetailedOwner {
-/// Owner of this audience group.
-pub fn new() -> DetailedOwner {
+    /// Owner of this audience group.
+    pub fn new() -> DetailedOwner {
         DetailedOwner {
-service_type: None,
-id: None,
-name: None,
-}
+            service_type: None,
+            id: None,
+            name: None,
+        }
     }
 }

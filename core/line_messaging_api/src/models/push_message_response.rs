@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PushMessageResponse {
-/// Array of sent messages.
-#[serde(rename = "sentMessages")]
+    /// Array of sent messages.
+    #[serde(rename = "sentMessages")]
     pub sent_messages: Vec<models::SentMessage>,
 }
 
 impl PushMessageResponse {
-pub fn new(sent_messages: Vec<models::SentMessage>) -> PushMessageResponse {
-        PushMessageResponse {
-sent_messages,
-}
+    pub fn new(sent_messages: Vec<models::SentMessage>) -> PushMessageResponse {
+        PushMessageResponse { sent_messages }
     }
 }

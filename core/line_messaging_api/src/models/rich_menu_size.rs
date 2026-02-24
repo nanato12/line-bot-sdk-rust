@@ -30,20 +30,20 @@ use serde::{Deserialize, Serialize};
 /// RichMenuSize : Rich menu size
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuSize {
-/// width
-#[serde(rename = "width", skip_serializing_if = "Option::is_none")]
+    /// width
+    #[serde(rename = "width", skip_serializing_if = "Option::is_none")]
     pub width: Option<i64>,
-/// height
-#[serde(rename = "height", skip_serializing_if = "Option::is_none")]
+    /// height
+    #[serde(rename = "height", skip_serializing_if = "Option::is_none")]
     pub height: Option<i64>,
 }
 
 impl RichMenuSize {
-/// Rich menu size
-pub fn new() -> RichMenuSize {
+    /// Rich menu size
+    pub fn new() -> RichMenuSize {
         RichMenuSize {
-width: None,
-height: None,
-}
+            width: None,
+            height: None,
+        }
     }
 }

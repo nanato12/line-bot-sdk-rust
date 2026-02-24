@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateRichMenuAliasRequest {
-/// The rich menu ID to be associated with the rich menu alias.
-#[serde(rename = "richMenuId")]
+    /// The rich menu ID to be associated with the rich menu alias.
+    #[serde(rename = "richMenuId")]
     pub rich_menu_id: String,
 }
 
 impl UpdateRichMenuAliasRequest {
-pub fn new(rich_menu_id: String) -> UpdateRichMenuAliasRequest {
-        UpdateRichMenuAliasRequest {
-rich_menu_id,
-}
+    pub fn new(rich_menu_id: String) -> UpdateRichMenuAliasRequest {
+        UpdateRichMenuAliasRequest { rich_menu_id }
     }
 }

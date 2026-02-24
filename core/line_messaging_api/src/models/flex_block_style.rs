@@ -29,20 +29,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexBlockStyle {
-#[serde(rename = "backgroundColor", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "backgroundColor", skip_serializing_if = "Option::is_none")]
     pub background_color: Option<String>,
-#[serde(rename = "separator", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "separator", skip_serializing_if = "Option::is_none")]
     pub separator: Option<bool>,
-#[serde(rename = "separatorColor", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "separatorColor", skip_serializing_if = "Option::is_none")]
     pub separator_color: Option<String>,
 }
 
 impl FlexBlockStyle {
-pub fn new() -> FlexBlockStyle {
+    pub fn new() -> FlexBlockStyle {
         FlexBlockStyle {
-background_color: None,
-separator: None,
-separator_color: None,
-}
+            background_color: None,
+            separator: None,
+            separator_color: None,
+        }
     }
 }

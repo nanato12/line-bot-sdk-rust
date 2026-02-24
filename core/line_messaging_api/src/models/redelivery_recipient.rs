@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RedeliveryRecipient {
-#[serde(rename = "requestId", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "requestId", skip_serializing_if = "Option::is_none")]
     pub request_id: Option<String>,
 }
 
 impl RedeliveryRecipient {
-pub fn new() -> RedeliveryRecipient {
-        RedeliveryRecipient {
-request_id: None,
-}
+    pub fn new() -> RedeliveryRecipient {
+        RedeliveryRecipient { request_id: None }
     }
 }

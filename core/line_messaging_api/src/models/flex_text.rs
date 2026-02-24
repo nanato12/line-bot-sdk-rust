@@ -29,89 +29,89 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexText {
-#[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "flex", skip_serializing_if = "Option::is_none")]
     pub flex: Option<i32>,
-#[serde(rename = "text", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
-#[serde(rename = "size", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
     pub size: Option<String>,
-#[serde(rename = "align", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "align", skip_serializing_if = "Option::is_none")]
     pub align: Option<Align>,
-#[serde(rename = "gravity", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "gravity", skip_serializing_if = "Option::is_none")]
     pub gravity: Option<Gravity>,
-#[serde(rename = "color", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
-#[serde(rename = "weight", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "weight", skip_serializing_if = "Option::is_none")]
     pub weight: Option<Weight>,
-#[serde(rename = "style", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "style", skip_serializing_if = "Option::is_none")]
     pub style: Option<Style>,
-#[serde(rename = "decoration", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "decoration", skip_serializing_if = "Option::is_none")]
     pub decoration: Option<Decoration>,
-#[serde(rename = "wrap", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "wrap", skip_serializing_if = "Option::is_none")]
     pub wrap: Option<bool>,
-#[serde(rename = "lineSpacing", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "lineSpacing", skip_serializing_if = "Option::is_none")]
     pub line_spacing: Option<String>,
-#[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "margin", skip_serializing_if = "Option::is_none")]
     pub margin: Option<String>,
-#[serde(rename = "position", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "position", skip_serializing_if = "Option::is_none")]
     pub position: Option<Position>,
-#[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetTop", skip_serializing_if = "Option::is_none")]
     pub offset_top: Option<String>,
-#[serde(rename = "offsetBottom", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetBottom", skip_serializing_if = "Option::is_none")]
     pub offset_bottom: Option<String>,
-#[serde(rename = "offsetStart", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetStart", skip_serializing_if = "Option::is_none")]
     pub offset_start: Option<String>,
-#[serde(rename = "offsetEnd", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "offsetEnd", skip_serializing_if = "Option::is_none")]
     pub offset_end: Option<String>,
-#[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
     pub action: Option<Box<models::Action>>,
-#[serde(rename = "maxLines", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "maxLines", skip_serializing_if = "Option::is_none")]
     pub max_lines: Option<i32>,
-#[serde(rename = "contents", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "contents", skip_serializing_if = "Option::is_none")]
     pub contents: Option<Vec<models::FlexSpan>>,
-#[serde(rename = "adjustMode", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "adjustMode", skip_serializing_if = "Option::is_none")]
     pub adjust_mode: Option<AdjustMode>,
-#[serde(rename = "scaling", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "scaling", skip_serializing_if = "Option::is_none")]
     pub scaling: Option<bool>,
 }
 
 impl FlexText {
-pub fn new() -> FlexText {
+    pub fn new() -> FlexText {
         FlexText {
-flex: None,
-text: None,
-size: None,
-align: None,
-gravity: None,
-color: None,
-weight: None,
-style: None,
-decoration: None,
-wrap: None,
-line_spacing: None,
-margin: None,
-position: None,
-offset_top: None,
-offset_bottom: None,
-offset_start: None,
-offset_end: None,
-action: None,
-max_lines: None,
-contents: None,
-adjust_mode: None,
-scaling: None,
-}
+            flex: None,
+            text: None,
+            size: None,
+            align: None,
+            gravity: None,
+            color: None,
+            weight: None,
+            style: None,
+            decoration: None,
+            wrap: None,
+            line_spacing: None,
+            margin: None,
+            position: None,
+            offset_top: None,
+            offset_bottom: None,
+            offset_start: None,
+            offset_end: None,
+            action: None,
+            max_lines: None,
+            contents: None,
+            adjust_mode: None,
+            scaling: None,
+        }
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Align {
-#[serde(rename = "start")]
+    #[serde(rename = "start")]
     Start,
-#[serde(rename = "end")]
+    #[serde(rename = "end")]
     End,
-#[serde(rename = "center")]
+    #[serde(rename = "center")]
     Center,
 }
 
@@ -120,15 +120,15 @@ impl Default for Align {
         Self::Start
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Gravity {
-#[serde(rename = "top")]
+    #[serde(rename = "top")]
     Top,
-#[serde(rename = "bottom")]
+    #[serde(rename = "bottom")]
     Bottom,
-#[serde(rename = "center")]
+    #[serde(rename = "center")]
     Center,
 }
 
@@ -137,13 +137,13 @@ impl Default for Gravity {
         Self::Top
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Weight {
-#[serde(rename = "regular")]
+    #[serde(rename = "regular")]
     Regular,
-#[serde(rename = "bold")]
+    #[serde(rename = "bold")]
     Bold,
 }
 
@@ -152,13 +152,13 @@ impl Default for Weight {
         Self::Regular
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Style {
-#[serde(rename = "normal")]
+    #[serde(rename = "normal")]
     Normal,
-#[serde(rename = "italic")]
+    #[serde(rename = "italic")]
     Italic,
 }
 
@@ -167,15 +167,15 @@ impl Default for Style {
         Self::Normal
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Decoration {
-#[serde(rename = "none")]
+    #[serde(rename = "none")]
     None,
-#[serde(rename = "underline")]
+    #[serde(rename = "underline")]
     Underline,
-#[serde(rename = "line-through")]
+    #[serde(rename = "line-through")]
     LineThrough,
 }
 
@@ -184,13 +184,13 @@ impl Default for Decoration {
         Self::None
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Position {
-#[serde(rename = "relative")]
+    #[serde(rename = "relative")]
     Relative,
-#[serde(rename = "absolute")]
+    #[serde(rename = "absolute")]
     Absolute,
 }
 
@@ -199,11 +199,11 @@ impl Default for Position {
         Self::Relative
     }
 }
-/// 
+///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum AdjustMode {
-#[serde(rename = "shrink-to-fit")]
+    #[serde(rename = "shrink-to-fit")]
     ShrinkToFit,
 }
 

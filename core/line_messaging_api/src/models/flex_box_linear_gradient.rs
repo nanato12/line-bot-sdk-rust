@@ -29,26 +29,26 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexBoxLinearGradient {
-#[serde(rename = "angle", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "angle", skip_serializing_if = "Option::is_none")]
     pub angle: Option<String>,
-#[serde(rename = "startColor", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "startColor", skip_serializing_if = "Option::is_none")]
     pub start_color: Option<String>,
-#[serde(rename = "endColor", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "endColor", skip_serializing_if = "Option::is_none")]
     pub end_color: Option<String>,
-#[serde(rename = "centerColor", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "centerColor", skip_serializing_if = "Option::is_none")]
     pub center_color: Option<String>,
-#[serde(rename = "centerPosition", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "centerPosition", skip_serializing_if = "Option::is_none")]
     pub center_position: Option<String>,
 }
 
 impl FlexBoxLinearGradient {
-pub fn new() -> FlexBoxLinearGradient {
+    pub fn new() -> FlexBoxLinearGradient {
         FlexBoxLinearGradient {
-angle: None,
-start_color: None,
-end_color: None,
-center_color: None,
-center_position: None,
-}
+            angle: None,
+            start_color: None,
+            end_color: None,
+            center_color: None,
+            center_position: None,
+        }
     }
 }

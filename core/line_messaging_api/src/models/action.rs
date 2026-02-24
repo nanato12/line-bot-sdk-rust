@@ -32,25 +32,25 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum Action {
-#[serde(rename = "camera")]
+    #[serde(rename = "camera")]
     CameraAction(models::CameraAction),
-#[serde(rename = "cameraRoll")]
+    #[serde(rename = "cameraRoll")]
     CameraRollAction(models::CameraRollAction),
-#[serde(rename = "clipboard")]
+    #[serde(rename = "clipboard")]
     ClipboardAction(models::ClipboardAction),
-#[serde(rename = "datetimepicker")]
+    #[serde(rename = "datetimepicker")]
     DatetimePickerAction(models::DatetimePickerAction),
-#[serde(rename = "location")]
+    #[serde(rename = "location")]
     LocationAction(models::LocationAction),
-#[serde(rename = "message")]
+    #[serde(rename = "message")]
     MessageAction(models::MessageAction),
-#[serde(rename = "postback")]
+    #[serde(rename = "postback")]
     PostbackAction(models::PostbackAction),
-#[serde(rename = "richmenuswitch")]
+    #[serde(rename = "richmenuswitch")]
     RichMenuSwitchAction(models::RichMenuSwitchAction),
-#[serde(rename = "uri")]
+    #[serde(rename = "uri")]
     UriAction(models::UriAction),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

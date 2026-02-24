@@ -29,19 +29,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ErrorDetail {
-/// Details of the error. Not included in the response under certain situations.
-#[serde(rename = "message", skip_serializing_if = "Option::is_none")]
+    /// Details of the error. Not included in the response under certain situations.
+    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
     pub message: Option<String>,
-/// Location of where the error occurred. Returns the JSON field name or query parameter name of the request. Not included in the response under certain situations.
-#[serde(rename = "property", skip_serializing_if = "Option::is_none")]
+    /// Location of where the error occurred. Returns the JSON field name or query parameter name of the request. Not included in the response under certain situations.
+    #[serde(rename = "property", skip_serializing_if = "Option::is_none")]
     pub property: Option<String>,
 }
 
 impl ErrorDetail {
-pub fn new() -> ErrorDetail {
+    pub fn new() -> ErrorDetail {
         ErrorDetail {
-message: None,
-property: None,
-}
+            message: None,
+            property: None,
+        }
     }
 }

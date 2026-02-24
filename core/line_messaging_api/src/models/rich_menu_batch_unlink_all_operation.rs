@@ -29,13 +29,11 @@ use serde::{Deserialize, Serialize};
 
 /// RichMenuBatchUnlinkAllOperation : Unlink the rich menu from all users linked to the rich menu.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct RichMenuBatchUnlinkAllOperation {
-}
+pub struct RichMenuBatchUnlinkAllOperation {}
 
 impl RichMenuBatchUnlinkAllOperation {
-/// Unlink the rich menu from all users linked to the rich menu.
-pub fn new() -> RichMenuBatchUnlinkAllOperation {
-        RichMenuBatchUnlinkAllOperation {
-}
+    /// Unlink the rich menu from all users linked to the rich menu.
+    pub fn new() -> RichMenuBatchUnlinkAllOperation {
+        RichMenuBatchUnlinkAllOperation {}
     }
 }

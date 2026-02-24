@@ -32,15 +32,15 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum AudienceGroupJobType {
-#[serde(rename = "DIFF_ADD")]
+    #[serde(rename = "DIFF_ADD")]
     DiffAdd,
 }
 
 impl std::fmt::Display for AudienceGroupJobType {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-Self::DiffAdd => write!(f, "DIFF_ADD"),
-}
+            Self::DiffAdd => write!(f, "DIFF_ADD"),
+        }
     }
 }
 

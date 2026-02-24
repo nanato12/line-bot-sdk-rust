@@ -32,11 +32,11 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum SubstitutionObject {
-#[serde(rename = "mention")]
+    #[serde(rename = "mention")]
     MentionSubstitutionObject(models::MentionSubstitutionObject),
-#[serde(rename = "emoji")]
+    #[serde(rename = "emoji")]
     EmojiSubstitutionObject(models::EmojiSubstitutionObject),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

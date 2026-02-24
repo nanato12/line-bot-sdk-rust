@@ -29,14 +29,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MarkMessagesAsReadRequest {
-#[serde(rename = "chat")]
+    #[serde(rename = "chat")]
     pub chat: Box<models::ChatReference>,
 }
 
 impl MarkMessagesAsReadRequest {
-pub fn new(chat: models::ChatReference) -> MarkMessagesAsReadRequest {
+    pub fn new(chat: models::ChatReference) -> MarkMessagesAsReadRequest {
         MarkMessagesAsReadRequest {
-chat: Box::new(chat),
-}
+            chat: Box::new(chat),
+        }
     }
 }

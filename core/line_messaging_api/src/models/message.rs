@@ -31,29 +31,29 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum Message {
-#[serde(rename = "text")]
+    #[serde(rename = "text")]
     TextMessage(models::TextMessage),
-#[serde(rename = "textV2")]
+    #[serde(rename = "textV2")]
     TextMessageV2(models::TextMessageV2),
-#[serde(rename = "sticker")]
+    #[serde(rename = "sticker")]
     StickerMessage(models::StickerMessage),
-#[serde(rename = "image")]
+    #[serde(rename = "image")]
     ImageMessage(models::ImageMessage),
-#[serde(rename = "video")]
+    #[serde(rename = "video")]
     VideoMessage(models::VideoMessage),
-#[serde(rename = "audio")]
+    #[serde(rename = "audio")]
     AudioMessage(models::AudioMessage),
-#[serde(rename = "location")]
+    #[serde(rename = "location")]
     LocationMessage(models::LocationMessage),
-#[serde(rename = "imagemap")]
+    #[serde(rename = "imagemap")]
     ImagemapMessage(models::ImagemapMessage),
-#[serde(rename = "template")]
+    #[serde(rename = "template")]
     TemplateMessage(models::TemplateMessage),
-#[serde(rename = "flex")]
+    #[serde(rename = "flex")]
     FlexMessage(models::FlexMessage),
-#[serde(rename = "coupon")]
+    #[serde(rename = "coupon")]
     CouponMessage(models::CouponMessage),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AppTypeDemographicFilter {
-#[serde(rename = "oneOf", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "oneOf", skip_serializing_if = "Option::is_none")]
     pub one_of: Option<Vec<models::AppTypeDemographic>>,
 }
 
 impl AppTypeDemographicFilter {
-pub fn new() -> AppTypeDemographicFilter {
-        AppTypeDemographicFilter {
-one_of: None,
-}
+    pub fn new() -> AppTypeDemographicFilter {
+        AppTypeDemographicFilter { one_of: None }
     }
 }

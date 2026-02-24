@@ -30,28 +30,26 @@ use serde::{Deserialize, Serialize};
 /// GetMessageContentTranscodingResponse : Transcoding response
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetMessageContentTranscodingResponse {
-/// The preparation status. One of:  `processing`: Preparing to get content. `succeeded`: Ready to get the content. You can get the content sent by users. `failed`: Failed to prepare to get the content. 
-#[serde(rename = "status")]
+    /// The preparation status. One of:  `processing`: Preparing to get content. `succeeded`: Ready to get the content. You can get the content sent by users. `failed`: Failed to prepare to get the content.
+    #[serde(rename = "status")]
     pub status: Status,
 }
 
 impl GetMessageContentTranscodingResponse {
-/// Transcoding response
-pub fn new(status: Status) -> GetMessageContentTranscodingResponse {
-        GetMessageContentTranscodingResponse {
-status,
-}
+    /// Transcoding response
+    pub fn new(status: Status) -> GetMessageContentTranscodingResponse {
+        GetMessageContentTranscodingResponse { status }
     }
 }
-/// The preparation status. One of:  `processing`: Preparing to get content. `succeeded`: Ready to get the content. You can get the content sent by users. `failed`: Failed to prepare to get the content. 
+/// The preparation status. One of:  `processing`: Preparing to get content. `succeeded`: Ready to get the content. You can get the content sent by users. `failed`: Failed to prepare to get the content.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Status {
-#[serde(rename = "processing")]
+    #[serde(rename = "processing")]
     Processing,
-#[serde(rename = "succeeded")]
+    #[serde(rename = "succeeded")]
     Succeeded,
-#[serde(rename = "failed")]
+    #[serde(rename = "failed")]
     Failed,
 }
 

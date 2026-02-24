@@ -30,16 +30,14 @@ use serde::{Deserialize, Serialize};
 /// Adaccount : Adaccount
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Adaccount {
-/// Ad account name.
-#[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    /// Ad account name.
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 }
 
 impl Adaccount {
-/// Adaccount
-pub fn new() -> Adaccount {
-        Adaccount {
-name: None,
-}
+    /// Adaccount
+    pub fn new() -> Adaccount {
+        Adaccount { name: None }
     }
 }

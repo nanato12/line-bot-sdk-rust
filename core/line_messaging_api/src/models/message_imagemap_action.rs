@@ -29,20 +29,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MessageImagemapAction {
-#[serde(rename = "area")]
+    #[serde(rename = "area")]
     pub area: Box<models::ImagemapArea>,
-#[serde(rename = "text")]
+    #[serde(rename = "text")]
     pub text: String,
-#[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
 
 impl MessageImagemapAction {
-pub fn new(area: models::ImagemapArea, text: String) -> MessageImagemapAction {
+    pub fn new(area: models::ImagemapArea, text: String) -> MessageImagemapAction {
         MessageImagemapAction {
-area: Box::new(area),
-text,
-label: None,
-}
+            area: Box::new(area),
+            text,
+            label: None,
+        }
     }
 }

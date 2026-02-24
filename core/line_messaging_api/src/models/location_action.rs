@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LocationAction {
-/// Label for the action.
-#[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+    /// Label for the action.
+    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
 
 impl LocationAction {
-pub fn new() -> LocationAction {
-        LocationAction {
-label: None,
-}
+    pub fn new() -> LocationAction {
+        LocationAction { label: None }
     }
 }

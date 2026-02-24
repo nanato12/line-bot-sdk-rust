@@ -29,55 +29,55 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AgeTile {
-/// users' age
-#[serde(rename = "age", skip_serializing_if = "Option::is_none")]
+    /// users' age
+    #[serde(rename = "age", skip_serializing_if = "Option::is_none")]
     pub age: Option<Age>,
-/// Percentage
-#[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
+    /// Percentage
+    #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<f64>,
 }
 
 impl AgeTile {
-pub fn new() -> AgeTile {
+    pub fn new() -> AgeTile {
         AgeTile {
-age: None,
-percentage: None,
-}
+            age: None,
+            percentage: None,
+        }
     }
 }
 /// users' age
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Age {
-#[serde(rename = "from0to14")]
+    #[serde(rename = "from0to14")]
     From0to14,
-#[serde(rename = "from15to19")]
+    #[serde(rename = "from15to19")]
     From15to19,
-#[serde(rename = "from20to24")]
+    #[serde(rename = "from20to24")]
     From20to24,
-#[serde(rename = "from25to29")]
+    #[serde(rename = "from25to29")]
     From25to29,
-#[serde(rename = "from30to34")]
+    #[serde(rename = "from30to34")]
     From30to34,
-#[serde(rename = "from35to39")]
+    #[serde(rename = "from35to39")]
     From35to39,
-#[serde(rename = "from40to44")]
+    #[serde(rename = "from40to44")]
     From40to44,
-#[serde(rename = "from45to49")]
+    #[serde(rename = "from45to49")]
     From45to49,
-#[serde(rename = "from50")]
+    #[serde(rename = "from50")]
     From50,
-#[serde(rename = "from50to54")]
+    #[serde(rename = "from50to54")]
     From50to54,
-#[serde(rename = "from55to59")]
+    #[serde(rename = "from55to59")]
     From55to59,
-#[serde(rename = "from60to64")]
+    #[serde(rename = "from60to64")]
     From60to64,
-#[serde(rename = "from65to69")]
+    #[serde(rename = "from65to69")]
     From65to69,
-#[serde(rename = "from70")]
+    #[serde(rename = "from70")]
     From70,
-#[serde(rename = "unknown")]
+    #[serde(rename = "unknown")]
     Unknown,
 }
 

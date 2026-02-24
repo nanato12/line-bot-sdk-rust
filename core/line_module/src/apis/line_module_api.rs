@@ -56,87 +56,92 @@ where
 }
 
 pub trait LineModuleApi: Send + Sync {
-fn acquire_chat_control(
+    fn acquire_chat_control(
         &self,
-chat_id: &str,
-acquire_chat_control_request: Option<models::AcquireChatControlRequest>,
-) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
-fn detach_module(
+        chat_id: &str,
+        acquire_chat_control_request: Option<models::AcquireChatControlRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    fn detach_module(
         &self,
-detach_module_request: Option<models::DetachModuleRequest>,
-) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
-fn get_modules(
+        detach_module_request: Option<models::DetachModuleRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    fn get_modules(
         &self,
-start: Option<&str>,
-limit: Option<i32>,
-) -> Pin<Box<dyn Future<Output = Result<models::GetModulesResponse, Error>> + Send>>;
-fn release_chat_control(
+        start: Option<&str>,
+        limit: Option<i32>,
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetModulesResponse, Error>> + Send>>;
+    fn release_chat_control(
         &self,
-chat_id: &str,
-) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+        chat_id: &str,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
 }
 
 impl<C: Connect> LineModuleApi for LineModuleApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-#[allow(unused_mut)]
+    #[allow(unused_mut)]
     fn acquire_chat_control(
         &self,
-chat_id: &str,
-acquire_chat_control_request: Option<models::AcquireChatControlRequest>,
-) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
-        let mut req = __internal_request::Request::new(hyper::Method::POST, "/v2/bot/chat/{chatId}/control/acquire".to_string())
-;
-req = req.with_path_param("chatId".to_string(), chat_id.to_string());
-req = req.with_body_param(acquire_chat_control_request);
-req = req.returns_nothing();
+        chat_id: &str,
+        acquire_chat_control_request: Option<models::AcquireChatControlRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::POST,
+            "/v2/bot/chat/{chatId}/control/acquire".to_string(),
+        );
+        req = req.with_path_param("chatId".to_string(), chat_id.to_string());
+        req = req.with_body_param(acquire_chat_control_request);
+        req = req.returns_nothing();
 
-req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow())
     }
 
-#[allow(unused_mut)]
+    #[allow(unused_mut)]
     fn detach_module(
         &self,
-detach_module_request: Option<models::DetachModuleRequest>,
-) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
-        let mut req = __internal_request::Request::new(hyper::Method::POST, "/v2/bot/channel/detach".to_string())
-;
-req = req.with_body_param(detach_module_request);
-req = req.returns_nothing();
+        detach_module_request: Option<models::DetachModuleRequest>,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::POST,
+            "/v2/bot/channel/detach".to_string(),
+        );
+        req = req.with_body_param(detach_module_request);
+        req = req.returns_nothing();
 
-req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow())
     }
 
-#[allow(unused_mut)]
+    #[allow(unused_mut)]
     fn get_modules(
         &self,
-start: Option<&str>,
-limit: Option<i32>,
-) -> Pin<Box<dyn Future<Output = Result<models::GetModulesResponse, Error>> + Send>> {
-        let mut req = __internal_request::Request::new(hyper::Method::GET, "/v2/bot/list".to_string())
-;
-if let Some(ref s) = start {
-req = req.with_query_param("start".to_string(), s.to_string());
-}
-if let Some(ref s) = limit {
-req = req.with_query_param("limit".to_string(), s.to_string());
-}
+        start: Option<&str>,
+        limit: Option<i32>,
+    ) -> Pin<Box<dyn Future<Output = Result<models::GetModulesResponse, Error>> + Send>> {
+        let mut req =
+            __internal_request::Request::new(hyper::Method::GET, "/v2/bot/list".to_string());
+        if let Some(ref s) = start {
+            req = req.with_query_param("start".to_string(), s.to_string());
+        }
+        if let Some(ref s) = limit {
+            req = req.with_query_param("limit".to_string(), s.to_string());
+        }
 
-req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow())
     }
 
-#[allow(unused_mut)]
+    #[allow(unused_mut)]
     fn release_chat_control(
         &self,
-chat_id: &str,
-) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
-        let mut req = __internal_request::Request::new(hyper::Method::POST, "/v2/bot/chat/{chatId}/control/release".to_string())
-;
-req = req.with_path_param("chatId".to_string(), chat_id.to_string());
-req = req.returns_nothing();
+        chat_id: &str,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::POST,
+            "/v2/bot/chat/{chatId}/control/release".to_string(),
+        );
+        req = req.with_path_param("chatId".to_string(), chat_id.to_string());
+        req = req.returns_nothing();
 
-req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow())
     }
-
 }

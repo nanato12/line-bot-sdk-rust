@@ -30,18 +30,18 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum AppTypeDemographic {
-#[serde(rename = "ios")]
+    #[serde(rename = "ios")]
     Ios,
-#[serde(rename = "android")]
+    #[serde(rename = "android")]
     Android,
 }
 
 impl std::fmt::Display for AppTypeDemographic {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-Self::Ios => write!(f, "ios"),
-Self::Android => write!(f, "android"),
-}
+            Self::Ios => write!(f, "ios"),
+            Self::Android => write!(f, "android"),
+        }
     }
 }
 

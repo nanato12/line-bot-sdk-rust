@@ -29,23 +29,23 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ImagemapArea {
-#[serde(rename = "x")]
+    #[serde(rename = "x")]
     pub x: i32,
-#[serde(rename = "y")]
+    #[serde(rename = "y")]
     pub y: i32,
-#[serde(rename = "width")]
+    #[serde(rename = "width")]
     pub width: i32,
-#[serde(rename = "height")]
+    #[serde(rename = "height")]
     pub height: i32,
 }
 
 impl ImagemapArea {
-pub fn new(x: i32, y: i32, width: i32, height: i32) -> ImagemapArea {
+    pub fn new(x: i32, y: i32, width: i32, height: i32) -> ImagemapArea {
         ImagemapArea {
-x,
-y,
-width,
-height,
-}
+            x,
+            y,
+            width,
+            height,
+        }
     }
 }

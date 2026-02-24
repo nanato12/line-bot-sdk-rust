@@ -30,18 +30,21 @@ use serde::{Deserialize, Serialize};
 /// Subscription : An array of memberships.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Subscription {
-#[serde(rename = "membership")]
+    #[serde(rename = "membership")]
     pub membership: Box<models::SubscribedMembershipPlan>,
-#[serde(rename = "user")]
+    #[serde(rename = "user")]
     pub user: Box<models::SubscribedMembershipUser>,
 }
 
 impl Subscription {
-/// An array of memberships.
-pub fn new(membership: models::SubscribedMembershipPlan, user: models::SubscribedMembershipUser) -> Subscription {
+    /// An array of memberships.
+    pub fn new(
+        membership: models::SubscribedMembershipPlan,
+        user: models::SubscribedMembershipUser,
+    ) -> Subscription {
         Subscription {
-membership: Box::new(membership),
-user: Box::new(user),
-}
+            membership: Box::new(membership),
+            user: Box::new(user),
+        }
     }
 }

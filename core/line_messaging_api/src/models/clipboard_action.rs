@@ -29,19 +29,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ClipboardAction {
-/// Label for the action.
-#[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+    /// Label for the action.
+    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
-/// Text that is copied to the clipboard. Max character limit: 1000 
-#[serde(rename = "clipboardText")]
+    /// Text that is copied to the clipboard. Max character limit: 1000
+    #[serde(rename = "clipboardText")]
     pub clipboard_text: String,
 }
 
 impl ClipboardAction {
-pub fn new(clipboard_text: String) -> ClipboardAction {
+    pub fn new(clipboard_text: String) -> ClipboardAction {
         ClipboardAction {
-label: None,
-clipboard_text,
-}
+            label: None,
+            clipboard_text,
+        }
     }
 }

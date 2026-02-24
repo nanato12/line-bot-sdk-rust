@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct JoinedMembers {
-/// Users who joined. Array of source user objects.
-#[serde(rename = "members")]
+    /// Users who joined. Array of source user objects.
+    #[serde(rename = "members")]
     pub members: Vec<models::UserSource>,
 }
 
 impl JoinedMembers {
-pub fn new(members: Vec<models::UserSource>) -> JoinedMembers {
-        JoinedMembers {
-members,
-}
+    pub fn new(members: Vec<models::UserSource>) -> JoinedMembers {
+        JoinedMembers { members }
     }
 }

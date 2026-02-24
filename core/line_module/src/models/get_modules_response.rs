@@ -30,20 +30,17 @@ use serde::{Deserialize, Serialize};
 /// GetModulesResponse : List of bots to which the module is attached
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetModulesResponse {
-/// Array of Bot list Item objects representing basic information about the bot.
-#[serde(rename = "bots")]
+    /// Array of Bot list Item objects representing basic information about the bot.
+    #[serde(rename = "bots")]
     pub bots: Vec<models::ModuleBot>,
-/// Continuation token. Used to get the next array of basic bot information. This property is only returned if there are more unreturned results. 
-#[serde(rename = "next", skip_serializing_if = "Option::is_none")]
+    /// Continuation token. Used to get the next array of basic bot information. This property is only returned if there are more unreturned results.
+    #[serde(rename = "next", skip_serializing_if = "Option::is_none")]
     pub next: Option<String>,
 }
 
 impl GetModulesResponse {
-/// List of bots to which the module is attached
-pub fn new(bots: Vec<models::ModuleBot>) -> GetModulesResponse {
-        GetModulesResponse {
-bots,
-next: None,
-}
+    /// List of bots to which the module is attached
+    pub fn new(bots: Vec<models::ModuleBot>) -> GetModulesResponse {
+        GetModulesResponse { bots, next: None }
     }
 }

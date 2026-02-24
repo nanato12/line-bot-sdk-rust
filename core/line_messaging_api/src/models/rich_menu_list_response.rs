@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuListResponse {
-/// Rich menus
-#[serde(rename = "richmenus")]
+    /// Rich menus
+    #[serde(rename = "richmenus")]
     pub richmenus: Vec<models::RichMenuResponse>,
 }
 
 impl RichMenuListResponse {
-pub fn new(richmenus: Vec<models::RichMenuResponse>) -> RichMenuListResponse {
-        RichMenuListResponse {
-richmenus,
-}
+    pub fn new(richmenus: Vec<models::RichMenuResponse>) -> RichMenuListResponse {
+        RichMenuListResponse { richmenus }
     }
 }

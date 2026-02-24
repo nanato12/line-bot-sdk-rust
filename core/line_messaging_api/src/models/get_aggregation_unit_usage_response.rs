@@ -29,15 +29,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAggregationUnitUsageResponse {
-/// Number of aggregation units used this month.
-#[serde(rename = "numOfCustomAggregationUnits")]
+    /// Number of aggregation units used this month.
+    #[serde(rename = "numOfCustomAggregationUnits")]
     pub num_of_custom_aggregation_units: i64,
 }
 
 impl GetAggregationUnitUsageResponse {
-pub fn new(num_of_custom_aggregation_units: i64) -> GetAggregationUnitUsageResponse {
+    pub fn new(num_of_custom_aggregation_units: i64) -> GetAggregationUnitUsageResponse {
         GetAggregationUnitUsageResponse {
-num_of_custom_aggregation_units,
-}
+            num_of_custom_aggregation_units,
+        }
     }
 }

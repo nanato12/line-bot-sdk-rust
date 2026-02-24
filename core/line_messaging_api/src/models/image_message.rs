@@ -29,23 +29,23 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ImageMessage {
-#[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<models::QuickReply>>,
-#[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
     pub sender: Option<Box<models::Sender>>,
-#[serde(rename = "originalContentUrl")]
+    #[serde(rename = "originalContentUrl")]
     pub original_content_url: String,
-#[serde(rename = "previewImageUrl")]
+    #[serde(rename = "previewImageUrl")]
     pub preview_image_url: String,
 }
 
 impl ImageMessage {
-pub fn new(original_content_url: String, preview_image_url: String) -> ImageMessage {
+    pub fn new(original_content_url: String, preview_image_url: String) -> ImageMessage {
         ImageMessage {
-quick_reply: None,
-sender: None,
-original_content_url,
-preview_image_url,
-}
+            quick_reply: None,
+            sender: None,
+            original_content_url,
+            preview_image_url,
+        }
     }
 }

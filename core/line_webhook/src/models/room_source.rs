@@ -29,19 +29,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RoomSource {
-/// ID of the source user. Only included in message events. Only users of LINE for iOS and LINE for Android are included in userId.
-#[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
+    /// ID of the source user. Only included in message events. Only users of LINE for iOS and LINE for Android are included in userId.
+    #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
     pub user_id: Option<String>,
-/// Room ID of the source multi-person chat
-#[serde(rename = "roomId")]
+    /// Room ID of the source multi-person chat
+    #[serde(rename = "roomId")]
     pub room_id: String,
 }
 
 impl RoomSource {
-pub fn new(room_id: String) -> RoomSource {
+    pub fn new(room_id: String) -> RoomSource {
         RoomSource {
-user_id: None,
-room_id,
-}
+            user_id: None,
+            room_id,
+        }
     }
 }

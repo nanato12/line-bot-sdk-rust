@@ -30,18 +30,18 @@ use serde::{Deserialize, Serialize};
 /// EmojiSubstitutionObject : An object representing a emoji substitution.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct EmojiSubstitutionObject {
-#[serde(rename = "productId")]
+    #[serde(rename = "productId")]
     pub product_id: String,
-#[serde(rename = "emojiId")]
+    #[serde(rename = "emojiId")]
     pub emoji_id: String,
 }
 
 impl EmojiSubstitutionObject {
-/// An object representing a emoji substitution.
-pub fn new(product_id: String, emoji_id: String) -> EmojiSubstitutionObject {
+    /// An object representing a emoji substitution.
+    pub fn new(product_id: String, emoji_id: String) -> EmojiSubstitutionObject {
         EmojiSubstitutionObject {
-product_id,
-emoji_id,
-}
+            product_id,
+            emoji_id,
+        }
     }
 }

@@ -29,19 +29,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetWebhookEndpointResponse {
-/// Webhook URL
-#[serde(rename = "endpoint")]
+    /// Webhook URL
+    #[serde(rename = "endpoint")]
     pub endpoint: String,
-/// Webhook usage status. Send a webhook event from the LINE Platform to the webhook URL only if enabled.  `true`: Webhook usage is enabled. `false`: Webhook usage is disabled. 
-#[serde(rename = "active")]
+    /// Webhook usage status. Send a webhook event from the LINE Platform to the webhook URL only if enabled.  `true`: Webhook usage is enabled. `false`: Webhook usage is disabled.
+    #[serde(rename = "active")]
     pub active: bool,
 }
 
 impl GetWebhookEndpointResponse {
-pub fn new(endpoint: String, active: bool) -> GetWebhookEndpointResponse {
-        GetWebhookEndpointResponse {
-endpoint,
-active,
-}
+    pub fn new(endpoint: String, active: bool) -> GetWebhookEndpointResponse {
+        GetWebhookEndpointResponse { endpoint, active }
     }
 }

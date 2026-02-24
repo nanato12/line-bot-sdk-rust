@@ -30,51 +30,51 @@ use serde::{Deserialize, Serialize};
 /// CreateAudienceGroupResponse : Create audience for uploading user IDs (by JSON)
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateAudienceGroupResponse {
-/// The audience ID.
-#[serde(rename = "audienceGroupId", skip_serializing_if = "Option::is_none")]
+    /// The audience ID.
+    #[serde(rename = "audienceGroupId", skip_serializing_if = "Option::is_none")]
     pub audience_group_id: Option<i64>,
-/// How the audience was created.  `MESSAGING_API`: An audience created with Messaging API. 
-#[serde(rename = "createRoute", skip_serializing_if = "Option::is_none")]
+    /// How the audience was created.  `MESSAGING_API`: An audience created with Messaging API.
+    #[serde(rename = "createRoute", skip_serializing_if = "Option::is_none")]
     pub create_route: Option<CreateRoute>,
-#[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<models::AudienceGroupType>,
-/// The audience's name.
-#[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    /// The audience's name.
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-/// When the audience was created (in UNIX time).
-#[serde(rename = "created", skip_serializing_if = "Option::is_none")]
+    /// When the audience was created (in UNIX time).
+    #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
     pub created: Option<i64>,
-/// Audience's update permission. Audiences linked to the same channel will be READ_WRITE.  `READ`: Can use only. `READ_WRITE`: Can use and update. 
-#[serde(rename = "permission", skip_serializing_if = "Option::is_none")]
+    /// Audience's update permission. Audiences linked to the same channel will be READ_WRITE.  `READ`: Can use only. `READ_WRITE`: Can use and update.
+    #[serde(rename = "permission", skip_serializing_if = "Option::is_none")]
     pub permission: Option<Permission>,
-/// Time of audience expiration. Only returned for specific audiences. 
-#[serde(rename = "expireTimestamp", skip_serializing_if = "Option::is_none")]
+    /// Time of audience expiration. Only returned for specific audiences.
+    #[serde(rename = "expireTimestamp", skip_serializing_if = "Option::is_none")]
     pub expire_timestamp: Option<i64>,
-/// The value indicating the type of account to be sent, as specified when creating the audience for uploading user IDs. One of:  `true`: Accounts are specified with IFAs. `false` (default): Accounts are specified with user IDs. 
-#[serde(rename = "isIfaAudience", skip_serializing_if = "Option::is_none")]
+    /// The value indicating the type of account to be sent, as specified when creating the audience for uploading user IDs. One of:  `true`: Accounts are specified with IFAs. `false` (default): Accounts are specified with user IDs.
+    #[serde(rename = "isIfaAudience", skip_serializing_if = "Option::is_none")]
     pub is_ifa_audience: Option<bool>,
 }
 
 impl CreateAudienceGroupResponse {
-/// Create audience for uploading user IDs (by JSON)
-pub fn new() -> CreateAudienceGroupResponse {
+    /// Create audience for uploading user IDs (by JSON)
+    pub fn new() -> CreateAudienceGroupResponse {
         CreateAudienceGroupResponse {
-audience_group_id: None,
-create_route: None,
-r#type: None,
-description: None,
-created: None,
-permission: None,
-expire_timestamp: None,
-is_ifa_audience: None,
-}
+            audience_group_id: None,
+            create_route: None,
+            r#type: None,
+            description: None,
+            created: None,
+            permission: None,
+            expire_timestamp: None,
+            is_ifa_audience: None,
+        }
     }
 }
-/// How the audience was created.  `MESSAGING_API`: An audience created with Messaging API. 
+/// How the audience was created.  `MESSAGING_API`: An audience created with Messaging API.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum CreateRoute {
-#[serde(rename = "MESSAGING_API")]
+    #[serde(rename = "MESSAGING_API")]
     MessagingApi,
 }
 
@@ -83,13 +83,13 @@ impl Default for CreateRoute {
         Self::MessagingApi
     }
 }
-/// Audience's update permission. Audiences linked to the same channel will be READ_WRITE.  `READ`: Can use only. `READ_WRITE`: Can use and update. 
+/// Audience's update permission. Audiences linked to the same channel will be READ_WRITE.  `READ`: Can use only. `READ_WRITE`: Can use and update.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Permission {
-#[serde(rename = "READ")]
+    #[serde(rename = "READ")]
     Read,
-#[serde(rename = "READ_WRITE")]
+    #[serde(rename = "READ_WRITE")]
     ReadWrite,
 }
 

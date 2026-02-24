@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexCarousel {
-#[serde(rename = "contents")]
+    #[serde(rename = "contents")]
     pub contents: Vec<models::FlexBubble>,
 }
 
 impl FlexCarousel {
-pub fn new(contents: Vec<models::FlexBubble>) -> FlexCarousel {
-        FlexCarousel {
-contents,
-}
+    pub fn new(contents: Vec<models::FlexBubble>) -> FlexCarousel {
+        FlexCarousel { contents }
     }
 }

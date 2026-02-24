@@ -29,19 +29,22 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LotteryAcquisitionConditionRequest {
-/// Probability (1-99) of winning the coupon in lottery-type campaigns.
-#[serde(rename = "lotteryProbability")]
+    /// Probability (1-99) of winning the coupon in lottery-type campaigns.
+    #[serde(rename = "lotteryProbability")]
     pub lottery_probability: i32,
-/// Maximum number of coupons that can be issued in total. Use -1 to indicate no limit
-#[serde(rename = "maxAcquireCount")]
+    /// Maximum number of coupons that can be issued in total. Use -1 to indicate no limit
+    #[serde(rename = "maxAcquireCount")]
     pub max_acquire_count: i32,
 }
 
 impl LotteryAcquisitionConditionRequest {
-pub fn new(lottery_probability: i32, max_acquire_count: i32) -> LotteryAcquisitionConditionRequest {
+    pub fn new(
+        lottery_probability: i32,
+        max_acquire_count: i32,
+    ) -> LotteryAcquisitionConditionRequest {
         LotteryAcquisitionConditionRequest {
-lottery_probability,
-max_acquire_count,
-}
+            lottery_probability,
+            max_acquire_count,
+        }
     }
 }

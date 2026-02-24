@@ -29,18 +29,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MessageAction {
-/// Label for the action.
-#[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+    /// Label for the action.
+    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
-#[serde(rename = "text", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
 }
 
 impl MessageAction {
-pub fn new() -> MessageAction {
+    pub fn new() -> MessageAction {
         MessageAction {
-label: None,
-text: None,
-}
+            label: None,
+            text: None,
+        }
     }
 }

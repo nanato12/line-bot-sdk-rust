@@ -29,20 +29,20 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OperatorDemographicFilter {
-#[serde(rename = "and", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "and", skip_serializing_if = "Option::is_none")]
     pub and: Option<Vec<models::DemographicFilter>>,
-#[serde(rename = "or", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "or", skip_serializing_if = "Option::is_none")]
     pub or: Option<Vec<models::DemographicFilter>>,
-#[serde(rename = "not", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "not", skip_serializing_if = "Option::is_none")]
     pub not: Option<Box<models::DemographicFilter>>,
 }
 
 impl OperatorDemographicFilter {
-pub fn new() -> OperatorDemographicFilter {
+    pub fn new() -> OperatorDemographicFilter {
         OperatorDemographicFilter {
-and: None,
-or: None,
-not: None,
-}
+            and: None,
+            or: None,
+            not: None,
+        }
     }
 }

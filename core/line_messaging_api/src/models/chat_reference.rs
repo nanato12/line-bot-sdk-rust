@@ -30,16 +30,14 @@ use serde::{Deserialize, Serialize};
 /// ChatReference : Chat reference
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ChatReference {
-/// The target user ID
-#[serde(rename = "userId")]
+    /// The target user ID
+    #[serde(rename = "userId")]
     pub user_id: String,
 }
 
 impl ChatReference {
-/// Chat reference
-pub fn new(user_id: String) -> ChatReference {
-        ChatReference {
-user_id,
-}
+    /// Chat reference
+    pub fn new(user_id: String) -> ChatReference {
+        ChatReference { user_id }
     }
 }

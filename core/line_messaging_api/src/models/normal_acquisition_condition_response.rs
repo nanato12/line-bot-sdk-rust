@@ -28,12 +28,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct NormalAcquisitionConditionResponse {
-}
+pub struct NormalAcquisitionConditionResponse {}
 
 impl NormalAcquisitionConditionResponse {
-pub fn new() -> NormalAcquisitionConditionResponse {
-        NormalAcquisitionConditionResponse {
-}
+    pub fn new() -> NormalAcquisitionConditionResponse {
+        NormalAcquisitionConditionResponse {}
     }
 }

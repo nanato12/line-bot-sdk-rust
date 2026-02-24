@@ -29,35 +29,38 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ButtonsTemplate {
-#[serde(rename = "thumbnailImageUrl", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "thumbnailImageUrl", skip_serializing_if = "Option::is_none")]
     pub thumbnail_image_url: Option<String>,
-#[serde(rename = "imageAspectRatio", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "imageAspectRatio", skip_serializing_if = "Option::is_none")]
     pub image_aspect_ratio: Option<String>,
-#[serde(rename = "imageSize", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "imageSize", skip_serializing_if = "Option::is_none")]
     pub image_size: Option<String>,
-#[serde(rename = "imageBackgroundColor", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "imageBackgroundColor",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub image_background_color: Option<String>,
-#[serde(rename = "title", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "title", skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-#[serde(rename = "text")]
+    #[serde(rename = "text")]
     pub text: String,
-#[serde(rename = "defaultAction", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "defaultAction", skip_serializing_if = "Option::is_none")]
     pub default_action: Option<Box<models::Action>>,
-#[serde(rename = "actions")]
+    #[serde(rename = "actions")]
     pub actions: Vec<models::Action>,
 }
 
 impl ButtonsTemplate {
-pub fn new(text: String, actions: Vec<models::Action>) -> ButtonsTemplate {
+    pub fn new(text: String, actions: Vec<models::Action>) -> ButtonsTemplate {
         ButtonsTemplate {
-thumbnail_image_url: None,
-image_aspect_ratio: None,
-image_size: None,
-image_background_color: None,
-title: None,
-text,
-default_action: None,
-actions,
-}
+            thumbnail_image_url: None,
+            image_aspect_ratio: None,
+            image_size: None,
+            image_background_color: None,
+            title: None,
+            text,
+            default_action: None,
+            actions,
+        }
     }
 }

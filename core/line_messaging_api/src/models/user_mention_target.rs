@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UserMentionTarget {
-#[serde(rename = "userId")]
+    #[serde(rename = "userId")]
     pub user_id: String,
 }
 
 impl UserMentionTarget {
-pub fn new(user_id: String) -> UserMentionTarget {
-        UserMentionTarget {
-user_id,
-}
+    pub fn new(user_id: String) -> UserMentionTarget {
+        UserMentionTarget { user_id }
     }
 }

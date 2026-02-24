@@ -29,30 +29,30 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DiscountFixedPriceInfoResponse {
-/// Currency code (e.g., JPY, THB, TWD).
-#[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
+    /// Currency code (e.g., JPY, THB, TWD).
+    #[serde(rename = "currency", skip_serializing_if = "Option::is_none")]
     pub currency: Option<Currency>,
-#[serde(rename = "fixedAmount", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "fixedAmount", skip_serializing_if = "Option::is_none")]
     pub fixed_amount: Option<i64>,
 }
 
 impl DiscountFixedPriceInfoResponse {
-pub fn new() -> DiscountFixedPriceInfoResponse {
+    pub fn new() -> DiscountFixedPriceInfoResponse {
         DiscountFixedPriceInfoResponse {
-currency: None,
-fixed_amount: None,
-}
+            currency: None,
+            fixed_amount: None,
+        }
     }
 }
 /// Currency code (e.g., JPY, THB, TWD).
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Currency {
-#[serde(rename = "JPY")]
+    #[serde(rename = "JPY")]
     Jpy,
-#[serde(rename = "THB")]
+    #[serde(rename = "THB")]
     Thb,
-#[serde(rename = "TWD")]
+    #[serde(rename = "TWD")]
     Twd,
 }
 

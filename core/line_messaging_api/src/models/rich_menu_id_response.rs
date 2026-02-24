@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuIdResponse {
-/// Rich menu ID
-#[serde(rename = "richMenuId")]
+    /// Rich menu ID
+    #[serde(rename = "richMenuId")]
     pub rich_menu_id: String,
 }
 
 impl RichMenuIdResponse {
-pub fn new(rich_menu_id: String) -> RichMenuIdResponse {
-        RichMenuIdResponse {
-rich_menu_id,
-}
+    pub fn new(rich_menu_id: String) -> RichMenuIdResponse {
+        RichMenuIdResponse { rich_menu_id }
     }
 }

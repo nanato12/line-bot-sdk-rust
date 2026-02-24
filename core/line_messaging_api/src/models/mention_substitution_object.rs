@@ -30,15 +30,15 @@ use serde::{Deserialize, Serialize};
 /// MentionSubstitutionObject : An object representing a mention substitution.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct MentionSubstitutionObject {
-#[serde(rename = "mentionee")]
+    #[serde(rename = "mentionee")]
     pub mentionee: Box<models::MentionTarget>,
 }
 
 impl MentionSubstitutionObject {
-/// An object representing a mention substitution.
-pub fn new(mentionee: models::MentionTarget) -> MentionSubstitutionObject {
+    /// An object representing a mention substitution.
+    pub fn new(mentionee: models::MentionTarget) -> MentionSubstitutionObject {
         MentionSubstitutionObject {
-mentionee: Box::new(mentionee),
-}
+            mentionee: Box::new(mentionee),
+        }
     }
 }

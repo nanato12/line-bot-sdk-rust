@@ -29,17 +29,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LotteryAcquisitionConditionResponse {
-#[serde(rename = "lotteryProbability", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "lotteryProbability", skip_serializing_if = "Option::is_none")]
     pub lottery_probability: Option<i32>,
-#[serde(rename = "maxAcquireCount", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "maxAcquireCount", skip_serializing_if = "Option::is_none")]
     pub max_acquire_count: Option<i32>,
 }
 
 impl LotteryAcquisitionConditionResponse {
-pub fn new() -> LotteryAcquisitionConditionResponse {
+    pub fn new() -> LotteryAcquisitionConditionResponse {
         LotteryAcquisitionConditionResponse {
-lottery_probability: None,
-max_acquire_count: None,
-}
+            lottery_probability: None,
+            max_acquire_count: None,
+        }
     }
 }

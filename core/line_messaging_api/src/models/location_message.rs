@@ -29,29 +29,29 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LocationMessage {
-#[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<models::QuickReply>>,
-#[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
     pub sender: Option<Box<models::Sender>>,
-#[serde(rename = "title")]
+    #[serde(rename = "title")]
     pub title: String,
-#[serde(rename = "address")]
+    #[serde(rename = "address")]
     pub address: String,
-#[serde(rename = "latitude")]
+    #[serde(rename = "latitude")]
     pub latitude: f64,
-#[serde(rename = "longitude")]
+    #[serde(rename = "longitude")]
     pub longitude: f64,
 }
 
 impl LocationMessage {
-pub fn new(title: String, address: String, latitude: f64, longitude: f64) -> LocationMessage {
+    pub fn new(title: String, address: String, latitude: f64, longitude: f64) -> LocationMessage {
         LocationMessage {
-quick_reply: None,
-sender: None,
-title,
-address,
-latitude,
-longitude,
-}
+            quick_reply: None,
+            sender: None,
+            title,
+            address,
+            latitude,
+            longitude,
+        }
     }
 }

@@ -31,11 +31,11 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum ModuleContent {
-#[serde(rename = "attached")]
+    #[serde(rename = "attached")]
     AttachedModuleContent(models::AttachedModuleContent),
-#[serde(rename = "detached")]
+    #[serde(rename = "detached")]
     DetachedModuleContent(models::DetachedModuleContent),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

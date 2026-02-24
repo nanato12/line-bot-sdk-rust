@@ -30,16 +30,14 @@ use serde::{Deserialize, Serialize};
 /// GetMembershipSubscriptionResponse : A user's membership subscription status
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetMembershipSubscriptionResponse {
-/// List of subscription information
-#[serde(rename = "subscriptions")]
+    /// List of subscription information
+    #[serde(rename = "subscriptions")]
     pub subscriptions: Vec<models::Subscription>,
 }
 
 impl GetMembershipSubscriptionResponse {
-/// A user's membership subscription status
-pub fn new(subscriptions: Vec<models::Subscription>) -> GetMembershipSubscriptionResponse {
-        GetMembershipSubscriptionResponse {
-subscriptions,
-}
+    /// A user's membership subscription status
+    pub fn new(subscriptions: Vec<models::Subscription>) -> GetMembershipSubscriptionResponse {
+        GetMembershipSubscriptionResponse { subscriptions }
     }
 }

@@ -30,34 +30,34 @@ use serde::{Deserialize, Serialize};
 /// ContentProvider : Provider of the media file.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ContentProvider {
-/// Provider of the image file.
-#[serde(rename = "type")]
+    /// Provider of the image file.
+    #[serde(rename = "type")]
     pub r#type: Type,
-/// URL of the image file. Only included when contentProvider.type is external.
-#[serde(rename = "originalContentUrl", skip_serializing_if = "Option::is_none")]
+    /// URL of the image file. Only included when contentProvider.type is external.
+    #[serde(rename = "originalContentUrl", skip_serializing_if = "Option::is_none")]
     pub original_content_url: Option<String>,
-/// URL of the preview image. Only included when contentProvider.type is external.
-#[serde(rename = "previewImageUrl", skip_serializing_if = "Option::is_none")]
+    /// URL of the preview image. Only included when contentProvider.type is external.
+    #[serde(rename = "previewImageUrl", skip_serializing_if = "Option::is_none")]
     pub preview_image_url: Option<String>,
 }
 
 impl ContentProvider {
-/// Provider of the media file.
-pub fn new(r#type: Type) -> ContentProvider {
+    /// Provider of the media file.
+    pub fn new(r#type: Type) -> ContentProvider {
         ContentProvider {
-r#type,
-original_content_url: None,
-preview_image_url: None,
-}
+            r#type,
+            original_content_url: None,
+            preview_image_url: None,
+        }
     }
 }
 /// Provider of the image file.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Type {
-#[serde(rename = "line")]
+    #[serde(rename = "line")]
     Line,
-#[serde(rename = "external")]
+    #[serde(rename = "external")]
     External,
 }
 

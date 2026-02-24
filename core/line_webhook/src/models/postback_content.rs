@@ -29,18 +29,15 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PostbackContent {
-/// Postback data
-#[serde(rename = "data")]
+    /// Postback data
+    #[serde(rename = "data")]
     pub data: String,
-#[serde(rename = "params", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "params", skip_serializing_if = "Option::is_none")]
     pub params: Option<std::collections::HashMap<String, String>>,
 }
 
 impl PostbackContent {
-pub fn new(data: String) -> PostbackContent {
-        PostbackContent {
-data,
-params: None,
-}
+    pub fn new(data: String) -> PostbackContent {
+        PostbackContent { data, params: None }
     }
 }

@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DiscountPercentagePriceInfoResponse {
-#[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<i32>,
 }
 
 impl DiscountPercentagePriceInfoResponse {
-pub fn new() -> DiscountPercentagePriceInfoResponse {
-        DiscountPercentagePriceInfoResponse {
-percentage: None,
-}
+    pub fn new() -> DiscountPercentagePriceInfoResponse {
+        DiscountPercentagePriceInfoResponse { percentage: None }
     }
 }

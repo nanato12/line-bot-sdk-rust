@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CashBackPercentagePriceInfoRequest {
-/// Specifies the cashback rate as a percentage. Must be an integer between 1 and 99.
-#[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
+    /// Specifies the cashback rate as a percentage. Must be an integer between 1 and 99.
+    #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<i32>,
 }
 
 impl CashBackPercentagePriceInfoRequest {
-pub fn new() -> CashBackPercentagePriceInfoRequest {
-        CashBackPercentagePriceInfoRequest {
-percentage: None,
-}
+    pub fn new() -> CashBackPercentagePriceInfoRequest {
+        CashBackPercentagePriceInfoRequest { percentage: None }
     }
 }

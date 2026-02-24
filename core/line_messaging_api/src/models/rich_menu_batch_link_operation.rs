@@ -30,18 +30,15 @@ use serde::{Deserialize, Serialize};
 /// RichMenuBatchLinkOperation : Replace the rich menu with the rich menu specified in the `to` property for all users linked to the rich menu specified in the `from` property.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuBatchLinkOperation {
-#[serde(rename = "from")]
+    #[serde(rename = "from")]
     pub from: String,
-#[serde(rename = "to")]
+    #[serde(rename = "to")]
     pub to: String,
 }
 
 impl RichMenuBatchLinkOperation {
-/// Replace the rich menu with the rich menu specified in the `to` property for all users linked to the rich menu specified in the `from` property.
-pub fn new(from: String, to: String) -> RichMenuBatchLinkOperation {
-        RichMenuBatchLinkOperation {
-from,
-to,
-}
+    /// Replace the rich menu with the rich menu specified in the `to` property for all users linked to the rich menu specified in the `from` property.
+    pub fn new(from: String, to: String) -> RichMenuBatchLinkOperation {
+        RichMenuBatchLinkOperation { from, to }
     }
 }

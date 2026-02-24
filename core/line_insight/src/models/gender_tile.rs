@@ -29,31 +29,31 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GenderTile {
-/// users' gender
-#[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
+    /// users' gender
+    #[serde(rename = "gender", skip_serializing_if = "Option::is_none")]
     pub gender: Option<Gender>,
-/// Percentage
-#[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
+    /// Percentage
+    #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<f64>,
 }
 
 impl GenderTile {
-pub fn new() -> GenderTile {
+    pub fn new() -> GenderTile {
         GenderTile {
-gender: None,
-percentage: None,
-}
+            gender: None,
+            percentage: None,
+        }
     }
 }
 /// users' gender
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum Gender {
-#[serde(rename = "male")]
+    #[serde(rename = "male")]
     Male,
-#[serde(rename = "female")]
+    #[serde(rename = "female")]
     Female,
-#[serde(rename = "unknown")]
+    #[serde(rename = "unknown")]
     Unknown,
 }
 

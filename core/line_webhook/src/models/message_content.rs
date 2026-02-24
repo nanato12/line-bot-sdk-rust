@@ -31,21 +31,21 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum MessageContent {
-#[serde(rename = "text")]
+    #[serde(rename = "text")]
     TextMessageContent(models::TextMessageContent),
-#[serde(rename = "image")]
+    #[serde(rename = "image")]
     ImageMessageContent(models::ImageMessageContent),
-#[serde(rename = "video")]
+    #[serde(rename = "video")]
     VideoMessageContent(models::VideoMessageContent),
-#[serde(rename = "audio")]
+    #[serde(rename = "audio")]
     AudioMessageContent(models::AudioMessageContent),
-#[serde(rename = "file")]
+    #[serde(rename = "file")]
     FileMessageContent(models::FileMessageContent),
-#[serde(rename = "location")]
+    #[serde(rename = "location")]
     LocationMessageContent(models::LocationMessageContent),
-#[serde(rename = "sticker")]
+    #[serde(rename = "sticker")]
     StickerMessageContent(models::StickerMessageContent),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

@@ -30,15 +30,13 @@ use serde::{Deserialize, Serialize};
 /// RichMenuBatchUnlinkOperation : Unlink the rich menu for all users linked to the rich menu specified in the `from` property.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuBatchUnlinkOperation {
-#[serde(rename = "from")]
+    #[serde(rename = "from")]
     pub from: String,
 }
 
 impl RichMenuBatchUnlinkOperation {
-/// Unlink the rich menu for all users linked to the rich menu specified in the `from` property.
-pub fn new(from: String) -> RichMenuBatchUnlinkOperation {
-        RichMenuBatchUnlinkOperation {
-from,
-}
+    /// Unlink the rich menu for all users linked to the rich menu specified in the `from` property.
+    pub fn new(from: String) -> RichMenuBatchUnlinkOperation {
+        RichMenuBatchUnlinkOperation { from }
     }
 }

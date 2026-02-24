@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UnsendDetail {
-/// The message ID of the unsent message
-#[serde(rename = "messageId")]
+    /// The message ID of the unsent message
+    #[serde(rename = "messageId")]
     pub message_id: String,
 }
 
 impl UnsendDetail {
-pub fn new(message_id: String) -> UnsendDetail {
-        UnsendDetail {
-message_id,
-}
+    pub fn new(message_id: String) -> UnsendDetail {
+        UnsendDetail { message_id }
     }
 }

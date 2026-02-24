@@ -29,32 +29,37 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ImagemapMessage {
-#[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "quickReply", skip_serializing_if = "Option::is_none")]
     pub quick_reply: Option<Box<models::QuickReply>>,
-#[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "sender", skip_serializing_if = "Option::is_none")]
     pub sender: Option<Box<models::Sender>>,
-#[serde(rename = "baseUrl")]
+    #[serde(rename = "baseUrl")]
     pub base_url: String,
-#[serde(rename = "altText")]
+    #[serde(rename = "altText")]
     pub alt_text: String,
-#[serde(rename = "baseSize")]
+    #[serde(rename = "baseSize")]
     pub base_size: Box<models::ImagemapBaseSize>,
-#[serde(rename = "actions")]
+    #[serde(rename = "actions")]
     pub actions: Vec<models::ImagemapAction>,
-#[serde(rename = "video", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "video", skip_serializing_if = "Option::is_none")]
     pub video: Option<Box<models::ImagemapVideo>>,
 }
 
 impl ImagemapMessage {
-pub fn new(base_url: String, alt_text: String, base_size: models::ImagemapBaseSize, actions: Vec<models::ImagemapAction>) -> ImagemapMessage {
+    pub fn new(
+        base_url: String,
+        alt_text: String,
+        base_size: models::ImagemapBaseSize,
+        actions: Vec<models::ImagemapAction>,
+    ) -> ImagemapMessage {
         ImagemapMessage {
-quick_reply: None,
-sender: None,
-base_url,
-alt_text,
-base_size: Box::new(base_size),
-actions,
-video: None,
-}
+            quick_reply: None,
+            sender: None,
+            base_url,
+            alt_text,
+            base_size: Box::new(base_size),
+            actions,
+            video: None,
+        }
     }
 }

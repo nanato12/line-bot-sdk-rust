@@ -29,21 +29,21 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuSwitchAction {
-/// Label for the action.
-#[serde(rename = "label", skip_serializing_if = "Option::is_none")]
+    /// Label for the action.
+    #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
-#[serde(rename = "data", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "data", skip_serializing_if = "Option::is_none")]
     pub data: Option<String>,
-#[serde(rename = "richMenuAliasId", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "richMenuAliasId", skip_serializing_if = "Option::is_none")]
     pub rich_menu_alias_id: Option<String>,
 }
 
 impl RichMenuSwitchAction {
-pub fn new() -> RichMenuSwitchAction {
+    pub fn new() -> RichMenuSwitchAction {
         RichMenuSwitchAction {
-label: None,
-data: None,
-rich_menu_alias_id: None,
-}
+            label: None,
+            data: None,
+            rich_menu_alias_id: None,
+        }
     }
 }

@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GroupMemberCountResponse {
-/// The count of members in the group chat. The number returned excludes the LINE Official Account.
-#[serde(rename = "count")]
+    /// The count of members in the group chat. The number returned excludes the LINE Official Account.
+    #[serde(rename = "count")]
     pub count: i32,
 }
 
 impl GroupMemberCountResponse {
-pub fn new(count: i32) -> GroupMemberCountResponse {
-        GroupMemberCountResponse {
-count,
-}
+    pub fn new(count: i32) -> GroupMemberCountResponse {
+        GroupMemberCountResponse { count }
     }
 }

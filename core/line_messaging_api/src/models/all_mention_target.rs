@@ -28,12 +28,10 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct AllMentionTarget {
-}
+pub struct AllMentionTarget {}
 
 impl AllMentionTarget {
-pub fn new() -> AllMentionTarget {
-        AllMentionTarget {
-}
+    pub fn new() -> AllMentionTarget {
+        AllMentionTarget {}
     }
 }

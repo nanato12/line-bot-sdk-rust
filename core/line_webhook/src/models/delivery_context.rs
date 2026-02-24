@@ -30,16 +30,14 @@ use serde::{Deserialize, Serialize};
 /// DeliveryContext : webhook's delivery context information
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DeliveryContext {
-/// Whether the webhook event is a redelivered one or not.
-#[serde(rename = "isRedelivery")]
+    /// Whether the webhook event is a redelivered one or not.
+    #[serde(rename = "isRedelivery")]
     pub is_redelivery: bool,
 }
 
 impl DeliveryContext {
-/// webhook's delivery context information
-pub fn new(is_redelivery: bool) -> DeliveryContext {
-        DeliveryContext {
-is_redelivery,
-}
+    /// webhook's delivery context information
+    pub fn new(is_redelivery: bool) -> DeliveryContext {
+        DeliveryContext { is_redelivery }
     }
 }

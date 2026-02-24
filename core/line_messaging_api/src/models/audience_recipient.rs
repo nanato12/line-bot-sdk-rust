@@ -29,14 +29,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AudienceRecipient {
-#[serde(rename = "audienceGroupId", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "audienceGroupId", skip_serializing_if = "Option::is_none")]
     pub audience_group_id: Option<i64>,
 }
 
 impl AudienceRecipient {
-pub fn new() -> AudienceRecipient {
+    pub fn new() -> AudienceRecipient {
         AudienceRecipient {
-audience_group_id: None,
-}
+            audience_group_id: None,
+        }
     }
 }

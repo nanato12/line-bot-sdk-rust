@@ -31,13 +31,13 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum ImagemapAction {
-#[serde(rename = "message")]
+    #[serde(rename = "message")]
     MessageImagemapAction(models::MessageImagemapAction),
-#[serde(rename = "uri")]
+    #[serde(rename = "uri")]
     UriImagemapAction(models::UriImagemapAction),
-#[serde(rename = "clipboard")]
+    #[serde(rename = "clipboard")]
     ClipboardImagemapAction(models::ClipboardImagemapAction),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

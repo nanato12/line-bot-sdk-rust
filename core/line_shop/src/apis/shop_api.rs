@@ -56,27 +56,26 @@ where
 }
 
 pub trait ShopApi: Send + Sync {
-fn mission_sticker_v3(
+    fn mission_sticker_v3(
         &self,
-mission_sticker_request: models::MissionStickerRequest,
-) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+        mission_sticker_request: models::MissionStickerRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
 }
 
 impl<C: Connect> ShopApi for ShopApiClient<C>
 where
     C: Clone + std::marker::Send + Sync,
 {
-#[allow(unused_mut)]
+    #[allow(unused_mut)]
     fn mission_sticker_v3(
         &self,
-mission_sticker_request: models::MissionStickerRequest,
-) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
-        let mut req = __internal_request::Request::new(hyper::Method::POST, "/shop/v3/mission".to_string())
-;
-req = req.with_body_param(mission_sticker_request);
-req = req.returns_nothing();
+        mission_sticker_request: models::MissionStickerRequest,
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+        let mut req =
+            __internal_request::Request::new(hyper::Method::POST, "/shop/v3/mission".to_string());
+        req = req.with_body_param(mission_sticker_request);
+        req = req.returns_nothing();
 
-req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow())
     }
-
 }

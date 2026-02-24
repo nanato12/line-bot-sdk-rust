@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AltUri {
-#[serde(rename = "desktop", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "desktop", skip_serializing_if = "Option::is_none")]
     pub desktop: Option<String>,
 }
 
 impl AltUri {
-pub fn new() -> AltUri {
-        AltUri {
-desktop: None,
-}
+    pub fn new() -> AltUri {
+        AltUri { desktop: None }
     }
 }

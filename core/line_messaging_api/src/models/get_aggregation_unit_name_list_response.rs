@@ -29,19 +29,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAggregationUnitNameListResponse {
-/// An array of strings indicating the names of aggregation units used this month.
-#[serde(rename = "customAggregationUnits")]
+    /// An array of strings indicating the names of aggregation units used this month.
+    #[serde(rename = "customAggregationUnits")]
     pub custom_aggregation_units: Vec<String>,
-/// A continuation token to get the next array of unit names. Returned only when there are remaining aggregation units that weren't returned in customAggregationUnits in the original request.  
-#[serde(rename = "next", skip_serializing_if = "Option::is_none")]
+    /// A continuation token to get the next array of unit names. Returned only when there are remaining aggregation units that weren't returned in customAggregationUnits in the original request.  
+    #[serde(rename = "next", skip_serializing_if = "Option::is_none")]
     pub next: Option<String>,
 }
 
 impl GetAggregationUnitNameListResponse {
-pub fn new(custom_aggregation_units: Vec<String>) -> GetAggregationUnitNameListResponse {
+    pub fn new(custom_aggregation_units: Vec<String>) -> GetAggregationUnitNameListResponse {
         GetAggregationUnitNameListResponse {
-custom_aggregation_units,
-next: None,
-}
+            custom_aggregation_units,
+            next: None,
+        }
     }
 }

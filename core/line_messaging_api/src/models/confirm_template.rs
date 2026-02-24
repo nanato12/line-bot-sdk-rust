@@ -29,17 +29,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ConfirmTemplate {
-#[serde(rename = "text")]
+    #[serde(rename = "text")]
     pub text: String,
-#[serde(rename = "actions")]
+    #[serde(rename = "actions")]
     pub actions: Vec<models::Action>,
 }
 
 impl ConfirmTemplate {
-pub fn new(text: String, actions: Vec<models::Action>) -> ConfirmTemplate {
-        ConfirmTemplate {
-text,
-actions,
-}
+    pub fn new(text: String, actions: Vec<models::Action>) -> ConfirmTemplate {
+        ConfirmTemplate { text, actions }
     }
 }

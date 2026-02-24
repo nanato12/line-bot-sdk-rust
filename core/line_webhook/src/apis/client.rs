@@ -21,7 +21,7 @@ use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
 pub struct APIClient {
-dummy: Box<dyn crate::apis::DummyApi>,
+    dummy: Box<dyn crate::apis::DummyApi>,
 }
 
 impl APIClient {
@@ -32,12 +32,10 @@ impl APIClient {
         let rc = Arc::new(configuration);
 
         APIClient {
-dummy: Box::new(crate::apis::DummyApiClient::new(
-                rc.clone(),
-            )),
-}
+            dummy: Box::new(crate::apis::DummyApiClient::new(rc.clone())),
+        }
     }
-pub fn dummy(&self) -> &dyn crate::apis::DummyApi {
+    pub fn dummy(&self) -> &dyn crate::apis::DummyApi {
         self.dummy.as_ref()
     }
 }

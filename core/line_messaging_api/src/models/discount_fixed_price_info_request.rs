@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DiscountFixedPriceInfoRequest {
-#[serde(rename = "fixedAmount", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "fixedAmount", skip_serializing_if = "Option::is_none")]
     pub fixed_amount: Option<i64>,
 }
 
 impl DiscountFixedPriceInfoRequest {
-pub fn new() -> DiscountFixedPriceInfoRequest {
-        DiscountFixedPriceInfoRequest {
-fixed_amount: None,
-}
+    pub fn new() -> DiscountFixedPriceInfoRequest {
+        DiscountFixedPriceInfoRequest { fixed_amount: None }
     }
 }

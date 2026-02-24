@@ -27,35 +27,35 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// FlexBoxBorderWidth : Width of box border. This is only for `borderWidth` in FlexBox. A value of none means that borders are not rendered; the other values are listed in order of increasing width. 
-/// Width of box border. This is only for `borderWidth` in FlexBox. A value of none means that borders are not rendered; the other values are listed in order of increasing width. 
+/// FlexBoxBorderWidth : Width of box border. This is only for `borderWidth` in FlexBox. A value of none means that borders are not rendered; the other values are listed in order of increasing width.
+/// Width of box border. This is only for `borderWidth` in FlexBox. A value of none means that borders are not rendered; the other values are listed in order of increasing width.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum FlexBoxBorderWidth {
-#[serde(rename = "none")]
+    #[serde(rename = "none")]
     None,
-#[serde(rename = "light")]
+    #[serde(rename = "light")]
     Light,
-#[serde(rename = "normal")]
+    #[serde(rename = "normal")]
     Normal,
-#[serde(rename = "medium")]
+    #[serde(rename = "medium")]
     Medium,
-#[serde(rename = "semi-bold")]
+    #[serde(rename = "semi-bold")]
     SemiBold,
-#[serde(rename = "bold")]
+    #[serde(rename = "bold")]
     Bold,
 }
 
 impl std::fmt::Display for FlexBoxBorderWidth {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-Self::None => write!(f, "none"),
-Self::Light => write!(f, "light"),
-Self::Normal => write!(f, "normal"),
-Self::Medium => write!(f, "medium"),
-Self::SemiBold => write!(f, "semi-bold"),
-Self::Bold => write!(f, "bold"),
-}
+            Self::None => write!(f, "none"),
+            Self::Light => write!(f, "light"),
+            Self::Normal => write!(f, "normal"),
+            Self::Medium => write!(f, "medium"),
+            Self::SemiBold => write!(f, "semi-bold"),
+            Self::Bold => write!(f, "bold"),
+        }
     }
 }
 

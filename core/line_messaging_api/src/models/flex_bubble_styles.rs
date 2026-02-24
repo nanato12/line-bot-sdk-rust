@@ -29,23 +29,23 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexBubbleStyles {
-#[serde(rename = "header", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "header", skip_serializing_if = "Option::is_none")]
     pub header: Option<Box<models::FlexBlockStyle>>,
-#[serde(rename = "hero", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "hero", skip_serializing_if = "Option::is_none")]
     pub hero: Option<Box<models::FlexBlockStyle>>,
-#[serde(rename = "body", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
     pub body: Option<Box<models::FlexBlockStyle>>,
-#[serde(rename = "footer", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "footer", skip_serializing_if = "Option::is_none")]
     pub footer: Option<Box<models::FlexBlockStyle>>,
 }
 
 impl FlexBubbleStyles {
-pub fn new() -> FlexBubbleStyles {
+    pub fn new() -> FlexBubbleStyles {
         FlexBubbleStyles {
-header: None,
-hero: None,
-body: None,
-footer: None,
-}
+            header: None,
+            hero: None,
+            body: None,
+            footer: None,
+        }
     }
 }

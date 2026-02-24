@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RenewedMembershipContent {
-/// The ID of the membership that the user renewed. This is defined for each membership.
-#[serde(rename = "membershipId")]
+    /// The ID of the membership that the user renewed. This is defined for each membership.
+    #[serde(rename = "membershipId")]
     pub membership_id: i32,
 }
 
 impl RenewedMembershipContent {
-pub fn new(membership_id: i32) -> RenewedMembershipContent {
-        RenewedMembershipContent {
-membership_id,
-}
+    pub fn new(membership_id: i32) -> RenewedMembershipContent {
+        RenewedMembershipContent { membership_id }
     }
 }

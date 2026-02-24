@@ -30,28 +30,33 @@ use serde::{Deserialize, Serialize};
 /// SubscribedMembershipUser : Object containing user membership subscription information.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SubscribedMembershipUser {
-/// The user's member number in the membership plan.
-#[serde(rename = "membershipNo")]
+    /// The user's member number in the membership plan.
+    #[serde(rename = "membershipNo")]
     pub membership_no: i32,
-/// UNIX timestamp at which the user subscribed to the membership.
-#[serde(rename = "joinedTime")]
+    /// UNIX timestamp at which the user subscribed to the membership.
+    #[serde(rename = "joinedTime")]
     pub joined_time: i32,
-/// Next payment date for membership plan. - Format: yyyy-MM-dd (e.g. 2024-02-08) - Timezone: UTC+9 
-#[serde(rename = "nextBillingDate")]
+    /// Next payment date for membership plan. - Format: yyyy-MM-dd (e.g. 2024-02-08) - Timezone: UTC+9
+    #[serde(rename = "nextBillingDate")]
     pub next_billing_date: String,
-/// The period of time in months that the user has been subscribed to a membership plan. If a user previously canceled and then re-subscribed to the same membership plan, only the period after the re-subscription will be counted.
-#[serde(rename = "totalSubscriptionMonths")]
+    /// The period of time in months that the user has been subscribed to a membership plan. If a user previously canceled and then re-subscribed to the same membership plan, only the period after the re-subscription will be counted.
+    #[serde(rename = "totalSubscriptionMonths")]
     pub total_subscription_months: i32,
 }
 
 impl SubscribedMembershipUser {
-/// Object containing user membership subscription information.
-pub fn new(membership_no: i32, joined_time: i32, next_billing_date: String, total_subscription_months: i32) -> SubscribedMembershipUser {
+    /// Object containing user membership subscription information.
+    pub fn new(
+        membership_no: i32,
+        joined_time: i32,
+        next_billing_date: String,
+        total_subscription_months: i32,
+    ) -> SubscribedMembershipUser {
         SubscribedMembershipUser {
-membership_no,
-joined_time,
-next_billing_date,
-total_subscription_months,
-}
+            membership_no,
+            joined_time,
+            next_billing_date,
+            total_subscription_months,
+        }
     }
 }

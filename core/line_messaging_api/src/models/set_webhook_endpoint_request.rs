@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SetWebhookEndpointRequest {
-/// A valid webhook URL.
-#[serde(rename = "endpoint")]
+    /// A valid webhook URL.
+    #[serde(rename = "endpoint")]
     pub endpoint: String,
 }
 
 impl SetWebhookEndpointRequest {
-pub fn new(endpoint: String) -> SetWebhookEndpointRequest {
-        SetWebhookEndpointRequest {
-endpoint,
-}
+    pub fn new(endpoint: String) -> SetWebhookEndpointRequest {
+        SetWebhookEndpointRequest { endpoint }
     }
 }

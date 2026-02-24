@@ -30,16 +30,14 @@ use serde::{Deserialize, Serialize};
 /// ChannelAccessTokenKeyIdsResponse : Channel access token key IDs
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ChannelAccessTokenKeyIdsResponse {
-/// Array of channel access token key IDs.
-#[serde(rename = "kids")]
+    /// Array of channel access token key IDs.
+    #[serde(rename = "kids")]
     pub kids: Vec<String>,
 }
 
 impl ChannelAccessTokenKeyIdsResponse {
-/// Channel access token key IDs
-pub fn new(kids: Vec<String>) -> ChannelAccessTokenKeyIdsResponse {
-        ChannelAccessTokenKeyIdsResponse {
-kids,
-}
+    /// Channel access token key IDs
+    pub fn new(kids: Vec<String>) -> ChannelAccessTokenKeyIdsResponse {
+        ChannelAccessTokenKeyIdsResponse { kids }
     }
 }

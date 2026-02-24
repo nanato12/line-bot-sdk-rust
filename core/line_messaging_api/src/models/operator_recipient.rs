@@ -29,22 +29,22 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OperatorRecipient {
-/// Create a new recipient object by taking the logical conjunction (AND) of the specified array of recipient objects. 
-#[serde(rename = "and", skip_serializing_if = "Option::is_none")]
+    /// Create a new recipient object by taking the logical conjunction (AND) of the specified array of recipient objects.
+    #[serde(rename = "and", skip_serializing_if = "Option::is_none")]
     pub and: Option<Vec<models::Recipient>>,
-/// Create a new recipient object by taking the logical disjunction (OR) of the specified array of recipient objects. 
-#[serde(rename = "or", skip_serializing_if = "Option::is_none")]
+    /// Create a new recipient object by taking the logical disjunction (OR) of the specified array of recipient objects.
+    #[serde(rename = "or", skip_serializing_if = "Option::is_none")]
     pub or: Option<Vec<models::Recipient>>,
-#[serde(rename = "not", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "not", skip_serializing_if = "Option::is_none")]
     pub not: Option<Box<models::Recipient>>,
 }
 
 impl OperatorRecipient {
-pub fn new() -> OperatorRecipient {
+    pub fn new() -> OperatorRecipient {
         OperatorRecipient {
-and: None,
-or: None,
-not: None,
-}
+            and: None,
+            or: None,
+            not: None,
+        }
     }
 }

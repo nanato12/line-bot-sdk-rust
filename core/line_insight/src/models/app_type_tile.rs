@@ -29,31 +29,31 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AppTypeTile {
-/// users' OS
-#[serde(rename = "appType", skip_serializing_if = "Option::is_none")]
+    /// users' OS
+    #[serde(rename = "appType", skip_serializing_if = "Option::is_none")]
     pub app_type: Option<AppType>,
-/// Percentage
-#[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
+    /// Percentage
+    #[serde(rename = "percentage", skip_serializing_if = "Option::is_none")]
     pub percentage: Option<f64>,
 }
 
 impl AppTypeTile {
-pub fn new() -> AppTypeTile {
+    pub fn new() -> AppTypeTile {
         AppTypeTile {
-app_type: None,
-percentage: None,
-}
+            app_type: None,
+            percentage: None,
+        }
     }
 }
 /// users' OS
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum AppType {
-#[serde(rename = "ios")]
+    #[serde(rename = "ios")]
     Ios,
-#[serde(rename = "android")]
+    #[serde(rename = "android")]
     Android,
-#[serde(rename = "others")]
+    #[serde(rename = "others")]
     Others,
 }
 

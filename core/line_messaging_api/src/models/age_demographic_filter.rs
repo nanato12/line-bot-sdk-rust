@@ -29,17 +29,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AgeDemographicFilter {
-#[serde(rename = "gte", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "gte", skip_serializing_if = "Option::is_none")]
     pub gte: Option<models::AgeDemographic>,
-#[serde(rename = "lt", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "lt", skip_serializing_if = "Option::is_none")]
     pub lt: Option<models::AgeDemographic>,
 }
 
 impl AgeDemographicFilter {
-pub fn new() -> AgeDemographicFilter {
+    pub fn new() -> AgeDemographicFilter {
         AgeDemographicFilter {
-gte: None,
-lt: None,
-}
+            gte: None,
+            lt: None,
+        }
     }
 }

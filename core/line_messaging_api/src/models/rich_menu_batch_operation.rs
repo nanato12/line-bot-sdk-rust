@@ -32,13 +32,13 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum RichMenuBatchOperation {
-#[serde(rename = "link")]
+    #[serde(rename = "link")]
     RichMenuBatchLinkOperation(models::RichMenuBatchLinkOperation),
-#[serde(rename = "unlink")]
+    #[serde(rename = "unlink")]
     RichMenuBatchUnlinkOperation(models::RichMenuBatchUnlinkOperation),
-#[serde(rename = "unlinkAll")]
+    #[serde(rename = "unlinkAll")]
     RichMenuBatchUnlinkAllOperation(models::RichMenuBatchUnlinkAllOperation),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

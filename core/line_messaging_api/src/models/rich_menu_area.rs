@@ -30,18 +30,18 @@ use serde::{Deserialize, Serialize};
 /// RichMenuArea : Rich menu area
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RichMenuArea {
-#[serde(rename = "bounds", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "bounds", skip_serializing_if = "Option::is_none")]
     pub bounds: Option<Box<models::RichMenuBounds>>,
-#[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
     pub action: Option<Box<models::Action>>,
 }
 
 impl RichMenuArea {
-/// Rich menu area
-pub fn new() -> RichMenuArea {
+    /// Rich menu area
+    pub fn new() -> RichMenuArea {
         RichMenuArea {
-bounds: None,
-action: None,
-}
+            bounds: None,
+            action: None,
+        }
     }
 }

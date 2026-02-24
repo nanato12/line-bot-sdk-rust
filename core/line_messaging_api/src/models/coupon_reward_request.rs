@@ -31,17 +31,17 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum CouponRewardRequest {
-#[serde(rename = "cashBack")]
+    #[serde(rename = "cashBack")]
     CouponCashBackRewardRequest(models::CouponCashBackRewardRequest),
-#[serde(rename = "discount")]
+    #[serde(rename = "discount")]
     CouponDiscountRewardRequest(models::CouponDiscountRewardRequest),
-#[serde(rename = "free")]
+    #[serde(rename = "free")]
     CouponFreeRewardRequest(models::CouponFreeRewardRequest),
-#[serde(rename = "gift")]
+    #[serde(rename = "gift")]
     CouponGiftRewardRequest(models::CouponGiftRewardRequest),
-#[serde(rename = "others")]
+    #[serde(rename = "others")]
     CouponOthersRewardRequest(models::CouponOthersRewardRequest),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

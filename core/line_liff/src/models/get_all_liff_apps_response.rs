@@ -29,14 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAllLiffAppsResponse {
-#[serde(rename = "apps", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "apps", skip_serializing_if = "Option::is_none")]
     pub apps: Option<Vec<models::LiffApp>>,
 }
 
 impl GetAllLiffAppsResponse {
-pub fn new() -> GetAllLiffAppsResponse {
-        GetAllLiffAppsResponse {
-apps: None,
-}
+    pub fn new() -> GetAllLiffAppsResponse {
+        GetAllLiffAppsResponse { apps: None }
     }
 }

@@ -31,11 +31,11 @@ use serde::{Deserialize, Serialize};
 #[serde(tag = "type")]
 #[non_exhaustive]
 pub enum CashBackPriceInfoRequest {
-#[serde(rename = "fixed")]
+    #[serde(rename = "fixed")]
     CashBackFixedPriceInfoRequest(models::CashBackFixedPriceInfoRequest),
-#[serde(rename = "percentage")]
+    #[serde(rename = "percentage")]
     CashBackPercentagePriceInfoRequest(models::CashBackPercentagePriceInfoRequest),
-#[serde(other)]
+    #[serde(other)]
     Unknown,
 }
 

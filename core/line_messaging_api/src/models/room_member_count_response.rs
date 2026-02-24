@@ -29,15 +29,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct RoomMemberCountResponse {
-/// The count of members in the multi-person chat. The number returned excludes the LINE Official Account.
-#[serde(rename = "count")]
+    /// The count of members in the multi-person chat. The number returned excludes the LINE Official Account.
+    #[serde(rename = "count")]
     pub count: i32,
 }
 
 impl RoomMemberCountResponse {
-pub fn new(count: i32) -> RoomMemberCountResponse {
-        RoomMemberCountResponse {
-count,
-}
+    pub fn new(count: i32) -> RoomMemberCountResponse {
+        RoomMemberCountResponse { count }
     }
 }

@@ -30,16 +30,14 @@ use serde::{Deserialize, Serialize};
 /// DetachModuleRequest : Unlink (detach) the module channel by the operation of the module channel administrator
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DetachModuleRequest {
-/// User ID of the LINE Official Account bot attached to the module channel.
-#[serde(rename = "botId", skip_serializing_if = "Option::is_none")]
+    /// User ID of the LINE Official Account bot attached to the module channel.
+    #[serde(rename = "botId", skip_serializing_if = "Option::is_none")]
     pub bot_id: Option<String>,
 }
 
 impl DetachModuleRequest {
-/// Unlink (detach) the module channel by the operation of the module channel administrator
-pub fn new() -> DetachModuleRequest {
-        DetachModuleRequest {
-bot_id: None,
-}
+    /// Unlink (detach) the module channel by the operation of the module channel administrator
+    pub fn new() -> DetachModuleRequest {
+        DetachModuleRequest { bot_id: None }
     }
 }

@@ -29,29 +29,33 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ImageMessageContent {
-/// Message ID
-#[serde(rename = "id")]
+    /// Message ID
+    #[serde(rename = "id")]
     pub id: String,
-#[serde(rename = "contentProvider")]
+    #[serde(rename = "contentProvider")]
     pub content_provider: Box<models::ContentProvider>,
-#[serde(rename = "imageSet", skip_serializing_if = "Option::is_none")]
+    #[serde(rename = "imageSet", skip_serializing_if = "Option::is_none")]
     pub image_set: Option<Box<models::ImageSet>>,
-/// Quote token to quote this message. 
-#[serde(rename = "quoteToken")]
+    /// Quote token to quote this message.
+    #[serde(rename = "quoteToken")]
     pub quote_token: String,
-/// Token used to mark the message as read. 
-#[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
+    /// Token used to mark the message as read.
+    #[serde(rename = "markAsReadToken", skip_serializing_if = "Option::is_none")]
     pub mark_as_read_token: Option<String>,
 }
 
 impl ImageMessageContent {
-pub fn new(id: String, content_provider: models::ContentProvider, quote_token: String) -> ImageMessageContent {
+    pub fn new(
+        id: String,
+        content_provider: models::ContentProvider,
+        quote_token: String,
+    ) -> ImageMessageContent {
         ImageMessageContent {
-id,
-content_provider: Box::new(content_provider),
-image_set: None,
-quote_token,
-mark_as_read_token: None,
-}
+            id,
+            content_provider: Box::new(content_provider),
+            image_set: None,
+            quote_token,
+            mark_as_read_token: None,
+        }
     }
 }
