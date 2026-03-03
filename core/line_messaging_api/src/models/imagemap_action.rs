@@ -45,3 +45,18 @@ impl Default for ImagemapAction {
         ImagemapAction::MessageImagemapAction(Default::default())
     }
 }
+
+pub trait ImagemapActionExt {
+    fn area(&self) -> &models::ImagemapArea;
+}
+
+impl ImagemapActionExt for ImagemapAction {
+    fn area(&self) -> &models::ImagemapArea {
+        match self {
+            ImagemapAction::MessageImagemapAction(v) => &v.area,
+            ImagemapAction::UriImagemapAction(v) => &v.area,
+            ImagemapAction::ClipboardImagemapAction(v) => &v.area,
+            _ => panic!("Cannot access area on UnknownImagemapAction"),
+        }
+    }
+}

@@ -149,6 +149,16 @@ public class LineBotRustGenerator extends RustClientCodegen {
                 variants.add(variant);
             }
             model.vendorExtensions.put("x-enum-variants", variants);
+
+            // Check if there are common fields (parent properties beyond discriminator)
+            if (schema.getProperties() != null) {
+                long commonFieldCount = schema.getProperties().keySet().stream()
+                        .filter(p -> !p.equals(discProp))
+                        .count();
+                if (commonFieldCount > 0) {
+                    model.vendorExtensions.put("x-has-common-fields", true);
+                }
+            }
         }
 
         return model;

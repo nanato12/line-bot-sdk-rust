@@ -58,3 +58,24 @@ impl Default for Action {
         Action::CameraAction(Default::default())
     }
 }
+
+pub trait ActionExt {
+    fn label(&self) -> &Option<String>;
+}
+
+impl ActionExt for Action {
+    fn label(&self) -> &Option<String> {
+        match self {
+            Action::CameraAction(v) => &v.label,
+            Action::CameraRollAction(v) => &v.label,
+            Action::ClipboardAction(v) => &v.label,
+            Action::DatetimePickerAction(v) => &v.label,
+            Action::LocationAction(v) => &v.label,
+            Action::MessageAction(v) => &v.label,
+            Action::PostbackAction(v) => &v.label,
+            Action::RichMenuSwitchAction(v) => &v.label,
+            Action::UriAction(v) => &v.label,
+            _ => panic!("Cannot access label on UnknownAction"),
+        }
+    }
+}

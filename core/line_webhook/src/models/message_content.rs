@@ -53,3 +53,22 @@ impl Default for MessageContent {
         MessageContent::TextMessageContent(Default::default())
     }
 }
+
+pub trait MessageContentExt {
+    fn id(&self) -> &String;
+}
+
+impl MessageContentExt for MessageContent {
+    fn id(&self) -> &String {
+        match self {
+            MessageContent::TextMessageContent(v) => &v.id,
+            MessageContent::ImageMessageContent(v) => &v.id,
+            MessageContent::VideoMessageContent(v) => &v.id,
+            MessageContent::AudioMessageContent(v) => &v.id,
+            MessageContent::FileMessageContent(v) => &v.id,
+            MessageContent::LocationMessageContent(v) => &v.id,
+            MessageContent::StickerMessageContent(v) => &v.id,
+            _ => panic!("Cannot access id on UnknownMessageContent"),
+        }
+    }
+}

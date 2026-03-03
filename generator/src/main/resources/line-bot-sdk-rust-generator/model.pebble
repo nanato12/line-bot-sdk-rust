@@ -34,6 +34,33 @@ impl Default for {{ model.classname }} {
         {{ model.classname }}::{{ model.vendorExtensions['x-enum-variants'][0].variantName }}(Default::default())
     }
 }
+
+{% if model.vendorExtensions['x-has-common-fields'] is not null and model.vendorExtensions['x-has-common-fields'] == true -%}
+{% set discProp = model.vendorExtensions['x-discriminator-property'] -%}
+{% set variants = model.vendorExtensions['x-enum-variants'] -%}
+pub trait {{ model.classname }}Ext {
+{% for var in model.vars -%}
+{% if var.baseName != discProp -%}
+    fn {{ var.name }}(&self) -> &{% if var.isNullable or not var.required %}Option<{% if var.isModel %}Box<{{ var.dataType }}>{% elseif var.isEnum %}{% if var.isArray %}Vec<{{ var.enumName }}>{% else %}{{ var.enumName }}{% endif %}{% else %}{{ var.dataType }}{% endif %}>{% elseif var.isEnum %}{% if var.isArray %}Vec<{{ var.enumName }}>{% else %}{{ var.enumName }}{% endif %}{% else %}{{ var.dataType }}{% endif %};
+{% endif -%}
+{% endfor -%}
+}
+
+impl {{ model.classname }}Ext for {{ model.classname }} {
+{% for var in model.vars -%}
+{% if var.baseName != discProp -%}
+    fn {{ var.name }}(&self) -> &{% if var.isNullable or not var.required %}Option<{% if var.isModel %}Box<{{ var.dataType }}>{% elseif var.isEnum %}{% if var.isArray %}Vec<{{ var.enumName }}>{% else %}{{ var.enumName }}{% endif %}{% else %}{{ var.dataType }}{% endif %}>{% elseif var.isEnum %}{% if var.isArray %}Vec<{{ var.enumName }}>{% else %}{{ var.enumName }}{% endif %}{% else %}{{ var.dataType }}{% endif %} {
+        match self {
+{% for variant in variants -%}
+            {{ model.classname }}::{{ variant.variantName }}(v) => &v.{{ var.name }},
+{% endfor -%}
+            _ => panic!("Cannot access {{ var.name }} on Unknown{{ model.classname }}"),
+        }
+    }
+{% endif -%}
+{% endfor -%}
+}
+{% endif -%}
 {% elseif model.isEnum -%}
 {% if model.description is not empty -%}
 /// {{ model.classname }} : {{ model.description }}
