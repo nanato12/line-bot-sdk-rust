@@ -20,27 +20,30 @@ use super::configuration::Configuration;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
-pub struct APIClient {
-    messaging_api: Box<dyn crate::apis::MessagingApiApi>,
-    messaging_api_blob: Box<dyn crate::apis::MessagingApiBlobApi>,
+pub struct APIClient<C: Connect>
+where
+    C: Clone + std::marker::Send + Sync + 'static,
+{
+    messaging_api: crate::apis::MessagingApiApiClient<C>,
+    messaging_api_blob: crate::apis::MessagingApiBlobApiClient<C>,
 }
 
-impl APIClient {
-    pub fn new<C>(configuration: Configuration<C>) -> APIClient
-    where
-        C: Connect + Clone + std::marker::Send + Sync + 'static,
-    {
+impl<C: Connect> APIClient<C>
+where
+    C: Clone + std::marker::Send + Sync + 'static,
+{
+    pub fn new(configuration: Configuration<C>) -> APIClient<C> {
         let rc = Arc::new(configuration);
 
         APIClient {
-            messaging_api: Box::new(crate::apis::MessagingApiApiClient::new(rc.clone())),
-            messaging_api_blob: Box::new(crate::apis::MessagingApiBlobApiClient::new(rc.clone())),
+            messaging_api: crate::apis::MessagingApiApiClient::new(rc.clone()),
+            messaging_api_blob: crate::apis::MessagingApiBlobApiClient::new(rc.clone()),
         }
     }
-    pub fn messaging_api(&self) -> &dyn crate::apis::MessagingApiApi {
-        self.messaging_api.as_ref()
+    pub fn messaging_api(&self) -> &crate::apis::MessagingApiApiClient<C> {
+        &self.messaging_api
     }
-    pub fn messaging_api_blob(&self) -> &dyn crate::apis::MessagingApiBlobApi {
-        self.messaging_api_blob.as_ref()
+    pub fn messaging_api_blob(&self) -> &crate::apis::MessagingApiBlobApiClient<C> {
+        &self.messaging_api_blob
     }
 }

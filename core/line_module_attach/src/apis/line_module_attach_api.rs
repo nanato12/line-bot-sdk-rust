@@ -27,10 +27,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -70,7 +68,7 @@ pub trait LineModuleAttachApi: Send + Sync {
         basic_search_id: Option<&str>,
         scope: Option<&str>,
         brand_type: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::AttachModuleResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::AttachModuleResponse, Error>> + Send;
 }
 
 impl<C: Connect> LineModuleAttachApi for LineModuleAttachApiClient<C>
@@ -78,7 +76,7 @@ where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
-    fn attach_module(
+    async fn attach_module(
         &self,
         grant_type: &str,
         code: &str,
@@ -90,7 +88,7 @@ where
         basic_search_id: Option<&str>,
         scope: Option<&str>,
         brand_type: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::AttachModuleResponse, Error>> + Send>> {
+    ) -> Result<models::AttachModuleResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/module/auth/v1/token".to_string(),
@@ -121,6 +119,6 @@ where
             req = req.with_form_param("brand_type".to_string(), param_value.to_string());
         }
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 }

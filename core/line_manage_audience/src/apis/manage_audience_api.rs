@@ -27,10 +27,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -59,34 +57,30 @@ pub trait ManageAudienceApi: Send + Sync {
     fn add_audience_to_audience_group(
         &self,
         add_audience_to_audience_group_request: models::AddAudienceToAudienceGroupRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn create_audience_group(
         &self,
         create_audience_group_request: models::CreateAudienceGroupRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<models::CreateAudienceGroupResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::CreateAudienceGroupResponse, Error>> + Send;
     fn create_click_based_audience_group(
         &self,
         create_click_based_audience_group_request: models::CreateClickBasedAudienceGroupRequest,
-    ) -> Pin<
-        Box<
-            dyn Future<Output = Result<models::CreateClickBasedAudienceGroupResponse, Error>>
-                + Send,
-        >,
-    >;
+    ) -> impl std::future::Future<
+        Output = Result<models::CreateClickBasedAudienceGroupResponse, Error>,
+    > + Send;
     fn create_imp_based_audience_group(
         &self,
         create_imp_based_audience_group_request: models::CreateImpBasedAudienceGroupRequest,
-    ) -> Pin<
-        Box<dyn Future<Output = Result<models::CreateImpBasedAudienceGroupResponse, Error>> + Send>,
-    >;
+    ) -> impl std::future::Future<Output = Result<models::CreateImpBasedAudienceGroupResponse, Error>>
+           + Send;
     fn delete_audience_group(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn get_audience_data(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetAudienceDataResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetAudienceDataResponse, Error>> + Send;
     fn get_audience_groups(
         &self,
         page: i64,
@@ -95,11 +89,11 @@ pub trait ManageAudienceApi: Send + Sync {
         size: Option<i64>,
         includes_external_public_groups: Option<bool>,
         create_route: Option<models::AudienceGroupCreateRoute>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetAudienceGroupsResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetAudienceGroupsResponse, Error>> + Send;
     fn get_shared_audience_data(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetSharedAudienceDataResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetSharedAudienceDataResponse, Error>> + Send;
     fn get_shared_audience_groups(
         &self,
         page: i64,
@@ -108,12 +102,12 @@ pub trait ManageAudienceApi: Send + Sync {
         size: Option<i64>,
         create_route: Option<models::AudienceGroupCreateRoute>,
         includes_owned_audience_groups: Option<bool>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetSharedAudienceGroupsResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::GetSharedAudienceGroupsResponse, Error>> + Send;
     fn update_audience_group_description(
         &self,
         audience_group_id: i64,
         update_audience_group_description_request: models::UpdateAudienceGroupDescriptionRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
 }
 
 impl<C: Connect> ManageAudienceApi for ManageAudienceApiClient<C>
@@ -121,10 +115,10 @@ where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
-    fn add_audience_to_audience_group(
+    async fn add_audience_to_audience_group(
         &self,
         add_audience_to_audience_group_request: models::AddAudienceToAudienceGroupRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/v2/bot/audienceGroup/upload".to_string(),
@@ -132,64 +126,53 @@ where
         req = req.with_body_param(add_audience_to_audience_group_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn create_audience_group(
+    async fn create_audience_group(
         &self,
         create_audience_group_request: models::CreateAudienceGroupRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<models::CreateAudienceGroupResponse, Error>> + Send>>
-    {
+    ) -> Result<models::CreateAudienceGroupResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/audienceGroup/upload".to_string(),
         );
         req = req.with_body_param(create_audience_group_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn create_click_based_audience_group(
+    async fn create_click_based_audience_group(
         &self,
         create_click_based_audience_group_request: models::CreateClickBasedAudienceGroupRequest,
-    ) -> Pin<
-        Box<
-            dyn Future<Output = Result<models::CreateClickBasedAudienceGroupResponse, Error>>
-                + Send,
-        >,
-    > {
+    ) -> Result<models::CreateClickBasedAudienceGroupResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/audienceGroup/click".to_string(),
         );
         req = req.with_body_param(create_click_based_audience_group_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn create_imp_based_audience_group(
+    async fn create_imp_based_audience_group(
         &self,
         create_imp_based_audience_group_request: models::CreateImpBasedAudienceGroupRequest,
-    ) -> Pin<
-        Box<dyn Future<Output = Result<models::CreateImpBasedAudienceGroupResponse, Error>> + Send>,
-    > {
+    ) -> Result<models::CreateImpBasedAudienceGroupResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/audienceGroup/imp".to_string(),
         );
         req = req.with_body_param(create_imp_based_audience_group_request);
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn delete_audience_group(
-        &self,
-        audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn delete_audience_group(&self, audience_group_id: i64) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::DELETE,
             "/v2/bot/audienceGroup/{audienceGroupId}".to_string(),
@@ -197,25 +180,25 @@ where
         req = req.with_path_param("audienceGroupId".to_string(), audience_group_id.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_audience_data(
+    async fn get_audience_data(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetAudienceDataResponse, Error>> + Send>> {
+    ) -> Result<models::GetAudienceDataResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/audienceGroup/{audienceGroupId}".to_string(),
         );
         req = req.with_path_param("audienceGroupId".to_string(), audience_group_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_audience_groups(
+    async fn get_audience_groups(
         &self,
         page: i64,
         description: Option<&str>,
@@ -223,8 +206,7 @@ where
         size: Option<i64>,
         includes_external_public_groups: Option<bool>,
         create_route: Option<models::AudienceGroupCreateRoute>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetAudienceGroupsResponse, Error>> + Send>>
-    {
+    ) -> Result<models::GetAudienceGroupsResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/audienceGroup/list".to_string(),
@@ -246,26 +228,25 @@ where
             req = req.with_query_param("createRoute".to_string(), s.to_string());
         }
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_shared_audience_data(
+    async fn get_shared_audience_data(
         &self,
         audience_group_id: i64,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetSharedAudienceDataResponse, Error>> + Send>>
-    {
+    ) -> Result<models::GetSharedAudienceDataResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/audienceGroup/shared/{audienceGroupId}".to_string(),
         );
         req = req.with_path_param("audienceGroupId".to_string(), audience_group_id.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn get_shared_audience_groups(
+    async fn get_shared_audience_groups(
         &self,
         page: i64,
         description: Option<&str>,
@@ -273,8 +254,7 @@ where
         size: Option<i64>,
         create_route: Option<models::AudienceGroupCreateRoute>,
         includes_owned_audience_groups: Option<bool>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::GetSharedAudienceGroupsResponse, Error>> + Send>>
-    {
+    ) -> Result<models::GetSharedAudienceGroupsResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/v2/bot/audienceGroup/shared/list".to_string(),
@@ -296,15 +276,15 @@ where
             req = req.with_query_param("includesOwnedAudienceGroups".to_string(), s.to_string());
         }
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn update_audience_group_description(
+    async fn update_audience_group_description(
         &self,
         audience_group_id: i64,
         update_audience_group_description_request: models::UpdateAudienceGroupDescriptionRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/v2/bot/audienceGroup/{audienceGroupId}/updateDescription".to_string(),
@@ -313,6 +293,6 @@ where
         req = req.with_body_param(update_audience_group_description_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 }

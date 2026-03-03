@@ -27,10 +27,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -59,7 +57,7 @@ pub trait ShopApi: Send + Sync {
     fn mission_sticker_v3(
         &self,
         mission_sticker_request: models::MissionStickerRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
 }
 
 impl<C: Connect> ShopApi for ShopApiClient<C>
@@ -67,15 +65,15 @@ where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
-    fn mission_sticker_v3(
+    async fn mission_sticker_v3(
         &self,
         mission_sticker_request: models::MissionStickerRequest,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/shop/v3/mission".to_string());
         req = req.with_body_param(mission_sticker_request);
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 }

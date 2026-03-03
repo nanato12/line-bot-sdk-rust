@@ -27,10 +27,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -63,14 +61,14 @@ pub trait ManageAudienceBlobApi: Send + Sync {
         file: std::path::PathBuf,
         audience_group_id: Option<i64>,
         upload_description: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn create_audience_for_uploading_user_ids(
         &self,
         file: std::path::PathBuf,
         description: Option<&str>,
         is_ifa_audience: Option<bool>,
         upload_description: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::CreateAudienceGroupResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::CreateAudienceGroupResponse, Error>> + Send;
 }
 
 impl<C: Connect> ManageAudienceBlobApi for ManageAudienceBlobApiClient<C>
@@ -78,12 +76,12 @@ where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
-    fn add_user_ids_to_audience(
+    async fn add_user_ids_to_audience(
         &self,
         file: std::path::PathBuf,
         audience_group_id: Option<i64>,
         upload_description: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::PUT,
             "/v2/bot/audienceGroup/upload/byFile".to_string(),
@@ -97,18 +95,17 @@ where
         req = req.with_form_param("file".to_string(), file.display().to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn create_audience_for_uploading_user_ids(
+    async fn create_audience_for_uploading_user_ids(
         &self,
         file: std::path::PathBuf,
         description: Option<&str>,
         is_ifa_audience: Option<bool>,
         upload_description: Option<&str>,
-    ) -> Pin<Box<dyn Future<Output = Result<models::CreateAudienceGroupResponse, Error>> + Send>>
-    {
+    ) -> Result<models::CreateAudienceGroupResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/bot/audienceGroup/upload/byFile".to_string(),
@@ -124,6 +121,6 @@ where
         }
         req = req.with_form_param("file".to_string(), file.display().to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 }

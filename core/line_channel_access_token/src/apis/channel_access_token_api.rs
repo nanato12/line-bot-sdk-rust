@@ -27,10 +27,8 @@
 use std::borrow::Borrow;
 #[allow(unused_imports)]
 use std::option::Option;
-use std::pin::Pin;
 use std::sync::Arc;
 
-use futures::Future;
 use hyper;
 use hyper_util::client::legacy::connect::Connect;
 
@@ -62,24 +60,21 @@ pub trait ChannelAccessTokenApi: Send + Sync {
         &self,
         client_assertion_type: &str,
         client_assertion: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::ChannelAccessTokenKeyIdsResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::ChannelAccessTokenKeyIdsResponse, Error>> + Send;
     fn issue_channel_token(
         &self,
         grant_type: &str,
         client_id: &str,
         client_secret: &str,
-    ) -> Pin<
-        Box<
-            dyn Future<Output = Result<models::IssueShortLivedChannelAccessTokenResponse, Error>>
-                + Send,
-        >,
-    >;
+    ) -> impl std::future::Future<
+        Output = Result<models::IssueShortLivedChannelAccessTokenResponse, Error>,
+    > + Send;
     fn issue_channel_token_by_jwt(
         &self,
         grant_type: &str,
         client_assertion_type: &str,
         client_assertion: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::IssueChannelAccessTokenResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::IssueChannelAccessTokenResponse, Error>> + Send;
     fn issue_stateless_channel_token(
         &self,
         grant_type: Option<&str>,
@@ -87,30 +82,27 @@ pub trait ChannelAccessTokenApi: Send + Sync {
         client_assertion: Option<&str>,
         client_id: Option<&str>,
         client_secret: Option<&str>,
-    ) -> Pin<
-        Box<
-            dyn Future<Output = Result<models::IssueStatelessChannelAccessTokenResponse, Error>>
-                + Send,
-        >,
-    >;
+    ) -> impl std::future::Future<
+        Output = Result<models::IssueStatelessChannelAccessTokenResponse, Error>,
+    > + Send;
     fn revoke_channel_token(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn revoke_channel_token_by_jwt(
         &self,
         client_id: &str,
         client_secret: &str,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn verify_channel_token(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::VerifyChannelAccessTokenResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::VerifyChannelAccessTokenResponse, Error>> + Send;
     fn verify_channel_token_by_jwt(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::VerifyChannelAccessTokenResponse, Error>> + Send>>;
+    ) -> impl std::future::Future<Output = Result<models::VerifyChannelAccessTokenResponse, Error>> + Send;
 }
 
 impl<C: Connect> ChannelAccessTokenApi for ChannelAccessTokenApiClient<C>
@@ -118,12 +110,11 @@ where
     C: Clone + std::marker::Send + Sync,
 {
     #[allow(unused_mut)]
-    fn gets_all_valid_channel_access_token_key_ids(
+    async fn gets_all_valid_channel_access_token_key_ids(
         &self,
         client_assertion_type: &str,
         client_assertion: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::ChannelAccessTokenKeyIdsResponse, Error>> + Send>>
-    {
+    ) -> Result<models::ChannelAccessTokenKeyIdsResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
             "/oauth2/v2.1/tokens/kid".to_string(),
@@ -134,21 +125,16 @@ where
         );
         req = req.with_query_param("client_assertion".to_string(), client_assertion.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn issue_channel_token(
+    async fn issue_channel_token(
         &self,
         grant_type: &str,
         client_id: &str,
         client_secret: &str,
-    ) -> Pin<
-        Box<
-            dyn Future<Output = Result<models::IssueShortLivedChannelAccessTokenResponse, Error>>
-                + Send,
-        >,
-    > {
+    ) -> Result<models::IssueShortLivedChannelAccessTokenResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/v2/oauth/accessToken".to_string(),
@@ -157,17 +143,16 @@ where
         req = req.with_form_param("client_id".to_string(), client_id.to_string());
         req = req.with_form_param("client_secret".to_string(), client_secret.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn issue_channel_token_by_jwt(
+    async fn issue_channel_token_by_jwt(
         &self,
         grant_type: &str,
         client_assertion_type: &str,
         client_assertion: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::IssueChannelAccessTokenResponse, Error>> + Send>>
-    {
+    ) -> Result<models::IssueChannelAccessTokenResponse, Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/oauth2/v2.1/token".to_string());
         req = req.with_form_param("grant_type".to_string(), grant_type.to_string());
@@ -177,23 +162,18 @@ where
         );
         req = req.with_form_param("client_assertion".to_string(), client_assertion.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn issue_stateless_channel_token(
+    async fn issue_stateless_channel_token(
         &self,
         grant_type: Option<&str>,
         client_assertion_type: Option<&str>,
         client_assertion: Option<&str>,
         client_id: Option<&str>,
         client_secret: Option<&str>,
-    ) -> Pin<
-        Box<
-            dyn Future<Output = Result<models::IssueStatelessChannelAccessTokenResponse, Error>>
-                + Send,
-        >,
-    > {
+    ) -> Result<models::IssueStatelessChannelAccessTokenResponse, Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/oauth2/v3/token".to_string());
         if let Some(param_value) = grant_type {
@@ -212,29 +192,26 @@ where
             req = req.with_form_param("client_secret".to_string(), param_value.to_string());
         }
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn revoke_channel_token(
-        &self,
-        access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    async fn revoke_channel_token(&self, access_token: &str) -> Result<(), Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/oauth/revoke".to_string());
         req = req.with_form_param("access_token".to_string(), access_token.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn revoke_channel_token_by_jwt(
+    async fn revoke_channel_token_by_jwt(
         &self,
         client_id: &str,
         client_secret: &str,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + Send>> {
+    ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
             "/oauth2/v2.1/revoke".to_string(),
@@ -244,32 +221,30 @@ where
         req = req.with_form_param("access_token".to_string(), access_token.to_string());
         req = req.returns_nothing();
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn verify_channel_token(
+    async fn verify_channel_token(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::VerifyChannelAccessTokenResponse, Error>> + Send>>
-    {
+    ) -> Result<models::VerifyChannelAccessTokenResponse, Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::POST, "/v2/oauth/verify".to_string());
         req = req.with_form_param("access_token".to_string(), access_token.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 
     #[allow(unused_mut)]
-    fn verify_channel_token_by_jwt(
+    async fn verify_channel_token_by_jwt(
         &self,
         access_token: &str,
-    ) -> Pin<Box<dyn Future<Output = Result<models::VerifyChannelAccessTokenResponse, Error>> + Send>>
-    {
+    ) -> Result<models::VerifyChannelAccessTokenResponse, Error> {
         let mut req =
             __internal_request::Request::new(hyper::Method::GET, "/oauth2/v2.1/verify".to_string());
         req = req.with_query_param("access_token".to_string(), access_token.to_string());
 
-        req.execute(self.configuration.borrow())
+        req.execute(self.configuration.borrow()).await
     }
 }
