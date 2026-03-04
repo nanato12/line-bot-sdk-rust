@@ -43,3 +43,25 @@ impl Default for Mentionee {
         Mentionee::UserMentionee(Default::default())
     }
 }
+
+pub trait MentioneeExt {
+    fn index(&self) -> &i32;
+    fn length(&self) -> &i32;
+}
+
+impl MentioneeExt for Mentionee {
+    fn index(&self) -> &i32 {
+        match self {
+            Mentionee::UserMentionee(v) => &v.index,
+            Mentionee::AllMentionee(v) => &v.index,
+            _ => panic!("Cannot access index on UnknownMentionee"),
+        }
+    }
+    fn length(&self) -> &i32 {
+        match self {
+            Mentionee::UserMentionee(v) => &v.length,
+            Mentionee::AllMentionee(v) => &v.length,
+            _ => panic!("Cannot access length on UnknownMentionee"),
+        }
+    }
+}

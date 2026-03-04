@@ -78,3 +78,134 @@ impl Default for Event {
         Event::MessageEvent(Default::default())
     }
 }
+
+pub trait EventExt {
+    fn source(&self) -> &Option<Box<models::Source>>;
+    fn timestamp(&self) -> &i64;
+    fn mode(&self) -> &models::EventMode;
+    fn webhook_event_id(&self) -> &String;
+    fn delivery_context(&self) -> &models::DeliveryContext;
+}
+
+impl EventExt for Event {
+    fn source(&self) -> &Option<Box<models::Source>> {
+        match self {
+            Event::MessageEvent(v) => &v.source,
+            Event::UnsendEvent(v) => &v.source,
+            Event::FollowEvent(v) => &v.source,
+            Event::UnfollowEvent(v) => &v.source,
+            Event::JoinEvent(v) => &v.source,
+            Event::LeaveEvent(v) => &v.source,
+            Event::MemberJoinedEvent(v) => &v.source,
+            Event::MemberLeftEvent(v) => &v.source,
+            Event::PostbackEvent(v) => &v.source,
+            Event::VideoPlayCompleteEvent(v) => &v.source,
+            Event::BeaconEvent(v) => &v.source,
+            Event::AccountLinkEvent(v) => &v.source,
+            Event::MembershipEvent(v) => &v.source,
+            Event::ModuleEvent(v) => &v.source,
+            Event::ActivatedEvent(v) => &v.source,
+            Event::DeactivatedEvent(v) => &v.source,
+            Event::BotSuspendedEvent(v) => &v.source,
+            Event::BotResumedEvent(v) => &v.source,
+            Event::PnpDeliveryCompletionEvent(v) => &v.source,
+            _ => panic!("Cannot access source on UnknownEvent"),
+        }
+    }
+    fn timestamp(&self) -> &i64 {
+        match self {
+            Event::MessageEvent(v) => &v.timestamp,
+            Event::UnsendEvent(v) => &v.timestamp,
+            Event::FollowEvent(v) => &v.timestamp,
+            Event::UnfollowEvent(v) => &v.timestamp,
+            Event::JoinEvent(v) => &v.timestamp,
+            Event::LeaveEvent(v) => &v.timestamp,
+            Event::MemberJoinedEvent(v) => &v.timestamp,
+            Event::MemberLeftEvent(v) => &v.timestamp,
+            Event::PostbackEvent(v) => &v.timestamp,
+            Event::VideoPlayCompleteEvent(v) => &v.timestamp,
+            Event::BeaconEvent(v) => &v.timestamp,
+            Event::AccountLinkEvent(v) => &v.timestamp,
+            Event::MembershipEvent(v) => &v.timestamp,
+            Event::ModuleEvent(v) => &v.timestamp,
+            Event::ActivatedEvent(v) => &v.timestamp,
+            Event::DeactivatedEvent(v) => &v.timestamp,
+            Event::BotSuspendedEvent(v) => &v.timestamp,
+            Event::BotResumedEvent(v) => &v.timestamp,
+            Event::PnpDeliveryCompletionEvent(v) => &v.timestamp,
+            _ => panic!("Cannot access timestamp on UnknownEvent"),
+        }
+    }
+    fn mode(&self) -> &models::EventMode {
+        match self {
+            Event::MessageEvent(v) => &v.mode,
+            Event::UnsendEvent(v) => &v.mode,
+            Event::FollowEvent(v) => &v.mode,
+            Event::UnfollowEvent(v) => &v.mode,
+            Event::JoinEvent(v) => &v.mode,
+            Event::LeaveEvent(v) => &v.mode,
+            Event::MemberJoinedEvent(v) => &v.mode,
+            Event::MemberLeftEvent(v) => &v.mode,
+            Event::PostbackEvent(v) => &v.mode,
+            Event::VideoPlayCompleteEvent(v) => &v.mode,
+            Event::BeaconEvent(v) => &v.mode,
+            Event::AccountLinkEvent(v) => &v.mode,
+            Event::MembershipEvent(v) => &v.mode,
+            Event::ModuleEvent(v) => &v.mode,
+            Event::ActivatedEvent(v) => &v.mode,
+            Event::DeactivatedEvent(v) => &v.mode,
+            Event::BotSuspendedEvent(v) => &v.mode,
+            Event::BotResumedEvent(v) => &v.mode,
+            Event::PnpDeliveryCompletionEvent(v) => &v.mode,
+            _ => panic!("Cannot access mode on UnknownEvent"),
+        }
+    }
+    fn webhook_event_id(&self) -> &String {
+        match self {
+            Event::MessageEvent(v) => &v.webhook_event_id,
+            Event::UnsendEvent(v) => &v.webhook_event_id,
+            Event::FollowEvent(v) => &v.webhook_event_id,
+            Event::UnfollowEvent(v) => &v.webhook_event_id,
+            Event::JoinEvent(v) => &v.webhook_event_id,
+            Event::LeaveEvent(v) => &v.webhook_event_id,
+            Event::MemberJoinedEvent(v) => &v.webhook_event_id,
+            Event::MemberLeftEvent(v) => &v.webhook_event_id,
+            Event::PostbackEvent(v) => &v.webhook_event_id,
+            Event::VideoPlayCompleteEvent(v) => &v.webhook_event_id,
+            Event::BeaconEvent(v) => &v.webhook_event_id,
+            Event::AccountLinkEvent(v) => &v.webhook_event_id,
+            Event::MembershipEvent(v) => &v.webhook_event_id,
+            Event::ModuleEvent(v) => &v.webhook_event_id,
+            Event::ActivatedEvent(v) => &v.webhook_event_id,
+            Event::DeactivatedEvent(v) => &v.webhook_event_id,
+            Event::BotSuspendedEvent(v) => &v.webhook_event_id,
+            Event::BotResumedEvent(v) => &v.webhook_event_id,
+            Event::PnpDeliveryCompletionEvent(v) => &v.webhook_event_id,
+            _ => panic!("Cannot access webhook_event_id on UnknownEvent"),
+        }
+    }
+    fn delivery_context(&self) -> &models::DeliveryContext {
+        match self {
+            Event::MessageEvent(v) => &v.delivery_context,
+            Event::UnsendEvent(v) => &v.delivery_context,
+            Event::FollowEvent(v) => &v.delivery_context,
+            Event::UnfollowEvent(v) => &v.delivery_context,
+            Event::JoinEvent(v) => &v.delivery_context,
+            Event::LeaveEvent(v) => &v.delivery_context,
+            Event::MemberJoinedEvent(v) => &v.delivery_context,
+            Event::MemberLeftEvent(v) => &v.delivery_context,
+            Event::PostbackEvent(v) => &v.delivery_context,
+            Event::VideoPlayCompleteEvent(v) => &v.delivery_context,
+            Event::BeaconEvent(v) => &v.delivery_context,
+            Event::AccountLinkEvent(v) => &v.delivery_context,
+            Event::MembershipEvent(v) => &v.delivery_context,
+            Event::ModuleEvent(v) => &v.delivery_context,
+            Event::ActivatedEvent(v) => &v.delivery_context,
+            Event::DeactivatedEvent(v) => &v.delivery_context,
+            Event::BotSuspendedEvent(v) => &v.delivery_context,
+            Event::BotResumedEvent(v) => &v.delivery_context,
+            Event::PnpDeliveryCompletionEvent(v) => &v.delivery_context,
+            _ => panic!("Cannot access delivery_context on UnknownEvent"),
+        }
+    }
+}

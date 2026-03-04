@@ -61,3 +61,43 @@ impl Default for Message {
         Message::TextMessage(Default::default())
     }
 }
+
+pub trait MessageExt {
+    fn quick_reply(&self) -> &Option<Box<models::QuickReply>>;
+    fn sender(&self) -> &Option<Box<models::Sender>>;
+}
+
+impl MessageExt for Message {
+    fn quick_reply(&self) -> &Option<Box<models::QuickReply>> {
+        match self {
+            Message::TextMessage(v) => &v.quick_reply,
+            Message::TextMessageV2(v) => &v.quick_reply,
+            Message::StickerMessage(v) => &v.quick_reply,
+            Message::ImageMessage(v) => &v.quick_reply,
+            Message::VideoMessage(v) => &v.quick_reply,
+            Message::AudioMessage(v) => &v.quick_reply,
+            Message::LocationMessage(v) => &v.quick_reply,
+            Message::ImagemapMessage(v) => &v.quick_reply,
+            Message::TemplateMessage(v) => &v.quick_reply,
+            Message::FlexMessage(v) => &v.quick_reply,
+            Message::CouponMessage(v) => &v.quick_reply,
+            _ => panic!("Cannot access quick_reply on UnknownMessage"),
+        }
+    }
+    fn sender(&self) -> &Option<Box<models::Sender>> {
+        match self {
+            Message::TextMessage(v) => &v.sender,
+            Message::TextMessageV2(v) => &v.sender,
+            Message::StickerMessage(v) => &v.sender,
+            Message::ImageMessage(v) => &v.sender,
+            Message::VideoMessage(v) => &v.sender,
+            Message::AudioMessage(v) => &v.sender,
+            Message::LocationMessage(v) => &v.sender,
+            Message::ImagemapMessage(v) => &v.sender,
+            Message::TemplateMessage(v) => &v.sender,
+            Message::FlexMessage(v) => &v.sender,
+            Message::CouponMessage(v) => &v.sender,
+            _ => panic!("Cannot access sender on UnknownMessage"),
+        }
+    }
+}

@@ -3,4 +3,7 @@
 {% set model = mm.model -%}
 pub mod {{ model.classFilename }};
 pub use self::{{ model.classFilename }}::{{ model.classname }};
+{% if model.vendorExtensions['x-has-common-fields'] is not null and model.vendorExtensions['x-has-common-fields'] == true -%}
+pub use self::{{ model.classFilename }}::{{ model.classname }}Ext;
+{% endif -%}
 {% endfor -%}
