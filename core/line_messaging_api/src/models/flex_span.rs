@@ -31,7 +31,7 @@ use serde::{Deserialize, Serialize};
 pub struct FlexSpan {
     #[serde(
         rename = "type",
-        skip_deserializing,
+        default = "FlexSpan::default_type",
         skip_serializing_if = "String::is_empty"
     )]
     pub r#type: String,
@@ -50,6 +50,10 @@ pub struct FlexSpan {
 }
 
 impl FlexSpan {
+    fn default_type() -> String {
+        "span".to_string()
+    }
+
     pub fn new() -> FlexSpan {
         FlexSpan {
             r#type: "span".to_string(),

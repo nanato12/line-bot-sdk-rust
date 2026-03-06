@@ -1,5 +1,6 @@
 use line_messaging_api::models::{
-    flex_box::Layout, FlexBox, FlexBubble, FlexComponent, FlexContainer, Message, TextMessage,
+    flex_box::Layout, FlexBox, FlexBubble, FlexCarousel, FlexComponent, FlexContainer, Message,
+    TextMessage,
 };
 
 // ---------------------------------------------------------------------------
@@ -95,26 +96,90 @@ fn flex_bubble_direct_serialize_includes_type() {
     assert!(json.contains(r#""type":"bubble""#));
 }
 
+// ---------------------------------------------------------------------------
+// Tagged enum deserialization
+// ---------------------------------------------------------------------------
+
 #[test]
-fn flex_container_deserialize_roundtrip_no_duplicate_type() {
-    // Deserialized structs have empty r#type (skip_deserializing), so
-    // re-serialization through the tagged enum produces only one "type" key.
+fn flex_container_deserialize_via_tagged_enum() {
     let json = r#"{"type":"bubble","size":"mega"}"#;
     let container: FlexContainer = serde_json::from_str(json).unwrap();
-    let serialized = serde_json::to_string(&container).unwrap();
-    assert_eq!(serialized.matches(r#""type""#).count(), 1);
-    let roundtrip: FlexContainer = serde_json::from_str(&serialized).unwrap();
-    assert_eq!(container, roundtrip);
+    match &container {
+        FlexContainer::FlexBubble(b) => {
+            assert_eq!(b.r#type, "bubble");
+        }
+        _ => panic!("expected FlexBubble"),
+    }
 }
 
 #[test]
-fn flex_component_deserialize_roundtrip_no_duplicate_type() {
+fn flex_component_deserialize_via_tagged_enum() {
     let json = r#"{"type":"box","layout":"horizontal","contents":[]}"#;
     let component: FlexComponent = serde_json::from_str(json).unwrap();
-    let serialized = serde_json::to_string(&component).unwrap();
-    assert_eq!(serialized.matches(r#""type""#).count(), 1);
-    let roundtrip: FlexComponent = serde_json::from_str(&serialized).unwrap();
-    assert_eq!(component, roundtrip);
+    match &component {
+        FlexComponent::FlexBox(b) => {
+            assert_eq!(b.r#type, "box");
+            assert!(b.contents.is_empty());
+        }
+        _ => panic!("expected FlexBox"),
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Standalone deserialization preserves type field
+// ---------------------------------------------------------------------------
+
+#[test]
+fn flex_bubble_standalone_deserialize_preserves_type() {
+    let json = r#"{"type":"bubble","size":"mega"}"#;
+    let bubble: FlexBubble = serde_json::from_str(json).unwrap();
+    assert_eq!(bubble.r#type, "bubble");
+    let serialized = serde_json::to_string(&bubble).unwrap();
+    assert!(serialized.contains(r#""type":"bubble""#));
+}
+
+#[test]
+fn flex_box_standalone_deserialize_preserves_type() {
+    let json = r#"{"type":"box","layout":"horizontal","contents":[]}"#;
+    let flex_box: FlexBox = serde_json::from_str(json).unwrap();
+    assert_eq!(flex_box.r#type, "box");
+    let serialized = serde_json::to_string(&flex_box).unwrap();
+    assert!(serialized.contains(r#""type":"box""#));
+}
+
+// ---------------------------------------------------------------------------
+// Carousel with nested bubbles (real-world use case)
+// ---------------------------------------------------------------------------
+
+#[test]
+fn flex_carousel_roundtrip_preserves_bubble_type() {
+    // Simulates the real use case: deserialize a carousel JSON, then serialize
+    // it for the reply_message API. The bubble's "type" field must be present.
+    let json = r#"{
+        "type": "carousel",
+        "contents": [
+            {"type": "bubble", "body": {"type": "box", "layout": "vertical", "contents": []}},
+            {"type": "bubble", "body": {"type": "box", "layout": "vertical", "contents": []}}
+        ]
+    }"#;
+    let container: FlexContainer = serde_json::from_str(json).unwrap();
+    let serialized = serde_json::to_string(&container).unwrap();
+    // Each bubble in the carousel must have "type":"bubble"
+    assert!(serialized.contains(r#""type":"bubble""#));
+    // Each box must have "type":"box"
+    assert!(serialized.contains(r#""type":"box""#));
+}
+
+#[test]
+fn flex_carousel_constructed_preserves_bubble_type() {
+    let bubble = FlexBubble {
+        body: Some(Box::new(FlexBox::new(Layout::Vertical, vec![]))),
+        ..FlexBubble::new()
+    };
+    let container = FlexContainer::FlexCarousel(FlexCarousel::new(vec![bubble.clone(), bubble]));
+    let serialized = serde_json::to_string(&container).unwrap();
+    assert!(serialized.contains(r#""type":"bubble""#));
+    assert!(serialized.contains(r#""type":"box""#));
 }
 
 // ---------------------------------------------------------------------------

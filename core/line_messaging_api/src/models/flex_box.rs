@@ -31,7 +31,7 @@ use serde::{Deserialize, Serialize};
 pub struct FlexBox {
     #[serde(
         rename = "type",
-        skip_deserializing,
+        default = "FlexBox::default_type",
         skip_serializing_if = "String::is_empty"
     )]
     pub r#type: String,
@@ -92,6 +92,10 @@ pub struct FlexBox {
 }
 
 impl FlexBox {
+    fn default_type() -> String {
+        "box".to_string()
+    }
+
     pub fn new(layout: Layout, contents: Vec<models::FlexComponent>) -> FlexBox {
         FlexBox {
             r#type: "box".to_string(),
