@@ -29,6 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexBubble {
+    #[serde(
+        rename = "type",
+        skip_deserializing,
+        skip_serializing_if = "String::is_empty"
+    )]
+    pub r#type: String,
     #[serde(rename = "direction", skip_serializing_if = "Option::is_none")]
     pub direction: Option<Direction>,
     #[serde(rename = "styles", skip_serializing_if = "Option::is_none")]
@@ -50,6 +56,7 @@ pub struct FlexBubble {
 impl FlexBubble {
     pub fn new() -> FlexBubble {
         FlexBubble {
+            r#type: "bubble".to_string(),
             direction: None,
             styles: None,
             header: None,

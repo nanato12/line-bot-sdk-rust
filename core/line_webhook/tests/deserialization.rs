@@ -1,5 +1,5 @@
 use line_webhook::models::{
-    CallbackRequest, DeliveryContext, Event, EventMode, MessageContent, Source,
+    CallbackRequest, DeliveryContext, Event, EventMode, MessageContent, Source, UserSource,
 };
 
 // ---------------------------------------------------------------------------
@@ -65,6 +65,29 @@ fn deserialize_room_source() {
         }
         _ => panic!("expected RoomSource"),
     }
+}
+
+// ---------------------------------------------------------------------------
+// Direct serialization of discriminator children
+// ---------------------------------------------------------------------------
+
+#[test]
+fn user_source_direct_serialize_includes_type() {
+    let source = UserSource::new();
+    let json = serde_json::to_string(&source).unwrap();
+    assert!(json.contains(r#""type":"user""#));
+}
+
+#[test]
+fn source_deserialize_roundtrip_no_duplicate_type() {
+    // Deserialized structs have empty r#type (skip_deserializing), so
+    // re-serialization through the tagged enum produces only one "type" key.
+    let json = r#"{"type":"user","userId":"U1234567890abcdef1234567890abcdef"}"#;
+    let source: Source = serde_json::from_str(json).unwrap();
+    let serialized = serde_json::to_string(&source).unwrap();
+    assert_eq!(serialized.matches(r#""type""#).count(), 1);
+    let roundtrip: Source = serde_json::from_str(&serialized).unwrap();
+    assert_eq!(source, roundtrip);
 }
 
 // ---------------------------------------------------------------------------

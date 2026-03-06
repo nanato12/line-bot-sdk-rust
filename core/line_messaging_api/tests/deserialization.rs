@@ -1,4 +1,6 @@
-use line_messaging_api::models::{Message, TextMessage};
+use line_messaging_api::models::{
+    flex_box::Layout, FlexBox, FlexBubble, FlexComponent, FlexContainer, Message, TextMessage,
+};
 
 // ---------------------------------------------------------------------------
 // Message enum
@@ -72,6 +74,47 @@ fn deserialize_location_message() {
         }
         _ => panic!("expected Location"),
     }
+}
+
+// ---------------------------------------------------------------------------
+// Direct serialization of discriminator children
+// ---------------------------------------------------------------------------
+
+#[test]
+fn flex_box_direct_serialize_includes_type() {
+    let flex_box = FlexBox::new(Layout::Vertical, vec![]);
+    let json = serde_json::to_string(&flex_box).unwrap();
+    assert!(json.contains(r#""type":"box""#));
+    assert!(json.contains(r#""layout":"vertical""#));
+}
+
+#[test]
+fn flex_bubble_direct_serialize_includes_type() {
+    let bubble = FlexBubble::new();
+    let json = serde_json::to_string(&bubble).unwrap();
+    assert!(json.contains(r#""type":"bubble""#));
+}
+
+#[test]
+fn flex_container_deserialize_roundtrip_no_duplicate_type() {
+    // Deserialized structs have empty r#type (skip_deserializing), so
+    // re-serialization through the tagged enum produces only one "type" key.
+    let json = r#"{"type":"bubble","size":"mega"}"#;
+    let container: FlexContainer = serde_json::from_str(json).unwrap();
+    let serialized = serde_json::to_string(&container).unwrap();
+    assert_eq!(serialized.matches(r#""type""#).count(), 1);
+    let roundtrip: FlexContainer = serde_json::from_str(&serialized).unwrap();
+    assert_eq!(container, roundtrip);
+}
+
+#[test]
+fn flex_component_deserialize_roundtrip_no_duplicate_type() {
+    let json = r#"{"type":"box","layout":"horizontal","contents":[]}"#;
+    let component: FlexComponent = serde_json::from_str(json).unwrap();
+    let serialized = serde_json::to_string(&component).unwrap();
+    assert_eq!(serialized.matches(r#""type""#).count(), 1);
+    let roundtrip: FlexComponent = serde_json::from_str(&serialized).unwrap();
+    assert_eq!(component, roundtrip);
 }
 
 // ---------------------------------------------------------------------------
