@@ -29,6 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FlexSpan {
+    #[serde(
+        rename = "type",
+        skip_deserializing,
+        skip_serializing_if = "String::is_empty"
+    )]
+    pub r#type: String,
     #[serde(rename = "text", skip_serializing_if = "Option::is_none")]
     pub text: Option<String>,
     #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
@@ -46,6 +52,7 @@ pub struct FlexSpan {
 impl FlexSpan {
     pub fn new() -> FlexSpan {
         FlexSpan {
+            r#type: "span".to_string(),
             text: None,
             size: None,
             color: None,

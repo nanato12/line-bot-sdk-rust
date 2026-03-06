@@ -34,6 +34,7 @@ public class LineBotRustGenerator extends RustClientCodegen {
 
     private final Set<String> discriminatorChildren = new HashSet<>();
     private final Map<String, String> childDiscriminatorProp = new HashMap<>();
+    private final Map<String, String> childDiscriminatorValue = new HashMap<>();
 
     public LineBotRustGenerator() {
         super();
@@ -183,6 +184,8 @@ public class LineBotRustGenerator extends RustClientCodegen {
                             discriminatorChildren.add(v.get("typeName"));
                             childDiscriminatorProp.put(
                                     v.get("typeName"), discProp);
+                            childDiscriminatorValue.put(
+                                    v.get("typeName"), v.get("tagValue"));
                         }
                     }
                 }
@@ -205,10 +208,55 @@ public class LineBotRustGenerator extends RustClientCodegen {
                     }
                     model.vendorExtensions.put(
                             "x-is-discriminator-child", true);
+                    model.vendorExtensions.put(
+                            "x-discriminator-property", prop);
+                    model.vendorExtensions.put(
+                            "x-discriminator-value",
+                            childDiscriminatorValue.get(model.classname));
+                }
+            }
+        }
+
+        // Third pass: find which discriminator children are used as direct
+        // field types (not just through their parent tagged enum).
+        // These children need a serialization-only type field so the
+        // discriminator value is present when the struct is serialized
+        // outside of its parent enum (e.g., FlexBox in FlexBubble.body).
+        Set<String> childrenUsedAsFields = new HashSet<>();
+        for (Map.Entry<String, ModelsMap> entry : objs.entrySet()) {
+            for (ModelMap mm : entry.getValue().getModels()) {
+                CodegenModel model = mm.getModel();
+                for (CodegenProperty var : model.vars) {
+                    collectChildFieldRef(var, childrenUsedAsFields);
+                    if (var.items != null) {
+                        collectChildFieldRef(
+                                var.items, childrenUsedAsFields);
+                    }
+                }
+            }
+        }
+        for (Map.Entry<String, ModelsMap> entry : objs.entrySet()) {
+            for (ModelMap mm : entry.getValue().getModels()) {
+                CodegenModel model = mm.getModel();
+                if (childrenUsedAsFields.contains(model.classname)) {
+                    model.vendorExtensions.put(
+                            "x-needs-type-field", true);
                 }
             }
         }
 
         return super.postProcessAllModels(objs);
+    }
+
+    /**
+     * If the property references a discriminator child model,
+     * add its name to the result set.
+     */
+    private void collectChildFieldRef(
+            CodegenProperty var, Set<String> result) {
+        String ref = var.complexType;
+        if (ref != null && discriminatorChildren.contains(ref)) {
+            result.add(ref);
+        }
     }
 }

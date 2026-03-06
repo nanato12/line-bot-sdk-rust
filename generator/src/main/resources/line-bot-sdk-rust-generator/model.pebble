@@ -96,6 +96,10 @@ impl Default for {{ model.classname }} {
 {% endif -%}
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct {{ model.classname }} {
+{% if model.vendorExtensions['x-needs-type-field'] is not null and model.vendorExtensions['x-needs-type-field'] == true -%}
+    #[serde(rename = "{{ model.vendorExtensions['x-discriminator-property'] }}", skip_deserializing, skip_serializing_if = "String::is_empty")]
+    pub r#type: String,
+{% endif -%}
 {% for var in model.vars -%}
 {% if var.description is not empty -%}
     /// {{ var.description }}
@@ -111,6 +115,9 @@ impl {{ model.classname }} {
 {% endif -%}
     pub fn new({% for var in model.requiredVars %}{{ var.name }}: {% if var.isNullable %}Option<{% endif %}{% if var.isEnum %}{% if var.isArray %}Vec<{{ var.enumName }}>{% else %}{{ var.enumName }}{% endif %}{% else %}{{ var.dataType }}{% endif %}{% if var.isNullable %}>{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}) -> {{ model.classname }} {
         {{ model.classname }} {
+{% if model.vendorExtensions['x-needs-type-field'] is not null and model.vendorExtensions['x-needs-type-field'] == true -%}
+            r#type: "{{ model.vendorExtensions['x-discriminator-value'] }}".to_string(),
+{% endif -%}
 {% for var in model.vars -%}
 {% if not var.required -%}
             {{ var.name }}: None,

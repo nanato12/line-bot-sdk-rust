@@ -29,6 +29,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UserSource {
+    #[serde(
+        rename = "type",
+        skip_deserializing,
+        skip_serializing_if = "String::is_empty"
+    )]
+    pub r#type: String,
     /// ID of the source user
     #[serde(rename = "userId", skip_serializing_if = "Option::is_none")]
     pub user_id: Option<String>,
@@ -36,6 +42,9 @@ pub struct UserSource {
 
 impl UserSource {
     pub fn new() -> UserSource {
-        UserSource { user_id: None }
+        UserSource {
+            r#type: "user".to_string(),
+            user_id: None,
+        }
     }
 }
