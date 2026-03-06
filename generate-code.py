@@ -153,7 +153,6 @@ def generate_service(spec_file: str, output_dir: str, package_name: str) -> None
         shutil.rmtree(oag_dir)
 
 
-
 def _fix_blank_line_before_execute(api_dir: str) -> None:
     """Ensure blank line before req.execute() in API files (matching old output)."""
     if not os.path.isdir(api_dir):
@@ -175,7 +174,6 @@ def _fix_blank_line_before_execute(api_dir: str) -> None:
         if modified != contents:
             with open(fpath, "w") as f:
                 f.write(modified)
-
 
 
 def post_process_manage_audience() -> None:
