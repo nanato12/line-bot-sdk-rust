@@ -31,7 +31,7 @@ use serde::{Deserialize, Serialize};
 pub struct FlexBubble {
     #[serde(
         rename = "type",
-        skip_deserializing,
+        default = "FlexBubble::default_type",
         skip_serializing_if = "String::is_empty"
     )]
     pub r#type: String,
@@ -54,6 +54,10 @@ pub struct FlexBubble {
 }
 
 impl FlexBubble {
+    fn default_type() -> String {
+        "bubble".to_string()
+    }
+
     pub fn new() -> FlexBubble {
         FlexBubble {
             r#type: "bubble".to_string(),

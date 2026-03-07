@@ -31,7 +31,7 @@ use serde::{Deserialize, Serialize};
 pub struct UserSource {
     #[serde(
         rename = "type",
-        skip_deserializing,
+        default = "UserSource::default_type",
         skip_serializing_if = "String::is_empty"
     )]
     pub r#type: String,
@@ -41,6 +41,10 @@ pub struct UserSource {
 }
 
 impl UserSource {
+    fn default_type() -> String {
+        "user".to_string()
+    }
+
     pub fn new() -> UserSource {
         UserSource {
             r#type: "user".to_string(),
