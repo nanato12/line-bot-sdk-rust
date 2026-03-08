@@ -3,44 +3,312 @@
   "contents": [
     {
       "type": "bubble",
+      "size": "mega",
+      "hero": {
+        "type": "image",
+        "url": "https://vos.line-scdn.net/bot-designer-template-images/bot-designer-icon.png",
+        "size": "full",
+        "aspectRatio": "20:13",
+        "aspectMode": "cover"
+      },
       "body": {
         "type": "box",
         "layout": "vertical",
         "contents": [
           {
             "type": "text",
-            "text": "Hello from JSON!",
+            "text": "LINE Bot SDK for Rust",
             "weight": "bold",
-            "size": "xl"
+            "size": "xl",
+            "wrap": true
           },
           {
-            "type": "text",
-            "text": "This Flex Message was loaded from an external JSON file.",
-            "wrap": true,
-            "size": "sm",
-            "color": "#888888"
+            "type": "box",
+            "layout": "vertical",
+            "margin": "lg",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Language",
+                    "color": "#aaaaaa",
+                    "size": "sm",
+                    "flex": 2
+                  },
+                  {
+                    "type": "text",
+                    "text": "Rust",
+                    "wrap": true,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Version",
+                    "color": "#aaaaaa",
+                    "size": "sm",
+                    "flex": 2
+                  },
+                  {
+                    "type": "text",
+                    "text": "v3.0.0",
+                    "wrap": true,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "spacing": "sm",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "License",
+                    "color": "#aaaaaa",
+                    "size": "sm",
+                    "flex": 2
+                  },
+                  {
+                    "type": "text",
+                    "text": "Apache-2.0",
+                    "wrap": true,
+                    "color": "#666666",
+                    "size": "sm",
+                    "flex": 5
+                  }
+                ]
+              }
+            ]
           }
         ]
+      },
+      "footer": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "button",
+            "style": "primary",
+            "color": "#06C755",
+            "height": "sm",
+            "action": {
+              "type": "uri",
+              "label": "GitHub",
+              "uri": "https://github.com/nanato12/line-bot-sdk-rust"
+            }
+          },
+          {
+            "type": "button",
+            "style": "secondary",
+            "height": "sm",
+            "action": {
+              "type": "uri",
+              "label": "crates.io",
+              "uri": "https://crates.io/crates/line-bot-sdk-rust"
+            }
+          },
+          {
+            "type": "spacer",
+            "size": "sm"
+          }
+        ],
+        "flex": 0
       }
     },
     {
       "type": "bubble",
+      "size": "mega",
       "body": {
         "type": "box",
         "layout": "vertical",
         "contents": [
           {
             "type": "text",
-            "text": "Second Bubble",
+            "text": "FEATURES",
             "weight": "bold",
-            "size": "xl"
+            "color": "#1DB446",
+            "size": "sm"
           },
           {
             "type": "text",
-            "text": "You can edit this JSON file to customize the Flex Message.",
-            "wrap": true,
-            "size": "sm",
-            "color": "#888888"
+            "text": "What's Included",
+            "weight": "bold",
+            "size": "xxl",
+            "margin": "md"
+          },
+          {
+            "type": "separator",
+            "margin": "xxl"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "margin": "xxl",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Messaging API",
+                    "size": "sm",
+                    "color": "#555555",
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": "Ready",
+                    "size": "sm",
+                    "color": "#1DB446",
+                    "align": "end",
+                    "weight": "bold"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Webhook Handling",
+                    "size": "sm",
+                    "color": "#555555",
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": "Ready",
+                    "size": "sm",
+                    "color": "#1DB446",
+                    "align": "end",
+                    "weight": "bold"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Flex Message",
+                    "size": "sm",
+                    "color": "#555555",
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": "Ready",
+                    "size": "sm",
+                    "color": "#1DB446",
+                    "align": "end",
+                    "weight": "bold"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Rich Menu",
+                    "size": "sm",
+                    "color": "#555555",
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": "Ready",
+                    "size": "sm",
+                    "color": "#1DB446",
+                    "align": "end",
+                    "weight": "bold"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "LIFF",
+                    "size": "sm",
+                    "color": "#555555",
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": "Ready",
+                    "size": "sm",
+                    "color": "#1DB446",
+                    "align": "end",
+                    "weight": "bold"
+                  }
+                ]
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "text",
+                    "text": "Audience Management",
+                    "size": "sm",
+                    "color": "#555555",
+                    "flex": 0
+                  },
+                  {
+                    "type": "text",
+                    "text": "Ready",
+                    "size": "sm",
+                    "color": "#1DB446",
+                    "align": "end",
+                    "weight": "bold"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "separator",
+            "margin": "xxl"
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "margin": "md",
+            "contents": [
+              {
+                "type": "text",
+                "text": "Powered by OpenAPI Generator",
+                "size": "xs",
+                "color": "#aaaaaa",
+                "wrap": true,
+                "align": "center"
+              }
+            ]
           }
         ]
       }
