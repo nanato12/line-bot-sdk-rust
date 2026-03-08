@@ -16,7 +16,7 @@ See the official API documentation for more information.
 
 ## Requirements
 
-This library requires stable/beta Rust.
+- Rust 1.75.0 or later (stable)
 
 ## Installation
 
@@ -32,7 +32,7 @@ Extract `x-line-signature` from the request header.
 
 ```toml
 [dependencies.line-bot-sdk-rust]
-version = "2.0.0"
+version = "3.0.0"
 features = ["rocket_support"]
 ```
 
@@ -50,7 +50,7 @@ async fn world(signature: Signature, body: String) -> (Status, &'static str) {
 
 ```toml
 [dependencies.line-bot-sdk-rust]
-version = "2.0.0"
+version = "3.0.0"
 features = ["actix_support"]
 ```
 
@@ -68,7 +68,7 @@ async fn callback(signature: Signature, bytes: web::Bytes) -> Result<HttpRespons
 
 ```toml
 [dependencies.line-bot-sdk-rust]
-version = "2.0.0"
+version = "3.0.0"
 features = ["axum_support"]
 ```
 
@@ -133,9 +133,17 @@ match request {
 }
 ```
 
-## EchoBot examples
+## Examples
 
-### with Rocket framework
+All examples require `LINE_CHANNEL_SECRET` and `LINE_CHANNEL_ACCESS_TOKEN` environment variables.
+Create an `.env` file inside the `examples/` directory:
+
+```bash
+LINE_CHANNEL_SECRET=your_channel_secret
+LINE_CHANNEL_ACCESS_TOKEN=your_channel_access_token
+```
+
+### Echo bot (Rocket)
 
 ```bash
 $ cd examples
@@ -144,23 +152,25 @@ $ cargo run --bin rocket
 
 source: [rocket example](./examples/rocket_example/src/main.rs)
 
-### with actix_web framework
+### Echo bot (actix-web)
 
 ```bash
 $ cd examples
 $ cargo run --bin actix_web
 ```
 
-source: [actix_web example](./examples/actix_web_example/src/main.rs)
+source: [actix-web example](./examples/actix_web_example/src/main.rs)
 
-### with axum framework
+### Full-featured bot (Axum)
+
+A comprehensive example demonstrating multiple event handlers and slash commands (`/help`, `/profile`, `/botinfo`, `/ginfo`, `/flex`, `/leave`).
 
 ```bash
 $ cd examples
 $ cargo run --bin axum
 ```
 
-source: [axum example](./examples/axum_example/src/main.rs)
+source: [axum example](./examples/axum_example/src/)
 
 ## Contributing
 
