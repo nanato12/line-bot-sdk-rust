@@ -1,17 +1,24 @@
+//! Axum example for line-bot-sdk-rust.
+//!
+//! This example demonstrates how to build a LINE bot using the Axum web framework.
+//! It handles webhook callbacks, validates signatures, and dispatches events
+//! to the appropriate handlers.
+
+mod handler;
+mod handlers;
+
 use axum::{routing::post, Router};
 use dotenvy::dotenv;
 use line_bot_sdk_rust::{
-    client::LINE,
-    line_messaging_api::{
-        apis::MessagingApiApi,
-        models::{Message, ReplyMessageRequest, TextMessage},
-    },
-    line_webhook::models::{CallbackRequest, Event, MessageContent},
-    parser::signature::validate_signature,
+    client::LINE, line_webhook::models::CallbackRequest, parser::signature::validate_signature,
     support::axum::Signature,
 };
 use std::env;
 
+/// Webhook callback endpoint.
+///
+/// Receives LINE webhook events, validates the signature, parses the request,
+/// and dispatches each event to the appropriate handler.
 async fn callback(
     signature: Signature,
     body: String,
@@ -23,6 +30,7 @@ async fn callback(
 
     let line = LINE::new(access_token);
 
+    // Verify the request signature using the channel secret
     if !validate_signature(&channel_secret, &signature.key, &body) {
         return Err((
             axum::http::StatusCode::BAD_REQUEST,
@@ -37,26 +45,9 @@ async fn callback(
         )
     })?;
 
-    println!("req: {request:#?}");
-
-    for e in request.events {
-        if let Event::MessageEvent(message_event) = e {
-            if let MessageContent::TextMessageContent(text_message) = *message_event.message {
-                let reply_message_request = ReplyMessageRequest {
-                    reply_token: message_event.reply_token.unwrap(),
-                    messages: vec![Message::TextMessage(TextMessage::new(text_message.text))],
-                    notification_disabled: Some(false),
-                };
-                let result = line
-                    .messaging_api_client
-                    .reply_message(reply_message_request)
-                    .await;
-                match result {
-                    Ok(r) => println!("{r:#?}"),
-                    Err(e) => println!("{e:#?}"),
-                }
-            }
-        }
+    // Dispatch each event to the appropriate handler
+    for event in request.events {
+        handler::handle_event(&line, event).await;
     }
 
     Ok("ok")
@@ -68,7 +59,7 @@ async fn main() {
 
     let app = Router::new().route("/callback", post(callback));
 
-    let listener = tokio::net::TcpListener::bind("127.0.0.1:8080")
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
         .await
         .unwrap();
     println!("Listening on {}", listener.local_addr().unwrap());
