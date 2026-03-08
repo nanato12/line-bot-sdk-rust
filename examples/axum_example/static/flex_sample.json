@@ -1,0 +1,49 @@
+{
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Hello from JSON!",
+            "weight": "bold",
+            "size": "xl"
+          },
+          {
+            "type": "text",
+            "text": "This Flex Message was loaded from an external JSON file.",
+            "wrap": true,
+            "size": "sm",
+            "color": "#888888"
+          }
+        ]
+      }
+    },
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "Second Bubble",
+            "weight": "bold",
+            "size": "xl"
+          },
+          {
+            "type": "text",
+            "text": "You can edit this JSON file to customize the Flex Message.",
+            "wrap": true,
+            "size": "sm",
+            "color": "#888888"
+          }
+        ]
+      }
+    }
+  ]
+}
