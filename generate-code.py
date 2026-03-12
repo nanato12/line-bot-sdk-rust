@@ -36,6 +36,7 @@ SERVICES = [
     ("webhook.yml", "core/line_webhook", "line_webhook"),
 ]
 
+
 def read_version(cargo_toml: str) -> str:
     """Read version from an existing Cargo.toml."""
     if not os.path.exists(cargo_toml):
