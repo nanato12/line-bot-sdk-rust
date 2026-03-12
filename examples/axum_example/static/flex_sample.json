@@ -6,9 +6,9 @@
       "size": "mega",
       "hero": {
         "type": "image",
-        "url": "https://vos.line-scdn.net/bot-designer-template-images/bot-designer-icon.png",
-        "size": "full",
-        "aspectRatio": "20:13",
+        "url": "https://rustacean.net/assets/rustacean-flat-happy.png",
+        "size": "md",
+        "aspectRatio": "20:7",
         "aspectMode": "cover"
       },
       "body": {
@@ -123,10 +123,6 @@
               "label": "crates.io",
               "uri": "https://crates.io/crates/line-bot-sdk-rust"
             }
-          },
-          {
-            "type": "spacer",
-            "size": "sm"
           }
         ],
         "flex": 0

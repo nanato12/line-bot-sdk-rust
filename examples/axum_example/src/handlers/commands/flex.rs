@@ -3,10 +3,11 @@
 //! Sends a Flex Message by loading a FlexContainer from an external JSON file.
 //! Edit `static/flex_sample.json` to customize the message content.
 
+use http_body_util::BodyExt;
 use line_bot_sdk_rust::{
     client::LINE,
     line_messaging_api::{
-        apis::MessagingApiApi,
+        apis::{Error, MessagingApiApi},
         models::{FlexContainer, FlexMessage, Message, ReplyMessageRequest},
     },
 };
@@ -37,10 +38,20 @@ pub async fn handle(line: &LINE, reply_token: String) -> Result<(), String> {
         notification_disabled: Some(false),
     };
 
-    line.messaging_api_client
-        .reply_message(req)
-        .await
-        .map_err(|e| format!("reply_message failed: {e}"))?;
-
-    Ok(())
+    match line.messaging_api_client.reply_message(req).await {
+        Ok(_) => Ok(()),
+        Err(Error::Api(api_err)) => {
+            // Read the response body to get the detailed error message from LINE API.
+            let status = api_err.code;
+            let body_bytes = api_err
+                .body
+                .collect()
+                .await
+                .map(|c| c.to_bytes())
+                .unwrap_or_default();
+            let body_str = String::from_utf8_lossy(&body_bytes);
+            Err(format!("reply_message failed: {status}\n{body_str}"))
+        }
+        Err(e) => Err(format!("reply_message failed: {e}")),
+    }
 }
