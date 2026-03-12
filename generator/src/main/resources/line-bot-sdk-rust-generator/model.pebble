@@ -97,7 +97,7 @@ impl Default for {{ model.classname }} {
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct {{ model.classname }} {
 {% if model.vendorExtensions['x-needs-type-field'] is not null and model.vendorExtensions['x-needs-type-field'] == true -%}
-    #[serde(rename = "{{ model.vendorExtensions['x-discriminator-property'] }}", default = "{{ model.classname }}::default_type", skip_serializing_if = "String::is_empty")]
+    #[serde(rename = "{{ model.vendorExtensions['x-discriminator-property'] }}", default, skip_serializing_if = "String::is_empty")]
     pub r#type: String,
 {% endif -%}
 {% for var in model.vars -%}
@@ -110,12 +110,6 @@ pub struct {{ model.classname }} {
 }
 
 impl {{ model.classname }} {
-{% if model.vendorExtensions['x-needs-type-field'] is not null and model.vendorExtensions['x-needs-type-field'] == true -%}
-    fn default_type() -> String {
-        "{{ model.vendorExtensions['x-discriminator-value'] }}".to_string()
-    }
-
-{% endif -%}
 {% if model.description is not empty -%}
     /// {{ model.description }}
 {% endif -%}

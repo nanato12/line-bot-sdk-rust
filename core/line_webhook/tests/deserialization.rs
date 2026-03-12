@@ -12,7 +12,8 @@ fn deserialize_user_source() {
     let source: Source = serde_json::from_str(json).unwrap();
     match &source {
         Source::UserSource(s) => {
-            assert_eq!(s.r#type, "user");
+            // When deserialized via tagged enum, serde strips "type" so it defaults to "".
+            assert_eq!(s.r#type, "");
             assert_eq!(
                 s.user_id.as_deref(),
                 Some("U1234567890abcdef1234567890abcdef")

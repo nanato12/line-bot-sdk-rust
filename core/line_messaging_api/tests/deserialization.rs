@@ -106,7 +106,9 @@ fn flex_container_deserialize_via_tagged_enum() {
     let container: FlexContainer = serde_json::from_str(json).unwrap();
     match &container {
         FlexContainer::FlexBubble(b) => {
-            assert_eq!(b.r#type, "bubble");
+            // When deserialized via tagged enum, serde strips the "type" field
+            // so the struct's type field gets the default empty string.
+            assert_eq!(b.r#type, "");
         }
         _ => panic!("expected FlexBubble"),
     }
@@ -118,7 +120,8 @@ fn flex_component_deserialize_via_tagged_enum() {
     let component: FlexComponent = serde_json::from_str(json).unwrap();
     match &component {
         FlexComponent::FlexBox(b) => {
-            assert_eq!(b.r#type, "box");
+            // When deserialized via tagged enum, the type field is empty.
+            assert_eq!(b.r#type, "");
             assert!(b.contents.is_empty());
         }
         _ => panic!("expected FlexBox"),
