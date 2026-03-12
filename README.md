@@ -165,6 +165,8 @@ source: [actix-web example](./examples/actix_web_example/src/main.rs)
 
 A comprehensive example demonstrating multiple event handlers and slash commands (`/help`, `/profile`, `/botinfo`, `/ginfo`, `/flex`, `/leave`).
 
+The `/flex` command loads a Flex Message from an external JSON file (`static/flex_sample.json`), so you can customize the message design without recompiling.
+
 ```bash
 $ cd examples
 $ cargo run --bin axum
@@ -179,7 +181,7 @@ Please make a contribution!
 ## License
 
 ```plain
-Copyright 2023 nanato12
+Copyright 2023-2026 nanato12
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
