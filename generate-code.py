@@ -36,15 +36,6 @@ SERVICES = [
     ("webhook.yml", "core/line_webhook", "line_webhook"),
 ]
 
-# Hand-written source files that override generated ones
-HAND_WRITTEN_SOURCES = [
-    "messaging_api/src/models/message.rs",
-    "webhook/src/models/event.rs",
-    "webhook/src/models/message_content.rs",
-    "webhook/src/models/source.rs",
-]
-
-
 def read_version(cargo_toml: str) -> str:
     """Read version from an existing Cargo.toml."""
     if not os.path.exists(cargo_toml):
@@ -202,17 +193,6 @@ def post_process_manage_audience() -> None:
                 f.write(modified)
 
 
-def copy_hand_written_sources() -> None:
-    """Copy hand-written source files over generated ones."""
-    print("Copying hand-written sources...")
-    for source in HAND_WRITTEN_SOURCES:
-        src = os.path.join(ROOT, "tools", "sources", source)
-        dst = os.path.join(ROOT, "core", f"line_{source}")
-        if os.path.exists(src):
-            shutil.copy2(src, dst)
-            print(f"  {source}")
-
-
 def cargo_fix() -> None:
     """Run cargo fix to auto-rename unused variables."""
     print("Running cargo fix...")
@@ -257,9 +237,6 @@ def main() -> None:
         api_dir = os.path.join(ROOT, output_dir, "src", "apis")
         _fix_blank_line_before_execute(api_dir)
     post_process_manage_audience()
-
-    # Copy hand-written sources over generated ones
-    copy_hand_written_sources()
 
     cargo_fix()
     format_code()

@@ -9,6 +9,18 @@ on:
       - "tools/**"
       - "core/line_*/**"
       - "generate-code.py"
+
+  push:
+    branches:
+      - develop
+    paths:
+      - .github/workflows/generate_modules.yml
+      - "line-openapi"
+      - "generator/**"
+      - "tools/**"
+      - "core/line_*/**"
+      - "generate-code.py"
+
   workflow_dispatch:
 
 jobs:

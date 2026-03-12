@@ -52,16 +52,16 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Clippy
-        run: cargo clippy --all-targets -- -D warnings
+        run: cargo clippy --workspace --all-targets -- -D warnings
 
       - name: Clippy with rocket_support
-        run: cargo clippy --all-targets --features rocket_support -- -D warnings
+        run: cargo clippy --workspace --all-targets --features rocket_support -- -D warnings
 
       - name: Clippy with actix_support
-        run: cargo clippy --all-targets --features actix_support -- -D warnings
+        run: cargo clippy --workspace --all-targets --features actix_support -- -D warnings
 
       - name: Clippy with axum_support
-        run: cargo clippy --all-targets --features axum_support -- -D warnings
+        run: cargo clippy --workspace --all-targets --features axum_support -- -D warnings
 
       - name: Clippy for examples
         run: cargo clippy --all-targets -- -D warnings
@@ -85,19 +85,19 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: Build
-        run: cargo build --verbose
+        run: cargo build --workspace --verbose
 
       - name: Run tests
-        run: cargo test --verbose
+        run: cargo test --workspace --verbose
 
       - name: Build with rocket_support
-        run: cargo build --verbose --features rocket_support
+        run: cargo build --workspace --verbose --features rocket_support
 
       - name: Build with actix_support
-        run: cargo build --verbose --features actix_support
+        run: cargo build --workspace --verbose --features actix_support
 
       - name: Build with axum_support
-        run: cargo build --verbose --features axum_support
+        run: cargo build --workspace --verbose --features axum_support
 
       - name: Build for examples
         run: cargo build --verbose
@@ -117,4 +117,4 @@ jobs:
         run: cargo install cargo-audit
 
       - name: Run audit
-        run: cargo audit --ignore RUSTSEC-2019-0020 --ignore RUSTSEC-2020-0151
+        run: cargo audit
