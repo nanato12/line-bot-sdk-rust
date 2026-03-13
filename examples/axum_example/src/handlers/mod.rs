@@ -2,6 +2,7 @@
 //!
 //! Each module handles a specific LINE webhook event type.
 
+pub mod account_link;
 pub mod beacon;
 pub mod commands;
 pub mod follow;
@@ -13,3 +14,4 @@ pub mod message;
 pub mod postback;
 pub mod unfollow;
 pub mod unsend;
+pub mod video_play_complete;

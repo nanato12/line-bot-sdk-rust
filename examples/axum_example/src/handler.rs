@@ -22,6 +22,8 @@ pub async fn handle_event(line: &LINE, event: Event) {
         Event::PostbackEvent(e) => handlers::postback::handle(line, e).await,
         Event::UnsendEvent(e) => handlers::unsend::handle(e),
         Event::BeaconEvent(e) => handlers::beacon::handle(line, e).await,
+        Event::VideoPlayCompleteEvent(e) => handlers::video_play_complete::handle(line, e).await,
+        Event::AccountLinkEvent(e) => handlers::account_link::handle(line, e).await,
         _ => {
             println!("[unhandled event]");
             Ok(())
