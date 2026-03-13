@@ -149,6 +149,18 @@ async fn handle_text(
             "ginfo" => commands::ginfo::handle(line, reply_token, source).await,
             "botinfo" => commands::botinfo::handle(line, reply_token).await,
             "flex" => commands::flex::handle(line, reply_token).await,
+            "image" => commands::image::handle(line, reply_token).await,
+            "location" => commands::location::handle(line, reply_token).await,
+            "template" => commands::template::handle(line, reply_token).await,
+            "confirm" => commands::confirm::handle(line, reply_token).await,
+            "carousel" => commands::carousel::handle(line, reply_token).await,
+            "quick" => commands::quick::handle(line, reply_token).await,
+            "push" => commands::push::handle(line, reply_token, source).await,
+            "loading" => commands::loading::handle(line, reply_token, source).await,
+            "quota" => commands::quota::handle(line, reply_token).await,
+            "richmenu" => commands::richmenu::handle(line, reply_token).await,
+            "members" => commands::members::handle(line, reply_token, source).await,
+            "webhook" => commands::webhook_info::handle(line, reply_token).await,
             _ => {
                 reply(
                     line,
