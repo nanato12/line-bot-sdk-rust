@@ -2,7 +2,7 @@
 """Generate LINE Bot SDK Rust code from OpenAPI specs.
 
 Uses the custom OpenAPI Generator plugin (Maven + Pebble templates) to generate
-Rust client code for all LINE API services.
+Rust client code for all LINE API services into a single unified crate.
 """
 
 import os
@@ -10,6 +10,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import urllib.request
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -19,34 +20,21 @@ CLI_JAR = os.path.join(ROOT, "tools", f"openapi-generator-cli-{CLI_VERSION}.jar"
 CLI_URL = f"https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/{CLI_VERSION}/openapi-generator-cli-{CLI_VERSION}.jar"
 GENERATOR_JAR = os.path.join(ROOT, "generator", "target", "line-bot-sdk-rust-generator-1.0.0.jar")
 
-# Mapping: (spec file, output directory, package name)
+# Unified crate source directory
+LIB_SRC = os.path.join(ROOT, "core", "lib", "src")
+
+# Mapping: (spec file, package name)
 SERVICES = [
-    (
-        "channel-access-token.yml",
-        "core/line_channel_access_token",
-        "line_channel_access_token",
-    ),
-    ("insight.yml", "core/line_insight", "line_insight"),
-    ("liff.yml", "core/line_liff", "line_liff"),
-    ("manage-audience.yml", "core/line_manage_audience", "line_manage_audience"),
-    ("messaging-api.yml", "core/line_messaging_api", "line_messaging_api"),
-    ("module-attach.yml", "core/line_module_attach", "line_module_attach"),
-    ("module.yml", "core/line_module", "line_module"),
-    ("shop.yml", "core/line_shop", "line_shop"),
-    ("webhook.yml", "core/line_webhook", "line_webhook"),
+    ("channel-access-token.yml", "line_channel_access_token"),
+    ("insight.yml", "line_insight"),
+    ("liff.yml", "line_liff"),
+    ("manage-audience.yml", "line_manage_audience"),
+    ("messaging-api.yml", "line_messaging_api"),
+    ("module-attach.yml", "line_module_attach"),
+    ("module.yml", "line_module"),
+    ("shop.yml", "line_shop"),
+    ("webhook.yml", "line_webhook"),
 ]
-
-
-def read_version(cargo_toml: str) -> str:
-    """Read version from an existing Cargo.toml."""
-    if not os.path.exists(cargo_toml):
-        return "0.0.1"
-    with open(cargo_toml) as f:
-        for line in f:
-            m = re.match(r'^version\s*=\s*"(.+)"', line)
-            if m:
-                return m.group(1)
-    return "0.0.1"
 
 
 def build_generator() -> None:
@@ -68,81 +56,63 @@ def build_generator() -> None:
         sys.exit(1)
 
 
-def generate_service(spec_file: str, output_dir: str, package_name: str) -> None:
-    """Generate code for a single service."""
+def generate_service(spec_file: str, package_name: str) -> None:
+    """Generate code for a single service into the unified crate."""
     spec_path = os.path.join(ROOT, "line-openapi", spec_file)
-    out_path = os.path.join(ROOT, output_dir)
-    cargo_toml = os.path.join(out_path, "Cargo.toml")
+    dest_dir = os.path.join(LIB_SRC, package_name)
 
-    # Read existing version
-    version = read_version(cargo_toml)
+    # Generate into a temp directory
+    tmp_dir = tempfile.mkdtemp(prefix=f"linegen_{package_name}_")
 
-    # Backup tests/ if present
-    tests_dir = os.path.join(out_path, "tests")
-    tests_backup = os.path.join(out_path, "tests.bak")
-    has_tests = os.path.isdir(tests_dir)
-    if has_tests:
-        if os.path.exists(tests_backup):
-            shutil.rmtree(tests_backup)
-        shutil.copytree(tests_dir, tests_backup)
+    try:
+        # Run OpenAPI Generator
+        classpath = f"{CLI_JAR}:{GENERATOR_JAR}"
+        cmd = [
+            "java",
+            "-cp",
+            classpath,
+            "org.openapitools.codegen.OpenAPIGenerator",
+            "generate",
+            "-g",
+            "line-bot-sdk-rust-generator",
+            "-e",
+            "pebble",
+            "-i",
+            spec_path,
+            "-o",
+            tmp_dir,
+            "--additional-properties",
+            f"packageName={package_name},packageVersion=0.0.0",
+        ]
 
-    # Backup .openapi-generator-ignore
-    ignore_file = os.path.join(out_path, ".openapi-generator-ignore")
-    ignore_backup = None
-    if os.path.exists(ignore_file):
-        ignore_backup = ignore_file + ".bak"
-        shutil.copy2(ignore_file, ignore_backup)
+        print(f"  Generating {package_name}...")
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"ERROR generating {package_name}:", file=sys.stderr)
+            print(result.stderr, file=sys.stderr)
+            print(result.stdout, file=sys.stderr)
+            sys.exit(1)
 
-    # Clean generated source (keep tests/ backup and ignore backup)
-    src_dir = os.path.join(out_path, "src")
-    if os.path.isdir(src_dir):
-        shutil.rmtree(src_dir)
-    if os.path.exists(cargo_toml):
-        os.remove(cargo_toml)
+        # Clean destination and copy generated files
+        if os.path.isdir(dest_dir):
+            shutil.rmtree(dest_dir)
+        os.makedirs(dest_dir, exist_ok=True)
 
-    # Restore .openapi-generator-ignore before generation
-    if ignore_backup and os.path.exists(ignore_backup):
-        os.makedirs(out_path, exist_ok=True)
-        shutil.move(ignore_backup, ignore_file)
+        tmp_src = os.path.join(tmp_dir, "src")
 
-    # Run OpenAPI Generator
-    classpath = f"{CLI_JAR}:{GENERATOR_JAR}"
-    cmd = [
-        "java",
-        "-cp",
-        classpath,
-        "org.openapitools.codegen.OpenAPIGenerator",
-        "generate",
-        "-g",
-        "line-bot-sdk-rust-generator",
-        "-e",
-        "pebble",
-        "-i",
-        spec_path,
-        "-o",
-        out_path,
-        "--additional-properties",
-        f"packageName={package_name},packageVersion={version}",
-    ]
+        # Copy apis/, models/, and mod.rs
+        for item in ["apis", "models"]:
+            src = os.path.join(tmp_src, item)
+            dst = os.path.join(dest_dir, item)
+            if os.path.isdir(src):
+                shutil.copytree(src, dst)
 
-    print(f"  Generating {package_name} (v{version})...")
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    if result.returncode != 0:
-        print(f"ERROR generating {package_name}:", file=sys.stderr)
-        print(result.stderr, file=sys.stderr)
-        print(result.stdout, file=sys.stderr)
-        sys.exit(1)
+        mod_rs = os.path.join(tmp_src, "mod.rs")
+        if os.path.exists(mod_rs):
+            shutil.copy2(mod_rs, os.path.join(dest_dir, "mod.rs"))
 
-    # Restore tests/
-    if has_tests and os.path.exists(tests_backup):
-        if os.path.isdir(tests_dir):
-            shutil.rmtree(tests_dir)
-        shutil.move(tests_backup, tests_dir)
-
-    # Clean up .openapi-generator directory (gitignored)
-    oag_dir = os.path.join(out_path, ".openapi-generator")
-    if os.path.isdir(oag_dir):
-        shutil.rmtree(oag_dir)
+    finally:
+        shutil.rmtree(tmp_dir, ignore_errors=True)
 
 
 def _fix_blank_line_before_execute(api_dir: str) -> None:
@@ -170,8 +140,10 @@ def _fix_blank_line_before_execute(api_dir: str) -> None:
 
 def post_process_manage_audience() -> None:
     """Apply manage_audience-specific fixes matching old post-processor behavior."""
-    pkg_dir = os.path.join(ROOT, "core", "line_manage_audience")
-    models_dir = os.path.join(pkg_dir, "src", "models")
+    models_dir = os.path.join(LIB_SRC, "line_manage_audience", "src", "models")
+    if not os.path.isdir(models_dir):
+        # In the new structure, models are directly under the service dir
+        models_dir = os.path.join(LIB_SRC, "line_manage_audience", "models")
     if not os.path.isdir(models_dir):
         return
     for fname in os.listdir(models_dir):
@@ -230,12 +202,12 @@ def main() -> None:
     build_generator()
 
     print(f"Generating {len(SERVICES)} services...")
-    for spec_file, output_dir, package_name in SERVICES:
-        generate_service(spec_file, output_dir, package_name)
+    for spec_file, package_name in SERVICES:
+        generate_service(spec_file, package_name)
 
     # Post-processing to match old generator output
-    for _, output_dir, _ in SERVICES:
-        api_dir = os.path.join(ROOT, output_dir, "src", "apis")
+    for _, package_name in SERVICES:
+        api_dir = os.path.join(LIB_SRC, package_name, "apis")
         _fix_blank_line_before_execute(api_dir)
     post_process_manage_audience()
 

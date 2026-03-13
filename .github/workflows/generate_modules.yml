@@ -7,7 +7,7 @@ on:
       - "line-openapi"
       - "generator/**"
       - "tools/**"
-      - "core/line_*/**"
+      - "core/lib/src/line_*/**"
       - "generate-code.py"
 
   push:
@@ -18,7 +18,7 @@ on:
       - "line-openapi"
       - "generator/**"
       - "tools/**"
-      - "core/line_*/**"
+      - "core/lib/src/line_*/**"
       - "generate-code.py"
 
   workflow_dispatch:

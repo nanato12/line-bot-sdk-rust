@@ -56,15 +56,15 @@
 //! - [`line_shop`] - LINE Shop API
 
 // line-openapi modules
-pub use line_channel_access_token;
-pub use line_insight;
-pub use line_liff;
-pub use line_manage_audience;
-pub use line_messaging_api;
-pub use line_module;
-pub use line_module_attach;
-pub use line_shop;
-pub use line_webhook;
+pub mod line_channel_access_token;
+pub mod line_insight;
+pub mod line_liff;
+pub mod line_manage_audience;
+pub mod line_messaging_api;
+pub mod line_module;
+pub mod line_module_attach;
+pub mod line_shop;
+pub mod line_webhook;
 
 pub mod client;
 pub mod parser;

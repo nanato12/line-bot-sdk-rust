@@ -19,7 +19,7 @@ use hyper_util::client::legacy::connect::Connect;
 
 use super::request as __internal_request;
 use super::{configuration, Error};
-use crate::models;
+use crate::{{ packageName }}::models;
 
 #[derive(Clone)]
 pub struct {{ classname }}Client<C: Connect>

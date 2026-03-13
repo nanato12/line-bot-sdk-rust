@@ -10,7 +10,7 @@ where
     C: Clone + std::marker::Send + Sync + 'static,
 {
 {% for api in apiInfo.apis -%}
-    {{ api.classVarName | snakeCase }}: crate::apis::{{ api.classname }}Client<C>,
+    {{ api.classVarName | snakeCase }}: super::{{ api.classname }}Client<C>,
 {% endfor -%}
 }
 
@@ -23,7 +23,7 @@ where
 
         APIClient {
 {% for api in apiInfo.apis -%}
-            {{ api.classVarName | snakeCase }}: crate::apis::{{ api.classname }}Client::new(
+            {{ api.classVarName | snakeCase }}: super::{{ api.classname }}Client::new(
                 rc.clone(),
             ),
 {% endfor -%}
@@ -31,7 +31,7 @@ where
     }
 {% for api in apiInfo.apis -%}
 
-    pub fn {{ api.classVarName | snakeCase }}(&self) -> &crate::apis::{{ api.classname }}Client<C> {
+    pub fn {{ api.classVarName | snakeCase }}(&self) -> &super::{{ api.classname }}Client<C> {
         &self.{{ api.classVarName | snakeCase }}
     }
 {% endfor -%}

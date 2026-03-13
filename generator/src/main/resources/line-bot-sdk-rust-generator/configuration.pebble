@@ -47,7 +47,7 @@ impl Configuration<HttpConnector> {
     /// # Example
     ///
     /// ```
-    /// # use {{ packageName }}::apis::configuration::Configuration;
+    /// # use line_bot_sdk_rust::{{ packageName }}::apis::configuration::Configuration;
     /// let api_config = Configuration {
     ///   basic_auth: Some(("user".into(), None)),
     ///   ..Configuration::new()
@@ -68,7 +68,7 @@ where
     ///
     /// ```
     /// # use core::time::Duration;
-    /// # use {{ packageName }}::apis::configuration::Configuration;
+    /// # use line_bot_sdk_rust::{{ packageName }}::apis::configuration::Configuration;
     /// use hyper_util::client::legacy::Client;
     /// use hyper_util::rt::TokioExecutor;
     ///

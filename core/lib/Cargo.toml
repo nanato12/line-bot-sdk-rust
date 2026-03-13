@@ -24,9 +24,16 @@ axum_support = ["axum"]
 base64.workspace = true
 hmac.workspace = true
 sha2.workspace = true
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+serde_repr.workspace = true
+url.workspace = true
+uuid = { workspace = true, features = ["serde", "v4"] }
 hyper = { workspace = true, features = ["full"] }
 hyper-util = { workspace = true, features = ["client", "client-legacy", "http1", "http2"] }
 hyper-rustls = { workspace = true, features = ["native-tokio", "http1", "http2"] }
+http-body-util.workspace = true
+tokio = { workspace = true, features = ["time"] }
 
 [dependencies.rocket]
 version = "0.5.1"
@@ -42,42 +49,6 @@ default-features = false
 version = "0.8"
 optional = true
 default-features = false
-
-[dependencies.line_channel_access_token]
-version = "2.0.0"
-path = "../line_channel_access_token"
-
-[dependencies.line_insight]
-version = "2.0.0"
-path = "../line_insight"
-
-[dependencies.line_liff]
-version = "2.0.0"
-path = "../line_liff"
-
-[dependencies.line_manage_audience]
-version = "2.0.0"
-path = "../line_manage_audience"
-
-[dependencies.line_messaging_api]
-version = "2.0.0"
-path = "../line_messaging_api"
-
-[dependencies.line_module]
-version = "2.0.0"
-path = "../line_module"
-
-[dependencies.line_module_attach]
-version = "2.0.0"
-path = "../line_module_attach"
-
-[dependencies.line_shop]
-version = "2.0.0"
-path = "../line_shop"
-
-[dependencies.line_webhook]
-version = "2.0.0"
-path = "../line_webhook"
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt"] }

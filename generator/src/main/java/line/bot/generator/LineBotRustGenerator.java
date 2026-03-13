@@ -103,9 +103,7 @@ public class LineBotRustGenerator extends RustClientCodegen {
         // Register supporting files (generated once per package)
         supportingFiles.clear();
         supportingFiles.add(new SupportingFile(
-                GENERATOR_NAME + "/Cargo.toml.pebble", "", "Cargo.toml"));
-        supportingFiles.add(new SupportingFile(
-                GENERATOR_NAME + "/lib.pebble", "src", "lib.rs"));
+                GENERATOR_NAME + "/service_mod.pebble", "src", "mod.rs"));
         supportingFiles.add(new SupportingFile(
                 GENERATOR_NAME + "/model_mod.pebble", "src/models", "mod.rs"));
         supportingFiles.add(new SupportingFile(
