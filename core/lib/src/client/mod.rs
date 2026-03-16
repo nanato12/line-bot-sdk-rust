@@ -21,34 +21,36 @@
 use std::sync::Arc;
 use std::time::Duration;
 
+use crate::line_channel_access_token::apis::{
+    configuration::Configuration as ChannelAccessTokenApiConfiguration, ChannelAccessTokenApiClient,
+};
+use crate::line_insight::apis::{
+    configuration::Configuration as InsightConfiguration, InsightApiClient,
+};
+use crate::line_liff::apis::{configuration::Configuration as LiffConfiguration, LiffApiClient};
+use crate::line_manage_audience::apis::{
+    configuration::Configuration as ManageAudienceConfiguration, ManageAudienceApiClient,
+    ManageAudienceBlobApiClient,
+};
+use crate::line_messaging_api::apis::{
+    configuration::Configuration as MessagingApiConfiguration, MessagingApiApiClient,
+    MessagingApiBlobApiClient,
+};
+use crate::line_module::apis::{
+    configuration::Configuration as LineModuleConfiguration, LineModuleApiClient,
+};
+use crate::line_module_attach::apis::{
+    configuration::Configuration as LineModuleAttachConfiguration, LineModuleAttachApiClient,
+};
+use crate::line_shop::apis::{configuration::Configuration as ShopConfiguration, ShopApiClient};
+use crate::line_webhook::apis::{
+    configuration::Configuration as WebhookConfiguration, DummyApiClient as WebhookDummyApiClient,
+};
 use hyper_rustls::HttpsConnector;
 use hyper_rustls::HttpsConnectorBuilder;
 use hyper_util::client::legacy::connect::HttpConnector;
 use hyper_util::client::legacy::Client;
 use hyper_util::rt::TokioExecutor;
-use line_channel_access_token::apis::{
-    configuration::Configuration as ChannelAccessTokenApiConfiguration, ChannelAccessTokenApiClient,
-};
-use line_insight::apis::{configuration::Configuration as InsightConfiguration, InsightApiClient};
-use line_liff::apis::{configuration::Configuration as LiffConfiguration, LiffApiClient};
-use line_manage_audience::apis::{
-    configuration::Configuration as ManageAudienceConfiguration, ManageAudienceApiClient,
-    ManageAudienceBlobApiClient,
-};
-use line_messaging_api::apis::{
-    configuration::Configuration as MessagingApiConfiguration, MessagingApiApiClient,
-    MessagingApiBlobApiClient,
-};
-use line_module::apis::{
-    configuration::Configuration as LineModuleConfiguration, LineModuleApiClient,
-};
-use line_module_attach::apis::{
-    configuration::Configuration as LineModuleAttachConfiguration, LineModuleAttachApiClient,
-};
-use line_shop::apis::{configuration::Configuration as ShopConfiguration, ShopApiClient};
-use line_webhook::apis::{
-    configuration::Configuration as WebhookConfiguration, DummyApiClient as WebhookDummyApiClient,
-};
 
 type HttpsClient = HttpsConnector<HttpConnector>;
 
