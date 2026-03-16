@@ -12,14 +12,16 @@ use line_bot_sdk_rust::{
     },
 };
 
-/// Path to the Flex Message JSON file (relative to the working directory).
-const FLEX_JSON_PATH: &str = "axum_example/static/flex_sample.json";
-
 /// Loads a FlexContainer from an external JSON file and sends it as a reply.
 pub async fn handle(line: &LINE, reply_token: String) -> Result<(), String> {
+    // Resolve `static/flex_sample.json` relative to the Cargo manifest directory
+    // so the path works regardless of the working directory.
+    let manifest_dir = env!("CARGO_MANIFEST_DIR");
+    let flex_json_path = format!("{manifest_dir}/static/flex_sample.json");
+
     // Read the JSON file at runtime so you can edit it without recompiling.
-    let json = std::fs::read_to_string(FLEX_JSON_PATH)
-        .map_err(|e| format!("Failed to read {FLEX_JSON_PATH}: {e}"))?;
+    let json = std::fs::read_to_string(&flex_json_path)
+        .map_err(|e| format!("Failed to read {flex_json_path}: {e}"))?;
 
     let contents: FlexContainer =
         serde_json::from_str(&json).map_err(|e| format!("Failed to parse FlexContainer: {e}"))?;
