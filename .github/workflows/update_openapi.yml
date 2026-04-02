@@ -1,0 +1,92 @@
+name: Update line-openapi submodule
+
+on:
+  schedule:
+    # Run daily at 15:00 UTC (00:00 JST)
+    - cron: "0 15 * * *"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-submodule:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          # Use HTTPS instead of SSH for the submodule
+          # (SSH keys are not available in GitHub Actions by default)
+          persist-credentials: true
+
+      - name: Switch submodule URL to HTTPS
+        run: |
+          git config --file .gitmodules submodule.line-openapi.url https://github.com/line/line-openapi.git
+          git submodule sync
+
+      - name: Check for updates
+        id: check
+        run: |
+          cd line-openapi
+          git fetch origin
+
+          CURRENT=$(git rev-parse HEAD)
+          LATEST=$(git rev-parse origin/main)
+
+          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
+          echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
+
+          if [ "$CURRENT" = "$LATEST" ]; then
+            echo "up_to_date=true" >> "$GITHUB_OUTPUT"
+            echo "Already up to date ($CURRENT)"
+          else
+            echo "up_to_date=false" >> "$GITHUB_OUTPUT"
+            echo "Update available: $CURRENT -> $LATEST"
+
+            # Collect changed spec files for the PR body
+            CHANGES=$(git log --oneline "$CURRENT..$LATEST" -- "*.yml" "*.yaml" | head -20)
+            {
+              echo "changes<<EOF"
+              echo "$CHANGES"
+              echo "EOF"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update submodule
+        if: steps.check.outputs.up_to_date == 'false'
+        run: |
+          cd line-openapi
+          git checkout ${{ steps.check.outputs.latest }}
+          cd ..
+
+          # Restore SSH URL before committing
+          git config --file .gitmodules submodule.line-openapi.url git@github.com:line/line-openapi.git
+          git submodule sync
+
+      - name: Create Pull Request
+        if: steps.check.outputs.up_to_date == 'false'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update line-openapi submodule to ${{ steps.check.outputs.latest }}"
+          branch: chore/update-line-openapi
+          base: develop
+          title: "Update line-openapi submodule"
+          body: |
+            ## Summary
+            - Update `line-openapi` submodule to latest upstream commit
+            - `${{ steps.check.outputs.current }}` → `${{ steps.check.outputs.latest }}`
+
+            ### Spec changes
+            ```
+            ${{ steps.check.outputs.changes }}
+            ```
+
+            > [!IMPORTANT]
+            > After merging, run `make generate` to regenerate the API code.
+
+            🤖 Generated automatically by [update_openapi.yml](${{ github.server_url }}/${{ github.repository }}/actions/workflows/update_openapi.yml)
+          labels: openapi,auto generate
