@@ -66,27 +66,45 @@ jobs:
           git config --file .gitmodules submodule.line-openapi.url git@github.com:line/line-openapi.git
           git submodule sync
 
+      - uses: actions/setup-java@v4
+        if: steps.check.outputs.up_to_date == 'false'
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - uses: actions/setup-python@v5
+        if: steps.check.outputs.up_to_date == 'false'
+        with:
+          python-version: "3.x"
+
+      - name: Setup Rust
+        if: steps.check.outputs.up_to_date == 'false'
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Regenerate SDK code
+        if: steps.check.outputs.up_to_date == 'false'
+        run: make generate
+
       - name: Create Pull Request
         if: steps.check.outputs.up_to_date == 'false'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Update line-openapi submodule to ${{ steps.check.outputs.latest }}"
+          commit-message: "Update line-openapi and regenerate SDK code"
           branch: chore/update-line-openapi
           base: develop
-          title: "Update line-openapi submodule"
+          title: "Update line-openapi submodule and regenerate SDK code"
           body: |
             ## Summary
             - Update `line-openapi` submodule to latest upstream commit
             - `${{ steps.check.outputs.current }}` → `${{ steps.check.outputs.latest }}`
+            - Regenerated SDK code via `make generate`
 
             ### Spec changes
             ```
             ${{ steps.check.outputs.changes }}
             ```
-
-            > [!IMPORTANT]
-            > After merging, run `make generate` to regenerate the API code.
 
             🤖 Generated automatically by [update_openapi.yml](${{ github.server_url }}/${{ github.repository }}/actions/workflows/update_openapi.yml)
           labels: openapi,auto generate
