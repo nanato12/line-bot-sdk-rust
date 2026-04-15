@@ -76,7 +76,7 @@ pub trait MessagingApiBlobApi: Send + Sync {
     fn set_rich_menu_image(
         &self,
         rich_menu_id: &str,
-        body: Option<std::path::PathBuf>,
+        body: std::path::PathBuf,
     ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
 }
 
@@ -138,7 +138,7 @@ where
     async fn set_rich_menu_image(
         &self,
         rich_menu_id: &str,
-        body: Option<std::path::PathBuf>,
+        body: std::path::PathBuf,
     ) -> Result<(), Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::POST,
