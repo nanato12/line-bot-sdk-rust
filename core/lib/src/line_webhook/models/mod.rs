@@ -95,6 +95,8 @@ pub use self::mentionee::MentioneeExt;
 pub mod message_content;
 pub use self::message_content::MessageContent;
 pub use self::message_content::MessageContentExt;
+pub mod message_edited_event;
+pub use self::message_edited_event::MessageEditedEvent;
 pub mod message_event;
 pub use self::message_event::MessageEvent;
 pub mod module_content;

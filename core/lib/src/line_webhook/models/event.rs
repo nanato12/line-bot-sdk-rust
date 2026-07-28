@@ -69,6 +69,8 @@ pub enum Event {
     BotResumedEvent(models::BotResumedEvent),
     #[serde(rename = "delivery")]
     PnpDeliveryCompletionEvent(models::PnpDeliveryCompletionEvent),
+    #[serde(rename = "messageEdited")]
+    MessageEditedEvent(models::MessageEditedEvent),
     #[serde(other)]
     UnknownEvent,
 }
@@ -109,6 +111,7 @@ impl EventExt for Event {
             Event::BotSuspendedEvent(v) => &v.source,
             Event::BotResumedEvent(v) => &v.source,
             Event::PnpDeliveryCompletionEvent(v) => &v.source,
+            Event::MessageEditedEvent(v) => &v.source,
             _ => panic!("Cannot access source on UnknownEvent"),
         }
     }
@@ -133,6 +136,7 @@ impl EventExt for Event {
             Event::BotSuspendedEvent(v) => &v.timestamp,
             Event::BotResumedEvent(v) => &v.timestamp,
             Event::PnpDeliveryCompletionEvent(v) => &v.timestamp,
+            Event::MessageEditedEvent(v) => &v.timestamp,
             _ => panic!("Cannot access timestamp on UnknownEvent"),
         }
     }
@@ -157,6 +161,7 @@ impl EventExt for Event {
             Event::BotSuspendedEvent(v) => &v.mode,
             Event::BotResumedEvent(v) => &v.mode,
             Event::PnpDeliveryCompletionEvent(v) => &v.mode,
+            Event::MessageEditedEvent(v) => &v.mode,
             _ => panic!("Cannot access mode on UnknownEvent"),
         }
     }
@@ -181,6 +186,7 @@ impl EventExt for Event {
             Event::BotSuspendedEvent(v) => &v.webhook_event_id,
             Event::BotResumedEvent(v) => &v.webhook_event_id,
             Event::PnpDeliveryCompletionEvent(v) => &v.webhook_event_id,
+            Event::MessageEditedEvent(v) => &v.webhook_event_id,
             _ => panic!("Cannot access webhook_event_id on UnknownEvent"),
         }
     }
@@ -205,6 +211,7 @@ impl EventExt for Event {
             Event::BotSuspendedEvent(v) => &v.delivery_context,
             Event::BotResumedEvent(v) => &v.delivery_context,
             Event::PnpDeliveryCompletionEvent(v) => &v.delivery_context,
+            Event::MessageEditedEvent(v) => &v.delivery_context,
             _ => panic!("Cannot access delivery_context on UnknownEvent"),
         }
     }
