@@ -70,6 +70,18 @@ pub trait InsightApi: Send + Sync {
         date: &str,
     ) -> impl std::future::Future<Output = Result<models::GetNumberOfMessageDeliveriesResponse, Error>>
            + Send;
+    fn get_rich_menu_insight_daily(
+        &self,
+        rich_menu_id: &str,
+        from: &str,
+        to: &str,
+    ) -> impl std::future::Future<Output = Result<models::GetRichMenuInsightDailyResponse, Error>> + Send;
+    fn get_rich_menu_insight_summary(
+        &self,
+        rich_menu_id: &str,
+        from: &str,
+        to: &str,
+    ) -> impl std::future::Future<Output = Result<models::GetRichMenuInsightSummaryResponse, Error>> + Send;
     fn get_statistics_per_unit(
         &self,
         custom_aggregation_unit: &str,
@@ -134,6 +146,42 @@ where
             "/v2/bot/insight/message/delivery".to_string(),
         );
         req = req.with_query_param("date".to_string(), date.to_string());
+
+        req.execute(self.configuration.borrow()).await
+    }
+
+    #[allow(unused_mut)]
+    async fn get_rich_menu_insight_daily(
+        &self,
+        rich_menu_id: &str,
+        from: &str,
+        to: &str,
+    ) -> Result<models::GetRichMenuInsightDailyResponse, Error> {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::GET,
+            "/v2/bot/insight/richmenu/{richMenuId}/daily".to_string(),
+        );
+        req = req.with_query_param("from".to_string(), from.to_string());
+        req = req.with_query_param("to".to_string(), to.to_string());
+        req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
+
+        req.execute(self.configuration.borrow()).await
+    }
+
+    #[allow(unused_mut)]
+    async fn get_rich_menu_insight_summary(
+        &self,
+        rich_menu_id: &str,
+        from: &str,
+        to: &str,
+    ) -> Result<models::GetRichMenuInsightSummaryResponse, Error> {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::GET,
+            "/v2/bot/insight/richmenu/{richMenuId}/summary".to_string(),
+        );
+        req = req.with_query_param("from".to_string(), from.to_string());
+        req = req.with_query_param("to".to_string(), to.to_string());
+        req = req.with_path_param("richMenuId".to_string(), rich_menu_id.to_string());
 
         req.execute(self.configuration.borrow()).await
     }
