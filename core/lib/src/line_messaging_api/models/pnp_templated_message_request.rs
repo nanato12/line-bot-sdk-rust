@@ -28,20 +28,16 @@ use crate::line_messaging_api::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct PnpMessagesRequest {
-    /// Message to be sent.
-    #[serde(rename = "messages")]
-    pub messages: Vec<models::Message>,
+pub struct PnpTemplatedMessageRequest {
     /// Message destination. Specify a phone number that has been normalized to E.164 format and hashed with SHA256.
     #[serde(rename = "to")]
     pub to: String,
-    /// `true`: The user doesn’t receive a push notification when a message is sent. `false`: The user receives a push notification when the message is sent (unless they have disabled push notifications in LINE and/or their device). The default value is false.
-    #[serde(
-        rename = "notificationDisabled",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub notification_disabled: Option<bool>,
-    /// Name of aggregation unit. Case-sensitive.
+    /// Specify the key of the template you want to send. For available keys, see https://developers.line.biz/en/docs/partner-docs/line-notification-messages/template/#templates
+    #[serde(rename = "templateKey")]
+    pub template_key: String,
+    #[serde(rename = "body", skip_serializing_if = "Option::is_none")]
+    pub body: Option<Box<models::PnpTemplatedMessageBody>>,
+    /// Name of aggregation unit. Case-sensitive. For more information about assigning a unit name, see https://developers.line.biz/en/docs/messaging-api/unit-based-statistics-aggregation/#assign-names-to-units-when-sending-messages
     #[serde(
         rename = "customAggregationUnits",
         skip_serializing_if = "Option::is_none"
@@ -49,12 +45,12 @@ pub struct PnpMessagesRequest {
     pub custom_aggregation_units: Option<Vec<String>>,
 }
 
-impl PnpMessagesRequest {
-    pub fn new(messages: Vec<models::Message>, to: String) -> PnpMessagesRequest {
-        PnpMessagesRequest {
-            messages,
+impl PnpTemplatedMessageRequest {
+    pub fn new(to: String, template_key: String) -> PnpTemplatedMessageRequest {
+        PnpTemplatedMessageRequest {
             to,
-            notification_disabled: None,
+            template_key,
+            body: None,
             custom_aggregation_units: None,
         }
     }
