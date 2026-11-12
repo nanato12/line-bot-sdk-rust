@@ -1,18 +1,18 @@
 /*
-* Copyright (C) 2016 LINE Corp.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2016 LINE Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 pub mod acquisition_condition_request;
 pub use self::acquisition_condition_request::AcquisitionConditionRequest;
@@ -295,6 +295,16 @@ pub mod operator_recipient;
 pub use self::operator_recipient::OperatorRecipient;
 pub mod pnp_messages_request;
 pub use self::pnp_messages_request::PnpMessagesRequest;
+pub mod pnp_templated_button;
+pub use self::pnp_templated_button::PnpTemplatedButton;
+pub mod pnp_templated_emphasized_item;
+pub use self::pnp_templated_emphasized_item::PnpTemplatedEmphasizedItem;
+pub mod pnp_templated_item;
+pub use self::pnp_templated_item::PnpTemplatedItem;
+pub mod pnp_templated_message_body;
+pub use self::pnp_templated_message_body::PnpTemplatedMessageBody;
+pub mod pnp_templated_message_request;
+pub use self::pnp_templated_message_request::PnpTemplatedMessageRequest;
 pub mod postback_action;
 pub use self::postback_action::PostbackAction;
 pub mod push_message_request;
