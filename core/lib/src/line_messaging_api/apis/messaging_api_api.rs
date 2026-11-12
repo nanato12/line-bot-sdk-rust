@@ -1,18 +1,18 @@
 /*
-* Copyright (C) 2016 LINE Corp.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (C) 2016 LINE Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 /*
  * LINE Messaging API
@@ -171,6 +171,10 @@ pub trait MessagingApiApi: Send + Sync {
         &self,
         date: &str,
     ) -> impl std::future::Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send;
+    fn get_pnp_templated_message_statistics(
+        &self,
+        date: &str,
+    ) -> impl std::future::Future<Output = Result<models::NumberOfMessagesResponse, Error>> + Send;
     fn get_profile(
         &self,
         user_id: &str,
@@ -268,6 +272,11 @@ pub trait MessagingApiApi: Send + Sync {
     fn push_messages_by_phone(
         &self,
         pnp_messages_request: models::PnpMessagesRequest,
+        x_line_delivery_tag: Option<&str>,
+    ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
+    fn push_templated_messages_by_phone(
+        &self,
+        pnp_templated_message_request: models::PnpTemplatedMessageRequest,
         x_line_delivery_tag: Option<&str>,
     ) -> impl std::future::Future<Output = Result<(), Error>> + Send;
     fn reply_message(
@@ -744,6 +753,20 @@ where
     }
 
     #[allow(unused_mut)]
+    async fn get_pnp_templated_message_statistics(
+        &self,
+        date: &str,
+    ) -> Result<models::NumberOfMessagesResponse, Error> {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::GET,
+            "/v2/bot/message/delivery/pnp/templated".to_string(),
+        );
+        req = req.with_query_param("date".to_string(), date.to_string());
+
+        req.execute(self.configuration.borrow()).await
+    }
+
+    #[allow(unused_mut)]
     async fn get_profile(&self, user_id: &str) -> Result<models::UserProfileResponse, Error> {
         let mut req = __internal_request::Request::new(
             hyper::Method::GET,
@@ -1082,6 +1105,25 @@ where
             req = req.with_header_param("X-Line-Delivery-Tag".to_string(), param_value.to_string());
         }
         req = req.with_body_param(pnp_messages_request);
+        req = req.returns_nothing();
+
+        req.execute(self.configuration.borrow()).await
+    }
+
+    #[allow(unused_mut)]
+    async fn push_templated_messages_by_phone(
+        &self,
+        pnp_templated_message_request: models::PnpTemplatedMessageRequest,
+        x_line_delivery_tag: Option<&str>,
+    ) -> Result<(), Error> {
+        let mut req = __internal_request::Request::new(
+            hyper::Method::POST,
+            "/v2/bot/message/pnp/templated/push".to_string(),
+        );
+        if let Some(param_value) = x_line_delivery_tag {
+            req = req.with_header_param("X-Line-Delivery-Tag".to_string(), param_value.to_string());
+        }
+        req = req.with_body_param(pnp_templated_message_request);
         req = req.returns_nothing();
 
         req.execute(self.configuration.borrow()).await
